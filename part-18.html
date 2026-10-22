@@ -1,0 +1,1346 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>Part 18: Automation, Git, Deployment and Responsible AI | MeritaAnalytics</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to the notes</a>
+<header class="top"><button class="menu" id="menu" aria-controls="side" aria-expanded="false">Contents</button><span class="top-title">Part 18: Automation, Git, Deployment and Responsible AI</span></header>
+<div class="shell">
+<nav class="side" id="side" aria-label="Handbook contents">
+<a class="brand" href="index.html"><span class="mark" aria-hidden="true">MA</span><span><b>MeritaAnalytics</b><small>Data Science Notes</small></span></a>
+<label class="search"><span class="sr">Search the notes</span><input id="q" type="search" placeholder="Search topics, e.g. groupby" autocomplete="off"></label>
+<div id="results" class="results" hidden></div>
+<ol class="nav">
+<li class="lvl0"><a href="index.html" class="">Start here</a></li>
+<li class="lvl"><div class="lvl-name"><span>Level 1</span>Foundations</div><ol>
+<li data-slug="part-01"><a href="part-01.html" class=""><span class="pn">1</span><span class="pt">What Is Data Science?</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-02"><a href="part-02.html" class=""><span class="pn">2</span><span class="pt">Python Basics</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-03"><a href="part-03.html" class=""><span class="pn">3</span><span class="pt">NumPy: Fast Numbers</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 2</span>Data Analysis</div><ol>
+<li data-slug="part-04"><a href="part-04.html" class=""><span class="pn">4</span><span class="pt">Pandas: Working with Tables</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-05"><a href="part-05.html" class=""><span class="pn">5</span><span class="pt">Data Visualisation</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-06"><a href="part-06.html" class=""><span class="pn">6</span><span class="pt">SQL for Data Analysts</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-07"><a href="part-07.html" class=""><span class="pn">7</span><span class="pt">Exploratory Data Analysis</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 3</span>Statistics</div><ol>
+<li data-slug="part-08"><a href="part-08.html" class=""><span class="pn">8</span><span class="pt">Statistics for Data Science</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 4</span>Machine Learning</div><ol>
+<li data-slug="part-09"><a href="part-09.html" class=""><span class="pn">9</span><span class="pt">Machine Learning Foundations</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-10"><a href="part-10.html" class=""><span class="pn">10</span><span class="pt">Regression</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-11"><a href="part-11.html" class=""><span class="pn">11</span><span class="pt">Classification</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-12"><a href="part-12.html" class=""><span class="pn">12</span><span class="pt">Ensembles, Tuning and Feature Engineering</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-13"><a href="part-13.html" class=""><span class="pn">13</span><span class="pt">Unsupervised Learning</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 5</span>Deep Learning and Modern AI</div><ol>
+<li data-slug="part-14"><a href="part-14.html" class=""><span class="pn">14</span><span class="pt">Neural Networks and Deep Learning</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-15"><a href="part-15.html" class=""><span class="pn">15</span><span class="pt">Reinforcement Learning</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-16"><a href="part-16.html" class=""><span class="pn">16</span><span class="pt">Generative AI and Large Language Models</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 6</span>The Real World</div><ol>
+<li data-slug="part-17"><a href="part-17.html" class=""><span class="pn">17</span><span class="pt">Business Metrics, Excel and Power BI</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-18"><a href="part-18.html" class="on"><span class="pn">18</span><span class="pt">Automation, Git, Deployment and Responsible AI</span><span class="done-dot" aria-hidden="true"></span></a>
+<ol class="sub"><li><a href="#18-1-reproducible-project-folders">18.1 Reproducible project folders</a></li><li><a href="#18-2-a-complete-reporting-automation-with-logging">18.2 A complete reporting automation with logging</a></li><li><a href="#18-3-combining-many-excel-files">18.3 Combining many Excel files</a></li><li><a href="#18-4-scheduling-windows-task-scheduler-and-cron">18.4 Scheduling: Windows Task Scheduler and cron</a></li><li><a href="#18-5-calling-web-apis-with-requests">18.5 Calling web APIs with requests</a></li><li><a href="#18-6-git-github-your-portfolio-and-a-linkedin-post">18.6 Git, GitHub, your portfolio and a LinkedIn post</a></li><li><a href="#18-7-saving-and-loading-a-model-with-a-predict-contract">18.7 Saving and loading a model, with a predict contract</a></li><li><a href="#18-8-a-minimal-prediction-service-with-fastapi">18.8 A minimal prediction service with FastAPI</a></li><li><a href="#18-9-monitoring-data-drift-and-retraining-triggers">18.9 Monitoring: data drift and retraining triggers</a></li><li><a href="#18-10-model-cards">18.10 Model cards</a></li><li><a href="#18-11-responsible-ai">18.11 Responsible AI</a></li><li><a href="#18-12-power-automate-and-n8n-no-code-automation">18.12 Power Automate and n8n: no-code automation</a></li></ol>
+</li>
+<li data-slug="part-19"><a href="part-19.html" class=""><span class="pn">19</span><span class="pt">End-to-End Projects</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 7</span>Career and Reference</div><ol>
+<li data-slug="part-20"><a href="part-20.html" class=""><span class="pn">20</span><span class="pt">Practice Exercises and Answer Key</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-21"><a href="part-21.html" class=""><span class="pn">21</span><span class="pt">Interview Preparation</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-22"><a href="part-22.html" class=""><span class="pn">22</span><span class="pt">Roadmap, Cheat Sheets and Glossary</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Appendix</span>Reference</div><ol>
+<li><a href="appendix-a.html" class=""><span class="pn">A</span><span class="pt">Sources and Next Steps</span></a></li>
+<li><a href="appendix-b.html" class=""><span class="pn">B</span><span class="pt">Data Catalogue</span></a></li>
+</ol></li></ol>
+<p class="side-foot">By Benson M. Merita &middot; &copy; 2026 MeritaAnalytics</p></nav>
+<main id="main" class="main"><header class="part-head"><span class="lv">Level 6 &middot; The Real World</span><p class="part-no">Part 18</p><h1>Automation, Git, Deployment and Responsible AI</h1><p class="lede">Make your work repeatable, version-controlled and shareable, put a model into a safe prediction service, watch it for drift, and use data and AI responsibly.</p><button class="mark-done" id="done" data-slug="part-18" aria-pressed="false">Mark this part as done</button></header><div class="prose"><div class="callout learn"><div class="c-label">In this part</div><ul>
+<li>Build a project folder that anyone can rerun and get the same results</li>
+<li>Write a logged, checked reporting script and schedule it</li>
+<li>Use Git and GitHub for history, backup and a portfolio</li>
+<li>Save a model, wrap it in a validated predict function, and score a file in batch</li>
+<li>Monitor a live model for drift and know when to retrain</li>
+<li>Check a model for bias, protect data and keys, and keep a human in the loop</li>
+</ul>
+<div class="meta"><span><b>You need first</b> Parts 4, 9 and 11</span><span><b>Time</b> 6 to 9 hours</span></div></div>
+<h2 id="18-1-reproducible-project-folders"><a class="anchor" href="#18-1-reproducible-project-folders" aria-label="Link to this section">#</a>18.1 Reproducible project folders</h2>
+
+<p>A project is <strong>reproducible</strong> when another person (or you, six months later) can run it from a clean folder and get the same answer. Four habits do most of the work: a standard folder layout, a <code>requirements.txt</code> that lists the libraries, fixed random <strong>seeds</strong>, and a README that says how to run it.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="n">root</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">"p18_project/loan-risk"</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">sub</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"data/raw"</span><span class="p">,</span> <span class="s2">"data/processed"</span><span class="p">,</span> <span class="s2">"notebooks"</span><span class="p">,</span> <span class="s2">"src"</span><span class="p">,</span> <span class="s2">"reports"</span><span class="p">,</span> <span class="s2">"models"</span><span class="p">,</span> <span class="s2">"tests"</span><span class="p">]:</span>
+    <span class="p">(</span><span class="n">root</span> <span class="o">/</span> <span class="n">sub</span><span class="p">)</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"README.md"</span><span class="p">,</span> <span class="s2">"requirements.txt"</span><span class="p">,</span> <span class="s2">".gitignore"</span><span class="p">,</span> <span class="s2">"src/features.py"</span><span class="p">,</span> <span class="s2">"src/train.py"</span><span class="p">,</span>
+          <span class="s2">"tests/test_features.py"</span><span class="p">,</span> <span class="s2">"notebooks/01_explore.ipynb"</span><span class="p">]:</span>
+    <span class="p">(</span><span class="n">root</span> <span class="o">/</span> <span class="n">f</span><span class="p">)</span><span class="o">.</span><span class="n">touch</span><span class="p">()</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">tree</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">""</span><span class="p">):</span>
+    <span class="n">items</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">iterdir</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">p</span><span class="p">:</span> <span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">is_file</span><span class="p">(),</span> <span class="n">p</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">items</span><span class="p">):</span>
+        <span class="n">last</span> <span class="o">=</span> <span class="n">i</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">items</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">prefix</span> <span class="o">+</span> <span class="p">(</span><span class="s2">"`-- "</span> <span class="k">if</span> <span class="n">last</span> <span class="k">else</span> <span class="s2">"|-- "</span><span class="p">)</span> <span class="o">+</span> <span class="n">p</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="p">(</span><span class="s2">"/"</span> <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">is_dir</span><span class="p">()</span> <span class="k">else</span> <span class="s2">""</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">is_dir</span><span class="p">():</span>
+            <span class="n">tree</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">prefix</span> <span class="o">+</span> <span class="p">(</span><span class="s2">"    "</span> <span class="k">if</span> <span class="n">last</span> <span class="k">else</span> <span class="s2">"|   "</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s2">"/"</span><span class="p">)</span>
+<span class="n">tree</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">loan-risk/
+|-- data/
+|   |-- processed/
+|   `-- raw/
+|-- models/
+|-- notebooks/
+|   `-- 01_explore.ipynb
+|-- reports/
+|-- src/
+|   |-- features.py
+|   `-- train.py
+|-- tests/
+|   `-- test_features.py
+|-- .gitignore
+|-- README.md
+`-- requirements.txt</pre></div></div>
+<p>One folder layout for every project: data, code, models and reports kept apart.</p>
+
+<p>Raw data is never edited by hand: code reads <code>data/raw</code> and writes <code>data/processed</code>. Next, record the libraries. <code>pip freeze</code> lists everything installed; for a small project, write the main ones with a minimum version.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">import</span><span class="w"> </span><span class="nn">sys</span><span class="o">,</span><span class="w"> </span><span class="nn">numpy</span><span class="o">,</span><span class="w"> </span><span class="nn">pandas</span><span class="o">,</span><span class="w"> </span><span class="nn">sklearn</span>
+
+<span class="n">reqs</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"""numpy&gt;=</span><span class="si">{</span><span class="n">numpy</span><span class="o">.</span><span class="n">__version__</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'.'</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span>
+<span class="s2">pandas&gt;=</span><span class="si">{</span><span class="n">pandas</span><span class="o">.</span><span class="n">__version__</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'.'</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span>
+<span class="s2">scikit-learn&gt;=</span><span class="si">{</span><span class="n">sklearn</span><span class="o">.</span><span class="n">__version__</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'.'</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span>
+<span class="s2">joblib</span>
+<span class="s2">openpyxl</span>
+<span class="s2">"""</span>
+<span class="n">Path</span><span class="p">(</span><span class="s2">"p18_project/loan-risk/requirements.txt"</span><span class="p">)</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="n">reqs</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">reqs</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Python used:"</span><span class="p">,</span> <span class="s2">"."</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="p">[:</span><span class="mi">3</span><span class="p">])))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Install later with:  pip install -r requirements.txt"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">numpy&gt;=2
+pandas&gt;=3
+scikit-learn&gt;=1
+joblib
+openpyxl
+
+Python used: 3.13.16
+Install later with:  pip install -r requirements.txt</pre></div></div>
+<p>A requirements file written from the versions in use (loose lower bounds).</p>
+
+<p>A <strong>seed</strong> fixes the random numbers, so a shuffle, a train/test split or a simulated dataset repeats exactly. Set it in one place and pass it on.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
+
+<span class="n">SEED</span> <span class="o">=</span> <span class="mi">42</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">make_data</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="n">SEED</span><span class="p">):</span>
+    <span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">make_data</span><span class="p">(),</span> <span class="n">make_data</span><span class="p">(),</span> <span class="n">sep</span><span class="o">=</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"same every time:"</span><span class="p">,</span> <span class="nb">bool</span><span class="p">((</span><span class="n">make_data</span><span class="p">()</span> <span class="o">==</span> <span class="n">make_data</span><span class="p">())</span><span class="o">.</span><span class="n">all</span><span class="p">()))</span>
+<span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">SEED</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"test rows:"</span><span class="p">,</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">b</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">[ 0.305 -1.04   0.75   0.941 -1.951]
+[ 0.305 -1.04   0.75   0.941 -1.951]
+same every time: True
+test rows: [1, 5, 8]</pre></div></div>
+<p>Same seed, same numbers, same split.</p>
+
+<div class="callout mistake"><p><strong>Watch out.</strong> Common mistake: forgetting the seed in only one place (a split, a model, a simulation). Then every run gives slightly different results and nobody can tell if a change helped.</p>
+</div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">readme</span> <span class="o">=</span> <span class="s2">"""# Loan Risk Scoring (synthetic data)</span>
+
+<span class="s2">Predicts the chance that a synthetic borrower misses a repayment.</span>
+
+<span class="s2">## How to run</span>
+<span class="s2">    pip install -r requirements.txt</span>
+<span class="s2">    python src/train.py</span>
+
+<span class="s2">## Layout</span>
+<span class="s2">data/raw (never edited), data/processed, src (code), models (saved files), reports</span>
+
+<span class="s2">## Limits</span>
+<span class="s2">All data is synthetic. Results show the method, not a real lender.</span>
+<span class="s2">"""</span>
+<span class="n">Path</span><span class="p">(</span><span class="s2">"p18_project/loan-risk/README.md"</span><span class="p">)</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="n">readme</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">readme</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">"| lines:"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">readme</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()))</span>
+</code></pre></div><div class="cell-out"><pre class="out"># Loan Risk Scoring (synthetic data) | lines: 13</pre></div></div>
+<p>The README answers: what is it, how do I run it, what are its limits.</p>
+
+<h2 id="18-2-a-complete-reporting-automation-with-logging"><a class="anchor" href="#18-2-a-complete-reporting-automation-with-logging" aria-label="Link to this section">#</a>18.2 A complete reporting automation with logging</h2>
+
+<p><strong>Automation</strong> means a script does the routine steps the same way every time: collect files, check them, build the report and record what happened. People still decide what the numbers mean. The scenario: three SACCO branches drop a weekly CSV of deposits in an inbox folder. One file has a negative amount and a duplicated day on purpose. All data is synthetic.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span><span class="o">,</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="k">for</span> <span class="n">folder</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"p18_auto/inbox"</span><span class="p">,</span> <span class="s2">"p18_auto/reports"</span><span class="p">,</span> <span class="s2">"p18_auto/logs"</span><span class="p">]:</span>
+    <span class="n">Path</span><span class="p">(</span><span class="n">folder</span><span class="p">)</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">18</span><span class="p">)</span>
+<span class="n">days</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="s2">"2026-03-02"</span><span class="p">,</span> <span class="n">periods</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">"%Y-%m-</span><span class="si">%d</span><span class="s2">"</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">branch</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"Kisumu"</span><span class="p">,</span> <span class="s2">"Eldoret"</span><span class="p">,</span> <span class="s2">"Nyeri"</span><span class="p">]:</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">"branch"</span><span class="p">:</span> <span class="n">branch</span><span class="p">,</span> <span class="s2">"deposit_date"</span><span class="p">:</span> <span class="n">days</span><span class="p">,</span>
+                      <span class="s2">"deposits_ksh"</span><span class="p">:</span> <span class="n">rng</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">80_000</span><span class="p">,</span> <span class="mi">250_000</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span>
+                      <span class="s2">"members_served"</span><span class="p">:</span> <span class="n">rng</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="mi">160</span><span class="p">,</span> <span class="mi">7</span><span class="p">)})</span>
+    <span class="k">if</span> <span class="n">branch</span> <span class="o">==</span> <span class="s2">"Eldoret"</span><span class="p">:</span>
+        <span class="n">d</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="s2">"deposits_ksh"</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">5_000</span>              <span class="c1"># impossible value</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">d</span><span class="p">,</span> <span class="n">d</span><span class="o">.</span><span class="n">iloc</span><span class="p">[[</span><span class="mi">4</span><span class="p">]]],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>   <span class="c1"># duplicate branch-day</span>
+    <span class="n">d</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="sa">f</span><span class="s2">"p18_auto/inbox/</span><span class="si">{</span><span class="n">branch</span><span class="si">}</span><span class="s2">_wk10.csv"</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">Path</span><span class="p">(</span><span class="s2">"p18_auto/inbox"</span><span class="p">)</span><span class="o">.</span><span class="n">iterdir</span><span class="p">()))</span>
+</code></pre></div><div class="cell-out"><pre class="out">[&#x27;Eldoret_wk10.csv&#x27;, &#x27;Kisumu_wk10.csv&#x27;, &#x27;Nyeri_wk10.csv&#x27;]</pre></div></div>
+<p>Setup: three branch files, one with planted problems.</p>
+
+<p>Set up <strong>logging</strong> first. A log file is the audit trail: when the job ran, what it loaded and what it rejected. The <code>logging</code> module beats <code>print</code> because levels (INFO, WARNING, ERROR) can be filtered later.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">"p18_weekly"</span><span class="p">)</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">handlers</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+<span class="n">fh</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">FileHandler</span><span class="p">(</span><span class="s2">"p18_auto/logs/run.log"</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">"w"</span><span class="p">)</span>
+<span class="n">fh</span><span class="o">.</span><span class="n">setFormatter</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">Formatter</span><span class="p">(</span><span class="s2">"</span><span class="si">%(asctime)s</span><span class="s2"> | </span><span class="si">%(levelname)s</span><span class="s2"> | </span><span class="si">%(message)s</span><span class="s2">"</span><span class="p">))</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">fh</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">load_inbox</span><span class="p">(</span><span class="n">folder</span><span class="p">):</span>
+    <span class="n">frames</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">folder</span><span class="p">)</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">"*.csv"</span><span class="p">)):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">frames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">f</span><span class="p">)</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">source_file</span><span class="o">=</span><span class="n">f</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"loaded </span><span class="si">%s</span><span class="s2"> (</span><span class="si">%d</span><span class="s2"> rows)"</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">frames</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>                  <span class="c1"># log it, then carry on with the other files</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">"could not load </span><span class="si">%s</span><span class="s2">: </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">frames</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">"no files loaded - stop the job"</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">frames</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">load_inbox</span><span class="p">(</span><span class="s2">"p18_auto/inbox"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">(22, 5)</pre></div></div>
+<p>A loader that logs each file and survives one bad file.</p>
+
+<p>Now the <strong>checks</strong>. Each rule tags the offending rows with a reason, so an exceptions report can go to the data owner. Valid rows continue to the KPI report.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="k">def</span><span class="w"> </span><span class="nf">check</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
+    <span class="n">neg</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">"deposits_ksh"</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">issue</span><span class="o">=</span><span class="s2">"negative deposit"</span><span class="p">)</span>
+    <span class="n">dup</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">duplicated</span><span class="p">([</span><span class="s2">"branch"</span><span class="p">,</span> <span class="s2">"deposit_date"</span><span class="p">],</span> <span class="n">keep</span><span class="o">=</span><span class="s2">"first"</span><span class="p">)]</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">issue</span><span class="o">=</span><span class="s2">"duplicate branch-day"</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">neg</span><span class="p">,</span> <span class="n">dup</span><span class="p">])</span>
+
+<span class="n">exceptions</span> <span class="o">=</span> <span class="n">check</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">good</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">exceptions</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">"</span><span class="si">%d</span><span class="s2"> exception rows rejected"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">exceptions</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"raw rows      :"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"rejected rows :"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">exceptions</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"clean rows    :"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">good</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"reconciles    :"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">good</span><span class="p">)</span> <span class="o">+</span> <span class="n">exceptions</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">nunique</span><span class="p">())</span>
+<span class="n">exceptions</span><span class="p">[[</span><span class="s2">"branch"</span><span class="p">,</span> <span class="s2">"deposit_date"</span><span class="p">,</span> <span class="s2">"deposits_ksh"</span><span class="p">,</span> <span class="s2">"issue"</span><span class="p">]]</span>
+</code></pre></div><div class="cell-out"><pre class="out">raw rows      : 22
+rejected rows : 2
+clean rows    : 20
+reconciles    : True</pre><div class="table-wrap df"><div>
+
+<table class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th>branch</th>
+      <th>deposit_date</th>
+      <th>deposits_ksh</th>
+      <th>issue</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2</th>
+      <td>Eldoret</td>
+      <td>2026-03-04</td>
+      <td>-5000</td>
+      <td>negative deposit</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Eldoret</td>
+      <td>2026-03-06</td>
+      <td>141517</td>
+      <td>duplicate branch-day</td>
+    </tr>
+  </tbody>
+</table></div>
+</div></div></div></div>
+<p>Row-count reconciliation: raw = clean + rejected.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="k">def</span><span class="w"> </span><span class="nf">build_kpis</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
+    <span class="n">k</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"branch"</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="p">(</span><span class="s2">"deposit_date"</span><span class="p">,</span> <span class="s2">"nunique"</span><span class="p">),</span>
+                                 <span class="n">deposits_ksh</span><span class="o">=</span><span class="p">(</span><span class="s2">"deposits_ksh"</span><span class="p">,</span> <span class="s2">"sum"</span><span class="p">),</span>
+                                 <span class="n">members</span><span class="o">=</span><span class="p">(</span><span class="s2">"members_served"</span><span class="p">,</span> <span class="s2">"sum"</span><span class="p">))</span>
+    <span class="n">k</span><span class="p">[</span><span class="s2">"avg_per_member"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">k</span><span class="p">[</span><span class="s2">"deposits_ksh"</span><span class="p">]</span> <span class="o">/</span> <span class="n">k</span><span class="p">[</span><span class="s2">"members"</span><span class="p">])</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">k</span><span class="p">[</span><span class="s2">"share_pct"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">k</span><span class="p">[</span><span class="s2">"deposits_ksh"</span><span class="p">]</span> <span class="o">/</span> <span class="n">k</span><span class="p">[</span><span class="s2">"deposits_ksh"</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">k</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+
+<span class="n">kpis</span> <span class="o">=</span> <span class="n">build_kpis</span><span class="p">(</span><span class="n">good</span><span class="p">)</span>
+<span class="k">with</span> <span class="n">pd</span><span class="o">.</span><span class="n">ExcelWriter</span><span class="p">(</span><span class="s2">"p18_auto/reports/p18_weekly_report.xlsx"</span><span class="p">)</span> <span class="k">as</span> <span class="n">xw</span><span class="p">:</span>
+    <span class="n">kpis</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="n">xw</span><span class="p">,</span> <span class="n">sheet_name</span><span class="o">=</span><span class="s2">"KPIs"</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">exceptions</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="n">xw</span><span class="p">,</span> <span class="n">sheet_name</span><span class="o">=</span><span class="s2">"Exceptions"</span><span class="p">)</span>
+    <span class="n">good</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="n">xw</span><span class="p">,</span> <span class="n">sheet_name</span><span class="o">=</span><span class="s2">"Clean data"</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"report written: </span><span class="si">%d</span><span class="s2"> branches, total Ksh </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">kpis</span><span class="p">),</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">kpis</span><span class="p">[</span><span class="s1">'deposits_ksh'</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="n">kpis</span>
+</code></pre></div><div class="cell-out"><div class="table-wrap df"><div>
+
+<table class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th>branch</th>
+      <th>days</th>
+      <th>deposits_ksh</th>
+      <th>members</th>
+      <th>avg_per_member</th>
+      <th>share_pct</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Eldoret</td>
+      <td>6</td>
+      <td>1003944</td>
+      <td>735</td>
+      <td>1365.91</td>
+      <td>29.6</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Kisumu</td>
+      <td>7</td>
+      <td>1195636</td>
+      <td>815</td>
+      <td>1467.04</td>
+      <td>35.3</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Nyeri</td>
+      <td>7</td>
+      <td>1189590</td>
+      <td>711</td>
+      <td>1673.12</td>
+      <td>35.1</td>
+    </tr>
+  </tbody>
+</table></div>
+</div></div></div></div>
+<p>KPIs, written to a three-sheet Excel report.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">logger</span><span class="o">.</span><span class="n">handlers</span><span class="p">:</span>
+    <span class="n">h</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">Path</span><span class="p">(</span><span class="s2">"p18_auto/logs/run.log"</span><span class="p">)</span><span class="o">.</span><span class="n">read_text</span><span class="p">()</span><span class="o">.</span><span class="n">splitlines</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">" | "</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>            <span class="c1"># timestamp hidden so the output is stable</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"report exists:"</span><span class="p">,</span> <span class="n">Path</span><span class="p">(</span><span class="s2">"p18_auto/reports/p18_weekly_report.xlsx"</span><span class="p">)</span><span class="o">.</span><span class="n">exists</span><span class="p">())</span>
+</code></pre></div><div class="cell-out"><pre class="out">INFO | loaded Eldoret_wk10.csv (8 rows)
+INFO | loaded Kisumu_wk10.csv (7 rows)
+INFO | loaded Nyeri_wk10.csv (7 rows)
+WARNING | 2 exception rows rejected
+INFO | report written: 3 branches, total Ksh 3,389,170
+report exists: True</pre></div></div>
+<p>The audit trail. Real log lines also carry a timestamp.</p>
+
+<div class="callout note"><p><strong>Design rule.</strong> Reject and report beats fix silently. If you quietly delete a negative deposit, nobody learns that a branch has a data-entry problem. Keep the exceptions file and send it to the owner.</p>
+</div>
+<p><strong>Common mistake:</strong> a bare <code>except:</code> that swallows every error. The job then 'succeeds' with an empty report. Catch specific errors, log them, and decide on purpose whether to continue or stop.</p>
+
+<h2 id="18-3-combining-many-excel-files"><a class="anchor" href="#18-3-combining-many-excel-files" aria-label="Link to this section">#</a>18.3 Combining many Excel files</h2>
+
+<p>Finance teams send Excel, not CSV. A common job is a folder of workbooks, one per month, each with several sheets. The pattern: list files with <code>glob</code>, read every sheet, standardise column names, tag each row with its source, concatenate, and reconcile counts. First create four synthetic workbooks; April uses different headers.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">Path</span><span class="p">(</span><span class="s2">"p18_xl"</span><span class="p">)</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">month</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"2026-01"</span><span class="p">,</span> <span class="s2">"2026-02"</span><span class="p">,</span> <span class="s2">"2026-03"</span><span class="p">,</span> <span class="s2">"2026-04"</span><span class="p">]:</span>
+    <span class="k">with</span> <span class="n">pd</span><span class="o">.</span><span class="n">ExcelWriter</span><span class="p">(</span><span class="sa">f</span><span class="s2">"p18_xl/sales_</span><span class="si">{</span><span class="n">month</span><span class="si">}</span><span class="s2">.xlsx"</span><span class="p">)</span> <span class="k">as</span> <span class="n">xw</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">shop</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"Westlands"</span><span class="p">,</span> <span class="s2">"Kariobangi"</span><span class="p">]:</span>
+            <span class="n">n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
+            <span class="n">d</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">"Item"</span><span class="p">:</span> <span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s2">"Remote"</span><span class="p">,</span> <span class="s2">"HDMI cable"</span><span class="p">,</span> <span class="s2">"Panel"</span><span class="p">,</span> <span class="s2">"Mount"</span><span class="p">],</span> <span class="n">n</span><span class="p">),</span>
+                              <span class="s2">"Qty"</span><span class="p">:</span> <span class="n">rng</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span>
+                              <span class="s2">"Unit Price"</span><span class="p">:</span> <span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="mi">350</span><span class="p">,</span> <span class="mi">600</span><span class="p">,</span> <span class="mi">4500</span><span class="p">,</span> <span class="mi">1200</span><span class="p">],</span> <span class="n">n</span><span class="p">)})</span>
+            <span class="k">if</span> <span class="n">month</span> <span class="o">==</span> <span class="s2">"2026-04"</span><span class="p">:</span>
+                <span class="n">d</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"item"</span><span class="p">,</span> <span class="s2">"quantity"</span><span class="p">,</span> <span class="s2">"unit_price_ksh"</span><span class="p">]</span>
+            <span class="n">d</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="n">xw</span><span class="p">,</span> <span class="n">sheet_name</span><span class="o">=</span><span class="n">shop</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">Path</span><span class="p">(</span><span class="s2">"p18_xl"</span><span class="p">)</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">"*.xlsx"</span><span class="p">)))</span>
+</code></pre></div><div class="cell-out"><pre class="out">[&#x27;sales_2026-01.xlsx&#x27;, &#x27;sales_2026-02.xlsx&#x27;, &#x27;sales_2026-03.xlsx&#x27;, &#x27;sales_2026-04.xlsx&#x27;]</pre></div></div>
+<p>Setup: four monthly workbooks with two shop sheets each.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">rename</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"Item"</span><span class="p">:</span> <span class="s2">"item"</span><span class="p">,</span> <span class="s2">"Qty"</span><span class="p">:</span> <span class="s2">"quantity"</span><span class="p">,</span> <span class="s2">"Unit Price"</span><span class="p">:</span> <span class="s2">"unit_price_ksh"</span><span class="p">}</span>
+<span class="n">frames</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="s2">"p18_xl"</span><span class="p">)</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">"sales_*.xlsx"</span><span class="p">)):</span>
+    <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"~$"</span><span class="p">):</span>                 <span class="c1"># skip Excel temp files</span>
+        <span class="k">continue</span>
+    <span class="k">for</span> <span class="n">sheet</span><span class="p">,</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">sheet_name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>   <span class="c1"># None -&gt; dict of all sheets</span>
+        <span class="n">frames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">rename</span><span class="p">)</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">shop</span><span class="o">=</span><span class="n">sheet</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="n">f</span><span class="o">.</span><span class="n">stem</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"_"</span><span class="p">)[</span><span class="mi">1</span><span class="p">]))</span>
+<span class="n">combined</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">frames</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">combined</span><span class="p">[</span><span class="s2">"revenue_ksh"</span><span class="p">]</span> <span class="o">=</span> <span class="n">combined</span><span class="p">[</span><span class="s2">"quantity"</span><span class="p">]</span> <span class="o">*</span> <span class="n">combined</span><span class="p">[</span><span class="s2">"unit_price_ksh"</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"sheets read:"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">frames</span><span class="p">),</span> <span class="s2">"| rows:"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">combined</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"rows add up:"</span><span class="p">,</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">d</span><span class="p">)</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">frames</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">combined</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"columns:"</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">combined</span><span class="o">.</span><span class="n">columns</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">sheets read: 8 | rows: 49
+rows add up: True
+columns: [&#x27;item&#x27;, &#x27;quantity&#x27;, &#x27;unit_price_ksh&#x27;, &#x27;shop&#x27;, &#x27;month&#x27;, &#x27;revenue_ksh&#x27;]</pre></div></div>
+<p>Read every sheet of every workbook, standardise names, tag the source.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">summary</span> <span class="o">=</span> <span class="n">combined</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s2">"month"</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s2">"shop"</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s2">"revenue_ksh"</span><span class="p">,</span>
+                               <span class="n">aggfunc</span><span class="o">=</span><span class="s2">"sum"</span><span class="p">,</span> <span class="n">margins</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">summary</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"Ksh </span><span class="si">{</span><span class="n">v</span><span class="si">:</span><span class="s2">,.0f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><div class="table-wrap df"><div>
+
+<table class="dataframe">
+  <thead>
+    <tr>
+      <th>shop</th>
+      <th>Kariobangi</th>
+      <th>Westlands</th>
+      <th>All</th>
+    </tr>
+    <tr>
+      <th>month</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2026-01</th>
+      <td>Ksh 27,150</td>
+      <td>Ksh 12,650</td>
+      <td>Ksh 39,800</td>
+    </tr>
+    <tr>
+      <th>2026-02</th>
+      <td>Ksh 6,900</td>
+      <td>Ksh 36,750</td>
+      <td>Ksh 43,650</td>
+    </tr>
+    <tr>
+      <th>2026-03</th>
+      <td>Ksh 33,700</td>
+      <td>Ksh 16,400</td>
+      <td>Ksh 50,100</td>
+    </tr>
+    <tr>
+      <th>2026-04</th>
+      <td>Ksh 39,100</td>
+      <td>Ksh 21,800</td>
+      <td>Ksh 60,900</td>
+    </tr>
+    <tr>
+      <th>All</th>
+      <td>Ksh 106,850</td>
+      <td>Ksh 87,600</td>
+      <td>Ksh 194,450</td>
+    </tr>
+  </tbody>
+</table></div>
+</div></div></div></div>
+<p>Revenue by month and shop (margins=True adds totals).</p>
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Problem</th>
+<th>Symptom</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Different header names</td>
+<td>extra NaN columns after concat</td>
+<td>rename to one standard set first</td>
+</tr>
+<tr>
+<td>Header not in row 1</td>
+<td>columns called Unnamed</td>
+<td><code>header=</code> or <code>skiprows=</code></td>
+</tr>
+<tr>
+<td>Numbers stored as text</td>
+<td>sum fails</td>
+<td><code>pd.to_numeric(errors='coerce')</code>, inspect NaN</td>
+</tr>
+<tr>
+<td>Lost provenance</td>
+<td>cannot trace a bad row</td>
+<td>always add a source column</td>
+</tr>
+</tbody>
+</table></div>
+
+<h2 id="18-4-scheduling-windows-task-scheduler-and-cron"><a class="anchor" href="#18-4-scheduling-windows-task-scheduler-and-cron" aria-label="Link to this section">#</a>18.4 Scheduling: Windows Task Scheduler and cron</h2>
+
+<p>A script that someone must remember to run is not automation yet. <strong>Scheduling</strong> makes the operating system start it. The script must be safe unattended: paths relative to the script, a log file, a non-zero <strong>exit code</strong> on failure, and <code>if __name__ == &quot;__main__&quot;:</code> so it can also be imported.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">import</span><span class="w"> </span><span class="nn">subprocess</span><span class="o">,</span><span class="w"> </span><span class="nn">sys</span>
+
+<span class="n">script</span> <span class="o">=</span> <span class="s2">"""</span>
+<span class="s2">import sys, logging</span>
+<span class="s2">from pathlib import Path</span>
+<span class="s2">BASE = Path(__file__).resolve().parent</span>
+
+<span class="s2">def main():</span>
+<span class="s2">    logging.basicConfig(filename=BASE / "p18_job.log", level=logging.INFO, format="</span><span class="si">%(levelname)s</span><span class="s2"> </span><span class="si">%(message)s</span><span class="s2">")</span>
+<span class="s2">    (BASE / "p18_job_output.txt").write_text("report built")</span>
+<span class="s2">    logging.info("report built")</span>
+<span class="s2">    return 0</span>
+
+<span class="s2">if __name__ == "__main__":</span>
+<span class="s2">    try:</span>
+<span class="s2">        sys.exit(main())</span>
+<span class="s2">    except Exception:</span>
+<span class="s2">        logging.exception("job failed")</span>
+<span class="s2">        sys.exit(1)</span>
+<span class="s2">"""</span>
+<span class="n">Path</span><span class="p">(</span><span class="s2">"p18_job.py"</span><span class="p">)</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="n">script</span><span class="p">)</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="s2">"p18_job.py"</span><span class="p">],</span> <span class="n">capture_output</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"exit code:"</span><span class="p">,</span> <span class="n">r</span><span class="o">.</span><span class="n">returncode</span><span class="p">,</span> <span class="s2">"| log:"</span><span class="p">,</span> <span class="n">Path</span><span class="p">(</span><span class="s2">"p18_job.log"</span><span class="p">)</span><span class="o">.</span><span class="n">read_text</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+</code></pre></div><div class="cell-out"><pre class="out">exit code: 0 | log: INFO report built</pre></div></div>
+<p>A scheduler-ready script, run the way a scheduler would run it.</p>
+
+<pre class="code"><code><span class="p">::</span> <span class="n">Windows</span><span class="p">:</span> <span class="n">run</span> <span class="n">every</span> <span class="n">Monday</span> <span class="n">at</span> <span class="mi">07</span><span class="p">:</span><span class="mi">30</span> <span class="p">(</span><span class="n">Command</span> <span class="n">Prompt</span><span class="p">)</span><span class="o">.</span> <span class="n">Use</span> <span class="n">your</span> <span class="n">own</span> <span class="n">full</span> <span class="n">paths</span><span class="o">.</span>
+<span class="n">schtasks</span> <span class="o">/</span><span class="n">Create</span> <span class="o">/</span><span class="n">TN</span> <span class="s2">"WeeklyDepositReport"</span> <span class="o">/</span><span class="n">SC</span> <span class="n">WEEKLY</span> <span class="o">/</span><span class="n">D</span> <span class="n">MON</span> <span class="o">/</span><span class="n">ST</span> <span class="mi">07</span><span class="p">:</span><span class="mi">30</span> <span class="o">^</span>
+  <span class="o">/</span><span class="n">TR</span> <span class="s2">"C:\Python313\python.exe C:\work</span><span class="se">\r</span><span class="s2">eports</span><span class="se">\r</span><span class="s2">un_report.py"</span>
+<span class="n">schtasks</span> <span class="o">/</span><span class="n">Run</span> <span class="o">/</span><span class="n">TN</span> <span class="s2">"WeeklyDepositReport"</span>
+</code></pre>
+<p><em>Not executed in this notebook (needs a service or setting you must provide yourself).</em></p>
+
+<p>Windows Task Scheduler from the command line (or use the Create Basic Task wizard).</p>
+
+<pre class="code"><code><span class="c1"># Linux or macOS: edit with  crontab -e   (minute hour day-of-month month day-of-week  command)</span>
+<span class="mi">30</span> <span class="mi">7</span> <span class="o">*</span> <span class="o">*</span> <span class="mi">1</span>   <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">python3</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">analyst</span><span class="o">/</span><span class="n">reports</span><span class="o">/</span><span class="n">run_report</span><span class="o">.</span><span class="n">py</span> <span class="o">&gt;&gt;</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">analyst</span><span class="o">/</span><span class="n">reports</span><span class="o">/</span><span class="n">cron</span><span class="o">.</span><span class="n">log</span> <span class="mi">2</span><span class="o">&gt;&amp;</span><span class="mi">1</span>
+<span class="mi">0</span> <span class="mi">18</span> <span class="mi">1</span> <span class="o">*</span> <span class="o">*</span>   <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">python3</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">analyst</span><span class="o">/</span><span class="n">reports</span><span class="o">/</span><span class="n">month_end</span><span class="o">.</span><span class="n">py</span>
+</code></pre>
+<p><em>Not executed in this notebook (needs a service or setting you must provide yourself).</em></p>
+
+<p>cron: 07:30 every Monday, and 18:00 on the 1st of each month.</p>
+
+<ul>
+<li>Use the full path to Python (or your virtual environment's Python): schedulers do not load your profile.</li>
+<li>Test with a manual run first, to find path and permission problems before Monday.</li>
+<li>Decide what happens if the PC is off; Task Scheduler can run a missed task when it next starts.</li>
+</ul>
+
+<h2 id="18-5-calling-web-apis-with-requests"><a class="anchor" href="#18-5-calling-web-apis-with-requests" aria-label="Link to this section">#</a>18.5 Calling web APIs with requests</h2>
+
+<p>An <strong>API</strong> lets a program ask another system for data over the web. You send an HTTP request and the server usually returns <strong>JSON</strong>. The <code>requests</code> library is the standard tool. It is not installed in this build and there is no internet here, so this cell is shown but not run.</p>
+
+<pre class="code"><code><span class="kn">import</span><span class="w"> </span><span class="nn">requests</span><span class="o">,</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="n">URL</span> <span class="o">=</span> <span class="s2">"https://api.example.com/v1/exchange-rates"</span>         <span class="c1"># placeholder, not a real service</span>
+<span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"base"</span><span class="p">:</span> <span class="s2">"USD"</span><span class="p">,</span> <span class="s2">"symbols"</span><span class="p">:</span> <span class="s2">"KES,UGX,TZS"</span><span class="p">}</span>
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"Authorization"</span><span class="p">:</span> <span class="s2">"Bearer "</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">"RATES_API_KEY"</span><span class="p">]}</span>   <span class="c1"># key from the environment</span>
+
+<span class="n">resp</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">URL</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">resp</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>            <span class="c1"># raise on 4xx / 5xx instead of silently carrying on</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">json_normalize</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s2">"data"</span><span class="p">])</span>
+<span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">"rates_today.csv"</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</code></pre>
+<p><em>Not executed in this notebook (needs a service or setting you must provide yourself).</em></p>
+
+<p>Every call needs a <strong>timeout</strong> (or a hung server hangs your job), <code>raise_for_status()</code>, secrets from environment variables, and a <strong>retry</strong> for temporary failures. Test the parsing offline against a saved response.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">import</span><span class="w"> </span><span class="nn">json</span><span class="o">,</span><span class="w"> </span><span class="nn">time</span>
+
+<span class="n">saved</span> <span class="o">=</span> <span class="s1">'{"status": "ok", "data": [{"branch": {"name": "Kisumu"}, "loans": 14}, '</span> \
+        <span class="s1">'{"branch": {"name": "Nyeri"}, "loans": 9}]}'</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">json_normalize</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">saved</span><span class="p">)[</span><span class="s2">"data"</span><span class="p">]))</span>      <span class="c1"># nested keys become branch.name</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">fetch_with_retry</span><span class="p">(</span><span class="n">get</span><span class="p">,</span> <span class="n">attempts</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">wait</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">attempts</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">get</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"attempt </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2"> failed: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">attempts</span><span class="p">:</span>
+                <span class="k">raise</span>
+            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">wait</span> <span class="o">*</span> <span class="mf">0.01</span><span class="p">)</span>          <span class="c1"># shortened for the demo</span>
+            <span class="n">wait</span> <span class="o">*=</span> <span class="mi">2</span>
+
+<span class="n">calls</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"n"</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">flaky</span><span class="p">():</span>
+    <span class="n">calls</span><span class="p">[</span><span class="s2">"n"</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="n">calls</span><span class="p">[</span><span class="s2">"n"</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ConnectionError</span><span class="p">(</span><span class="s2">"temporary network error"</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">"status"</span><span class="p">:</span> <span class="s2">"ok"</span><span class="p">}</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">fetch_with_retry</span><span class="p">(</span><span class="n">flaky</span><span class="p">),</span> <span class="s2">"after"</span><span class="p">,</span> <span class="n">calls</span><span class="p">[</span><span class="s2">"n"</span><span class="p">],</span> <span class="s2">"calls"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">   loans branch.name
+0     14      Kisumu
+1      9       Nyeri
+attempt 1 failed: temporary network error
+attempt 2 failed: temporary network error
+{&#x27;status&#x27;: &#x27;ok&#x27;} after 3 calls</pre></div></div>
+<p>Flatten saved JSON offline, then a retry wrapper tested with a function that fails twice.</p>
+
+<ul>
+<li><strong>Pagination:</strong> many APIs return one page at a time; loop until there is no next page.</li>
+<li><strong>Rate limits:</strong> pause briefly between calls.</li>
+<li><strong>Keep the raw response</strong> so you can re-run without calling again.</li>
+</ul>
+
+<h2 id="18-6-git-github-your-portfolio-and-a-linkedin-post"><a class="anchor" href="#18-6-git-github-your-portfolio-and-a-linkedin-post" aria-label="Link to this section">#</a>18.6 Git, GitHub, your portfolio and a LinkedIn post</h2>
+
+<p><strong>Git</strong> records the history of your files so you can see what changed and go back. <strong>GitHub</strong> hosts a repository online, which doubles as your portfolio. Run these in a terminal inside your project folder.</p>
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Command</th>
+<th>What it does</th>
+<th>When</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>git init</code></td>
+<td>start tracking this folder</td>
+<td>once per project</td>
+</tr>
+<tr>
+<td><code>git status</code></td>
+<td>show changed and untracked files</td>
+<td>constantly</td>
+</tr>
+<tr>
+<td><code>git add .</code></td>
+<td>stage changes for the next commit</td>
+<td>before each commit</td>
+</tr>
+<tr>
+<td><code>git commit -m &quot;msg&quot;</code></td>
+<td>save a snapshot with a message</td>
+<td>after one logical change</td>
+</tr>
+<tr>
+<td><code>git log --oneline</code></td>
+<td>list past commits</td>
+<td>to review history</td>
+</tr>
+<tr>
+<td><code>git switch -c name</code></td>
+<td>create and move to a branch</td>
+<td>to try an idea safely</td>
+</tr>
+<tr>
+<td><code>git merge name</code></td>
+<td>bring a branch into the current one</td>
+<td>when the idea works</td>
+</tr>
+<tr>
+<td><code>git push -u origin main</code></td>
+<td>upload commits to GitHub</td>
+<td>to publish</td>
+</tr>
+<tr>
+<td><code>git pull</code></td>
+<td>download remote changes</td>
+<td>before you start work</td>
+</tr>
+<tr>
+<td><code>git clone URL</code></td>
+<td>copy a repository to your machine</td>
+<td>to get a project</td>
+</tr>
+</tbody>
+</table></div>
+
+<pre class="code"><code><span class="n">git</span> <span class="n">config</span> <span class="o">--</span><span class="k">global</span> <span class="n">user</span><span class="o">.</span><span class="n">name</span> <span class="s2">"Your Name"</span>          <span class="c1"># once per computer</span>
+<span class="n">git</span> <span class="n">config</span> <span class="o">--</span><span class="k">global</span> <span class="n">user</span><span class="o">.</span><span class="n">email</span> <span class="s2">"you@example.com"</span>
+
+<span class="n">cd</span> <span class="n">loan</span><span class="o">-</span><span class="n">risk</span>
+<span class="n">git</span> <span class="n">init</span>
+<span class="n">git</span> <span class="n">add</span> <span class="o">.</span>
+<span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">m</span> <span class="s2">"Add project layout and README"</span>
+
+<span class="c1"># create an empty repository on GitHub, then:</span>
+<span class="n">git</span> <span class="n">remote</span> <span class="n">add</span> <span class="n">origin</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">YOUR</span><span class="o">-</span><span class="n">USERNAME</span><span class="o">/</span><span class="n">loan</span><span class="o">-</span><span class="n">risk</span><span class="o">.</span><span class="n">git</span>
+<span class="n">git</span> <span class="n">branch</span> <span class="o">-</span><span class="n">M</span> <span class="n">main</span>
+<span class="n">git</span> <span class="n">push</span> <span class="o">-</span><span class="n">u</span> <span class="n">origin</span> <span class="n">main</span>
+</code></pre>
+<p><em>Not executed in this notebook (needs a service or setting you must provide yourself).</em></p>
+
+<p>First publish of a project: init, commit, link, push.</p>
+
+<p>A good <strong>commit message</strong> says what changed, in the imperative: <code>Add PAR30 calculation and test</code>, not <code>update</code>. A <strong>.gitignore</strong> lists what must never be uploaded.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">gitignore</span> <span class="o">=</span> <span class="s2">""".env</span>
+<span class="s2">*.key</span>
+<span class="s2">.venv/</span>
+<span class="s2">__pycache__/</span>
+<span class="s2">.ipynb_checkpoints/</span>
+<span class="s2">data/raw/</span>
+<span class="s2">*.db</span>
+<span class="s2">"""</span>
+<span class="n">Path</span><span class="p">(</span><span class="s2">"p18_project/loan-risk/.gitignore"</span><span class="p">)</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="n">gitignore</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">gitignore</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()),</span> <span class="s2">"patterns:"</span><span class="p">,</span> <span class="n">gitignore</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+</code></pre></div><div class="cell-out"><pre class="out">7 patterns: [&#x27;.env&#x27;, &#x27;*.key&#x27;, &#x27;.venv/&#x27;, &#x27;__pycache__/&#x27;, &#x27;.ipynb_checkpoints/&#x27;, &#x27;data/raw/&#x27;, &#x27;*.db&#x27;]</pre></div></div>
+<p>A starting .gitignore: secrets, environments, caches, raw data.</p>
+
+<div class="callout mistake"><p><strong>Safety rule.</strong> Never commit passwords, API keys, M-Pesa or bank credentials, or real customer data. Deleting the file later does not remove it from Git history. If you commit a secret by mistake, replace (rotate) that secret immediately.</p>
+</div>
+<h3 id="portfolio-structure"><a class="anchor" href="#portfolio-structure" aria-label="Link to this section">#</a>Portfolio structure</h3>
+
+<p>A portfolio is three to five finished projects that each show a different skill, not twenty half-done notebooks. Use the same layout as 18.1 in every repository.</p>
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Project</th>
+<th>Skill it shows</th>
+<th>Role it supports</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sales cleaning and analysis</td>
+<td>pandas, EDA, charts</td>
+<td>any data analyst</td>
+</tr>
+<tr>
+<td>Digital lending and credit risk</td>
+<td>SQL, default rate, scorecard</td>
+<td>credit-risk analyst</td>
+</tr>
+<tr>
+<td>Weekly reporting automation (18.2)</td>
+<td>scripting, logging, scheduling</td>
+<td>analyst with automation</td>
+</tr>
+<tr>
+<td>Model with a prediction service (18.7)</td>
+<td>deployment, validation, monitoring</td>
+<td>analytics engineer</td>
+</tr>
+</tbody>
+</table></div>
+
+<ul>
+<li>Pin your best two or three repositories and write a profile README that states your target role.</li>
+<li>Show the main chart in the README as a PNG; most readers never open the notebook.</li>
+<li>Make it runnable: a seed, a <code>requirements.txt</code>, and one command to reproduce results.</li>
+<li>Label synthetic data clearly. Never present practice results as employer work.</li>
+</ul>
+
+<h3 id="a-linkedin-post-template"><a class="anchor" href="#a-linkedin-post-template" aria-label="Link to this section">#</a>A LinkedIn post template</h3>
+
+<p>Keep a post factual: what you built, one finding your own code printed, and a link. The template takes its numbers from a computed result, so the post cannot disagree with your code.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
+<span class="n">loans</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">"product"</span><span class="p">:</span> <span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s2">"Digital Loan"</span><span class="p">,</span> <span class="s2">"SME Loan"</span><span class="p">,</span> <span class="s2">"Salary Advance"</span><span class="p">],</span> <span class="mi">600</span><span class="p">),</span>
+                      <span class="s2">"defaulted"</span><span class="p">:</span> <span class="n">rng</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="mi">600</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">0.09</span><span class="p">})</span>
+<span class="n">rates</span> <span class="o">=</span> <span class="n">loans</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"product"</span><span class="p">)[</span><span class="s2">"defaulted"</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">mul</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">top</span><span class="p">,</span> <span class="n">low</span> <span class="o">=</span> <span class="n">rates</span><span class="o">.</span><span class="n">idxmax</span><span class="p">(),</span> <span class="n">rates</span><span class="o">.</span><span class="n">idxmin</span><span class="p">()</span>
+
+<span class="n">post</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"""In this portfolio project I analysed default risk in a synthetic loan book of </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">loans</span><span class="p">)</span><span class="si">}</span><span class="s2"> loans.</span>
+
+<span class="s2">What I did: cleaned the data with SQL and pandas, measured default rate by product, documented the limits.</span>
+<span class="s2">One finding (synthetic data): default rate was highest for </span><span class="si">{</span><span class="n">top</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">rates</span><span class="p">[</span><span class="n">top</span><span class="p">]</span><span class="si">}</span><span class="s2">%) and lowest for </span><span class="si">{</span><span class="n">low</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">rates</span><span class="p">[</span><span class="n">low</span><span class="p">]</span><span class="si">}</span><span class="s2">%).</span>
+<span class="s2">What I learned: check row counts after every join, and label synthetic data clearly.</span>
+
+<span class="s2">Code: [link to your GitHub repository]</span>
+<span class="s2">#DataAnalytics #Python #SQL #Kenya"""</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">post</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">In this portfolio project I analysed default risk in a synthetic loan book of 600 loans.
+
+What I did: cleaned the data with SQL and pandas, measured default rate by product, documented the limits.
+One finding (synthetic data): default rate was highest for Digital Loan (8.6%) and lowest for Salary Advance (5.8%).
+What I learned: check row counts after every join, and label synthetic data clearly.
+
+Code: [link to your GitHub repository]
+#DataAnalytics #Python #SQL #Kenya</pre></div></div>
+<p>The link is a placeholder; replace it with your own.</p>
+
+<h2 id="18-7-saving-and-loading-a-model-with-a-predict-contract"><a class="anchor" href="#18-7-saving-and-loading-a-model-with-a-predict-contract" aria-label="Link to this section">#</a>18.7 Saving and loading a model, with a predict contract</h2>
+
+<p>A model that lives only in a notebook helps nobody. <strong>Deployment</strong> means putting a trained model where other programs can use it. Step one is to <strong>save</strong> it. <code>joblib</code> stores a scikit-learn object in a file; always save the preprocessing and the model together as one <strong>Pipeline</strong>, or the scoring code will scale inputs differently from training. We train a small default model on synthetic borrowers.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">import</span><span class="w"> </span><span class="nn">joblib</span><span class="o">,</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sklearn</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.pipeline</span><span class="w"> </span><span class="kn">import</span> <span class="n">Pipeline</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">roc_auc_score</span>
+
+<span class="n">FEATURES</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"age"</span><span class="p">,</span> <span class="s2">"monthly_income_ksh"</span><span class="p">,</span> <span class="s2">"loan_amount_ksh"</span><span class="p">,</span> <span class="s2">"prior_defaults"</span><span class="p">]</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">make_borrowers</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">seed</span><span class="p">,</span> <span class="n">income_shift</span><span class="o">=</span><span class="mf">0.0</span><span class="p">):</span>
+    <span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">"age"</span><span class="p">:</span> <span class="n">rng</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">21</span><span class="p">,</span> <span class="mi">66</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span>
+                      <span class="s2">"monthly_income_ksh"</span><span class="p">:</span> <span class="n">rng</span><span class="o">.</span><span class="n">lognormal</span><span class="p">(</span><span class="mf">10.6</span> <span class="o">+</span> <span class="n">income_shift</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
+                      <span class="s2">"loan_amount_ksh"</span><span class="p">:</span> <span class="n">rng</span><span class="o">.</span><span class="n">lognormal</span><span class="p">(</span><span class="mf">10.2</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
+                      <span class="s2">"prior_defaults"</span><span class="p">:</span> <span class="n">rng</span><span class="o">.</span><span class="n">poisson</span><span class="p">(</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">n</span><span class="p">)})</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mf">2.2</span> <span class="o">+</span> <span class="mf">0.9</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">loan_amount_ksh</span> <span class="o">/</span> <span class="n">d</span><span class="o">.</span><span class="n">monthly_income_ksh</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.6</span> <span class="o">*</span> <span class="n">d</span><span class="o">.</span><span class="n">prior_defaults</span>
+         <span class="o">-</span> <span class="mf">0.015</span> <span class="o">*</span> <span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">age</span> <span class="o">-</span> <span class="mi">40</span><span class="p">))</span>
+    <span class="n">d</span><span class="p">[</span><span class="s2">"defaulted"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">z</span><span class="p">)))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">d</span>
+
+<span class="n">train</span> <span class="o">=</span> <span class="n">make_borrowers</span><span class="p">(</span><span class="mi">3000</span><span class="p">,</span> <span class="mi">42</span><span class="p">)</span>
+<span class="n">Xtr</span><span class="p">,</span> <span class="n">Xte</span><span class="p">,</span> <span class="n">ytr</span><span class="p">,</span> <span class="n">yte</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">train</span><span class="p">[</span><span class="n">FEATURES</span><span class="p">],</span> <span class="n">train</span><span class="p">[</span><span class="s2">"defaulted"</span><span class="p">],</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span>
+                                      <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><span class="n">train</span><span class="p">[</span><span class="s2">"defaulted"</span><span class="p">])</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([(</span><span class="s2">"scale"</span><span class="p">,</span> <span class="n">StandardScaler</span><span class="p">()),</span> <span class="p">(</span><span class="s2">"clf"</span><span class="p">,</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">500</span><span class="p">))])</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Xtr</span><span class="p">,</span> <span class="n">ytr</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"test AUC:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">roc_auc_score</span><span class="p">(</span><span class="n">yte</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">Xte</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]),</span> <span class="mi">3</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">test AUC: 0.727</pre></div></div>
+<p>Synthetic borrowers and a pipeline (scaler + logistic regression).</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">Path</span><span class="p">(</span><span class="s2">"p18_models"</span><span class="p">)</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">joblib</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="s2">"p18_models/default_model_v1.joblib"</span><span class="p">)</span>
+<span class="n">meta</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"model_version"</span><span class="p">:</span> <span class="s2">"v1"</span><span class="p">,</span> <span class="s2">"features"</span><span class="p">:</span> <span class="n">FEATURES</span><span class="p">,</span> <span class="s2">"sklearn_version"</span><span class="p">:</span> <span class="n">sklearn</span><span class="o">.</span><span class="n">__version__</span><span class="p">,</span>
+        <span class="s2">"trained_on"</span><span class="p">:</span> <span class="s2">"synthetic borrowers, seed 42"</span><span class="p">}</span>
+<span class="n">Path</span><span class="p">(</span><span class="s2">"p18_models/default_model_v1.json"</span><span class="p">)</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">meta</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+
+<span class="n">loaded</span> <span class="o">=</span> <span class="n">joblib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">"p18_models/default_model_v1.joblib"</span><span class="p">)</span>
+<span class="n">same</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">Xte</span><span class="p">),</span> <span class="n">loaded</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">Xte</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"loaded model gives identical scores:"</span><span class="p">,</span> <span class="n">same</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"files:"</span><span class="p">,</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">Path</span><span class="p">(</span><span class="s2">"p18_models"</span><span class="p">)</span><span class="o">.</span><span class="n">iterdir</span><span class="p">()))</span>
+</code></pre></div><div class="cell-out"><pre class="out">loaded model gives identical scores: True
+files: [&#x27;default_model_v1.joblib&#x27;, &#x27;default_model_v1.json&#x27;]</pre></div></div>
+<p>Save the model and a small metadata file; load it back and check it matches.</p>
+
+<div class="callout mistake"><p><strong>Safety rule.</strong> Only load joblib or pickle files you trust: loading can run code. Load with the same scikit-learn version you saved with; that is why the version goes into the metadata file.</p>
+</div>
+<h3 id="the-predict-function-contract"><a class="anchor" href="#the-predict-function-contract" aria-label="Link to this section">#</a>The predict function contract</h3>
+
+<p>A <strong>contract</strong> says exactly what goes in and what comes out. The function checks every input before the model sees it, and returns a clear error otherwise. A model fed an age of 400 or a missing income will still return a number; the contract stops that.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">RULES</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"age"</span><span class="p">:</span> <span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="s2">"monthly_income_ksh"</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5_000_000</span><span class="p">),</span>
+         <span class="s2">"loan_amount_ksh"</span><span class="p">:</span> <span class="p">(</span><span class="mi">500</span><span class="p">,</span> <span class="mi">10_000_000</span><span class="p">),</span> <span class="s2">"prior_defaults"</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">50</span><span class="p">)}</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">validate</span><span class="p">(</span><span class="n">record</span><span class="p">):</span>
+    <span class="n">errors</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="p">(</span><span class="n">lo</span><span class="p">,</span> <span class="n">hi</span><span class="p">)</span> <span class="ow">in</span> <span class="n">RULES</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">record</span> <span class="ow">or</span> <span class="n">record</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">errors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"missing field: </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">record</span><span class="p">[</span><span class="n">name</span><span class="p">],</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">))</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">record</span><span class="p">[</span><span class="n">name</span><span class="p">],</span> <span class="nb">bool</span><span class="p">):</span>
+            <span class="n">errors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> must be a number"</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="ow">not</span> <span class="n">lo</span> <span class="o">&lt;=</span> <span class="n">record</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">hi</span><span class="p">:</span>
+            <span class="n">errors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> out of range </span><span class="si">{</span><span class="n">lo</span><span class="si">}</span><span class="s2">..</span><span class="si">{</span><span class="n">hi</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">errors</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">predict_one</span><span class="p">(</span><span class="n">record</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.20</span><span class="p">):</span>
+    <span class="n">errors</span> <span class="o">=</span> <span class="n">validate</span><span class="p">(</span><span class="n">record</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">errors</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"; "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">errors</span><span class="p">))</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">loaded</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="n">record</span><span class="p">])[</span><span class="n">FEATURES</span><span class="p">])[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">"default_probability"</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="s2">"decision"</span><span class="p">:</span> <span class="s2">"review"</span> <span class="k">if</span> <span class="n">p</span> <span class="o">&gt;=</span> <span class="n">threshold</span> <span class="k">else</span> <span class="s2">"approve"</span><span class="p">,</span>
+            <span class="s2">"model_version"</span><span class="p">:</span> <span class="n">meta</span><span class="p">[</span><span class="s2">"model_version"</span><span class="p">]}</span>
+
+<span class="n">ok</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"age"</span><span class="p">:</span> <span class="mi">34</span><span class="p">,</span> <span class="s2">"monthly_income_ksh"</span><span class="p">:</span> <span class="mi">60000</span><span class="p">,</span> <span class="s2">"loan_amount_ksh"</span><span class="p">:</span> <span class="mi">80000</span><span class="p">,</span> <span class="s2">"prior_defaults"</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">predict_one</span><span class="p">(</span><span class="n">ok</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">bad</span> <span class="ow">in</span> <span class="p">[{</span><span class="o">**</span><span class="n">ok</span><span class="p">,</span> <span class="s2">"age"</span><span class="p">:</span> <span class="mi">400</span><span class="p">},</span> <span class="p">{</span><span class="s2">"age"</span><span class="p">:</span> <span class="mi">30</span><span class="p">}]:</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">predict_one</span><span class="p">(</span><span class="n">bad</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"rejected:"</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">{&#x27;default_probability&#x27;: 0.1519, &#x27;decision&#x27;: &#x27;approve&#x27;, &#x27;model_version&#x27;: &#x27;v1&#x27;}
+rejected: age out of range 18..100
+rejected: missing field: monthly_income_ksh; missing field: loan_amount_ksh; missing field: prior_defaults</pre></div></div>
+<p>Input validation, a probability, a decision and the model version in every answer.</p>
+
+<h3 id="batch-scoring"><a class="anchor" href="#batch-scoring" aria-label="Link to this section">#</a>Batch scoring</h3>
+
+<p>Often you do not need a live service: you score a whole file once a day. <strong>Batch scoring</strong> reads a file, validates each row, scores the valid ones and writes the rejects to a separate file.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="k">def</span><span class="w"> </span><span class="nf">score_file</span><span class="p">(</span><span class="n">in_path</span><span class="p">,</span> <span class="n">out_path</span><span class="p">,</span> <span class="n">reject_path</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.20</span><span class="p">):</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">in_path</span><span class="p">)</span>
+    <span class="n">errs</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">r</span><span class="p">:</span> <span class="s2">"; "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">validate</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">to_dict</span><span class="p">())),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">good</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">errs</span> <span class="o">==</span> <span class="s2">""</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">good</span><span class="p">[</span><span class="s2">"default_probability"</span><span class="p">]</span> <span class="o">=</span> <span class="n">loaded</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">good</span><span class="p">[</span><span class="n">FEATURES</span><span class="p">])[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+    <span class="n">good</span><span class="p">[</span><span class="s2">"decision"</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">good</span><span class="p">[</span><span class="s2">"default_probability"</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">threshold</span><span class="p">,</span> <span class="s2">"review"</span><span class="p">,</span> <span class="s2">"approve"</span><span class="p">)</span>
+    <span class="n">good</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">out_path</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">df</span><span class="p">[</span><span class="n">errs</span> <span class="o">!=</span> <span class="s2">""</span><span class="p">]</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">reason</span><span class="o">=</span><span class="n">errs</span><span class="p">[</span><span class="n">errs</span> <span class="o">!=</span> <span class="s2">""</span><span class="p">])</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">reject_path</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">good</span><span class="p">)</span>
+
+<span class="n">new</span> <span class="o">=</span> <span class="n">make_borrowers</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">7</span><span class="p">)[</span><span class="n">FEATURES</span><span class="p">]</span>
+<span class="n">new</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="s2">"age"</span><span class="p">]</span> <span class="o">=</span> <span class="mi">5</span>                       <span class="c1"># planted bad row</span>
+<span class="n">new</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">"p18_new_applicants.csv"</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">total</span><span class="p">,</span> <span class="n">scored</span> <span class="o">=</span> <span class="n">score_file</span><span class="p">(</span><span class="s2">"p18_new_applicants.csv"</span><span class="p">,</span> <span class="s2">"p18_scored.csv"</span><span class="p">,</span> <span class="s2">"p18_rejected.csv"</span><span class="p">)</span>
+<span class="n">out</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"p18_scored.csv"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"rows in:"</span><span class="p">,</span> <span class="n">total</span><span class="p">,</span> <span class="s2">"| scored:"</span><span class="p">,</span> <span class="n">scored</span><span class="p">,</span> <span class="s2">"| rejected:"</span><span class="p">,</span> <span class="n">total</span> <span class="o">-</span> <span class="n">scored</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">out</span><span class="p">[</span><span class="s2">"decision"</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">to_dict</span><span class="p">())</span>
+</code></pre></div><div class="cell-out"><pre class="out">rows in: 200 | scored: 199 | rejected: 1
+{&#x27;approve&#x27;: 187, &#x27;review&#x27;: 12}</pre></div></div>
+<p>Batch scoring with a rejects file. Row counts reconcile.</p>
+
+<h2 id="18-8-a-minimal-prediction-service-with-fastapi"><a class="anchor" href="#18-8-a-minimal-prediction-service-with-fastapi" aria-label="Link to this section">#</a>18.8 A minimal prediction service with FastAPI</h2>
+
+<p>A <strong>web service</strong> lets other systems (a mobile app, a loan officer's screen) ask for a score over HTTP. <strong>FastAPI</strong> is a popular Python library for this; it also checks the input shape for you using <strong>pydantic</strong>. It is not installed in this build, so the code is shown but not run. Save it as <code>app.py</code>, then start it with <code>uvicorn app:app --reload</code>.</p>
+
+<pre class="code"><code><span class="kn">from</span><span class="w"> </span><span class="nn">fastapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">FastAPI</span><span class="p">,</span> <span class="n">HTTPException</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">Field</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">joblib</span><span class="o">,</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">FastAPI</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">"Default risk service"</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">joblib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">"models/default_model_v1.joblib"</span><span class="p">)</span>      <span class="c1"># loaded once, at start-up</span>
+<span class="n">FEATURES</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"age"</span><span class="p">,</span> <span class="s2">"monthly_income_ksh"</span><span class="p">,</span> <span class="s2">"loan_amount_ksh"</span><span class="p">,</span> <span class="s2">"prior_defaults"</span><span class="p">]</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Applicant</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">age</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">ge</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">le</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+    <span class="n">monthly_income_ksh</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">gt</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">loan_amount_ksh</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">ge</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+    <span class="n">prior_defaults</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">ge</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"/health"</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">health</span><span class="p">():</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">"status"</span><span class="p">:</span> <span class="s2">"ok"</span><span class="p">,</span> <span class="s2">"model_version"</span><span class="p">:</span> <span class="s2">"v1"</span><span class="p">}</span>
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">"/score"</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">score</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">Applicant</span><span class="p">):</span>
+    <span class="n">row</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="n">a</span><span class="o">.</span><span class="n">model_dump</span><span class="p">()])[</span><span class="n">FEATURES</span><span class="p">]</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">row</span><span class="p">)[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">"default_probability"</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="s2">"decision"</span><span class="p">:</span> <span class="s2">"review"</span> <span class="k">if</span> <span class="n">p</span> <span class="o">&gt;=</span> <span class="mf">0.20</span> <span class="k">else</span> <span class="s2">"approve"</span><span class="p">}</span>
+</code></pre>
+<p><em>Not executed in this notebook (needs a service or setting you must provide yourself).</em></p>
+
+<p>Two endpoints: /health to check it is alive, /score to get a prediction.</p>
+
+<ul>
+<li>FastAPI rejects a bad request automatically (HTTP status 422) before your code runs.</li>
+<li>Test with the built-in page at <code>/docs</code>, or with <code>curl</code>, or the <code>requests</code> library from 18.5.</li>
+<li>Real deployments add: logging of every request, authentication, a container (Docker), and a version in the URL such as <code>/v1/score</code>.</li>
+</ul>
+
+<div class="callout mistake"><p><strong>Watch out.</strong> Common mistake: loading the model inside the request function. Load it once at start-up; reloading on every call makes the service slow.</p>
+</div>
+<h2 id="18-9-monitoring-data-drift-and-retraining-triggers"><a class="anchor" href="#18-9-monitoring-data-drift-and-retraining-triggers" aria-label="Link to this section">#</a>18.9 Monitoring: data drift and retraining triggers</h2>
+
+<p>A model is trained on the past, but it scores the present. If customers change (new income levels after a new product launch, say), the inputs <strong>drift</strong> away from the training data and the model quietly gets worse. Monitoring compares today's inputs with the training inputs. Two common tools:</p>
+
+<ul>
+<li><strong>PSI (Population Stability Index):</strong> split the training values into bins, compare the share of new values in each bin. Rule of thumb: below 0.10 stable, 0.10 to 0.25 watch closely, above 0.25 a large shift. These cut-offs are conventions, not laws.</li>
+<li><strong>KS test (Kolmogorov-Smirnov):</strong> a statistical test of whether two samples come from the same distribution. A small p-value says they differ. With big samples even tiny shifts give small p-values, so read it together with PSI.</li>
+</ul>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">ks_2samp</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">psi</span><span class="p">(</span><span class="n">expected</span><span class="p">,</span> <span class="n">actual</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+    <span class="n">edges</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">expected</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">bins</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="n">edges</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">edges</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span>
+    <span class="n">e</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">expected</span><span class="p">,</span> <span class="n">edges</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">expected</span><span class="p">)</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">actual</span><span class="p">,</span> <span class="n">edges</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">actual</span><span class="p">)</span>
+    <span class="n">e</span><span class="p">,</span> <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="mf">1e-4</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="mf">1e-4</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>      <span class="c1"># avoid log(0)</span>
+    <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">a</span> <span class="o">-</span> <span class="n">e</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">a</span> <span class="o">/</span> <span class="n">e</span><span class="p">)))</span>
+
+<span class="n">base</span> <span class="o">=</span> <span class="n">make_borrowers</span><span class="p">(</span><span class="mi">3000</span><span class="p">,</span> <span class="mi">42</span><span class="p">)</span>                       <span class="c1"># what the model was trained on</span>
+<span class="n">same</span> <span class="o">=</span> <span class="n">make_borrowers</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">101</span><span class="p">)</span>                      <span class="c1"># a fresh batch, same behaviour</span>
+<span class="n">shifted</span> <span class="o">=</span> <span class="n">make_borrowers</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">102</span><span class="p">,</span> <span class="n">income_shift</span><span class="o">=-</span><span class="mf">0.5</span><span class="p">)</span>   <span class="c1"># incomes fall: simulated drift</span>
+
+<span class="n">rows</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="n">batch</span> <span class="ow">in</span> <span class="p">[(</span><span class="s2">"same population"</span><span class="p">,</span> <span class="n">same</span><span class="p">),</span> <span class="p">(</span><span class="s2">"incomes dropped"</span><span class="p">,</span> <span class="n">shifted</span><span class="p">)]:</span>
+    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"monthly_income_ksh"</span><span class="p">,</span> <span class="s2">"age"</span><span class="p">]:</span>
+        <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">label</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">psi</span><span class="p">(</span><span class="n">base</span><span class="p">[</span><span class="n">col</span><span class="p">],</span> <span class="n">batch</span><span class="p">[</span><span class="n">col</span><span class="p">]),</span> <span class="mi">3</span><span class="p">),</span>
+                     <span class="nb">round</span><span class="p">(</span><span class="n">ks_2samp</span><span class="p">(</span><span class="n">base</span><span class="p">[</span><span class="n">col</span><span class="p">],</span> <span class="n">batch</span><span class="p">[</span><span class="n">col</span><span class="p">])</span><span class="o">.</span><span class="n">pvalue</span><span class="p">,</span> <span class="mi">4</span><span class="p">)])</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">"batch"</span><span class="p">,</span> <span class="s2">"feature"</span><span class="p">,</span> <span class="s2">"PSI"</span><span class="p">,</span> <span class="s2">"KS p-value"</span><span class="p">])</span>
+</code></pre></div><div class="cell-out"><div class="table-wrap df"><div>
+
+<table class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th>batch</th>
+      <th>feature</th>
+      <th>PSI</th>
+      <th>KS p-value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>same population</td>
+      <td>monthly_income_ksh</td>
+      <td>0.016</td>
+      <td>0.6554</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>same population</td>
+      <td>age</td>
+      <td>0.018</td>
+      <td>0.1458</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>incomes dropped</td>
+      <td>monthly_income_ksh</td>
+      <td>0.969</td>
+      <td>0.0000</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>incomes dropped</td>
+      <td>age</td>
+      <td>0.007</td>
+      <td>0.8181</td>
+    </tr>
+  </tbody>
+</table></div>
+</div></div></div></div>
+<p>PSI and KS on a clean batch and on a batch with simulated falling incomes.</p>
+
+<p>The unchanged batch gives small PSI values for both features. The shifted batch shows a large PSI and a tiny p-value for income only: the check points at the feature that moved, and age (which did not move) stays calm.</p>
+
+<h3 id="retraining-triggers"><a class="anchor" href="#retraining-triggers" aria-label="Link to this section">#</a>Retraining triggers</h3>
+
+<p>Do not retrain on a whim, and do not wait forever. Write the trigger rules down.</p>
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Trigger</th>
+<th>Example rule</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Data drift</td>
+<td>PSI above 0.25 on an important feature</td>
+<td>investigate, then retrain if real</td>
+</tr>
+<tr>
+<td>Performance drop</td>
+<td>AUC (once outcomes are known) falls clearly below the launch value</td>
+<td>retrain</td>
+</tr>
+<tr>
+<td>Schedule</td>
+<td>every quarter, or after each loan-product change</td>
+<td>retrain and compare</td>
+</tr>
+<tr>
+<td>Data quality</td>
+<td>share of rejected inputs jumps</td>
+<td>fix the feed first, not the model</td>
+</tr>
+</tbody>
+</table></div>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="k">def</span><span class="w"> </span><span class="nf">monitor_decision</span><span class="p">(</span><span class="n">psi_values</span><span class="p">,</span> <span class="n">psi_limit</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">watch</span><span class="o">=</span><span class="mf">0.10</span><span class="p">):</span>
+    <span class="n">worst</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">psi_values</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+    <span class="k">if</span> <span class="n">worst</span> <span class="o">&gt;=</span> <span class="n">psi_limit</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">"RETRAIN REVIEW"</span><span class="p">,</span> <span class="p">[</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">psi_values</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">v</span> <span class="o">&gt;=</span> <span class="n">psi_limit</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">worst</span> <span class="o">&gt;=</span> <span class="n">watch</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">"WATCH"</span><span class="p">,</span> <span class="p">[</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">psi_values</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">v</span> <span class="o">&gt;=</span> <span class="n">watch</span><span class="p">]</span>
+    <span class="k">return</span> <span class="s2">"OK"</span><span class="p">,</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="n">batch</span> <span class="ow">in</span> <span class="p">[(</span><span class="s2">"same population"</span><span class="p">,</span> <span class="n">same</span><span class="p">),</span> <span class="p">(</span><span class="s2">"incomes dropped"</span><span class="p">,</span> <span class="n">shifted</span><span class="p">)]:</span>
+    <span class="n">vals</span> <span class="o">=</span> <span class="p">{</span><span class="n">c</span><span class="p">:</span> <span class="n">psi</span><span class="p">(</span><span class="n">base</span><span class="p">[</span><span class="n">c</span><span class="p">],</span> <span class="n">batch</span><span class="p">[</span><span class="n">c</span><span class="p">])</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">FEATURES</span><span class="p">}</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">label</span><span class="si">:</span><span class="s2">16s</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="n">monitor_decision</span><span class="p">(</span><span class="n">vals</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">same population  (&#x27;OK&#x27;, [])
+incomes dropped  (&#x27;RETRAIN REVIEW&#x27;, [&#x27;monthly_income_ksh&#x27;])</pre></div></div>
+<p>A simple monitor that turns PSI values into an action and names the features.</p>
+
+<div class="callout tip"><p><strong>Remember.</strong> Outcomes arrive late: a loan taken today shows default months later. So drift in the inputs is your early warning, and real performance can only be checked after the delay.</p>
+</div>
+<h2 id="18-10-model-cards"><a class="anchor" href="#18-10-model-cards" aria-label="Link to this section">#</a>18.10 Model cards</h2>
+
+<p>A <strong>model card</strong> is a one-page description that travels with the model: what it is for, what data it learned from, how well it works, where it fails and who owns it. It helps the next person use it correctly. Fill it from code where you can, so the numbers match the model.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">accuracy_score</span>
+<span class="n">auc</span> <span class="o">=</span> <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">yte</span><span class="p">,</span> <span class="n">loaded</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">Xte</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">card</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"Default risk model v1"</span><span class="p">,</span>
+    <span class="s2">"Purpose"</span><span class="p">:</span> <span class="s2">"Rank synthetic loan applicants by chance of missing repayment; supports a loan officer."</span><span class="p">,</span>
+    <span class="s2">"Not for"</span><span class="p">:</span> <span class="s2">"Automatic rejection without human review; any group not represented in the data."</span><span class="p">,</span>
+    <span class="s2">"Data"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">Xtr</span><span class="p">)</span><span class="si">}</span><span class="s2"> synthetic borrowers; features: </span><span class="si">{</span><span class="s1">', '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">FEATURES</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+    <span class="s2">"Method"</span><span class="p">:</span> <span class="s2">"StandardScaler + logistic regression, fixed seed 42"</span><span class="p">,</span>
+    <span class="s2">"Test AUC"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">auc</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+    <span class="s2">"Known limits"</span><span class="p">:</span> <span class="s2">"Synthetic data; no seasonality; income and loan size only."</span><span class="p">,</span>
+    <span class="s2">"Monitoring"</span><span class="p">:</span> <span class="s2">"PSI per feature monthly; retrain review if PSI above 0.25"</span><span class="p">,</span>
+    <span class="s2">"Owner"</span><span class="p">:</span> <span class="s2">"Analytics team (name and contact here)"</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="n">md</span> <span class="o">=</span> <span class="s2">"# Model card</span><span class="se">\n\n</span><span class="s2">"</span> <span class="o">+</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s2">"- **</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">:** </span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s2">"</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">card</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
+<span class="n">Path</span><span class="p">(</span><span class="s2">"p18_models/MODEL_CARD.md"</span><span class="p">)</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="n">md</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">md</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out"># Model card
+
+- **Name:** Default risk model v1
+- **Purpose:** Rank synthetic loan applicants by chance of missing repayment; supports a loan officer.
+- **Not for:** Automatic rejection without human review; any group not represented in the data.
+- **Data:** 2250 synthetic borrowers; features: age, monthly_income_ksh, loan_amount_ksh, prior_defaults
+- **Method:** StandardScaler + logistic regression, fixed seed 42
+- **Test AUC:** 0.727
+- **Known limits:** Synthetic data; no seasonality; income and loan size only.
+- **Monitoring:** PSI per feature monthly; retrain review if PSI above 0.25
+- **Owner:** Analytics team (name and contact here)</pre></div></div>
+<p>A model card generated from facts the code knows.</p>
+
+<h2 id="18-11-responsible-ai"><a class="anchor" href="#18-11-responsible-ai" aria-label="Link to this section">#</a>18.11 Responsible AI</h2>
+
+<p>A model can be accurate and still unfair, unsafe or unlawful to use. <strong>Responsible AI</strong> means checking for these problems before and after launch. This section gives a practical start, not a complete programme.</p>
+
+<h3 id="bias-and-fairness-check"><a class="anchor" href="#bias-and-fairness-check" aria-label="Link to this section">#</a>Bias and fairness check</h3>
+
+<p><strong>Bias</strong> here means a model treating groups differently in a way that is not justified. A simple first check: compare the <strong>approval rate</strong> across groups. Below we build synthetic applicants in two groups, 'A' and 'B', where group B has lower recorded income because of an unequal history, and a model that does not see the group column. Fairness can still break, because income acts as a <strong>proxy</strong>.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">4000</span>
+<span class="n">grp</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s2">"A"</span><span class="p">,</span> <span class="s2">"B"</span><span class="p">],</span> <span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="p">[</span><span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">])</span>
+<span class="n">ability</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>                                            <span class="c1"># same in both groups</span>
+<span class="n">inc</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">lognormal</span><span class="p">(</span><span class="mf">10.7</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mf">0.25</span> <span class="o">*</span> <span class="n">ability</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">grp</span> <span class="o">==</span> <span class="s2">"B"</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+<span class="n">repay</span> <span class="o">=</span> <span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="mf">1.2</span> <span class="o">+</span> <span class="mf">0.8</span> <span class="o">*</span> <span class="n">ability</span><span class="p">))))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>   <span class="c1"># 1 = repays</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">"income"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">inc</span><span class="p">),</span> <span class="s2">"ability_signal"</span><span class="p">:</span> <span class="n">ability</span> <span class="o">+</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">)})</span>
+<span class="n">fair_model</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">repay</span><span class="p">)</span>
+<span class="n">score</span> <span class="o">=</span> <span class="n">fair_model</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">approved</span> <span class="o">=</span> <span class="n">score</span> <span class="o">&gt;=</span> <span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">score</span><span class="p">,</span> <span class="mf">0.35</span><span class="p">)</span>                 <span class="c1"># approve the top 65 percent</span>
+
+<span class="n">res</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">"group"</span><span class="p">:</span> <span class="n">grp</span><span class="p">,</span> <span class="s2">"approved"</span><span class="p">:</span> <span class="n">approved</span><span class="p">,</span> <span class="s2">"would_repay"</span><span class="p">:</span> <span class="n">repay</span><span class="p">})</span>
+<span class="n">by</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"group"</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">approval_rate</span><span class="o">=</span><span class="p">(</span><span class="s2">"approved"</span><span class="p">,</span> <span class="s2">"mean"</span><span class="p">),</span>
+                              <span class="n">true_repayers_approved</span><span class="o">=</span><span class="p">(</span><span class="s2">"approved"</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span><span class="p">[</span><span class="n">res</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">s</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="s2">"would_repay"</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">by</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+<span class="n">ratio</span> <span class="o">=</span> <span class="n">by</span><span class="p">[</span><span class="s2">"approval_rate"</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">/</span> <span class="n">by</span><span class="p">[</span><span class="s2">"approval_rate"</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"approval ratio (lowest / highest):"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">ratio</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">       approval_rate  true_repayers_approved
+group                                       
+A              0.707                   0.762
+B              0.561                   0.615
+approval ratio (lowest / highest): 0.793</pre></div></div>
+<p>Approval rate by group, and among people who would in fact repay (synthetic).</p>
+
+<p>Group B is approved less often, and also among people who would in fact repay. A common rule of thumb flags a ratio below about 0.8 for a closer look; it is a screening signal, not a legal test. Possible responses: check whether the features are justified, collect better data, change the cut-off, or keep a human reviewer for affected cases. Which fix is right depends on the business and the law.</p>
+
+<h3 id="explainability"><a class="anchor" href="#explainability" aria-label="Link to this section">#</a>Explainability</h3>
+
+<p><strong>Explainability</strong> is being able to say why the model gave a score. For a linear model, the coefficients show each feature's direction. For any model, <strong>permutation importance</strong> shuffles one feature and measures how much the score drops.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.inspection</span><span class="w"> </span><span class="kn">import</span> <span class="n">permutation_importance</span>
+<span class="n">imp</span> <span class="o">=</span> <span class="n">permutation_importance</span><span class="p">(</span><span class="n">loaded</span><span class="p">,</span> <span class="n">Xte</span><span class="p">,</span> <span class="n">yte</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="s2">"roc_auc"</span><span class="p">,</span> <span class="n">n_repeats</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">out</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">"feature"</span><span class="p">:</span> <span class="n">FEATURES</span><span class="p">,</span> <span class="s2">"auc_drop"</span><span class="p">:</span> <span class="n">imp</span><span class="o">.</span><span class="n">importances_mean</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)})</span>
+<span class="n">out</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">"auc_drop"</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><div class="table-wrap df"><div>
+
+<table class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th>feature</th>
+      <th>auc_drop</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>loan_amount_ksh</td>
+      <td>0.098</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>monthly_income_ksh</td>
+      <td>0.076</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>prior_defaults</td>
+      <td>0.036</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>age</td>
+      <td>0.025</td>
+    </tr>
+  </tbody>
+</table></div>
+</div></div></div></div>
+<p>Which inputs matter most to the saved model (bigger drop = more important).</p>
+
+<h3 id="human-in-the-loop"><a class="anchor" href="#human-in-the-loop" aria-label="Link to this section">#</a>Human in the loop</h3>
+
+<p><strong>Human in the loop</strong> means a person reviews decisions that matter or that the model is unsure about. A common design: clear approvals and clear declines are fast, and the uncertain middle goes to a reviewer. Any declined customer should be able to ask why and appeal.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">p</span> <span class="o">=</span> <span class="n">loaded</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">Xte</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">route</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.10</span><span class="p">,</span> <span class="mf">0.30</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s2">"auto-approve"</span><span class="p">,</span> <span class="s2">"human review"</span><span class="p">,</span> <span class="s2">"senior review"</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">route</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+</code></pre></div><div class="cell-out"><pre class="out">auto-approve     507
+human review     218
+senior review     25</pre></div></div>
+<p>Routing by score band: the uncertain middle goes to people.</p>
+
+<h3 id="privacy-and-data-protection-in-kenya"><a class="anchor" href="#privacy-and-data-protection-in-kenya" aria-label="Link to this section">#</a>Privacy and data protection in Kenya</h3>
+
+<p>Kenya has the <strong>Data Protection Act, 2019</strong>, overseen by the Office of the Data Protection Commissioner. This is general information, not legal advice: laws and guidance change, so check the current law and your organisation's policy, and ask your legal or compliance team for decisions.</p>
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Practical habit</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Collect only the data you need</td>
+<td>less data, less risk</td>
+</tr>
+<tr>
+<td>Know the purpose and who may see the data</td>
+<td>use only for what people were told</td>
+</tr>
+<tr>
+<td>Remove or mask names, phone and ID numbers</td>
+<td>analysis rarely needs them</td>
+</tr>
+<tr>
+<td>Keep real customer data out of Git, chats and public notebooks</td>
+<td>leaks are hard to undo</td>
+</tr>
+<tr>
+<td>Delete data when it is no longer needed</td>
+<td>retention limits</td>
+</tr>
+<tr>
+<td>Use synthetic or anonymised data for practice and portfolios</td>
+<td>safe to share</td>
+</tr>
+</tbody>
+</table></div>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">import</span><span class="w"> </span><span class="nn">hashlib</span>
+<span class="n">phones</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="s2">"0712345678"</span><span class="p">,</span> <span class="s2">"0723456789"</span><span class="p">,</span> <span class="s2">"0712345678"</span><span class="p">])</span>
+<span class="n">masked</span> <span class="o">=</span> <span class="n">phones</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span><span class="p">[:</span><span class="mi">4</span><span class="p">]</span> <span class="o">+</span> <span class="s2">"****"</span> <span class="o">+</span> <span class="n">s</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">:])</span>
+<span class="n">pseudo</span> <span class="o">=</span> <span class="n">phones</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">sha256</span><span class="p">((</span><span class="s2">"secret-salt"</span> <span class="o">+</span> <span class="n">s</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()[:</span><span class="mi">10</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">"masked"</span><span class="p">:</span> <span class="n">masked</span><span class="p">,</span> <span class="s2">"pseudonym"</span><span class="p">:</span> <span class="n">pseudo</span><span class="p">}))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"same phone, same pseudonym:"</span><span class="p">,</span> <span class="n">pseudo</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">pseudo</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+</code></pre></div><div class="cell-out"><pre class="out">       masked   pseudonym
+0  0712****78  2a92259c63
+1  0723****89  c99d9c1eda
+2  0712****78  2a92259c63
+same phone, same pseudonym: True</pre></div></div>
+<p>Masking for display, pseudonyms for joining. A pseudonym is still personal data, so protect it.</p>
+
+<h3 id="security-basics-for-api-keys"><a class="anchor" href="#security-basics-for-api-keys" aria-label="Link to this section">#</a>Security basics for API keys</h3>
+
+<p>An <strong>API key</strong> is a password for a service. Keep it out of code and out of Git: read it from an <strong>environment variable</strong>, and fail clearly if it is missing.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="n">key</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"MY_SERVICE_API_KEY"</span><span class="p">)</span>       <span class="c1"># set in your shell or a local .env file</span>
+<span class="k">if</span> <span class="n">key</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"MY_SERVICE_API_KEY is not set: stop here, do not paste a key into the code"</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"key found, length"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">MY_SERVICE_API_KEY is not set: stop here, do not paste a key into the code</pre></div></div>
+<p>Read secrets from the environment, never from the source file.</p>
+
+<ul>
+<li>Add <code>.env</code> to <code>.gitignore</code> before the first commit.</li>
+<li>Give each key the smallest permissions it needs, and one key per project.</li>
+<li>Never print a key in a log. If one leaks, revoke and replace it at once.</li>
+<li>Check input sizes and types in every service (see 18.7) and keep libraries updated.</li>
+</ul>
+
+<h2 id="18-12-power-automate-and-n8n-no-code-automation"><a class="anchor" href="#18-12-power-automate-and-n8n-no-code-automation" aria-label="Link to this section">#</a>18.12 Power Automate and n8n: no-code automation</h2>
+
+<p>Not every automation needs Python. <strong>Power Automate</strong> (Microsoft) and <strong>n8n</strong> (open source, can be self-hosted) connect apps with visual flows: trigger, condition, action. They are strong at glue work such as moving files, sending messages and calling APIs. Python is stronger at analysis and checks.</p>
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Need</th>
+<th>Power Automate</th>
+<th>n8n</th>
+<th>Python script</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Typical home</td>
+<td>Microsoft 365 teams</td>
+<td>technical teams</td>
+<td>analysts and engineers</td>
+</tr>
+<tr>
+<td>Triggers</td>
+<td>new email, new file, schedule</td>
+<td>webhook, schedule, new row</td>
+<td>cron or Task Scheduler</td>
+</tr>
+<tr>
+<td>Strength</td>
+<td>Office, Teams, Outlook links</td>
+<td>many APIs, branching</td>
+<td>any logic, statistics, tests</td>
+</tr>
+<tr>
+<td>Weakness</td>
+<td>licensing, limited data logic</td>
+<td>you host and maintain it</td>
+<td>needs code and a place to run</td>
+</tr>
+<tr>
+<td>Best use</td>
+<td>email the report, alert on failure</td>
+<td>pull API data, post to chat</td>
+<td>clean, check, compute</td>
+</tr>
+</tbody>
+</table></div>
+
+<p>A sensible split for the weekly report in 18.2: people upload files; a flow tool notices them and starts the job; Python combines, checks and builds the report; the flow tool emails it and alerts on ERROR in the log.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">tasks</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"reject negative deposits"</span><span class="p">:</span> <span class="s2">"python"</span><span class="p">,</span> <span class="s2">"email the report every Monday"</span><span class="p">:</span> <span class="s2">"flow tool"</span><span class="p">,</span>
+         <span class="s2">"compute PAR30 by branch"</span><span class="p">:</span> <span class="s2">"python"</span><span class="p">,</span> <span class="s2">"chat alert when the log has ERROR"</span><span class="p">:</span> <span class="s2">"flow tool"</span><span class="p">}</span>
+<span class="k">for</span> <span class="n">t</span><span class="p">,</span> <span class="n">tool</span> <span class="ow">in</span> <span class="n">tasks</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">t</span><span class="si">:</span><span class="s2">36s</span><span class="si">}</span><span class="s2"> -&gt; </span><span class="si">{</span><span class="n">tool</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">reject negative deposits             -&gt; python
+email the report every Monday        -&gt; flow tool
+compute PAR30 by branch              -&gt; python
+chat alert when the log has ERROR    -&gt; flow tool</pre></div></div>
+<p>Practice: logic and numbers in Python; delivery and notification in a flow tool.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">import</span><span class="w"> </span><span class="nn">shutil</span>
+<span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"p18_project"</span><span class="p">,</span> <span class="s2">"p18_auto"</span><span class="p">,</span> <span class="s2">"p18_xl"</span><span class="p">,</span> <span class="s2">"p18_models"</span><span class="p">]:</span>
+    <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">ignore_errors</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"cleaned demo folders:"</span><span class="p">,</span> <span class="p">[</span><span class="n">d</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"p18_project"</span><span class="p">,</span> <span class="s2">"p18_auto"</span><span class="p">,</span> <span class="s2">"p18_xl"</span><span class="p">,</span> <span class="s2">"p18_models"</span><span class="p">]</span>
+                                <span class="k">if</span> <span class="n">Path</span><span class="p">(</span><span class="n">d</span><span class="p">)</span><span class="o">.</span><span class="n">exists</span><span class="p">()]</span> <span class="o">==</span> <span class="p">[])</span>
+</code></pre></div><div class="cell-out"><pre class="out">cleaned demo folders: True</pre></div></div>
+<p>Tidying up temporary folders is part of a well-behaved job.</p>
+
+<div class="callout takeaways"><div class="c-label">Key takeaways</div><ul>
+<li>Reproducible means a standard layout, a requirements file, fixed seeds and a README.</li>
+<li>Good automation is logged, checked, reconciles row counts, and exits non-zero on failure.</li>
+<li>Use Git often; never commit secrets or real customer data.</li>
+<li>Save the preprocessing and model together, validate every input, and return the model version.</li>
+<li>Watch inputs for drift (PSI, KS) and write down your retraining triggers.</li>
+<li>Check fairness across groups, protect personal data, explain decisions and keep a human in the loop.</li>
+</ul>
+</div></div><nav class="pager" aria-label="Previous and next"><a class="prev" href="part-17.html"><small>Previous</small><span>Part 17: Business Metrics, Excel and Power BI</span></a><a class="next" href="part-19.html"><small>Next</small><span>Part 19: End-to-End Projects</span></a></nav>
+<footer class="foot"><p>Data Science from Zero to Advanced &middot; written by Benson M. Merita &middot; &copy; 2026 MeritaAnalytics. Public datasets keep their own licences, listed in <a href="appendix-b.html">Appendix B</a>.</p></footer>
+</main>
+</div>
+<script src="search-index.js"></script>
+<script src="site.js"></script>
+</body>
+</html>

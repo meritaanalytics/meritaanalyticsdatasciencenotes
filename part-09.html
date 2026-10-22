@@ -1,0 +1,742 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>Part 9: Machine Learning Foundations | MeritaAnalytics</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to the notes</a>
+<header class="top"><button class="menu" id="menu" aria-controls="side" aria-expanded="false">Contents</button><span class="top-title">Part 9: Machine Learning Foundations</span></header>
+<div class="shell">
+<nav class="side" id="side" aria-label="Handbook contents">
+<a class="brand" href="index.html"><span class="mark" aria-hidden="true">MA</span><span><b>MeritaAnalytics</b><small>Data Science Notes</small></span></a>
+<label class="search"><span class="sr">Search the notes</span><input id="q" type="search" placeholder="Search topics, e.g. groupby" autocomplete="off"></label>
+<div id="results" class="results" hidden></div>
+<ol class="nav">
+<li class="lvl0"><a href="index.html" class="">Start here</a></li>
+<li class="lvl"><div class="lvl-name"><span>Level 1</span>Foundations</div><ol>
+<li data-slug="part-01"><a href="part-01.html" class=""><span class="pn">1</span><span class="pt">What Is Data Science?</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-02"><a href="part-02.html" class=""><span class="pn">2</span><span class="pt">Python Basics</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-03"><a href="part-03.html" class=""><span class="pn">3</span><span class="pt">NumPy: Fast Numbers</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 2</span>Data Analysis</div><ol>
+<li data-slug="part-04"><a href="part-04.html" class=""><span class="pn">4</span><span class="pt">Pandas: Working with Tables</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-05"><a href="part-05.html" class=""><span class="pn">5</span><span class="pt">Data Visualisation</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-06"><a href="part-06.html" class=""><span class="pn">6</span><span class="pt">SQL for Data Analysts</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-07"><a href="part-07.html" class=""><span class="pn">7</span><span class="pt">Exploratory Data Analysis</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 3</span>Statistics</div><ol>
+<li data-slug="part-08"><a href="part-08.html" class=""><span class="pn">8</span><span class="pt">Statistics for Data Science</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 4</span>Machine Learning</div><ol>
+<li data-slug="part-09"><a href="part-09.html" class="on"><span class="pn">9</span><span class="pt">Machine Learning Foundations</span><span class="done-dot" aria-hidden="true"></span></a>
+<ol class="sub"><li><a href="#9-1-what-is-machine-learning">9.1 What is machine learning?</a></li><li><a href="#9-2-the-types-of-learning-a-map">9.2 The types of learning: a map</a></li><li><a href="#9-3-features-and-target">9.3 Features and target</a></li><li><a href="#9-4-the-model-parameters-and-hyperparameters">9.4 The model, parameters and hyperparameters</a></li><li><a href="#9-5-training-gradient-descent-from-scratch">9.5 Training: gradient descent from scratch</a></li><li><a href="#9-6-train-validation-and-test-sets">9.6 Train, validation and test sets</a></li><li><a href="#9-7-overfitting-and-underfitting">9.7 Overfitting and underfitting</a></li><li><a href="#9-8-cross-validation">9.8 Cross-validation</a></li><li><a href="#9-9-data-leakage">9.9 Data leakage</a></li><li><a href="#9-10-preprocessing-and-pipelines">9.10 Preprocessing and Pipelines</a></li><li><a href="#9-11-the-10-step-ml-workflow">9.11 The 10-step ML workflow</a></li><li><a href="#9-12-which-kind-of-problem-is-this">9.12 Which kind of problem is this?</a></li></ol>
+</li>
+<li data-slug="part-10"><a href="part-10.html" class=""><span class="pn">10</span><span class="pt">Regression</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-11"><a href="part-11.html" class=""><span class="pn">11</span><span class="pt">Classification</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-12"><a href="part-12.html" class=""><span class="pn">12</span><span class="pt">Ensembles, Tuning and Feature Engineering</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-13"><a href="part-13.html" class=""><span class="pn">13</span><span class="pt">Unsupervised Learning</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 5</span>Deep Learning and Modern AI</div><ol>
+<li data-slug="part-14"><a href="part-14.html" class=""><span class="pn">14</span><span class="pt">Neural Networks and Deep Learning</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-15"><a href="part-15.html" class=""><span class="pn">15</span><span class="pt">Reinforcement Learning</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-16"><a href="part-16.html" class=""><span class="pn">16</span><span class="pt">Generative AI and Large Language Models</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 6</span>The Real World</div><ol>
+<li data-slug="part-17"><a href="part-17.html" class=""><span class="pn">17</span><span class="pt">Business Metrics, Excel and Power BI</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-18"><a href="part-18.html" class=""><span class="pn">18</span><span class="pt">Automation, Git, Deployment and Responsible AI</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-19"><a href="part-19.html" class=""><span class="pn">19</span><span class="pt">End-to-End Projects</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 7</span>Career and Reference</div><ol>
+<li data-slug="part-20"><a href="part-20.html" class=""><span class="pn">20</span><span class="pt">Practice Exercises and Answer Key</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-21"><a href="part-21.html" class=""><span class="pn">21</span><span class="pt">Interview Preparation</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-22"><a href="part-22.html" class=""><span class="pn">22</span><span class="pt">Roadmap, Cheat Sheets and Glossary</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Appendix</span>Reference</div><ol>
+<li><a href="appendix-a.html" class=""><span class="pn">A</span><span class="pt">Sources and Next Steps</span></a></li>
+<li><a href="appendix-b.html" class=""><span class="pn">B</span><span class="pt">Data Catalogue</span></a></li>
+</ol></li></ol>
+<p class="side-foot">By Benson M. Merita &middot; &copy; 2026 MeritaAnalytics</p></nav>
+<main id="main" class="main"><header class="part-head"><span class="lv">Level 4 &middot; Machine Learning</span><p class="part-no">Part 9</p><h1>Machine Learning Foundations</h1><p class="lede">What machine learning is, the building blocks every model shares, and the workflow you will reuse in every later Part.</p><button class="mark-done" id="done" data-slug="part-09" aria-pressed="false">Mark this part as done</button></header><div class="prose"><div class="callout learn"><div class="c-label">In this part</div><ul>
+<li>Explain machine learning and how it differs from ordinary programming.</li>
+<li>Name the types of learning and say which Part of this book covers each.</li>
+<li>Use features, targets, loss, training, inference and train/test splits correctly.</li>
+<li>Spot overfitting, underfitting and data leakage, and beat a simple baseline.</li>
+<li>Follow the 10-step ML workflow with a scikit-learn Pipeline.</li>
+</ul>
+<div class="meta"><span><b>You need first</b> Parts 4, 5 and 8</span><span><b>Time</b> 4 to 6 hours</span></div></div>
+<h2 id="9-1-what-is-machine-learning"><a class="anchor" href="#9-1-what-is-machine-learning" aria-label="Link to this section">#</a>9.1 What is machine learning?</h2>
+
+<p>In ordinary programming you write the <strong>rules</strong> and the computer applies them to data to give answers. In <strong>machine learning (ML)</strong> you give the computer the data and the answers, and it works out the rules by itself. Those learned rules are called a <strong>model</strong>.</p>
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th>Ordinary programming</th>
+<th>Machine learning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>You supply</td>
+<td>rules + data</td>
+<td>data + known answers</td>
+</tr>
+<tr>
+<td>You get</td>
+<td>answers</td>
+<td>rules (a model)</td>
+</tr>
+<tr>
+<td>Example</td>
+<td>if amount &gt; 70000 then flag it</td>
+<td>learn from past loans which ones went bad</td>
+</tr>
+<tr>
+<td>Best when</td>
+<td>rules are simple and known</td>
+<td>rules are too many or too fuzzy to write by hand</td>
+</tr>
+</tbody>
+</table></div>
+
+<p>A tiny comparison. A shop owner knows a rule: delivery costs Ksh 100 plus Ksh 20 per kilometre. We hide the rule, show the computer some past deliveries, and let it find the rule again.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LinearRegression</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">delivery_cost</span><span class="p">(</span><span class="n">km</span><span class="p">):</span>                    <span class="c1"># ordinary programming: we wrote the rule</span>
+    <span class="k">return</span> <span class="mi">100</span> <span class="o">+</span> <span class="mi">20</span> <span class="o">*</span> <span class="n">km</span>
+
+<span class="n">km</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">8</span><span class="p">],</span> <span class="p">[</span><span class="mi">12</span><span class="p">],</span> <span class="p">[</span><span class="mi">20</span><span class="p">]])</span>           <span class="c1"># data</span>
+<span class="n">cost</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">delivery_cost</span><span class="p">(</span><span class="n">k</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">km</span><span class="p">])</span>   <span class="c1"># known answers</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">km</span><span class="p">,</span> <span class="n">cost</span><span class="p">)</span>             <span class="c1"># machine learning: find the rule</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"learned start fee :"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">intercept_</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"learned per km    :"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">coef_</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"cost of 15 km     :"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">([[</span><span class="mi">15</span><span class="p">]])[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">learned start fee : 100.0
+learned per km    : 20.0
+cost of 15 km     : 400.0</pre></div></div>
+<p>The model recovered the rule from examples. Real problems are the same, only with noise and many more columns.</p>
+
+<h2 id="9-2-the-types-of-learning-a-map"><a class="anchor" href="#9-2-the-types-of-learning-a-map" aria-label="Link to this section">#</a>9.2 The types of learning: a map</h2>
+
+<p>ML problems differ by what answers you have. Start with the first question: do you have a column you want to predict?</p>
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Type</th>
+<th>You have</th>
+<th>Goal</th>
+<th>Everyday example</th>
+<th>Where in this book</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Supervised</strong></td>
+<td>inputs + known answers</td>
+<td>predict the answer for new inputs</td>
+<td>predict house price, flag a bad loan</td>
+<td>Parts 10, 11, 12</td>
+</tr>
+<tr>
+<td><strong>Unsupervised</strong></td>
+<td>inputs only</td>
+<td>find groups or structure</td>
+<td>group customers by behaviour</td>
+<td>Part 13</td>
+</tr>
+<tr>
+<td><strong>Semi-supervised</strong></td>
+<td>a few answers, many without</td>
+<td>use both to learn</td>
+<td>few labelled photos, many unlabelled</td>
+<td>Part 14</td>
+</tr>
+<tr>
+<td><strong>Self-supervised</strong></td>
+<td>inputs only; answers made from the data itself</td>
+<td>learn useful representations</td>
+<td>hide a word and predict it</td>
+<td>Parts 14, 16</td>
+</tr>
+<tr>
+<td><strong>Reinforcement</strong></td>
+<td>an agent acting and getting rewards</td>
+<td>learn the best actions</td>
+<td>a game player, a pricing policy</td>
+<td>Part 15</td>
+</tr>
+<tr>
+<td><strong>Generative</strong></td>
+<td>lots of examples</td>
+<td>create new text, images, data</td>
+<td>a chatbot, image generator</td>
+<td>Part 16</td>
+</tr>
+</tbody>
+</table></div>
+
+<p>Supervised learning has two flavours. <strong>Regression</strong> predicts a number (maize price in Ksh). <strong>Classification</strong> predicts a category (loan repaid or defaulted). Regression is Part 10, classification Part 11.</p>
+
+<div class="callout practice"><p><strong>Quick test.</strong> If you are unsure which type you face, ask: what is the one thing I want to predict, and do I have past examples of it? Yes means supervised. No means unsupervised or reinforcement.</p>
+</div>
+<h2 id="9-3-features-and-target"><a class="anchor" href="#9-3-features-and-target" aria-label="Link to this section">#</a>9.3 Features and target</h2>
+
+<p>The columns you use as input are the <strong>features</strong> (also called predictors or X). The column you want to predict is the <strong>target</strong> (also the label or y). Each row is one <strong>sample</strong> (one example). We use scikit-learn's built-in diabetes data (BSD licence): 442 patients, ten body measurements, and a number measuring disease progression one year later.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_diabetes</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">load_diabetes</span><span class="p">(</span><span class="n">as_frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">data</span>            <span class="c1"># features: a table</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">target</span>          <span class="c1"># target: one column</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"samples, features:"</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"target name      :"</span><span class="p">,</span> <span class="n">y</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+<span class="n">X</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">samples, features: (442, 10)
+target name      : target
+[&#x27;age&#x27;, &#x27;sex&#x27;, &#x27;bmi&#x27;, &#x27;bp&#x27;, &#x27;s1&#x27;, &#x27;s2&#x27;, &#x27;s3&#x27;, &#x27;s4&#x27;, &#x27;s5&#x27;, &#x27;s6&#x27;]</pre><div class="table-wrap df"><div>
+
+<table class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th>age</th>
+      <th>sex</th>
+      <th>bmi</th>
+      <th>bp</th>
+      <th>s1</th>
+      <th>s2</th>
+      <th>s3</th>
+      <th>s4</th>
+      <th>s5</th>
+      <th>s6</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.038</td>
+      <td>0.051</td>
+      <td>0.062</td>
+      <td>0.022</td>
+      <td>-0.044</td>
+      <td>-0.035</td>
+      <td>-0.043</td>
+      <td>-0.003</td>
+      <td>0.020</td>
+      <td>-0.018</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>-0.002</td>
+      <td>-0.045</td>
+      <td>-0.051</td>
+      <td>-0.026</td>
+      <td>-0.008</td>
+      <td>-0.019</td>
+      <td>0.074</td>
+      <td>-0.039</td>
+      <td>-0.068</td>
+      <td>-0.092</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.085</td>
+      <td>0.051</td>
+      <td>0.044</td>
+      <td>-0.006</td>
+      <td>-0.046</td>
+      <td>-0.034</td>
+      <td>-0.032</td>
+      <td>-0.003</td>
+      <td>0.003</td>
+      <td>-0.026</td>
+    </tr>
+  </tbody>
+</table></div>
+</div></div></div></div>
+<p>The features here are already centred and scaled by their authors, so they look small. Real data is rarely this tidy (see 9.10).</p>
+
+<h2 id="9-4-the-model-parameters-and-hyperparameters"><a class="anchor" href="#9-4-the-model-parameters-and-hyperparameters" aria-label="Link to this section">#</a>9.4 The model, parameters and hyperparameters</h2>
+
+<p>A <strong>model</strong> is a formula with adjustable knobs. The knobs the computer <strong>learns from data</strong> are the <strong>parameters</strong> (for a straight line: the slope and the intercept). The knobs <strong>you set before training</strong> are the <strong>hyperparameters</strong> (for example how deep a decision tree may grow). Training changes parameters; you tune hyperparameters.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.tree</span><span class="w"> </span><span class="kn">import</span> <span class="n">DecisionTreeRegressor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">Ridge</span>
+
+<span class="n">tree</span> <span class="o">=</span> <span class="n">DecisionTreeRegressor</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>   <span class="c1"># max_depth: a hyperparameter</span>
+<span class="n">ridge</span> <span class="o">=</span> <span class="n">Ridge</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>                                      <span class="c1"># alpha: a hyperparameter</span>
+<span class="n">ridge</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"hyperparameters of ridge:"</span><span class="p">,</span> <span class="n">ridge</span><span class="o">.</span><span class="n">get_params</span><span class="p">()[</span><span class="s2">"alpha"</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"learned parameters (first 3 coefficients):"</span><span class="p">,</span> <span class="n">ridge</span><span class="o">.</span><span class="n">coef_</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"learned intercept:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">ridge</span><span class="o">.</span><span class="n">intercept_</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">hyperparameters of ridge: 1.0
+learned parameters (first 3 coefficients): [ 29.5 -83.2 306.4]
+learned intercept: 152.1</pre></div></div>
+<div class="callout tip"><p><strong>Rule.</strong> Hyperparameters are decisions, parameters are results. Never tune hyperparameters by looking at the test set (see 9.6).</p>
+</div>
+<h3 id="the-loss-function"><a class="anchor" href="#the-loss-function" aria-label="Link to this section">#</a>The loss function</h3>
+
+<p>To learn, the computer needs a score for how wrong the model is. This score is the <strong>loss function</strong>. For regression a common loss is the <strong>mean squared error (MSE)</strong>: the average of the squared gaps between the true value and the prediction. Smaller is better, and training means making the loss as small as possible.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="n">y_true</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">100</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">200</span><span class="p">])</span>
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">pred</span> <span class="ow">in</span> <span class="p">[(</span><span class="s2">"good model"</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">105</span><span class="p">,</span> <span class="mi">145</span><span class="p">,</span> <span class="mi">210</span><span class="p">])),</span> <span class="p">(</span><span class="s2">"bad model"</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">150</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">300</span><span class="p">]))]:</span>
+    <span class="n">mse</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="n">y_true</span> <span class="o">-</span> <span class="n">pred</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">: MSE = </span><span class="si">{</span><span class="n">mse</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">good model: MSE = 50.0
+bad model: MSE = 5000.0</pre></div></div>
+<p>Squaring makes big mistakes count much more than small ones. For classification the usual loss is <strong>log loss</strong> (Part 11).</p>
+
+<h2 id="9-5-training-gradient-descent-from-scratch"><a class="anchor" href="#9-5-training-gradient-descent-from-scratch" aria-label="Link to this section">#</a>9.5 Training: gradient descent from scratch</h2>
+
+<p><strong>Training</strong> (also fitting) is the search for the parameters with the lowest loss. The classic method is <strong>gradient descent</strong>: imagine standing on a hill in fog and wanting the valley. You feel which way the ground slopes down, take a small step that way, and repeat. The step size is the <strong>learning rate</strong>, a hyperparameter. Too big and you overshoot; too small and you crawl.</p>
+
+<p>Below we fit y = w*x + b by hand on synthetic data: hours a boda rider works (x) and daily income in hundreds of Ksh (y). Watch the loss fall.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">60</span><span class="p">)</span>                       <span class="c1"># synthetic hours worked</span>
+<span class="n">y</span> <span class="o">=</span> <span class="mf">3.0</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="mf">5.0</span> <span class="o">+</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mi">60</span><span class="p">)</span>       <span class="c1"># synthetic income, true w=3, b=5</span>
+<span class="n">w</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">lr</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.01</span>
+<span class="n">history</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">201</span><span class="p">):</span>
+    <span class="n">pred</span> <span class="o">=</span> <span class="n">w</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="n">b</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="n">y</span> <span class="o">-</span> <span class="n">pred</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">history</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">loss</span><span class="p">)</span>
+    <span class="n">dw</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="n">y</span> <span class="o">-</span> <span class="n">pred</span><span class="p">)</span> <span class="o">*</span> <span class="n">x</span><span class="p">)</span>            <span class="c1"># slope of the loss with respect to w</span>
+    <span class="n">db</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">pred</span><span class="p">)</span>                  <span class="c1"># slope of the loss with respect to b</span>
+    <span class="n">w</span> <span class="o">-=</span> <span class="n">lr</span> <span class="o">*</span> <span class="n">dw</span>                                 <span class="c1"># step downhill</span>
+    <span class="n">b</span> <span class="o">-=</span> <span class="n">lr</span> <span class="o">*</span> <span class="n">db</span>
+    <span class="k">if</span> <span class="n">step</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"step </span><span class="si">{</span><span class="n">step</span><span class="si">:</span><span class="s2">3d</span><span class="si">}</span><span class="s2">  loss </span><span class="si">{</span><span class="n">loss</span><span class="si">:</span><span class="s2">8.2f</span><span class="si">}</span><span class="s2">  w </span><span class="si">{</span><span class="n">w</span><span class="si">:</span><span class="s2">5.2f</span><span class="si">}</span><span class="s2">  b </span><span class="si">{</span><span class="n">b</span><span class="si">:</span><span class="s2">5.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">step   0  loss   579.23  w  3.14  b  0.46
+step  10  loss     4.17  w  3.57  b  0.62
+step  50  loss     3.85  w  3.52  b  0.98
+step 100  loss     3.52  w  3.46  b  1.38
+step 200  loss     3.04  w  3.36  b  2.06</pre></div></div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_theme</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">"whitegrid"</span><span class="p">)</span>
+<span class="n">BLUE</span><span class="p">,</span> <span class="n">GREEN</span><span class="p">,</span> <span class="n">GREY</span><span class="p">,</span> <span class="n">DARK</span><span class="p">,</span> <span class="n">AMBER</span> <span class="o">=</span> <span class="s2">"#1F5FD6"</span><span class="p">,</span> <span class="s2">"#2BB38A"</span><span class="p">,</span> <span class="s2">"#9CA3AF"</span><span class="p">,</span> <span class="s2">"#0B2A4A"</span><span class="p">,</span> <span class="s2">"#B45309"</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">3.6</span><span class="p">))</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">history</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">BLUE</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Loss falls as gradient descent learns"</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">DARK</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"Training step"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Mean squared error"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">GREY</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"synthetic data"</span><span class="p">)</span>
+<span class="n">xs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">w</span> <span class="o">*</span> <span class="n">xs</span> <span class="o">+</span> <span class="n">b</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">AMBER</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"learned line"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"The line the computer found"</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">DARK</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"Hours worked"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Income (Ksh hundreds)"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">"p09_fig1.png"</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">130</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">();</span> <span class="nb">print</span><span class="p">(</span><span class="s2">"saved p09_fig1.png"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">saved p09_fig1.png</pre></div></div>
+<div class="cell only-out"><div class="cell-out"><figure class="fig"><img src="img/part-09-026.png" alt="Chart output" loading="lazy"></figure></div></div>
+<p>The loss drops quickly at first, then flattens as the line settles (the intercept is still creeping towards its best value, which is normal). Almost every model in this book, including neural networks (Part 14), is trained by a version of this loop.</p>
+
+<div class="callout mistake"><p><strong>Common mistake.</strong> A learning rate that is too large makes the loss grow instead of fall. If your loss goes up, lower the learning rate.</p>
+</div>
+<h3 id="inference-predicting-for-new-data"><a class="anchor" href="#inference-predicting-for-new-data" aria-label="Link to this section">#</a>Inference: predicting for new data</h3>
+
+<p>After training comes <strong>inference</strong>: using the finished model on inputs it has never seen. In scikit-learn, training is <code>fit</code> and inference is <code>predict</code>. Inference is the part that runs in your app or dashboard.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">new_hours</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">7.5</span><span class="p">,</span> <span class="mf">9.0</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"predicted income (Ksh hundreds):"</span><span class="p">,</span> <span class="p">(</span><span class="n">w</span> <span class="o">*</span> <span class="n">new_hours</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">predicted income (Ksh hundreds): [15.5 27.3 32.3]</pre></div></div>
+<h2 id="9-6-train-validation-and-test-sets"><a class="anchor" href="#9-6-train-validation-and-test-sets" aria-label="Link to this section">#</a>9.6 Train, validation and test sets</h2>
+
+<p>A model can memorise its training data, so scoring it there is like marking a student on questions they already saw. We therefore <strong>split</strong> the data. The <strong>training set</strong> teaches the model. The <strong>validation set</strong> is used to compare models and settings. The <strong>test set</strong> is locked away until the very end for one honest final score.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_diabetes</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">load_diabetes</span><span class="p">(</span><span class="n">return_X_y</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">as_frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">X_tmp</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_tmp</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_val</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_val</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X_tmp</span><span class="p">,</span> <span class="n">y_tmp</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"train / validation / test sizes:"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">X_val</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">X_test</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">train / validation / test sizes: 264 89 89</pre></div></div>
+<p>For small data a validation set wastes rows, which is why we use cross-validation (9.8). For classification add <code>stratify=y</code> so each split keeps the same class mix.</p>
+
+<h2 id="9-7-overfitting-and-underfitting"><a class="anchor" href="#9-7-overfitting-and-underfitting" aria-label="Link to this section">#</a>9.7 Overfitting and underfitting</h2>
+
+<p><strong>Underfitting</strong>: the model is too simple and misses the pattern, so error is high everywhere. <strong>Overfitting</strong>: the model is too flexible and learns the noise, so training error is tiny but error on new data is large. The goal is the middle. We show it with a polynomial of growing degree on noisy synthetic data.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">PolynomialFeatures</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LinearRegression</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.pipeline</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_pipeline</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">mean_squared_error</span>
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">40</span><span class="p">))</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mi">40</span><span class="p">)</span>        <span class="c1"># synthetic curve + noise</span>
+<span class="n">xtr</span><span class="p">,</span> <span class="n">ytr</span> <span class="o">=</span> <span class="n">x</span><span class="p">[::</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">y</span><span class="p">[::</span><span class="mi">2</span><span class="p">]</span>                   <span class="c1"># 20 points to learn from</span>
+<span class="n">xva</span><span class="p">,</span> <span class="n">yva</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">::</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">::</span><span class="mi">2</span><span class="p">]</span>                 <span class="c1"># 20 points held out</span>
+<span class="n">rows</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">13</span><span class="p">):</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">PolynomialFeatures</span><span class="p">(</span><span class="n">d</span><span class="p">),</span> <span class="n">LinearRegression</span><span class="p">())</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">xtr</span><span class="p">,</span> <span class="n">ytr</span><span class="p">)</span>
+    <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">d</span><span class="p">,</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">ytr</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">xtr</span><span class="p">)),</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">yva</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">xva</span><span class="p">))))</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"degree  train_MSE  validation_MSE"</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">d</span><span class="p">,</span> <span class="n">tr</span><span class="p">,</span> <span class="n">va</span> <span class="ow">in</span> <span class="n">rows</span><span class="p">[::</span><span class="mi">2</span><span class="p">]:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">d</span><span class="si">:</span><span class="s2">6d</span><span class="si">}</span><span class="s2">  </span><span class="si">{</span><span class="n">tr</span><span class="si">:</span><span class="s2">9.3f</span><span class="si">}</span><span class="s2">  </span><span class="si">{</span><span class="n">va</span><span class="si">:</span><span class="s2">14.3f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"best degree on validation:"</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">res</span><span class="p">[</span><span class="n">res</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">argmin</span><span class="p">(),</span> <span class="mi">0</span><span class="p">]))</span>
+</code></pre></div><div class="cell-out"><pre class="out">degree  train_MSE  validation_MSE
+     1      0.203           0.325
+     3      0.048           0.074
+     5      0.031           0.074
+     7      0.024           0.086
+     9      0.023           0.091
+    11      0.018           0.127
+best degree on validation: 3</pre></div></div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_theme</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">"whitegrid"</span><span class="p">)</span>
+<span class="n">BLUE</span><span class="p">,</span> <span class="n">GREEN</span><span class="p">,</span> <span class="n">GREY</span><span class="p">,</span> <span class="n">DARK</span><span class="p">,</span> <span class="n">AMBER</span> <span class="o">=</span> <span class="s2">"#1F5FD6"</span><span class="p">,</span> <span class="s2">"#2BB38A"</span><span class="p">,</span> <span class="s2">"#9CA3AF"</span><span class="p">,</span> <span class="s2">"#0B2A4A"</span><span class="p">,</span> <span class="s2">"#B45309"</span>
+<span class="n">best</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">res</span><span class="p">[</span><span class="n">res</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">argmin</span><span class="p">(),</span> <span class="mi">0</span><span class="p">])</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">3.6</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">res</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">res</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s2">"o"</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">BLUE</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"training error"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">res</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">res</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s2">"o"</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">AMBER</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"validation error"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">best</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">GREEN</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">"--"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"best degree"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="s2">"log"</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"Polynomial degree (model flexibility)"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Mean squared error (log scale)"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Training error keeps falling; validation error turns back up"</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">DARK</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">"p09_fig2.png"</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">130</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">();</span> <span class="nb">print</span><span class="p">(</span><span class="s2">"saved p09_fig2.png"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">saved p09_fig2.png</pre></div></div>
+<div class="cell only-out"><div class="cell-out"><figure class="fig"><img src="img/part-09-027.png" alt="Chart output" loading="lazy"></figure></div></div>
+<p>Low degrees underfit (both errors high). Very high degrees overfit: the training error keeps falling while the validation error rises. Pick the degree where the validation error is lowest.</p>
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th>Underfitting</th>
+<th>Overfitting</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Training error</td>
+<td>high</td>
+<td>very low</td>
+</tr>
+<tr>
+<td>Validation error</td>
+<td>high</td>
+<td>much higher than training</td>
+</tr>
+<tr>
+<td>Cure</td>
+<td>more features, a more flexible model</td>
+<td>more data, simpler model, regularisation (Part 10)</td>
+</tr>
+</tbody>
+</table></div>
+
+<h3 id="the-bias-variance-trade-off"><a class="anchor" href="#the-bias-variance-trade-off" aria-label="Link to this section">#</a>The bias-variance trade-off</h3>
+
+<p>Two kinds of error fight each other. <strong>Bias</strong> is error from a model that is too simple to capture the truth (underfitting). <strong>Variance</strong> is error from a model so flexible that it changes a lot when the training sample changes (overfitting). Making a model more flexible lowers bias but raises variance. Good modelling finds the sweet spot, and more data, regularisation and ensembles (Part 12) help move it.</p>
+
+<p>We can see variance directly: train the same two models on many different random samples and watch how much their prediction at one point moves.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">PolynomialFeatures</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LinearRegression</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.pipeline</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_pipeline</span>
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+<span class="n">preds</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">:</span> <span class="p">[],</span> <span class="mi">10</span><span class="p">:</span> <span class="p">[]}</span>
+<span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
+    <span class="n">xs</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">25</span><span class="p">)</span>
+    <span class="n">ys</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">xs</span><span class="p">)</span> <span class="o">+</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mi">25</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">preds</span><span class="p">:</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">PolynomialFeatures</span><span class="p">(</span><span class="n">d</span><span class="p">),</span> <span class="n">LinearRegression</span><span class="p">())</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">xs</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">ys</span><span class="p">)</span>
+        <span class="n">preds</span><span class="p">[</span><span class="n">d</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">predict</span><span class="p">([[</span><span class="mf">0.25</span><span class="p">]])[</span><span class="mi">0</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"true value at x=0.25:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mf">0.25</span><span class="p">),</span> <span class="mi">2</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">d</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">preds</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"degree </span><span class="si">{</span><span class="n">d</span><span class="si">:</span><span class="s2">2d</span><span class="si">}</span><span class="s2">: mean prediction </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">p</span><span class="p">)</span><span class="si">:</span><span class="s2">5.2f</span><span class="si">}</span><span class="s2">, spread (std) </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">p</span><span class="p">)</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">true value at x=0.25: 1.0
+degree  1: mean prediction  0.50, spread (std) 0.15
+degree 10: mean prediction  1.02, spread (std) 0.27</pre></div></div>
+<p>The straight line is stable (low spread) but its average is far from the truth (high bias). The degree-10 curve is right on average but jumps around from sample to sample (high variance).</p>
+
+<h2 id="9-8-cross-validation"><a class="anchor" href="#9-8-cross-validation" aria-label="Link to this section">#</a>9.8 Cross-validation</h2>
+
+<p>A single split can be lucky or unlucky. <strong>K-fold cross-validation</strong> cuts the training data into k parts (folds), trains on k-1 of them, scores on the remaining one, and rotates until every fold has been the scoring fold. The average is a steadier estimate, and the spread tells you how much to trust it.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">cross_val_score</span><span class="p">,</span> <span class="n">KFold</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">Ridge</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_diabetes</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">load_diabetes</span><span class="p">(</span><span class="n">return_X_y</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">as_frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">cv</span> <span class="o">=</span> <span class="n">KFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">scores</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">Ridge</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">1.0</span><span class="p">),</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">cv</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="s2">"r2"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"R2 for each fold:"</span><span class="p">,</span> <span class="n">scores</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"mean </span><span class="si">{</span><span class="n">scores</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">  std </span><span class="si">{</span><span class="n">scores</span><span class="o">.</span><span class="n">std</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">R2 for each fold: [0.419 0.452 0.332 0.5   0.342]
+mean 0.409  std 0.064</pre></div></div>
+<div class="callout tip"><p><strong>Tip.</strong> Always set <code>shuffle=True</code> with a seed unless the rows are in time order. For time series use <code>TimeSeriesSplit</code> so the model never trains on the future.</p>
+</div>
+<h3 id="baselines-beat-something-simple-first"><a class="anchor" href="#baselines-beat-something-simple-first" aria-label="Link to this section">#</a>Baselines: beat something simple first</h3>
+
+<p>A <strong>baseline</strong> is a deliberately dumb model, such as always predicting the average. If your clever model cannot beat it, the clever model is not helping. Always report the baseline next to your result.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.dummy</span><span class="w"> </span><span class="kn">import</span> <span class="n">DummyRegressor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">Ridge</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">mean_absolute_error</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">load_diabetes</span><span class="p">(</span><span class="n">return_X_y</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">as_frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">Xtr</span><span class="p">,</span> <span class="n">Xte</span><span class="p">,</span> <span class="n">ytr</span><span class="p">,</span> <span class="n">yte</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">base</span> <span class="o">=</span> <span class="n">DummyRegressor</span><span class="p">(</span><span class="n">strategy</span><span class="o">=</span><span class="s2">"mean"</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Xtr</span><span class="p">,</span> <span class="n">ytr</span><span class="p">)</span>
+<span class="n">ridge</span> <span class="o">=</span> <span class="n">Ridge</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Xtr</span><span class="p">,</span> <span class="n">ytr</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"baseline MAE:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">yte</span><span class="p">,</span> <span class="n">base</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">Xte</span><span class="p">)),</span> <span class="mi">1</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"ridge MAE   :"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">yte</span><span class="p">,</span> <span class="n">ridge</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">Xte</span><span class="p">)),</span> <span class="mi">1</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">baseline MAE: 64.0
+ridge MAE   : 46.1</pre></div></div>
+<h2 id="9-9-data-leakage"><a class="anchor" href="#9-9-data-leakage" aria-label="Link to this section">#</a>9.9 Data leakage</h2>
+
+<p><strong>Data leakage</strong> is when information from outside the training data sneaks into training, so the score looks wonderful but collapses in real life. Three common causes: (1) fitting a scaler or imputer on the whole dataset before splitting, (2) a feature that contains the answer or is only known after the event (for example 'days overdue' when predicting default), (3) the same customer appearing in both train and test.</p>
+
+<p>Here is a leak you can see. We add a feature that is just the target plus a little noise. The score becomes perfect-looking, and useless.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LinearRegression</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">r2_score</span>
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">Xl</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">Xl</span><span class="p">[</span><span class="s2">"leak"</span><span class="p">]</span> <span class="o">=</span> <span class="n">y</span> <span class="o">+</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>          <span class="c1"># contains the answer</span>
+<span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="n">feats</span> <span class="ow">in</span> <span class="p">[(</span><span class="s2">"honest features"</span><span class="p">,</span> <span class="n">X</span><span class="p">),</span> <span class="p">(</span><span class="s2">"with leaky feature"</span><span class="p">,</span> <span class="n">Xl</span><span class="p">)]:</span>
+    <span class="n">a</span><span class="p">,</span> <span class="n">b_</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">feats</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">label</span><span class="si">:</span><span class="s2">20s</span><span class="si">}</span><span class="s2"> test R2 = </span><span class="si">{</span><span class="n">r2_score</span><span class="p">(</span><span class="n">d</span><span class="p">,</span><span class="w"> </span><span class="n">LinearRegression</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">)</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">b_</span><span class="p">))</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">honest features      test R2 = 0.453
+with leaky feature   test R2 = 0.996</pre></div></div>
+<div class="callout tip"><p><strong>Rule.</strong> If a score looks too good to be true, suspect leakage first. Ask of every feature: would I really know this at the moment I must make the prediction?</p>
+</div>
+<h2 id="9-10-preprocessing-and-pipelines"><a class="anchor" href="#9-10-preprocessing-and-pipelines" aria-label="Link to this section">#</a>9.10 Preprocessing and Pipelines</h2>
+
+<p>Models need clean numbers. Common steps: <strong>fill missing values</strong> (impute), <strong>scale</strong> numeric columns so no column dominates just because its units are large, and <strong>encode</strong> categories as numbers (one-hot encoding makes one 0/1 column per category). A scikit-learn <strong>Pipeline</strong> chains the steps and the model into one object, and a <strong>ColumnTransformer</strong> applies different steps to different columns. Fitting the whole pipeline on training data only is also the cure for leakage cause (1).</p>
+
+<p>Example on a small synthetic table of shop deliveries with a missing value and a category column.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span><span class="o">,</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.compose</span><span class="w"> </span><span class="kn">import</span> <span class="n">ColumnTransformer</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.pipeline</span><span class="w"> </span><span class="kn">import</span> <span class="n">Pipeline</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.impute</span><span class="w"> </span><span class="kn">import</span> <span class="n">SimpleImputer</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span><span class="p">,</span> <span class="n">OneHotEncoder</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LinearRegression</span>
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">200</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">"km"</span><span class="p">:</span> <span class="n">rng</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span>
+                   <span class="s2">"parcels"</span><span class="p">:</span> <span class="n">rng</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">),</span>
+                   <span class="s2">"vehicle"</span><span class="p">:</span> <span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s2">"boda"</span><span class="p">,</span> <span class="s2">"pickup"</span><span class="p">,</span> <span class="s2">"van"</span><span class="p">],</span> <span class="n">n</span><span class="p">)})</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">"cost"</span><span class="p">]</span> <span class="o">=</span> <span class="mi">80</span> <span class="o">+</span> <span class="mi">18</span> <span class="o">*</span> <span class="n">df</span><span class="p">[</span><span class="s2">"km"</span><span class="p">]</span> <span class="o">+</span> <span class="mi">25</span> <span class="o">*</span> <span class="n">df</span><span class="p">[</span><span class="s2">"parcels"</span><span class="p">]</span> <span class="o">+</span> <span class="n">df</span><span class="p">[</span><span class="s2">"vehicle"</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">({</span><span class="s2">"boda"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"pickup"</span><span class="p">:</span> <span class="mi">150</span><span class="p">,</span> <span class="s2">"van"</span><span class="p">:</span> <span class="mi">300</span><span class="p">})</span> \
+    <span class="o">+</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span> <span class="s2">"parcels"</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>      <span class="c1"># synthetic missing values</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">to_dict</span><span class="p">())</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">{&#x27;km&#x27;: 0, &#x27;parcels&#x27;: 15, &#x27;vehicle&#x27;: 0, &#x27;cost&#x27;: 0}</pre><div class="table-wrap df"><div>
+
+<table class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th>km</th>
+      <th>parcels</th>
+      <th>vehicle</th>
+      <th>cost</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>3.5</td>
+      <td>NaN</td>
+      <td>boda</td>
+      <td>266.672281</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>7.9</td>
+      <td>9.0</td>
+      <td>pickup</td>
+      <td>602.086768</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>24.2</td>
+      <td>7.0</td>
+      <td>van</td>
+      <td>1007.292952</td>
+    </tr>
+  </tbody>
+</table></div>
+</div></div></div></div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">mean_absolute_error</span>
+<span class="n">num</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([(</span><span class="s2">"fill"</span><span class="p">,</span> <span class="n">SimpleImputer</span><span class="p">(</span><span class="n">strategy</span><span class="o">=</span><span class="s2">"median"</span><span class="p">)),</span> <span class="p">(</span><span class="s2">"scale"</span><span class="p">,</span> <span class="n">StandardScaler</span><span class="p">())])</span>
+<span class="n">prep</span> <span class="o">=</span> <span class="n">ColumnTransformer</span><span class="p">([(</span><span class="s2">"num"</span><span class="p">,</span> <span class="n">num</span><span class="p">,</span> <span class="p">[</span><span class="s2">"km"</span><span class="p">,</span> <span class="s2">"parcels"</span><span class="p">]),</span>
+                          <span class="p">(</span><span class="s2">"cat"</span><span class="p">,</span> <span class="n">OneHotEncoder</span><span class="p">(</span><span class="n">handle_unknown</span><span class="o">=</span><span class="s2">"ignore"</span><span class="p">),</span> <span class="p">[</span><span class="s2">"vehicle"</span><span class="p">])])</span>
+<span class="n">pipe</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([(</span><span class="s2">"prep"</span><span class="p">,</span> <span class="n">prep</span><span class="p">),</span> <span class="p">(</span><span class="s2">"model"</span><span class="p">,</span> <span class="n">LinearRegression</span><span class="p">())])</span>
+<span class="n">Xtr</span><span class="p">,</span> <span class="n">Xte</span><span class="p">,</span> <span class="n">ytr</span><span class="p">,</span> <span class="n">yte</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="s2">"cost"</span><span class="p">),</span> <span class="n">df</span><span class="p">[</span><span class="s2">"cost"</span><span class="p">],</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">pipe</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Xtr</span><span class="p">,</span> <span class="n">ytr</span><span class="p">)</span>                                   <span class="c1"># every step learns from training rows only</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"test MAE (Ksh):"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">yte</span><span class="p">,</span> <span class="n">pipe</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">Xte</span><span class="p">)),</span> <span class="mi">1</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"steps:"</span><span class="p">,</span> <span class="p">[</span><span class="n">name</span> <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">pipe</span><span class="o">.</span><span class="n">steps</span><span class="p">])</span>
+</code></pre></div><div class="cell-out"><pre class="out">test MAE (Ksh): 23.2
+steps: [&#x27;prep&#x27;, &#x27;model&#x27;]</pre></div></div>
+<p>Because the pipeline is one object, you can pass it to <code>cross_val_score</code> or save it with <code>joblib</code> (Part 18) and the same cleaning happens at inference time automatically.</p>
+
+<h2 id="9-11-the-10-step-ml-workflow"><a class="anchor" href="#9-11-the-10-step-ml-workflow" aria-label="Link to this section">#</a>9.11 The 10-step ML workflow</h2>
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Question to answer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Define the problem</td>
+<td>What decision will the prediction support? What counts as success?</td>
+</tr>
+<tr>
+<td>2. Collect data</td>
+<td>Where does it come from, is it allowed, is it representative?</td>
+</tr>
+<tr>
+<td>3. Explore (EDA)</td>
+<td>Shapes, missing values, outliers, distributions (Part 7)</td>
+</tr>
+<tr>
+<td>4. Split</td>
+<td>Hold out the test set now and do not touch it</td>
+</tr>
+<tr>
+<td>5. Baseline</td>
+<td>What does a dumb model score?</td>
+</tr>
+<tr>
+<td>6. Prepare features</td>
+<td>Impute, scale, encode inside a Pipeline</td>
+</tr>
+<tr>
+<td>7. Train models</td>
+<td>Try a few, from simple to complex</td>
+</tr>
+<tr>
+<td>8. Validate and tune</td>
+<td>Cross-validation; adjust hyperparameters (Part 12)</td>
+</tr>
+<tr>
+<td>9. Test once</td>
+<td>One final score on the test set</td>
+</tr>
+<tr>
+<td>10. Deploy and monitor</td>
+<td>Serve predictions, watch for drift (Part 18)</td>
+</tr>
+</tbody>
+</table></div>
+
+<h2 id="9-12-which-kind-of-problem-is-this"><a class="anchor" href="#9-12-which-kind-of-problem-is-this" aria-label="Link to this section">#</a>9.12 Which kind of problem is this?</h2>
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Business question</th>
+<th>Target</th>
+<th>Problem type</th>
+<th>Go to</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>How much will a farmer's maize sell for?</td>
+<td>a number</td>
+<td>regression</td>
+<td>Part 10</td>
+</tr>
+<tr>
+<td>Will this borrower default?</td>
+<td>yes / no</td>
+<td>binary classification</td>
+<td>Part 11</td>
+</tr>
+<tr>
+<td>Which of 3 plans will a customer pick?</td>
+<td>one of 3</td>
+<td>multi-class classification</td>
+<td>Part 11</td>
+</tr>
+<tr>
+<td>Which customers behave alike?</td>
+<td>none</td>
+<td>clustering</td>
+<td>Part 13</td>
+</tr>
+<tr>
+<td>Which transactions look unusual?</td>
+<td>none</td>
+<td>anomaly detection</td>
+<td>Part 13</td>
+</tr>
+<tr>
+<td>How should a system price or act over time?</td>
+<td>reward</td>
+<td>reinforcement learning</td>
+<td>Part 15</td>
+</tr>
+<tr>
+<td>Write a reply to a customer message</td>
+<td>text</td>
+<td>generative AI</td>
+<td>Part 16</td>
+</tr>
+</tbody>
+</table></div>
+
+<div class="callout real"><p><strong>Using it in the real world.</strong> Data you need: past examples with the answer recorded. Validate: on rows from a later period than the training rows. How it fails: the world changes (new products, a new tax, a drought) and old patterns stop holding. Monitor: compare live error with the validation error every month.</p>
+</div>
+<div class="callout takeaways"><div class="c-label">Key takeaways</div><ul>
+<li>Machine learning learns the rules from data and known answers instead of you writing them.</li>
+<li>Supervised learning predicts a known target; unsupervised finds structure without one.</li>
+<li>Training lowers a loss; inference uses the trained model on new data.</li>
+<li>Always hold out a test set, compare to a dummy baseline, and watch for overfitting and leakage.</li>
+<li>Put preprocessing and the model in one Pipeline so training and prediction clean data the same way.</li>
+<li>Follow the workflow in order: problem, data, EDA, split, baseline, features, models, tune, test, monitor.</li>
+</ul>
+</div></div><nav class="pager" aria-label="Previous and next"><a class="prev" href="part-08.html"><small>Previous</small><span>Part 8: Statistics for Data Science</span></a><a class="next" href="part-10.html"><small>Next</small><span>Part 10: Regression</span></a></nav>
+<footer class="foot"><p>Data Science from Zero to Advanced &middot; written by Benson M. Merita &middot; &copy; 2026 MeritaAnalytics. Public datasets keep their own licences, listed in <a href="appendix-b.html">Appendix B</a>.</p></footer>
+</main>
+</div>
+<script src="search-index.js"></script>
+<script src="site.js"></script>
+</body>
+</html>

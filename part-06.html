@@ -1,0 +1,2032 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>Part 6: SQL for Data Analysts | MeritaAnalytics</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to the notes</a>
+<header class="top"><button class="menu" id="menu" aria-controls="side" aria-expanded="false">Contents</button><span class="top-title">Part 6: SQL for Data Analysts</span></header>
+<div class="shell">
+<nav class="side" id="side" aria-label="Handbook contents">
+<a class="brand" href="index.html"><span class="mark" aria-hidden="true">MA</span><span><b>MeritaAnalytics</b><small>Data Science Notes</small></span></a>
+<label class="search"><span class="sr">Search the notes</span><input id="q" type="search" placeholder="Search topics, e.g. groupby" autocomplete="off"></label>
+<div id="results" class="results" hidden></div>
+<ol class="nav">
+<li class="lvl0"><a href="index.html" class="">Start here</a></li>
+<li class="lvl"><div class="lvl-name"><span>Level 1</span>Foundations</div><ol>
+<li data-slug="part-01"><a href="part-01.html" class=""><span class="pn">1</span><span class="pt">What Is Data Science?</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-02"><a href="part-02.html" class=""><span class="pn">2</span><span class="pt">Python Basics</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-03"><a href="part-03.html" class=""><span class="pn">3</span><span class="pt">NumPy: Fast Numbers</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 2</span>Data Analysis</div><ol>
+<li data-slug="part-04"><a href="part-04.html" class=""><span class="pn">4</span><span class="pt">Pandas: Working with Tables</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-05"><a href="part-05.html" class=""><span class="pn">5</span><span class="pt">Data Visualisation</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-06"><a href="part-06.html" class="on"><span class="pn">6</span><span class="pt">SQL for Data Analysts</span><span class="done-dot" aria-hidden="true"></span></a>
+<ol class="sub"><li><a href="#6-1-what-a-database-is-tables-rows-columns-and-keys">6.1 What a database is: tables, rows, columns and keys</a></li><li><a href="#6-2-select-where-order-by-and-limit">6.2 SELECT, WHERE, ORDER BY and LIMIT</a></li><li><a href="#6-3-aggregates-group-by-and-having">6.3 Aggregates, GROUP BY and HAVING</a></li><li><a href="#6-4-joins-combining-tables">6.4 JOINs: combining tables</a></li><li><a href="#6-5-case-when-if-else-inside-a-query">6.5 CASE WHEN: if/else inside a query</a></li><li><a href="#6-6-subqueries-and-ctes">6.6 Subqueries and CTEs</a></li><li><a href="#6-7-window-functions">6.7 Window functions</a></li><li><a href="#6-8-dates-in-sqlite">6.8 Dates in SQLite</a></li><li><a href="#6-9-views-and-null-handling">6.9 Views and NULL handling</a></li><li><a href="#6-10-sql-versus-pandas-and-pd-read-sql">6.10 SQL versus Pandas, and pd.read_sql</a></li><li><a href="#6-11-advanced-credit-risk-sql-par-default-rates-and-vintages">6.11 (Advanced) Credit-risk SQL: PAR, default rates and vintages</a></li><li><a href="#6-12-advanced-indexes-and-explain-query-plan">6.12 (Advanced) Indexes and EXPLAIN QUERY PLAN</a></li></ol>
+</li>
+<li data-slug="part-07"><a href="part-07.html" class=""><span class="pn">7</span><span class="pt">Exploratory Data Analysis</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 3</span>Statistics</div><ol>
+<li data-slug="part-08"><a href="part-08.html" class=""><span class="pn">8</span><span class="pt">Statistics for Data Science</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 4</span>Machine Learning</div><ol>
+<li data-slug="part-09"><a href="part-09.html" class=""><span class="pn">9</span><span class="pt">Machine Learning Foundations</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-10"><a href="part-10.html" class=""><span class="pn">10</span><span class="pt">Regression</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-11"><a href="part-11.html" class=""><span class="pn">11</span><span class="pt">Classification</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-12"><a href="part-12.html" class=""><span class="pn">12</span><span class="pt">Ensembles, Tuning and Feature Engineering</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-13"><a href="part-13.html" class=""><span class="pn">13</span><span class="pt">Unsupervised Learning</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 5</span>Deep Learning and Modern AI</div><ol>
+<li data-slug="part-14"><a href="part-14.html" class=""><span class="pn">14</span><span class="pt">Neural Networks and Deep Learning</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-15"><a href="part-15.html" class=""><span class="pn">15</span><span class="pt">Reinforcement Learning</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-16"><a href="part-16.html" class=""><span class="pn">16</span><span class="pt">Generative AI and Large Language Models</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 6</span>The Real World</div><ol>
+<li data-slug="part-17"><a href="part-17.html" class=""><span class="pn">17</span><span class="pt">Business Metrics, Excel and Power BI</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-18"><a href="part-18.html" class=""><span class="pn">18</span><span class="pt">Automation, Git, Deployment and Responsible AI</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-19"><a href="part-19.html" class=""><span class="pn">19</span><span class="pt">End-to-End Projects</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 7</span>Career and Reference</div><ol>
+<li data-slug="part-20"><a href="part-20.html" class=""><span class="pn">20</span><span class="pt">Practice Exercises and Answer Key</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-21"><a href="part-21.html" class=""><span class="pn">21</span><span class="pt">Interview Preparation</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-22"><a href="part-22.html" class=""><span class="pn">22</span><span class="pt">Roadmap, Cheat Sheets and Glossary</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Appendix</span>Reference</div><ol>
+<li><a href="appendix-a.html" class=""><span class="pn">A</span><span class="pt">Sources and Next Steps</span></a></li>
+<li><a href="appendix-b.html" class=""><span class="pn">B</span><span class="pt">Data Catalogue</span></a></li>
+</ol></li></ol>
+<p class="side-foot">By Benson M. Merita &middot; &copy; 2026 MeritaAnalytics</p></nav>
+<main id="main" class="main"><header class="part-head"><span class="lv">Level 2 &middot; Data Analysis</span><p class="part-no">Part 6</p><h1>SQL for Data Analysts</h1><p class="lede">SQL is how you ask a database questions where the data lives. You start with what a table is, then learn to filter, summarise, join and rank rows in SQLite, and finish with credit-risk queries on a synthetic lender database.</p><button class="mark-done" id="done" data-slug="part-06" aria-pressed="false">Mark this part as done</button></header><div class="prose"><div class="callout learn"><div class="c-label">In this part</div><ul>
+<li>Explain what a database, a table, a row and a key are</li>
+<li>Write queries that filter, sort, group and join tables</li>
+<li>Use CASE WHEN, subqueries, CTEs and window functions to answer business questions</li>
+<li>Move results between SQL and Pandas and check that they agree</li>
+<li>(Advanced) Compute PAR30, default rates and vintages, and read a query plan</li>
+</ul>
+<div class="meta"><span><b>You need first</b> Part 4</span><span><b>Time</b> 4 to 6 hours</span></div></div>
+<h2 id="6-1-what-a-database-is-tables-rows-columns-and-keys"><a class="anchor" href="#6-1-what-a-database-is-tables-rows-columns-and-keys" aria-label="Link to this section">#</a>6.1 What a database is: tables, rows, columns and keys</h2>
+
+<p>A <strong>database</strong> is an organised store of data. A <strong>relational database</strong> keeps it in <strong>tables</strong>, like spreadsheets with strict rules: each <strong>row</strong> is one record (one customer) and each <strong>column</strong> is one attribute (the county). Tables are linked by <strong>keys</strong>. A <strong>primary key</strong> identifies a row (<code>customers.customer_id</code>). A <strong>foreign key</strong> holds another table's primary key (<code>loans.customer_id</code> points to <code>customers.customer_id</code>). <strong>SQL</strong> (Structured Query Language) is the language you use to ask questions of those tables.</p>
+
+<p>Why learn it? Company data lives in databases. Asking for only the rows and columns you need is faster and safer than exporting everything to Excel. We use <strong>SQLite</strong>, which is built into Python, and a <strong>synthetic lender database</strong> made in code with fixed seeds (customers, transactions, loans, repayments). No row describes a real person or lender, so every finding describes this synthetic data only.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">import</span><span class="w"> </span><span class="nn">sqlite3</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fintech_db</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_fintech_db</span>
+
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s2">"display.width"</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s2">"display.max_columns"</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+<span class="n">con</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">build_fintech_db</span><span class="p">(</span><span class="s2">"p06_lender.db"</span><span class="p">))</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">q</span><span class="p">(</span><span class="n">sql</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">'''Run a SELECT and return a DataFrame (our helper for this whole Part).'''</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="n">sql</span><span class="p">,</span> <span class="n">con</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
+
+<span class="n">q</span><span class="p">(</span><span class="s2">"SELECT name, type FROM sqlite_master WHERE type IN ('table', 'view') ORDER BY type, name"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><div class="table-wrap df"><div>
+
+<table class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th>name</th>
+      <th>type</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>customers</td>
+      <td>table</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>fact_transactions</td>
+      <td>table</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>fraud_flags</td>
+      <td>table</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>loans</td>
+      <td>table</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>repayments</td>
+      <td>table</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>transactions</td>
+      <td>table</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>vw_customer_360</td>
+      <td>view</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>vw_loan_portfolio</td>
+      <td>view</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>vw_monthly_kpis</td>
+      <td>view</td>
+    </tr>
+  </tbody>
+</table></div>
+</div></div></div></div>
+<p><code>sqlite_master</code> is SQLite's catalogue of every table and view in the file.</p>
+
+<p>Before writing a query, look at a table's columns. <code>PRAGMA table_info(table)</code> lists them with their types.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="nb">print</span><span class="p">(</span><span class="n">q</span><span class="p">(</span><span class="s2">"PRAGMA table_info(loans)"</span><span class="p">)[[</span><span class="s2">"name"</span><span class="p">,</span> <span class="s2">"type"</span><span class="p">]]</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">q</span><span class="p">(</span><span class="s2">"SELECT COUNT(*) AS loans, COUNT(DISTINCT loan_id) AS distinct_ids FROM loans"</span><span class="p">)</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">             name    type
+          loan_id    TEXT
+      customer_id    TEXT
+          product    TEXT
+    principal_ksh    REAL
+interest_rate_pct    REAL
+      term_months INTEGER
+disbursement_date    TEXT
+     credit_score INTEGER
+           status    TEXT
+    days_past_due INTEGER
+ loans  distinct_ids
+   560           560</pre></div></div>
+<p>Equal counts show <code>loan_id</code> behaves as a primary key. Check this before you join on any column: if an ID is not unique, every join on it multiplies rows (see 6.4).</p>
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Relationship</th>
+<th>Example here</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>one-to-many</td>
+<td>one customer has many transactions</td>
+</tr>
+<tr>
+<td>one-to-many</td>
+<td>one loan has many repayments (instalments)</td>
+</tr>
+<tr>
+<td>optional</td>
+<td>a customer may have no loan at all</td>
+</tr>
+</tbody>
+</table></div>
+
+<h2 id="6-2-select-where-order-by-and-limit"><a class="anchor" href="#6-2-select-where-order-by-and-limit" aria-label="Link to this section">#</a>6.2 SELECT, WHERE, ORDER BY and LIMIT</h2>
+
+<p>A query reads like a sentence in a fixed order: <code>SELECT</code> the columns, <code>FROM</code> a table, <code>WHERE</code> a row condition, <code>ORDER BY</code> a sort, <code>LIMIT</code> a row cap. Text values go in single quotes.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
+<span class="s1">SELECT customer_id, county, occupation, monthly_income_ksh</span>
+<span class="s1">FROM customers</span>
+<span class="s1">WHERE county = 'Nairobi' AND monthly_income_ksh &gt;= 80000</span>
+<span class="s1">ORDER BY monthly_income_ksh DESC</span>
+<span class="s1">LIMIT 5</span>
+<span class="s1">'''</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><div class="table-wrap df"><div>
+
+<table class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th>customer_id</th>
+      <th>county</th>
+      <th>occupation</th>
+      <th>monthly_income_ksh</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>C0096</td>
+      <td>Nairobi</td>
+      <td>Salaried</td>
+      <td>145800</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>C0791</td>
+      <td>Nairobi</td>
+      <td>Self-employed</td>
+      <td>132300</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>C0069</td>
+      <td>Nairobi</td>
+      <td>Salaried</td>
+      <td>127100</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>C0880</td>
+      <td>Nairobi</td>
+      <td>Salaried</td>
+      <td>123800</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>C0319</td>
+      <td>Nairobi</td>
+      <td>Salaried</td>
+      <td>112800</td>
+    </tr>
+  </tbody>
+</table></div>
+</div></div></div></div>
+<p>Handy filters: <code>IN (...)</code> for a list, <code>BETWEEN a AND b</code> (both ends included), <code>LIKE 'S%'</code> for text starting with S, and <code>DISTINCT</code> to remove duplicates.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="nb">print</span><span class="p">(</span><span class="n">q</span><span class="p">(</span><span class="s2">"SELECT DISTINCT occupation FROM customers ORDER BY occupation"</span><span class="p">)[</span><span class="s2">"occupation"</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+<span class="n">n</span> <span class="o">=</span> <span class="n">q</span><span class="p">(</span><span class="s1">'''SELECT COUNT(*) AS n FROM customers</span>
+<span class="s1">         WHERE county IN ('Kisumu', 'Kakamega') AND age BETWEEN 25 AND 35'''</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"customers in Kisumu or Kakamega aged 25-35:"</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">[&#x27;Boda rider&#x27;, &#x27;Farmer&#x27;, &#x27;Salaried&#x27;, &#x27;Self-employed&#x27;, &#x27;Student&#x27;, &#x27;Trader&#x27;]
+customers in Kisumu or Kakamega aged 25-35: 62</pre></div></div>
+<div class="callout practice"><div class="c-label">Practice</div><p>List the five largest successful M-Pesa transactions (id, date, amount).</p>
+</div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
+<span class="s1">SELECT txn_id, txn_date, amount_ksh</span>
+<span class="s1">FROM transactions</span>
+<span class="s1">WHERE channel = 'M-Pesa' AND status = 'Success'</span>
+<span class="s1">ORDER BY amount_ksh DESC</span>
+<span class="s1">LIMIT 5</span>
+<span class="s1">'''</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><div class="table-wrap df"><div>
+
+<table class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th>txn_id</th>
+      <th>txn_date</th>
+      <th>amount_ksh</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>T011242</td>
+      <td>2025-02-22</td>
+      <td>58706.06</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>T008008</td>
+      <td>2024-10-31</td>
+      <td>55301.59</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>T012977</td>
+      <td>2025-04-27</td>
+      <td>51886.43</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>T000272</td>
+      <td>2024-01-12</td>
+      <td>51700.94</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>T004195</td>
+      <td>2024-06-10</td>
+      <td>48063.49</td>
+    </tr>
+  </tbody>
+</table></div>
+</div></div></div></div>
+<p><strong>Solution.</strong> Filter with <code>WHERE</code>, sort descending, cap with <code>LIMIT</code>.</p>
+
+<h2 id="6-3-aggregates-group-by-and-having"><a class="anchor" href="#6-3-aggregates-group-by-and-having" aria-label="Link to this section">#</a>6.3 Aggregates, GROUP BY and HAVING</h2>
+
+<p>An <strong>aggregate</strong> collapses many rows into one number: <code>COUNT</code>, <code>SUM</code>, <code>AVG</code>, <code>MIN</code>, <code>MAX</code>. <code>GROUP BY</code> computes it once per group. <code>WHERE</code> filters rows <strong>before</strong> grouping; <code>HAVING</code> filters groups <strong>after</strong>.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
+<span class="s1">SELECT txn_type,</span>
+<span class="s1">       COUNT(*)                  AS txns,</span>
+<span class="s1">       ROUND(SUM(amount_ksh), 0) AS total_ksh,</span>
+<span class="s1">       ROUND(AVG(amount_ksh), 0) AS avg_ksh</span>
+<span class="s1">FROM transactions</span>
+<span class="s1">WHERE status = 'Success'</span>
+<span class="s1">GROUP BY txn_type</span>
+<span class="s1">ORDER BY total_ksh DESC</span>
+<span class="s1">'''</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><div class="table-wrap df"><div>
+
+<table class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th>txn_type</th>
+      <th>txns</th>
+      <th>total_ksh</th>
+      <th>avg_ksh</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Deposit</td>
+      <td>2922</td>
+      <td>19927154.0</td>
+      <td>6820.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Send Money</td>
+      <td>5700</td>
+      <td>15712667.0</td>
+      <td>2757.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Withdrawal</td>
+      <td>3487</td>
+      <td>14479785.0</td>
+      <td>4153.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Loan Repayment</td>
+      <td>1877</td>
+      <td>9028966.0</td>
+      <td>4810.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Bill Payment</td>
+      <td>2923</td>
+      <td>5898572.0</td>
+      <td>2018.0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Airtime</td>
+      <td>2221</td>
+      <td>302014.0</td>
+      <td>136.0</td>
+    </tr>
+  </tbody>
+</table></div>
+</div></div></div></div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
+<span class="s1">SELECT county, occupation, COUNT(*) AS customers</span>
+<span class="s1">FROM customers</span>
+<span class="s1">GROUP BY county, occupation</span>
+<span class="s1">HAVING COUNT(*) &gt;= 25</span>
+<span class="s1">ORDER BY customers DESC</span>
+<span class="s1">'''</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><div class="table-wrap df"><div>
+
+<table class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th>county</th>
+      <th>occupation</th>
+      <th>customers</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Nairobi</td>
+      <td>Salaried</td>
+      <td>108</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Nairobi</td>
+      <td>Trader</td>
+      <td>70</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Nairobi</td>
+      <td>Self-employed</td>
+      <td>66</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Nairobi</td>
+      <td>Boda rider</td>
+      <td>38</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Nairobi</td>
+      <td>Farmer</td>
+      <td>38</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Mombasa</td>
+      <td>Salaried</td>
+      <td>37</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Kiambu</td>
+      <td>Salaried</td>
+      <td>35</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Nairobi</td>
+      <td>Student</td>
+      <td>34</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>Nakuru</td>
+      <td>Salaried</td>
+      <td>32</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>Kisumu</td>
+      <td>Salaried</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>Mombasa</td>
+      <td>Self-employed</td>
+      <td>25</td>
+    </tr>
+  </tbody>
+</table></div>
+</div></div></div></div>
+<p><code>HAVING COUNT(*) &gt;= 25</code> keeps only groups with at least 25 customers.</p>
+
+<p><strong>Common mistake.</strong> Selecting a column that is neither grouped nor aggregated. SQLite quietly picks an arbitrary value; stricter databases raise an error. Also, <code>COUNT(DISTINCT x)</code> counts unique values, which is how you count <em>customers</em> rather than <em>transactions</em>.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
+<span class="s1">SELECT channel, COUNT(*) AS txns, COUNT(DISTINCT customer_id) AS customers,</span>
+<span class="s1">       ROUND(1.0 * COUNT(*) / COUNT(DISTINCT customer_id), 1) AS txns_per_customer</span>
+<span class="s1">FROM transactions GROUP BY channel ORDER BY txns DESC</span>
+<span class="s1">'''</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><div class="table-wrap df"><div>
+
+<table class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th>channel</th>
+      <th>txns</th>
+      <th>customers</th>
+      <th>txns_per_customer</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>M-Pesa</td>
+      <td>10913</td>
+      <td>977</td>
+      <td>11.2</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Mobile App</td>
+      <td>5071</td>
+      <td>927</td>
+      <td>5.5</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Agent</td>
+      <td>2392</td>
+      <td>796</td>
+      <td>3.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>ATM</td>
+      <td>1037</td>
+      <td>576</td>
+      <td>1.8</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Branch</td>
+      <td>587</td>
+      <td>392</td>
+      <td>1.5</td>
+    </tr>
+  </tbody>
+</table></div>
+</div></div></div></div>
+<h2 id="6-4-joins-combining-tables"><a class="anchor" href="#6-4-joins-combining-tables" aria-label="Link to this section">#</a>6.4 JOINs: combining tables</h2>
+
+<p>A <strong>join</strong> matches rows of two tables on a key. <strong>INNER JOIN</strong> keeps only matching rows. <strong>LEFT JOIN</strong> keeps every row of the left table and fills NULL where the right side has no match.</p>
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Join</th>
+<th>Rows kept</th>
+<th>Typical use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>INNER JOIN</code></td>
+<td>matches only</td>
+<td>loans with their customer details</td>
+</tr>
+<tr>
+<td><code>LEFT JOIN</code></td>
+<td>all left rows</td>
+<td>all customers, even without a loan</td>
+</tr>
+<tr>
+<td><code>LEFT JOIN ... WHERE r.key IS NULL</code></td>
+<td>left rows with no match</td>
+<td>customers who never borrowed</td>
+</tr>
+</tbody>
+</table></div>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
+<span class="s1">SELECT l.loan_id, c.county, c.occupation, l.product, l.principal_ksh, l.status</span>
+<span class="s1">FROM loans AS l</span>
+<span class="s1">INNER JOIN customers AS c ON c.customer_id = l.customer_id</span>
+<span class="s1">ORDER BY l.principal_ksh DESC</span>
+<span class="s1">LIMIT 5</span>
+<span class="s1">'''</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><div class="table-wrap df"><div>
+
+<table class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th>loan_id</th>
+      <th>county</th>
+      <th>occupation</th>
+      <th>product</th>
+      <th>principal_ksh</th>
+      <th>status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>L0093</td>
+      <td>Nairobi</td>
+      <td>Salaried</td>
+      <td>Asset Finance</td>
+      <td>2301800.0</td>
+      <td>Active</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>L0422</td>
+      <td>Nairobi</td>
+      <td>Student</td>
+      <td>Asset Finance</td>
+      <td>2038500.0</td>
+      <td>Defaulted</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>L0321</td>
+      <td>Mombasa</td>
+      <td>Trader</td>
+      <td>Asset Finance</td>
+      <td>1596300.0</td>
+      <td>Defaulted</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>L0462</td>
+      <td>Kiambu</td>
+      <td>Self-employed</td>
+      <td>Asset Finance</td>
+      <td>1414400.0</td>
+      <td>Active</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>L0413</td>
+      <td>Nairobi</td>
+      <td>Self-employed</td>
+      <td>Asset Finance</td>
+      <td>1223000.0</td>
+      <td>Defaulted</td>
+    </tr>
+  </tbody>
+</table></div>
+</div></div></div></div>
+<p><code>AS l</code> and <code>AS c</code> are short aliases so each column says which table it comes from.</p>
+
+<h3 id="left-join-and-the-anti-join"><a class="anchor" href="#left-join-and-the-anti-join" aria-label="Link to this section">#</a>LEFT JOIN and the anti-join</h3>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">never</span> <span class="o">=</span> <span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
+<span class="s1">SELECT c.customer_id, c.county, c.segment</span>
+<span class="s1">FROM customers c</span>
+<span class="s1">LEFT JOIN loans l ON l.customer_id = c.customer_id</span>
+<span class="s1">WHERE l.loan_id IS NULL</span>
+<span class="s1">'''</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">never</span><span class="p">),</span> <span class="s2">"customers never borrowed"</span><span class="p">)</span>
+<span class="n">never</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">558 customers never borrowed</pre><div class="table-wrap df"><div>
+
+<table class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th>customer_id</th>
+      <th>county</th>
+      <th>segment</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>C0001</td>
+      <td>Machakos</td>
+      <td>Mid</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>C0002</td>
+      <td>Nakuru</td>
+      <td>Affluent</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>C0004</td>
+      <td>Nakuru</td>
+      <td>Mass</td>
+    </tr>
+  </tbody>
+</table></div>
+</div></div></div></div>
+<h3 id="the-join-inflation-trap"><a class="anchor" href="#the-join-inflation-trap" aria-label="Link to this section">#</a>The join-inflation trap</h3>
+
+<p>The most common wrong number in analytics. A customer has many transactions <strong>and</strong> many loans. Join both to the customer table and each loan row repeats once per transaction, so loan totals inflate. The cure: <strong>aggregate the many-side to one row per key first</strong>, then join.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">wrong</span> <span class="o">=</span> <span class="n">q</span><span class="p">(</span><span class="s1">'''SELECT SUM(l.principal_ksh) AS s FROM customers c</span>
+<span class="s1">             JOIN loans l ON l.customer_id = c.customer_id</span>
+<span class="s1">             JOIN transactions t ON t.customer_id = c.customer_id'''</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">truth</span> <span class="o">=</span> <span class="n">q</span><span class="p">(</span><span class="s2">"SELECT SUM(principal_ksh) FROM loans"</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"inflated: Ksh </span><span class="si">{</span><span class="n">wrong</span><span class="si">:</span><span class="s2">,.0f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"correct : Ksh </span><span class="si">{</span><span class="n">truth</span><span class="si">:</span><span class="s2">,.0f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"inflation factor:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">wrong</span> <span class="o">/</span> <span class="n">truth</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="s2">"x"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">inflated: Ksh 1,707,649,100
+correct : Ksh 83,414,000
+inflation factor: 20.5 x</pre></div></div>
+<div class="callout tip"><p><strong>Check.</strong> After every join, compare row counts and key totals before and after. If the left table grows, the right key is not unique. In Pandas the same guard is <code>merge(..., validate=&quot;many_to_one&quot;)</code>.</p>
+</div>
+<div class="callout practice"><div class="c-label">Practice</div><p>For each loan product, how many loans went to customers in Nairobi?</p>
+</div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
+<span class="s1">SELECT l.product, COUNT(*) AS nairobi_loans</span>
+<span class="s1">FROM loans l JOIN customers c USING (customer_id)</span>
+<span class="s1">WHERE c.county = 'Nairobi'</span>
+<span class="s1">GROUP BY l.product ORDER BY nairobi_loans DESC</span>
+<span class="s1">'''</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><div class="table-wrap df"><div>
+
+<table class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th>product</th>
+      <th>nairobi_loans</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Digital Loan</td>
+      <td>79</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Salary Advance</td>
+      <td>49</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>SME Loan</td>
+      <td>39</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Asset Finance</td>
+      <td>24</td>
+    </tr>
+  </tbody>
+</table></div>
+</div></div></div></div>
+<p><strong>Solution.</strong> <code>USING (customer_id)</code> is shorthand for <code>ON l.customer_id = c.customer_id</code>.</p>
+
+<h2 id="6-5-case-when-if-else-inside-a-query"><a class="anchor" href="#6-5-case-when-if-else-inside-a-query" aria-label="Link to this section">#</a>6.5 CASE WHEN: if/else inside a query</h2>
+
+<p><code>CASE WHEN</code> builds a new value row by row. It is also the engine of <strong>conditional aggregation</strong>: count or sum only the rows that meet a condition.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
+<span class="s1">SELECT customer_id, monthly_income_ksh,</span>
+<span class="s1">       CASE WHEN monthly_income_ksh &lt; 25000 THEN 'Low'</span>
+<span class="s1">            WHEN monthly_income_ksh &lt; 70000 THEN 'Middle'</span>
+<span class="s1">            ELSE 'High' END AS income_band</span>
+<span class="s1">FROM customers</span>
+<span class="s1">LIMIT 5</span>
+<span class="s1">'''</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><div class="table-wrap df"><div>
+
+<table class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th>customer_id</th>
+      <th>monthly_income_ksh</th>
+      <th>income_band</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>C0001</td>
+      <td>58800</td>
+      <td>Middle</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>C0002</td>
+      <td>143200</td>
+      <td>High</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>C0003</td>
+      <td>65400</td>
+      <td>Middle</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>C0004</td>
+      <td>19500</td>
+      <td>Low</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>C0005</td>
+      <td>14800</td>
+      <td>Low</td>
+    </tr>
+  </tbody>
+</table></div>
+</div></div></div></div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
+<span class="s1">SELECT product,</span>
+<span class="s1">       COUNT(*) AS loans,</span>
+<span class="s1">       SUM(CASE WHEN status = 'Defaulted' THEN 1 ELSE 0 END)        AS defaulted,</span>
+<span class="s1">       SUM(CASE WHEN days_past_due BETWEEN 1 AND 30 THEN 1 ELSE 0 END) AS dpd_1_30,</span>
+<span class="s1">       SUM(CASE WHEN days_past_due &gt; 30 THEN 1 ELSE 0 END)          AS dpd_over_30</span>
+<span class="s1">FROM loans GROUP BY product ORDER BY loans DESC</span>
+<span class="s1">'''</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><div class="table-wrap df"><div>
+
+<table class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th>product</th>
+      <th>loans</th>
+      <th>defaulted</th>
+      <th>dpd_1_30</th>
+      <th>dpd_over_30</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Digital Loan</td>
+      <td>223</td>
+      <td>25</td>
+      <td>0</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Salary Advance</td>
+      <td>164</td>
+      <td>38</td>
+      <td>0</td>
+      <td>38</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>SME Loan</td>
+      <td>116</td>
+      <td>28</td>
+      <td>4</td>
+      <td>33</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Asset Finance</td>
+      <td>57</td>
+      <td>19</td>
+      <td>6</td>
+      <td>21</td>
+    </tr>
+  </tbody>
+</table></div>
+</div></div></div></div>
+<p>One pass over the table gives several counts side by side.</p>
+
+<div class="callout mistake"><p><strong>Trap.</strong> Integer division truncates in SQLite: <code>7 / 2</code> is 3. Write <code>7 / 2.0</code> or <code>100.0 * x / y</code> to get decimals. This silently breaks percentages written as <code>COUNT(...) / COUNT(*)</code>.</p>
+</div>
+<div class="callout practice"><div class="c-label">Practice</div><p>Percentage of transactions that failed, per county, to 2 decimals.</p>
+</div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">fail</span> <span class="o">=</span> <span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
+<span class="s1">SELECT county, COUNT(*) AS txns,</span>
+<span class="s1">       ROUND(100.0 * SUM(CASE WHEN status = 'Failed' THEN 1 ELSE 0 END) / COUNT(*), 2) AS failed_pct</span>
+<span class="s1">FROM fact_transactions GROUP BY county ORDER BY failed_pct DESC</span>
+<span class="s1">'''</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">fail</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out"> county  txns  failed_pct
+Eldoret  1221        3.60
+Nairobi  7023        3.36
+ Kiambu  2084        3.36
+  Kisii   874        3.32</pre></div></div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">fact</span> <span class="o">=</span> <span class="n">q</span><span class="p">(</span><span class="s2">"SELECT county, status FROM fact_transactions"</span><span class="p">)</span>
+<span class="n">chk</span> <span class="o">=</span> <span class="n">fact</span><span class="p">[</span><span class="s2">"status"</span><span class="p">]</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="s2">"Failed"</span><span class="p">)</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">fact</span><span class="p">[</span><span class="s2">"county"</span><span class="p">])</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">mul</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"max difference vs Pandas:"</span><span class="p">,</span> <span class="n">fail</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">"county"</span><span class="p">)[</span><span class="s2">"failed_pct"</span><span class="p">]</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="n">chk</span><span class="p">)</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+</code></pre></div><div class="cell-out"><pre class="out">max difference vs Pandas: 0.0</pre></div></div>
+<p><strong>Solution.</strong> <code>100.0 *</code> forces decimal division; the Pandas mean of a boolean column gives the same percentage.</p>
+
+<h2 id="6-6-subqueries-and-ctes"><a class="anchor" href="#6-6-subqueries-and-ctes" aria-label="Link to this section">#</a>6.6 Subqueries and CTEs</h2>
+
+<p>A <strong>subquery</strong> is a <code>SELECT</code> inside another statement. A <em>scalar</em> subquery returns one value, so it can sit in <code>WHERE</code> like a constant. A <strong>CTE</strong> (common table expression, <code>WITH name AS (...)</code>) gives a step a name so a long query reads top to bottom like a recipe. Prefer CTEs once a query has more than one step.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
+<span class="s1">SELECT loan_id, product, principal_ksh</span>
+<span class="s1">FROM loans</span>
+<span class="s1">WHERE principal_ksh &gt; (SELECT AVG(principal_ksh) FROM loans)</span>
+<span class="s1">ORDER BY principal_ksh DESC</span>
+<span class="s1">LIMIT 4</span>
+<span class="s1">'''</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><div class="table-wrap df"><div>
+
+<table class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th>loan_id</th>
+      <th>product</th>
+      <th>principal_ksh</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>L0093</td>
+      <td>Asset Finance</td>
+      <td>2301800.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>L0422</td>
+      <td>Asset Finance</td>
+      <td>2038500.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>L0321</td>
+      <td>Asset Finance</td>
+      <td>1596300.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>L0462</td>
+      <td>Asset Finance</td>
+      <td>1414400.0</td>
+    </tr>
+  </tbody>
+</table></div>
+</div></div></div></div>
+<p>The inner query returns the average loan; the outer query keeps loans above it.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
+<span class="s1">WITH per_product AS (</span>
+<span class="s1">    SELECT product, COUNT(*) AS loans, SUM(status = 'Defaulted') AS defaults</span>
+<span class="s1">    FROM loans GROUP BY product</span>
+<span class="s1">),</span>
+<span class="s1">overall AS (</span>
+<span class="s1">    SELECT SUM(defaults) * 1.0 / SUM(loans) AS portfolio_rate FROM per_product</span>
+<span class="s1">)</span>
+<span class="s1">SELECT p.product, p.loans, p.defaults,</span>
+<span class="s1">       ROUND(100.0 * p.defaults / p.loans, 2) AS default_rate_pct,</span>
+<span class="s1">       ROUND(100.0 * o.portfolio_rate, 2)     AS portfolio_pct</span>
+<span class="s1">FROM per_product p CROSS JOIN overall o</span>
+<span class="s1">ORDER BY default_rate_pct DESC</span>
+<span class="s1">'''</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><div class="table-wrap df"><div>
+
+<table class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th>product</th>
+      <th>loans</th>
+      <th>defaults</th>
+      <th>default_rate_pct</th>
+      <th>portfolio_pct</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Asset Finance</td>
+      <td>57</td>
+      <td>19</td>
+      <td>33.33</td>
+      <td>19.64</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>SME Loan</td>
+      <td>116</td>
+      <td>28</td>
+      <td>24.14</td>
+      <td>19.64</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Salary Advance</td>
+      <td>164</td>
+      <td>38</td>
+      <td>23.17</td>
+      <td>19.64</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Digital Loan</td>
+      <td>223</td>
+      <td>25</td>
+      <td>11.21</td>
+      <td>19.64</td>
+    </tr>
+  </tbody>
+</table></div>
+</div></div></div></div>
+<p>Step 1 summarises each product, step 2 finds the portfolio rate. In SQLite <code>status = 'Defaulted'</code> is 1 or 0, so <code>SUM</code> counts matches.</p>
+
+<div class="callout tip"><p><strong>Rule.</strong> A CTE is a named, temporary result for <strong>one statement</strong>. Run each step alone to debug. If several queries need the same logic, save it as a view (6.9).</p>
+</div>
+<div class="callout practice"><div class="c-label">Practice</div><p>List customers whose total successful transaction value is above the average customer total.</p>
+</div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">res</span> <span class="o">=</span> <span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
+<span class="s1">WITH totals AS (</span>
+<span class="s1">    SELECT customer_id, SUM(amount_ksh) AS total_ksh</span>
+<span class="s1">    FROM transactions WHERE status = 'Success' GROUP BY customer_id</span>
+<span class="s1">)</span>
+<span class="s1">SELECT customer_id, ROUND(total_ksh, 0) AS total_ksh</span>
+<span class="s1">FROM totals</span>
+<span class="s1">WHERE total_ksh &gt; (SELECT AVG(total_ksh) FROM totals)</span>
+<span class="s1">ORDER BY total_ksh DESC</span>
+<span class="s1">'''</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">res</span><span class="p">),</span> <span class="s2">"customers above average; top 3:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">393 customers above average; top 3:
+customer_id  total_ksh
+      C0645   333163.0
+      C0882   315501.0
+      C0215   288051.0</pre></div></div>
+<p><strong>Solution.</strong> The CTE is used twice: as the data and inside the scalar subquery.</p>
+
+<h2 id="6-7-window-functions"><a class="anchor" href="#6-7-window-functions" aria-label="Link to this section">#</a>6.7 Window functions</h2>
+
+<p>A <strong>window function</strong> computes a value for each row using a set of related rows <strong>without collapsing them</strong>, unlike <code>GROUP BY</code>. The shape is <code>function() OVER (PARTITION BY group ORDER BY sort)</code>. <code>PARTITION BY</code> splits rows into groups; <code>ORDER BY</code> orders them inside each group.</p>
+
+<h3 id="row-number-top-n-per-group"><a class="anchor" href="#row-number-top-n-per-group" aria-label="Link to this section">#</a>ROW_NUMBER: top N per group</h3>
+
+<p>The classic interview question: the three largest loans in each product. Number the rows in a CTE, then filter in the outer query (a window result cannot be used in the same <code>WHERE</code>).</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">top3</span> <span class="o">=</span> <span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
+<span class="s1">WITH ranked AS (</span>
+<span class="s1">    SELECT product, loan_id, principal_ksh,</span>
+<span class="s1">           ROW_NUMBER() OVER (PARTITION BY product ORDER BY principal_ksh DESC) AS rn</span>
+<span class="s1">    FROM loans</span>
+<span class="s1">)</span>
+<span class="s1">SELECT * FROM ranked WHERE rn &lt;= 3 ORDER BY product, rn</span>
+<span class="s1">'''</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">top3</span><span class="p">),</span> <span class="s2">"rows ="</span><span class="p">,</span> <span class="n">top3</span><span class="p">[</span><span class="s2">"product"</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">(),</span> <span class="s2">"products x 3"</span><span class="p">)</span>
+<span class="n">top3</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">12 rows = 4 products x 3</pre><div class="table-wrap df"><div>
+
+<table class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th>product</th>
+      <th>loan_id</th>
+      <th>principal_ksh</th>
+      <th>rn</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Asset Finance</td>
+      <td>L0093</td>
+      <td>2301800.0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Asset Finance</td>
+      <td>L0422</td>
+      <td>2038500.0</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Asset Finance</td>
+      <td>L0321</td>
+      <td>1596300.0</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Digital Loan</td>
+      <td>L0530</td>
+      <td>29100.0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Digital Loan</td>
+      <td>L0002</td>
+      <td>28400.0</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Digital Loan</td>
+      <td>L0159</td>
+      <td>25900.0</td>
+      <td>3</td>
+    </tr>
+  </tbody>
+</table></div>
+</div></div></div></div>
+<h3 id="rank-and-dense-rank-with-ties"><a class="anchor" href="#rank-and-dense-rank-with-ties" aria-label="Link to this section">#</a>RANK and DENSE_RANK with ties</h3>
+
+<p>When values tie, <code>ROW_NUMBER</code> never repeats, <code>RANK</code> repeats and then skips a number, <code>DENSE_RANK</code> repeats without skipping. Credit scores are whole numbers, so ties are common.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
+<span class="s1">SELECT credit_score,</span>
+<span class="s1">       ROW_NUMBER() OVER (ORDER BY credit_score DESC) AS row_number,</span>
+<span class="s1">       RANK()       OVER (ORDER BY credit_score DESC) AS rank,</span>
+<span class="s1">       DENSE_RANK() OVER (ORDER BY credit_score DESC) AS dense_rank</span>
+<span class="s1">FROM loans ORDER BY credit_score DESC LIMIT 6</span>
+<span class="s1">'''</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><div class="table-wrap df"><div>
+
+<table class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th>credit_score</th>
+      <th>row_number</th>
+      <th>rank</th>
+      <th>dense_rank</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>814</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>781</td>
+      <td>2</td>
+      <td>2</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>755</td>
+      <td>3</td>
+      <td>3</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>744</td>
+      <td>4</td>
+      <td>4</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>735</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>728</td>
+      <td>6</td>
+      <td>6</td>
+      <td>6</td>
+    </tr>
+  </tbody>
+</table></div>
+</div></div></div></div>
+<h3 id="lag-compare-with-the-previous-month"><a class="anchor" href="#lag-compare-with-the-previous-month" aria-label="Link to this section">#</a>LAG: compare with the previous month</h3>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">mom</span> <span class="o">=</span> <span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
+<span class="s1">SELECT month, total_value_ksh,</span>
+<span class="s1">       LAG(total_value_ksh) OVER (ORDER BY month) AS prev_month_ksh,</span>
+<span class="s1">       ROUND(100.0 * (total_value_ksh - LAG(total_value_ksh) OVER (ORDER BY month))</span>
+<span class="s1">             / LAG(total_value_ksh) OVER (ORDER BY month), 1) AS mom_pct</span>
+<span class="s1">FROM vw_monthly_kpis ORDER BY month</span>
+<span class="s1">'''</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">mom</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+<span class="n">chk</span> <span class="o">=</span> <span class="n">mom</span><span class="p">[</span><span class="s2">"total_value_ksh"</span><span class="p">]</span><span class="o">.</span><span class="n">pct_change</span><span class="p">()</span><span class="o">.</span><span class="n">mul</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"matches Pandas pct_change:"</span><span class="p">,</span> <span class="nb">bool</span><span class="p">((</span><span class="n">chk</span> <span class="o">-</span> <span class="n">mom</span><span class="p">[</span><span class="s2">"mom_pct"</span><span class="p">])</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mf">0.05</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">  month  total_value_ksh  prev_month_ksh  mom_pct
+2024-01       2602383.16             NaN      NaN
+2024-02       2445017.25      2602383.16     -6.0
+2024-03       2706225.95      2445017.25     10.7
+2024-04       2592054.63      2706225.95     -4.2
+matches Pandas pct_change: True</pre></div></div>
+<p><code>LAG(x)</code> is Pandas <code>shift(1)</code>. The first month has no previous month, so it is NULL (NaN in Pandas).</p>
+
+<h3 id="running-totals-and-moving-averages"><a class="anchor" href="#running-totals-and-moving-averages" aria-label="Link to this section">#</a>Running totals and moving averages</h3>
+
+<p>Add <code>ORDER BY</code> inside <code>OVER</code> and <code>SUM</code> becomes a <strong>running total</strong>. A frame such as <code>ROWS BETWEEN 2 PRECEDING AND CURRENT ROW</code> gives a 3-month moving average.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">tr</span> <span class="o">=</span> <span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
+<span class="s1">SELECT month, txn_count,</span>
+<span class="s1">       SUM(txn_count) OVER (ORDER BY month) AS running_txns,</span>
+<span class="s1">       ROUND(AVG(txn_count) OVER (ORDER BY month</span>
+<span class="s1">             ROWS BETWEEN 2 PRECEDING AND CURRENT ROW), 1) AS ma3_txns</span>
+<span class="s1">FROM vw_monthly_kpis ORDER BY month</span>
+<span class="s1">'''</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">tr</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+<span class="n">n_all</span> <span class="o">=</span> <span class="n">q</span><span class="p">(</span><span class="s2">"SELECT COUNT(*) FROM transactions"</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"final running total equals all rows:"</span><span class="p">,</span> <span class="nb">bool</span><span class="p">(</span><span class="n">tr</span><span class="p">[</span><span class="s2">"running_txns"</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">n_all</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">  month  txn_count  running_txns  ma3_txns
+2024-01        728           728     728.0
+2024-02        711          1439     719.5
+2024-03        833          2272     757.3
+2024-04        778          3050     774.0
+final running total equals all rows: True</pre></div></div>
+<div class="callout real"><p><strong>Pattern.</strong> <strong>Share of total</strong> in one pass: <code>100.0 * x / SUM(x) OVER ()</code>. An empty <code>OVER ()</code> means one window over the whole result.</p>
+</div>
+<p><strong>Common mistake.</strong> Putting a window function in <code>WHERE</code> (it fails), or forgetting <code>PARTITION BY</code> so the ranking runs across the whole table.</p>
+
+<h2 id="6-8-dates-in-sqlite"><a class="anchor" href="#6-8-dates-in-sqlite" aria-label="Link to this section">#</a>6.8 Dates in SQLite</h2>
+
+<p>SQLite has no true date type. Dates are stored as ISO text <code>YYYY-MM-DD</code>, which sorts correctly as plain text. The functions <code>date()</code>, <code>julianday()</code> and <code>strftime(format, value)</code> read them. <code>strftime</code> is the workhorse for monthly reports.</p>
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th><code>strftime</code> code</th>
+<th>Gives</th>
+<th>For 2025-03-14</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>%Y</code></td>
+<td>4-digit year</td>
+<td>2025</td>
+</tr>
+<tr>
+<td><code>%m</code></td>
+<td>month 01-12</td>
+<td>03</td>
+</tr>
+<tr>
+<td><code>%Y-%m</code></td>
+<td>year-month</td>
+<td>2025-03</td>
+</tr>
+<tr>
+<td><code>%w</code></td>
+<td>weekday, 0 = Sunday</td>
+<td>5</td>
+</tr>
+</tbody>
+</table></div>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
+<span class="s1">SELECT strftime('%Y-%m', txn_date) AS month, COUNT(*) AS txns,</span>
+<span class="s1">       ROUND(SUM(amount_ksh), 0) AS value_ksh</span>
+<span class="s1">FROM transactions</span>
+<span class="s1">WHERE txn_date &gt;= '2025-10-01'</span>
+<span class="s1">GROUP BY month ORDER BY month</span>
+<span class="s1">'''</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><div class="table-wrap df"><div>
+
+<table class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th>month</th>
+      <th>txns</th>
+      <th>value_ksh</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2025-10</td>
+      <td>810</td>
+      <td>2534231.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2025-11</td>
+      <td>793</td>
+      <td>2690179.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2025-12</td>
+      <td>1121</td>
+      <td>3725656.0</td>
+    </tr>
+  </tbody>
+</table></div>
+</div></div></div></div>
+<p>Use a half-open range (<code>&gt;=</code> start, <code>&lt;</code> end) to filter dates; it stays fast and avoids wrapping the column in a function.</p>
+
+<h3 id="date-arithmetic"><a class="anchor" href="#date-arithmetic" aria-label="Link to this section">#</a>Date arithmetic</h3>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
+<span class="s1">SELECT date('2025-03-14', '+30 days')                              AS plus_30d,</span>
+<span class="s1">       date('2025-03-14', 'start of month', '+1 month', '-1 day')  AS month_end,</span>
+<span class="s1">       CAST(julianday('2025-12-31') - julianday('2025-03-14') AS INTEGER) AS days_between</span>
+<span class="s1">'''</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><div class="table-wrap df"><div>
+
+<table class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th>plus_30d</th>
+      <th>month_end</th>
+      <th>days_between</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2025-04-13</td>
+      <td>2025-03-31</td>
+      <td>292</td>
+    </tr>
+  </tbody>
+</table></div>
+</div></div></div></div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
+<span class="s1">SELECT ROUND(AVG(julianday(paid_date) - julianday(due_date)), 2) AS avg_days_late,</span>
+<span class="s1">       SUM(julianday(paid_date) - julianday(due_date) &gt; 7)       AS paid_over_7d_late,</span>
+<span class="s1">       COUNT(paid_date)                                          AS paid_instalments</span>
+<span class="s1">FROM repayments</span>
+<span class="s1">'''</span><span class="p">,</span> <span class="p">)</span>
+</code></pre></div><div class="cell-out"><div class="table-wrap df"><div>
+
+<table class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th>avg_days_late</th>
+      <th>paid_over_7d_late</th>
+      <th>paid_instalments</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1.73</td>
+      <td>39</td>
+      <td>2425</td>
+    </tr>
+  </tbody>
+</table></div>
+</div></div></div></div>
+<p>Days between two dates is the difference of their Julian day numbers.</p>
+
+<h3 id="the-date-format-dialect-difference"><a class="anchor" href="#the-date-format-dialect-difference" aria-label="Link to this section">#</a>The DATE_FORMAT dialect difference</h3>
+
+<p>MySQL users write <code>DATE_FORMAT(d, '%Y-%m')</code>. SQLite has no such function, so a copied query fails. The SQLite spelling is <code>strftime('%Y-%m', d)</code>: the <strong>format comes first</strong>, then the date. The ideas port between databases; only the function names change, so keep the vendor's date-function page open when you move.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">q</span><span class="p">(</span><span class="s2">"SELECT DATE_FORMAT(txn_date, '%Y-%m') AS month FROM transactions"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><div class="err"><span class="err-tag">Error on purpose</span><code>DatabaseError: Execution failed on sql &#x27;SELECT DATE_FORMAT(txn_date, &#x27;%Y-%m&#x27;) AS month FROM transactions&#x27;: no such function: DATE_FORMAT</code></div></div></div>
+<div class="callout practice"><div class="c-label">Practice</div><p>How many successful transactions happened in each quarter of 2025?</p>
+</div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
+<span class="s1">SELECT (CAST(strftime('%m', txn_date) AS INTEGER) + 2) / 3 AS quarter, COUNT(*) AS txns</span>
+<span class="s1">FROM transactions</span>
+<span class="s1">WHERE status = 'Success' AND txn_date &gt;= '2025-01-01' AND txn_date &lt; '2026-01-01'</span>
+<span class="s1">GROUP BY quarter ORDER BY quarter</span>
+<span class="s1">'''</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><div class="table-wrap df"><div>
+
+<table class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th>quarter</th>
+      <th>txns</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>2270</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>2410</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>2368</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>2608</td>
+    </tr>
+  </tbody>
+</table></div>
+</div></div></div></div>
+<p><strong>Solution.</strong> Integer division <code>(month + 2) / 3</code> maps months 1-12 to quarters 1-4.</p>
+
+<h2 id="6-9-views-and-null-handling"><a class="anchor" href="#6-9-views-and-null-handling" aria-label="Link to this section">#</a>6.9 Views and NULL handling</h2>
+
+<p>A <strong>view</strong> is a saved <code>SELECT</code> with a name. It stores no data; each time you query it, the database reruns the saved query. Views give a whole team one definition of a metric such as &quot;active customer&quot;, so reports do not disagree.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">con</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">"DROP VIEW IF EXISTS p06_county_summary"</span><span class="p">)</span>
+<span class="n">con</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">'''</span>
+<span class="s1">CREATE VIEW p06_county_summary AS</span>
+<span class="s1">SELECT c.county, COUNT(DISTINCT c.customer_id) AS customers,</span>
+<span class="s1">       COUNT(l.loan_id) AS loans, ROUND(AVG(l.credit_score), 0) AS avg_score</span>
+<span class="s1">FROM customers c LEFT JOIN loans l ON l.customer_id = c.customer_id</span>
+<span class="s1">GROUP BY c.county</span>
+<span class="s1">'''</span><span class="p">)</span>
+<span class="n">con</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+<span class="n">q</span><span class="p">(</span><span class="s2">"SELECT * FROM p06_county_summary ORDER BY customers DESC LIMIT 4"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><div class="table-wrap df"><div>
+
+<table class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th>county</th>
+      <th>customers</th>
+      <th>loans</th>
+      <th>avg_score</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Nairobi</td>
+      <td>354</td>
+      <td>191</td>
+      <td>599.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Mombasa</td>
+      <td>123</td>
+      <td>60</td>
+      <td>590.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Kiambu</td>
+      <td>102</td>
+      <td>54</td>
+      <td>594.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Nakuru</td>
+      <td>100</td>
+      <td>64</td>
+      <td>603.0</td>
+    </tr>
+  </tbody>
+</table></div>
+</div></div></div></div>
+<p>A view is queried like a table. The built-in views <code>vw_monthly_kpis</code> and <code>vw_loan_portfolio</code> work the same way.</p>
+
+<h3 id="null-missing-is-not-zero"><a class="anchor" href="#null-missing-is-not-zero" aria-label="Link to this section">#</a>NULL: missing is not zero</h3>
+
+<p><code>NULL</code> means <em>unknown</em>. Any comparison with <code>NULL</code>, even <code>NULL = NULL</code>, is unknown, and <code>WHERE</code> keeps only rows that are true. So <code>= NULL</code> finds nothing; write <code>IS NULL</code> or <code>IS NOT NULL</code>. In <code>repayments</code>, an unpaid instalment has a NULL <code>paid_date</code>. <code>COUNT(column)</code> skips NULLs, while <code>COUNT(*)</code> counts rows.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="nb">print</span><span class="p">(</span><span class="s2">"= NULL   :"</span><span class="p">,</span> <span class="n">q</span><span class="p">(</span><span class="s2">"SELECT COUNT(*) FROM repayments WHERE paid_date = NULL"</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"IS NULL  :"</span><span class="p">,</span> <span class="n">q</span><span class="p">(</span><span class="s2">"SELECT COUNT(*) FROM repayments WHERE paid_date IS NULL"</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="n">q</span><span class="p">(</span><span class="s1">'''SELECT COUNT(*) AS all_rows, COUNT(paid_date) AS with_paid_date,</span>
+<span class="s1">            COUNT(*) - COUNT(paid_date) AS unpaid FROM repayments'''</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">= NULL   : 0
+IS NULL  : 442</pre><div class="table-wrap df"><div>
+
+<table class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th>all_rows</th>
+      <th>with_paid_date</th>
+      <th>unpaid</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2867</td>
+      <td>2425</td>
+      <td>442</td>
+    </tr>
+  </tbody>
+</table></div>
+</div></div></div></div>
+<p><code>COALESCE(a, b, ...)</code> returns the first non-NULL value, and <code>NULLIF(a, b)</code> returns NULL when the two are equal, which guards against dividing by zero.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
+<span class="s1">SELECT repay_id, due_date,</span>
+<span class="s1">       COALESCE(paid_date, 'UNPAID')                         AS paid_or_flag,</span>
+<span class="s1">       ROUND(amount_paid_ksh / NULLIF(amount_due_ksh, 0), 2) AS paid_ratio</span>
+<span class="s1">FROM repayments WHERE paid_date IS NULL LIMIT 3</span>
+<span class="s1">'''</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><div class="table-wrap df"><div>
+
+<table class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th>repay_id</th>
+      <th>due_date</th>
+      <th>paid_or_flag</th>
+      <th>paid_ratio</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>R00058</td>
+      <td>2024-10-30</td>
+      <td>UNPAID</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>R00071</td>
+      <td>2024-04-09</td>
+      <td>UNPAID</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>R00072</td>
+      <td>2024-05-09</td>
+      <td>UNPAID</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table></div>
+</div></div></div></div>
+<div class="callout mistake"><p><strong>Trap.</strong> <code>NOT IN</code> with a NULL in the list returns no rows at all. Prefer <code>NOT EXISTS</code> or the LEFT JOIN anti-join (6.4) when the column can be NULL.</p>
+</div>
+<h2 id="6-10-sql-versus-pandas-and-pd-read-sql"><a class="anchor" href="#6-10-sql-versus-pandas-and-pd-read-sql" aria-label="Link to this section">#</a>6.10 SQL versus Pandas, and pd.read_sql</h2>
+
+<p>Both tools answer the same questions. Use SQL to <strong>select, join and aggregate where the data lives</strong>, so you move fewer rows. Use Pandas for cleaning, statistics and plotting (see Part 4 and Part 5).</p>
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Task</th>
+<th>SQL</th>
+<th>Pandas</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Filter rows</td>
+<td><code>WHERE units &gt; 5</code></td>
+<td><code>df[df.units &gt; 5]</code></td>
+</tr>
+<tr>
+<td>Sort</td>
+<td><code>ORDER BY x DESC</code></td>
+<td><code>df.sort_values(&quot;x&quot;, ascending=False)</code></td>
+</tr>
+<tr>
+<td>Group and sum</td>
+<td><code>GROUP BY region</code> + <code>SUM(rev)</code></td>
+<td><code>df.groupby(&quot;region&quot;)[&quot;rev&quot;].sum()</code></td>
+</tr>
+<tr>
+<td>Count distinct</td>
+<td><code>COUNT(DISTINCT a)</code></td>
+<td><code>df[&quot;a&quot;].nunique()</code></td>
+</tr>
+<tr>
+<td>Join</td>
+<td><code>LEFT JOIN</code></td>
+<td><code>merge(how=&quot;left&quot;)</code></td>
+</tr>
+<tr>
+<td>If / else</td>
+<td><code>CASE WHEN ... END</code></td>
+<td><code>np.where</code>, <code>np.select</code></td>
+</tr>
+<tr>
+<td>Missing values</td>
+<td><code>COALESCE(x, 0)</code></td>
+<td><code>fillna(0)</code></td>
+</tr>
+<tr>
+<td>Previous row</td>
+<td><code>LAG(x) OVER (ORDER BY d)</code></td>
+<td><code>shift(1)</code></td>
+</tr>
+<tr>
+<td>Running total</td>
+<td><code>SUM(x) OVER (ORDER BY d)</code></td>
+<td><code>cumsum()</code></td>
+</tr>
+<tr>
+<td>Top N</td>
+<td><code>ORDER BY x DESC LIMIT 5</code></td>
+<td><code>nlargest(5, &quot;x&quot;)</code></td>
+</tr>
+</tbody>
+</table></div>
+
+<p><code>pd.read_sql(sql, con)</code> runs a query and returns a DataFrame. Useful arguments: <code>params</code> (safe values), <code>parse_dates</code>, <code>index_col</code>, and <code>chunksize</code> (smaller pieces for tables too big for memory). Never paste user input into SQL text with f-strings (<strong>SQL injection</strong>); use placeholders instead.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">county</span> <span class="o">=</span> <span class="s2">"Nairobi' OR '1'='1"</span>                        <span class="c1"># a hostile-looking value</span>
+<span class="n">safe</span> <span class="o">=</span> <span class="n">q</span><span class="p">(</span><span class="s2">"SELECT COUNT(*) AS n FROM customers WHERE county = ?"</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="p">(</span><span class="n">county</span><span class="p">,))</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">unsafe</span> <span class="o">=</span> <span class="n">q</span><span class="p">(</span><span class="sa">f</span><span class="s2">"SELECT COUNT(*) AS n FROM customers WHERE county = '</span><span class="si">{</span><span class="n">county</span><span class="si">}</span><span class="s2">'"</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"with a placeholder:"</span><span class="p">,</span> <span class="n">safe</span><span class="p">,</span> <span class="s2">"rows | string-built:"</span><span class="p">,</span> <span class="n">unsafe</span><span class="p">,</span> <span class="s2">"rows (it matched everyone)"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">with a placeholder: 0 rows | string-built: 1000 rows (it matched everyone)</pre></div></div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">total</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="s2">"SELECT amount_ksh FROM transactions"</span><span class="p">,</span> <span class="n">con</span><span class="p">,</span> <span class="n">chunksize</span><span class="o">=</span><span class="mi">5000</span><span class="p">):</span>
+    <span class="n">total</span> <span class="o">+=</span> <span class="n">chunk</span><span class="p">[</span><span class="s2">"amount_ksh"</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="n">exact</span> <span class="o">=</span> <span class="n">q</span><span class="p">(</span><span class="s2">"SELECT SUM(amount_ksh) AS s FROM transactions"</span><span class="p">)[</span><span class="s2">"s"</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"chunked total equals SQL total:"</span><span class="p">,</span> <span class="nb">bool</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">total</span><span class="p">,</span> <span class="n">exact</span><span class="p">)))</span>
+</code></pre></div><div class="cell-out"><pre class="out">chunked total equals SQL total: True</pre></div></div>
+<div class="callout practice"><div class="c-label">Practice</div><p>Write SQL and Pandas for &quot;average principal of Closed loans by product, highest first&quot; and check they match.</p>
+</div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">loans</span> <span class="o">=</span> <span class="n">q</span><span class="p">(</span><span class="s2">"SELECT * FROM loans"</span><span class="p">)</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">q</span><span class="p">(</span><span class="s1">'''SELECT product, ROUND(AVG(principal_ksh), 0) AS avg_principal</span>
+<span class="s1">         FROM loans WHERE status = 'Closed' GROUP BY product ORDER BY avg_principal DESC'''</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="p">(</span><span class="n">loans</span><span class="p">[</span><span class="n">loans</span><span class="p">[</span><span class="s2">"status"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"Closed"</span><span class="p">]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"product"</span><span class="p">)[</span><span class="s2">"principal_ksh"</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+     <span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"match:"</span><span class="p">,</span> <span class="nb">bool</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="s2">"product"</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="o">==</span> <span class="n">b</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="ow">and</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="s2">"avg_principal"</span><span class="p">],</span> <span class="n">b</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">())))</span>
+</code></pre></div><div class="cell-out"><pre class="out">       product  avg_principal
+ Asset Finance      1043500.0
+      SME Loan       255182.0
+Salary Advance        30133.0
+  Digital Loan         8783.0
+match: True</pre></div></div>
+<p><strong>Solution.</strong> <code>WHERE</code> becomes a boolean mask, <code>GROUP BY ... AVG</code> becomes <code>groupby().mean()</code>, <code>ORDER BY ... DESC</code> becomes <code>sort_values(ascending=False)</code>.</p>
+
+<div class="callout tip"><p><strong>Habit.</strong> Select only the rows and columns you need in the SQL, not in Pandas. A good first line of any analysis is a <code>COUNT(*)</code> to see how big the extract will be.</p>
+</div>
+<h2 id="6-11-advanced-credit-risk-sql-par-default-rates-and-vintages"><a class="anchor" href="#6-11-advanced-credit-risk-sql-par-default-rates-and-vintages" aria-label="Link to this section">#</a>6.11 (Advanced) Credit-risk SQL: PAR, default rates and vintages</h2>
+
+<p>A lender asks three questions. How much of the book is late (<strong>portfolio at risk</strong>, PAR)? How many loans end in default (<strong>default rate</strong>)? How does each month's or quarter's lending (<strong>vintage</strong>) perform as it ages? All three are plain SQL. The definitions here are teaching versions on synthetic data; real lenders follow their own policy and regulator rules.</p>
+
+<h3 id="portfolio-at-risk-par30"><a class="anchor" href="#portfolio-at-risk-par30" aria-label="Link to this section">#</a>Portfolio at risk (PAR30)</h3>
+
+<p><strong>PAR30</strong> is the share of the outstanding book with a payment more than 30 days overdue (<code>days_past_due &gt; 30</code>). The database has no balance column, so we use the <strong>principal of loans that are not Closed</strong> as a proxy for the book. That overstates exposure on part-repaid loans, so state the definition next to the number.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">par</span> <span class="o">=</span> <span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
+<span class="s1">SELECT product,</span>
+<span class="s1">       SUM(principal_ksh)                                              AS book_ksh,</span>
+<span class="s1">       SUM(CASE WHEN days_past_due &gt; 30 THEN principal_ksh ELSE 0 END) AS par30_ksh,</span>
+<span class="s1">       SUM(CASE WHEN days_past_due &gt; 90 THEN principal_ksh ELSE 0 END) AS par90_ksh</span>
+<span class="s1">FROM loans WHERE status != 'Closed' GROUP BY product</span>
+<span class="s1">'''</span><span class="p">)</span>
+<span class="n">par</span><span class="p">[</span><span class="s2">"PAR30_%"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">100</span> <span class="o">*</span> <span class="n">par</span><span class="p">[</span><span class="s2">"par30_ksh"</span><span class="p">]</span> <span class="o">/</span> <span class="n">par</span><span class="p">[</span><span class="s2">"book_ksh"</span><span class="p">])</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">par</span><span class="p">[</span><span class="s2">"PAR90_%"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">100</span> <span class="o">*</span> <span class="n">par</span><span class="p">[</span><span class="s2">"par90_ksh"</span><span class="p">]</span> <span class="o">/</span> <span class="n">par</span><span class="p">[</span><span class="s2">"book_ksh"</span><span class="p">])</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">par</span><span class="p">[[</span><span class="s2">"product"</span><span class="p">,</span> <span class="s2">"book_ksh"</span><span class="p">,</span> <span class="s2">"PAR30_%"</span><span class="p">,</span> <span class="s2">"PAR90_%"</span><span class="p">]]</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+<span class="n">tot</span> <span class="o">=</span> <span class="n">par</span><span class="p">[[</span><span class="s2">"book_ksh"</span><span class="p">,</span> <span class="s2">"par30_ksh"</span><span class="p">]]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"portfolio PAR30: </span><span class="si">{</span><span class="mi">100</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">tot</span><span class="p">[</span><span class="s1">'par30_ksh'</span><span class="p">]</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">tot</span><span class="p">[</span><span class="s1">'book_ksh'</span><span class="p">]</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">%"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">       product   book_ksh  PAR30_%  PAR90_%
+ Asset Finance 40365500.0     47.0     45.2
+  Digital Loan   299000.0    100.0    100.0
+      SME Loan 24566300.0     51.8     44.6
+Salary Advance  1651900.0    100.0    100.0
+portfolio PAR30: 50.3%</pre></div></div>
+<p>Two products show 100 percent because, in this synthetic data, their only non-Closed loans are late or defaulted ones, and defaulted loans stay in the book at full principal (no write-off). A real PAR uses the outstanding balance and excludes written-off loans.</p>
+
+<h3 id="default-rate-by-product-and-right-censoring"><a class="anchor" href="#default-rate-by-product-and-right-censoring" aria-label="Link to this section">#</a>Default rate by product, and right-censoring</h3>
+
+<p><strong>Right-censoring</strong> means recent loans have been watched for only a short time, so many have had no chance to default <strong>yet</strong>. Dividing all defaults by all loans mixes fully observed old loans with barely observed young ones, which usually makes the rate look better than the truth. Compare with a <strong>seasoned</strong> group: loans at least 120 days old at the data cut-off (2025-12-31).</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">dr</span> <span class="o">=</span> <span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
+<span class="s1">WITH l AS (</span>
+<span class="s1">    SELECT product, status,</span>
+<span class="s1">           julianday('2025-12-31') - julianday(disbursement_date) AS age_days</span>
+<span class="s1">    FROM loans</span>
+<span class="s1">)</span>
+<span class="s1">SELECT product, COUNT(*) AS all_loans,</span>
+<span class="s1">       ROUND(100.0 * AVG(status = 'Defaulted'), 1)  AS naive_rate_pct,</span>
+<span class="s1">       SUM(age_days &gt;= 120)                         AS seasoned_loans,</span>
+<span class="s1">       ROUND(100.0 * SUM(status = 'Defaulted' AND age_days &gt;= 120)</span>
+<span class="s1">             / SUM(age_days &gt;= 120), 1)             AS seasoned_rate_pct</span>
+<span class="s1">FROM l GROUP BY product ORDER BY seasoned_rate_pct DESC</span>
+<span class="s1">'''</span><span class="p">)</span>
+<span class="n">dr</span>
+</code></pre></div><div class="cell-out"><div class="table-wrap df"><div>
+
+<table class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th>product</th>
+      <th>all_loans</th>
+      <th>naive_rate_pct</th>
+      <th>seasoned_loans</th>
+      <th>seasoned_rate_pct</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Asset Finance</td>
+      <td>57</td>
+      <td>33.3</td>
+      <td>54</td>
+      <td>35.2</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>SME Loan</td>
+      <td>116</td>
+      <td>24.1</td>
+      <td>112</td>
+      <td>25.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Salary Advance</td>
+      <td>164</td>
+      <td>23.2</td>
+      <td>156</td>
+      <td>24.4</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Digital Loan</td>
+      <td>223</td>
+      <td>11.2</td>
+      <td>212</td>
+      <td>11.8</td>
+    </tr>
+  </tbody>
+</table></div>
+</div></div></div></div>
+<p>Seasoned rates are computed only on loans old enough to have been observed.</p>
+
+<div class="callout tip"><p><strong>Rule.</strong> Every default-rate number needs an <strong>observation window</strong>: &quot;share of loans that defaulted within N days of disbursement, among loans old enough to be observed for N days&quot;.</p>
+</div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
+<span class="s1">SELECT CASE WHEN credit_score &lt; 550 THEN '1: below 550'</span>
+<span class="s1">            WHEN credit_score &lt; 600 THEN '2: 550-599'</span>
+<span class="s1">            WHEN credit_score &lt; 650 THEN '3: 600-649'</span>
+<span class="s1">            ELSE '4: 650+' END                      AS score_band,</span>
+<span class="s1">       COUNT(*)                                     AS loans,</span>
+<span class="s1">       ROUND(100.0 * AVG(status = 'Defaulted'), 1)  AS default_rate_pct</span>
+<span class="s1">FROM loans</span>
+<span class="s1">WHERE julianday('2025-12-31') - julianday(disbursement_date) &gt;= 120</span>
+<span class="s1">GROUP BY score_band ORDER BY score_band</span>
+<span class="s1">'''</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><div class="table-wrap df"><div>
+
+<table class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th>score_band</th>
+      <th>loans</th>
+      <th>default_rate_pct</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1: below 550</td>
+      <td>100</td>
+      <td>43.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2: 550-599</td>
+      <td>153</td>
+      <td>21.6</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3: 600-649</td>
+      <td>177</td>
+      <td>14.7</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4: 650+</td>
+      <td>104</td>
+      <td>7.7</td>
+    </tr>
+  </tbody>
+</table></div>
+</div></div></div></div>
+<p>Seasoned loans only. A useful score shows a falling default rate as the score rises; check whether this one does.</p>
+
+<h3 id="vintage-curves"><a class="anchor" href="#vintage-curves" aria-label="Link to this section">#</a>Vintage curves</h3>
+
+<p>A <strong>vintage</strong> groups loans by the quarter they were disbursed. A <strong>vintage curve</strong> shows the cumulative default rate by <strong>months on book (MOB)</strong>, so a 2024-Q1 loan at month 6 is compared fairly with a 2025-Q1 loan at month 6. The database stores days past due, not a default date, so we estimate the default date as the day the loan crossed 90 days past due. A vintage is reported at a given MOB only if its youngest loan is at least that old (<code>MIN(age_mob) &gt;= k</code>): that is the censoring correction. We build the repeated SQL pieces in Python.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">ks</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">12</span><span class="p">]</span>
+<span class="n">pieces</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">"CASE WHEN MIN(age_mob) &gt;= </span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2"> THEN "</span>
+          <span class="sa">f</span><span class="s2">"ROUND(100.0 * SUM(default_mob &lt;= </span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">) / COUNT(*), 1) END AS mob</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">_pct"</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">ks</span><span class="p">]</span>
+<span class="n">sql</span> <span class="o">=</span> <span class="s1">'''</span>
+<span class="s1">WITH base AS (</span>
+<span class="s1">    SELECT strftime('%Y', disbursement_date) || '-Q' ||</span>
+<span class="s1">           ((CAST(strftime('%m', disbursement_date) AS INTEGER) + 2) / 3)   AS vintage,</span>
+<span class="s1">           (julianday('2025-12-31') - julianday(disbursement_date)) / 30.0  AS age_mob,</span>
+<span class="s1">           CASE WHEN status = 'Defaulted'</span>
+<span class="s1">                THEN (julianday('2025-12-31') - days_past_due + 90</span>
+<span class="s1">                      - julianday(disbursement_date)) / 30.0 END            AS default_mob</span>
+<span class="s1">    FROM loans</span>
+<span class="s1">)</span>
+<span class="s1">SELECT vintage, COUNT(*) AS loans, '''</span> <span class="o">+</span> <span class="s2">", "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">pieces</span><span class="p">)</span> <span class="o">+</span> <span class="s1">'''</span>
+<span class="s1">FROM base GROUP BY vintage ORDER BY vintage</span>
+<span class="s1">'''</span>
+<span class="n">vint</span> <span class="o">=</span> <span class="n">q</span><span class="p">(</span><span class="n">sql</span><span class="p">)</span>
+<span class="n">vint</span>
+</code></pre></div><div class="cell-out"><div class="table-wrap df"><div>
+
+<table class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th>vintage</th>
+      <th>loans</th>
+      <th>mob3_pct</th>
+      <th>mob6_pct</th>
+      <th>mob9_pct</th>
+      <th>mob12_pct</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2024-Q1</td>
+      <td>80</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2024-Q2</td>
+      <td>83</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>2.4</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2024-Q3</td>
+      <td>74</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>2.7</td>
+      <td>17.6</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2024-Q4</td>
+      <td>75</td>
+      <td>0.0</td>
+      <td>2.7</td>
+      <td>5.3</td>
+      <td>6.7</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2025-Q1</td>
+      <td>84</td>
+      <td>0.0</td>
+      <td>8.3</td>
+      <td>17.9</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>2025-Q2</td>
+      <td>87</td>
+      <td>0.0</td>
+      <td>17.2</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>2025-Q3</td>
+      <td>77</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table></div>
+</div></div></div></div>
+<p>NaN means the vintage is too young to be observed at that MOB. Do not fill it with zero.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">vv</span> <span class="o">=</span> <span class="n">vint</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">"vintage"</span><span class="p">)[[</span><span class="sa">f</span><span class="s2">"mob</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">_pct"</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">ks</span><span class="p">]]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"every observed curve is non-decreasing:"</span><span class="p">,</span> <span class="nb">bool</span><span class="p">(</span><span class="n">vv</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">ge</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="kc">None</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"vintage loans add up to the portfolio:"</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">vint</span><span class="p">[</span><span class="s2">"loans"</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">loans</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">every observed curve is non-decreasing: True
+vintage loans add up to the portfolio: True</pre></div></div>
+<div class="callout practice"><div class="c-label">Practice</div><p>Which counties have the highest seasoned default rate, among counties with at least 30 seasoned loans?</p>
+</div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
+<span class="s1">SELECT c.county, COUNT(*) AS seasoned_loans,</span>
+<span class="s1">       ROUND(100.0 * AVG(l.status = 'Defaulted'), 1) AS default_rate_pct</span>
+<span class="s1">FROM loans l JOIN customers c ON c.customer_id = l.customer_id</span>
+<span class="s1">WHERE julianday('2025-12-31') - julianday(l.disbursement_date) &gt;= 120</span>
+<span class="s1">GROUP BY c.county HAVING COUNT(*) &gt;= 30</span>
+<span class="s1">ORDER BY default_rate_pct DESC LIMIT 5</span>
+<span class="s1">'''</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><div class="table-wrap df"><div>
+
+<table class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th>county</th>
+      <th>seasoned_loans</th>
+      <th>default_rate_pct</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Mombasa</td>
+      <td>58</td>
+      <td>29.3</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Kisumu</td>
+      <td>45</td>
+      <td>24.4</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Kisii</td>
+      <td>33</td>
+      <td>24.2</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Eldoret</td>
+      <td>37</td>
+      <td>21.6</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Nairobi</td>
+      <td>184</td>
+      <td>21.2</td>
+    </tr>
+  </tbody>
+</table></div>
+</div></div></div></div>
+<p><strong>Solution.</strong> The seasoned filter goes in <code>WHERE</code> (rows), the minimum-size filter in <code>HAVING</code> (groups). Small groups give noisy rates.</p>
+
+<h2 id="6-12-advanced-indexes-and-explain-query-plan"><a class="anchor" href="#6-12-advanced-indexes-and-explain-query-plan" aria-label="Link to this section">#</a>6.12 (Advanced) Indexes and EXPLAIN QUERY PLAN</h2>
+
+<p>An <strong>index</strong> is a sorted lookup structure on a column, like a book's index. It speeds up <code>WHERE</code>, <code>JOIN</code> and <code>ORDER BY</code> on that column but uses disk space and slows writes. <code>EXPLAIN QUERY PLAN</code> shows whether SQLite will <strong>SCAN</strong> the whole table (slow on big data) or <strong>SEARCH</strong> using an index (fast).</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="k">def</span><span class="w"> </span><span class="nf">plan</span><span class="p">(</span><span class="n">sql</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">'''Return the query-plan lines as a list of strings.'''</span>
+    <span class="k">return</span> <span class="n">q</span><span class="p">(</span><span class="s2">"EXPLAIN QUERY PLAN "</span> <span class="o">+</span> <span class="n">sql</span><span class="p">)[</span><span class="s2">"detail"</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+
+<span class="n">look</span> <span class="o">=</span> <span class="s2">"SELECT * FROM transactions WHERE txn_date = '2025-06-30'"</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"before:"</span><span class="p">,</span> <span class="n">plan</span><span class="p">(</span><span class="n">look</span><span class="p">))</span>
+<span class="n">con</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">"CREATE INDEX IF NOT EXISTS p06_idx_txn_date ON transactions(txn_date)"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"after :"</span><span class="p">,</span> <span class="n">plan</span><span class="p">(</span><span class="n">look</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">before: [&#x27;SCAN transactions&#x27;]
+after : [&#x27;SEARCH transactions USING INDEX p06_idx_txn_date (txn_date=?)&#x27;]</pre></div></div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">fn_sql</span> <span class="o">=</span> <span class="s2">"SELECT * FROM transactions WHERE strftime('%Y', txn_date) = '2025'"</span>
+<span class="n">rng_sql</span> <span class="o">=</span> <span class="s2">"SELECT * FROM transactions WHERE txn_date &gt;= '2025-01-01' AND txn_date &lt; '2026-01-01'"</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"function on column:"</span><span class="p">,</span> <span class="n">plan</span><span class="p">(</span><span class="n">fn_sql</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"half-open range   :"</span><span class="p">,</span> <span class="n">plan</span><span class="p">(</span><span class="n">rng_sql</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">function on column: [&#x27;SCAN transactions&#x27;]
+half-open range   : [&#x27;SEARCH transactions USING INDEX p06_idx_txn_date (txn_date&gt;? AND txn_date&lt;?)&#x27;]</pre></div></div>
+<p>Wrapping an indexed column in a function forces a full scan; comparing it directly to a range uses the index.</p>
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Do</th>
+<th>Do not</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>index columns used in frequent <code>WHERE</code>, <code>JOIN</code> and <code>ORDER BY</code></td>
+<td>index every column</td>
+</tr>
+<tr>
+<td>compare the column directly to a value or range</td>
+<td>wrap the column in a function in <code>WHERE</code></td>
+</tr>
+<tr>
+<td>check the plan after adding an index</td>
+<td>assume the index is used</td>
+</tr>
+</tbody>
+</table></div>
+
+<div class="callout takeaways"><div class="c-label">Key takeaways</div><ul>
+<li>A table has rows (records) and columns (attributes); keys link tables, and you should verify a key is unique before joining.</li>
+<li>Read a query top to bottom: SELECT, FROM, WHERE, GROUP BY, HAVING, ORDER BY, LIMIT. WHERE filters rows, HAVING filters groups.</li>
+<li>Join carefully: aggregate the many-side first, and compare row counts and totals before and after every join.</li>
+<li>Use CASE WHEN for conditional counts, CTEs for multi-step logic and window functions for rankings, LAG and running totals.</li>
+<li>NULL means unknown: use IS NULL, COALESCE and NULLIF, and remember COUNT(*) and COUNT(column) differ.</li>
+<li>A default rate is only meaningful with an observation window; compare seasoned loans, not young ones.</li>
+</ul>
+</div></div><nav class="pager" aria-label="Previous and next"><a class="prev" href="part-05.html"><small>Previous</small><span>Part 5: Data Visualisation</span></a><a class="next" href="part-07.html"><small>Next</small><span>Part 7: Exploratory Data Analysis</span></a></nav>
+<footer class="foot"><p>Data Science from Zero to Advanced &middot; written by Benson M. Merita &middot; &copy; 2026 MeritaAnalytics. Public datasets keep their own licences, listed in <a href="appendix-b.html">Appendix B</a>.</p></footer>
+</main>
+</div>
+<script src="search-index.js"></script>
+<script src="site.js"></script>
+</body>
+</html>

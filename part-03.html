@@ -1,0 +1,724 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>Part 3: NumPy: Fast Numbers | MeritaAnalytics</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to the notes</a>
+<header class="top"><button class="menu" id="menu" aria-controls="side" aria-expanded="false">Contents</button><span class="top-title">Part 3: NumPy: Fast Numbers</span></header>
+<div class="shell">
+<nav class="side" id="side" aria-label="Handbook contents">
+<a class="brand" href="index.html"><span class="mark" aria-hidden="true">MA</span><span><b>MeritaAnalytics</b><small>Data Science Notes</small></span></a>
+<label class="search"><span class="sr">Search the notes</span><input id="q" type="search" placeholder="Search topics, e.g. groupby" autocomplete="off"></label>
+<div id="results" class="results" hidden></div>
+<ol class="nav">
+<li class="lvl0"><a href="index.html" class="">Start here</a></li>
+<li class="lvl"><div class="lvl-name"><span>Level 1</span>Foundations</div><ol>
+<li data-slug="part-01"><a href="part-01.html" class=""><span class="pn">1</span><span class="pt">What Is Data Science?</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-02"><a href="part-02.html" class=""><span class="pn">2</span><span class="pt">Python Basics</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-03"><a href="part-03.html" class="on"><span class="pn">3</span><span class="pt">NumPy: Fast Numbers</span><span class="done-dot" aria-hidden="true"></span></a>
+<ol class="sub"><li><a href="#3-1-why-numpy-arrays-versus-lists">3.1 Why NumPy? Arrays versus lists</a></li><li><a href="#3-2-creating-arrays-and-checking-shape-and-dtype">3.2 Creating arrays and checking shape and dtype</a></li><li><a href="#3-3-indexing-slicing-and-boolean-masks">3.3 Indexing, slicing and boolean masks</a></li><li><a href="#3-4-maths-and-statistics-and-the-axis-rule">3.4 Maths and statistics, and the axis rule</a></li><li><a href="#3-5-reshape-and-broadcasting">3.5 Reshape and broadcasting</a></li><li><a href="#3-6-missing-values-nan">3.6 Missing values (NaN)</a></li><li><a href="#3-7-joining-sorting-and-unique-values">3.7 Joining, sorting and unique values</a></li><li><a href="#3-8-random-numbers-with-default-rng">3.8 Random numbers with default_rng</a></li><li><a href="#3-9-vectorisation-versus-loops">3.9 Vectorisation versus loops</a></li><li><a href="#3-10-linear-algebra-basics">3.10 Linear algebra basics</a></li><li><a href="#3-11-a-short-practical-example-revenue-margin-and-outliers">3.11 A short practical example: revenue, margin and outliers</a></li><li><a href="#3-12-advanced-linear-algebra-extras">3.12 (Advanced) Linear algebra extras</a></li></ol>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 2</span>Data Analysis</div><ol>
+<li data-slug="part-04"><a href="part-04.html" class=""><span class="pn">4</span><span class="pt">Pandas: Working with Tables</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-05"><a href="part-05.html" class=""><span class="pn">5</span><span class="pt">Data Visualisation</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-06"><a href="part-06.html" class=""><span class="pn">6</span><span class="pt">SQL for Data Analysts</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-07"><a href="part-07.html" class=""><span class="pn">7</span><span class="pt">Exploratory Data Analysis</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 3</span>Statistics</div><ol>
+<li data-slug="part-08"><a href="part-08.html" class=""><span class="pn">8</span><span class="pt">Statistics for Data Science</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 4</span>Machine Learning</div><ol>
+<li data-slug="part-09"><a href="part-09.html" class=""><span class="pn">9</span><span class="pt">Machine Learning Foundations</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-10"><a href="part-10.html" class=""><span class="pn">10</span><span class="pt">Regression</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-11"><a href="part-11.html" class=""><span class="pn">11</span><span class="pt">Classification</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-12"><a href="part-12.html" class=""><span class="pn">12</span><span class="pt">Ensembles, Tuning and Feature Engineering</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-13"><a href="part-13.html" class=""><span class="pn">13</span><span class="pt">Unsupervised Learning</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 5</span>Deep Learning and Modern AI</div><ol>
+<li data-slug="part-14"><a href="part-14.html" class=""><span class="pn">14</span><span class="pt">Neural Networks and Deep Learning</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-15"><a href="part-15.html" class=""><span class="pn">15</span><span class="pt">Reinforcement Learning</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-16"><a href="part-16.html" class=""><span class="pn">16</span><span class="pt">Generative AI and Large Language Models</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 6</span>The Real World</div><ol>
+<li data-slug="part-17"><a href="part-17.html" class=""><span class="pn">17</span><span class="pt">Business Metrics, Excel and Power BI</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-18"><a href="part-18.html" class=""><span class="pn">18</span><span class="pt">Automation, Git, Deployment and Responsible AI</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-19"><a href="part-19.html" class=""><span class="pn">19</span><span class="pt">End-to-End Projects</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 7</span>Career and Reference</div><ol>
+<li data-slug="part-20"><a href="part-20.html" class=""><span class="pn">20</span><span class="pt">Practice Exercises and Answer Key</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-21"><a href="part-21.html" class=""><span class="pn">21</span><span class="pt">Interview Preparation</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-22"><a href="part-22.html" class=""><span class="pn">22</span><span class="pt">Roadmap, Cheat Sheets and Glossary</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Appendix</span>Reference</div><ol>
+<li><a href="appendix-a.html" class=""><span class="pn">A</span><span class="pt">Sources and Next Steps</span></a></li>
+<li><a href="appendix-b.html" class=""><span class="pn">B</span><span class="pt">Data Catalogue</span></a></li>
+</ol></li></ol>
+<p class="side-foot">By Benson M. Merita &middot; &copy; 2026 MeritaAnalytics</p></nav>
+<main id="main" class="main"><header class="part-head"><span class="lv">Level 1 &middot; Foundations</span><p class="part-no">Part 3</p><h1>NumPy: Fast Numbers</h1><p class="lede">NumPy gives you arrays: grids of numbers that you can calculate on all at once. Pandas, scikit-learn and deep learning are all built on it, so this small Part pays off in every later one.</p><button class="mark-done" id="done" data-slug="part-03" aria-pressed="false">Mark this part as done</button></header><div class="prose"><div class="callout learn"><div class="c-label">In this part</div><ul>
+<li>Explain why arrays beat lists for numbers</li>
+<li>Create, inspect, index, slice and filter arrays</li>
+<li>Summarise data with sum, mean and std, row-wise or column-wise (axis)</li>
+<li>Handle missing values (NaN) and draw seeded random data</li>
+<li>Replace loops with array expressions and solve a small linear system</li>
+</ul>
+<div class="meta"><span><b>You need first</b> Part 2</span><span><b>Time</b> 3 to 4 hours</span></div></div>
+<h2 id="3-1-why-numpy-arrays-versus-lists"><a class="anchor" href="#3-1-why-numpy-arrays-versus-lists" aria-label="Link to this section">#</a>3.1 Why NumPy? Arrays versus lists</h2>
+
+<p>A <strong>NumPy array</strong> (<code>ndarray</code>) is a grid of values that all have the same type and sit side by side in memory. This lets you calculate on a whole column in one expression, with no loop. Pandas columns are arrays underneath, so everything here carries over.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="n">fares</span> <span class="o">=</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">300</span><span class="p">]</span>            <span class="c1"># boda-boda fares in Ksh</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">fares</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>                   <span class="c1"># a list repeats itself</span>
+<span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">fares</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">arr</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>                     <span class="c1"># an array works item by item</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">arr</span> <span class="o">*</span> <span class="mf">1.16</span><span class="p">)</span>                  <span class="c1"># a 16 percent uplift, no loop</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">arr</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">[100, 200, 300, 100, 200, 300]
+[200 400 600]
+[116. 232. 348.]
+ndarray int64</pre></div></div>
+<p>All items share one <strong>dtype</strong> (data type). If you mix types, NumPy picks one that fits everything, which can quietly turn numbers into text.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="s2">"two"</span><span class="p">,</span> <span class="mi">3</span><span class="p">]))</span>
+</code></pre></div><div class="cell-out"><pre class="out">float64
+[&#x27;1&#x27; &#x27;two&#x27; &#x27;3&#x27;]</pre></div></div>
+<p><strong>Common mistake.</strong> Expecting <code>list * 2</code> to double the values, or letting one stray string turn a numeric column into text. Check <code>.dtype</code> after building an array from raw data.</p>
+
+<h2 id="3-2-creating-arrays-and-checking-shape-and-dtype"><a class="anchor" href="#3-2-creating-arrays-and-checking-shape-and-dtype" aria-label="Link to this section">#</a>3.2 Creating arrays and checking shape and dtype</h2>
+
+<p>Build an array from a list with <code>np.array</code>, or from a rule with <code>arange</code>, <code>linspace</code>, <code>zeros</code>, <code>ones</code> and <code>full</code>. A nested list gives two dimensions (rows and columns).</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>         <span class="c1"># start, stop (excluded), step</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>        <span class="c1"># 5 evenly spaced points, both ends included</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="mi">7</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">[[1 2 3]
+ [4 5 6]]
+[0 2 4 6 8]
+[0.   0.25 0.5  0.75 1.  ]
+[[0. 0. 0.]
+ [0. 0. 0.]]
+[[7 7]
+ [7 7]]</pre></div></div>
+<p>Four attributes describe any array: <strong><code>ndim</code></strong> (number of dimensions), <strong><code>shape</code></strong> (length of each dimension), <strong><code>size</code></strong> (total items) and <strong><code>dtype</code></strong>.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">ndim</span><span class="p">,</span> <span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">a</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">a</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.9</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.9</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">))</span>       <span class="c1"># astype(int) truncates, it does not round</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">([</span><span class="mf">1.9</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.9</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">2 (2, 3) 6 int64
+float64
+[ 1  2 -1]
+[ 2  2 -2]</pre></div></div>
+<p><strong>Common mistake.</strong> <code>np.arange</code> with a decimal step can return one item more or fewer than you expect. When you care about the count, use <code>np.linspace</code>.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)),</span> <span class="nb">len</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">13</span><span class="p">))</span>            <span class="c1"># months 1..12: stop is excluded, so write 13</span>
+</code></pre></div><div class="cell-out"><pre class="out">10 11
+[ 1  2  3  4  5  6  7  8  9 10 11 12]</pre></div></div>
+<div class="callout practice"><div class="c-label">Practice</div><p>Create the month numbers 1 to 12 and five evenly spaced interest rates from 10% to 18%.</p>
+</div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">13</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.10</span><span class="p">,</span> <span class="mf">0.18</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">[ 1  2  3  4  5  6  7  8  9 10 11 12]
+[0.1  0.12 0.14 0.16 0.18]</pre></div></div>
+<p><strong>Solution.</strong> <code>arange(1, 13)</code> because the stop is excluded; <code>linspace</code> includes both ends.</p>
+
+<h2 id="3-3-indexing-slicing-and-boolean-masks"><a class="anchor" href="#3-3-indexing-slicing-and-boolean-masks" aria-label="Link to this section">#</a>3.3 Indexing, slicing and boolean masks</h2>
+
+<p><strong>Indexing</strong> picks one item with <code>a[row, col]</code>, counting from 0. <strong>Slicing</strong> <code>a[start:stop]</code> takes a range (stop excluded) in each dimension. Negative numbers count from the end.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">],</span> <span class="p">[</span><span class="mi">40</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">60</span><span class="p">],</span> <span class="p">[</span><span class="mi">70</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">90</span><span class="p">]])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">a</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>                        <span class="c1"># a whole row</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">])</span>                     <span class="c1"># a whole column</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">])</span>                 <span class="c1"># rows 0-1, columns 1-2</span>
+</code></pre></div><div class="cell-out"><pre class="out">20 90
+[40 50 60]
+[30 60 90]
+[[20 30]
+ [50 60]]</pre></div></div>
+<h3 id="boolean-masks"><a class="anchor" href="#boolean-masks" aria-label="Link to this section">#</a>Boolean masks</h3>
+
+<p>A comparison on an array gives a <strong>Boolean mask</strong> (True/False for each item). Use it as an index to keep only the True positions. Combine conditions with <code>&amp;</code> (and), <code>|</code> (or) and <code>~</code> (not), each condition in brackets.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">sales</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">120</span><span class="p">,</span> <span class="mi">85</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">150</span><span class="p">])</span>    <span class="c1"># daily sales in Ksh hundreds</span>
+<span class="n">mask</span> <span class="o">=</span> <span class="n">sales</span> <span class="o">&gt;</span> <span class="mi">100</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">mask</span><span class="p">,</span> <span class="n">sales</span><span class="p">[</span><span class="n">mask</span><span class="p">])</span>
+<span class="n">both</span> <span class="o">=</span> <span class="p">(</span><span class="n">sales</span> <span class="o">&gt;</span> <span class="mi">80</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">sales</span> <span class="o">&lt;</span> <span class="mi">160</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sales</span><span class="p">[</span><span class="n">both</span><span class="p">],</span> <span class="n">sales</span><span class="p">[</span><span class="o">~</span><span class="n">both</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">((</span><span class="n">sales</span> <span class="o">&gt;</span> <span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span> <span class="p">(</span><span class="n">sales</span> <span class="o">&gt;</span> <span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>     <span class="c1"># True counts as 1</span>
+</code></pre></div><div class="cell-out"><pre class="out">[ True False  True False  True] [120 200 150]
+[120  85 150] [200  60]
+3 0.6</pre></div></div>
+<p><code>np.where(cond, x, y)</code> is a vectorised if/else: it picks <code>x</code> where the condition is True and <code>y</code> elsewhere.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">sales</span> <span class="o">&gt;=</span> <span class="mi">120</span><span class="p">,</span> <span class="s2">"high"</span><span class="p">,</span> <span class="s2">"low"</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">sales</span> <span class="o">&gt;</span> <span class="mi">100</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>    <span class="c1"># with one argument it returns the positions</span>
+</code></pre></div><div class="cell-out"><pre class="out">[&#x27;high&#x27; &#x27;low&#x27; &#x27;high&#x27; &#x27;low&#x27; &#x27;high&#x27;]
+[0 2 4]</pre></div></div>
+<p><strong>Copy versus view.</strong> A slice is a <strong>view</strong>: it looks at the same memory, so editing it edits the original. Masks return copies. Use <code>.copy()</code> when you plan to change a slice and keep the original safe.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">balances</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">2000</span><span class="p">,</span> <span class="mi">3000</span><span class="p">,</span> <span class="mi">4000</span><span class="p">])</span>
+<span class="n">part</span> <span class="o">=</span> <span class="n">balances</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
+<span class="n">part</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">9999</span>                     <span class="c1"># changes balances too</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">balances</span><span class="p">)</span>
+<span class="n">safe</span> <span class="o">=</span> <span class="n">balances</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">safe</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">balances</span><span class="p">,</span> <span class="n">safe</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">[1000 9999 3000 4000]
+[1000 9999 3000 4000] [  -1 3000]</pre></div></div>
+<p><strong>Common mistake.</strong> Using Python's <code>and</code> / <code>or</code> on arrays. NumPy cannot decide if a whole array is &quot;true&quot;.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">sales</span> <span class="o">&gt;</span> <span class="mi">80</span> <span class="ow">and</span> <span class="n">sales</span> <span class="o">&lt;</span> <span class="mi">160</span>
+</code></pre></div><div class="cell-out"><div class="err"><span class="err-tag">Error on purpose</span><code>ValueError: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()</code></div></div></div>
+<div class="callout practice"><div class="c-label">Practice</div><p>Float balances (Ksh thousands) are <code>[52, 18, 77, 40, 95, 12, 66]</code>. Return those between 20 and 80 inclusive and the days (positions) they fall on.</p>
+</div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">float_k</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">52</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">77</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">95</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">66</span><span class="p">])</span>
+<span class="n">ok</span> <span class="o">=</span> <span class="p">(</span><span class="n">float_k</span> <span class="o">&gt;=</span> <span class="mi">20</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">float_k</span> <span class="o">&lt;=</span> <span class="mi">80</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">float_k</span><span class="p">[</span><span class="n">ok</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">ok</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+</code></pre></div><div class="cell-out"><pre class="out">[52 77 40 66] [0 2 3 6]</pre></div></div>
+<p><strong>Solution.</strong> One mask drives both the values and the positions.</p>
+
+<h2 id="3-4-maths-and-statistics-and-the-axis-rule"><a class="anchor" href="#3-4-maths-and-statistics-and-the-axis-rule" aria-label="Link to this section">#</a>3.4 Maths and statistics, and the axis rule</h2>
+
+<p>Arithmetic between arrays of the same shape works <strong>item by item</strong> (<code>+ - * / **</code>), and one number is stretched across the array. Functions such as <code>np.sqrt</code>, <code>np.log</code> and <code>np.round</code> also work on every item.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">300</span><span class="p">]);</span> <span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">,</span> <span class="n">a</span> <span class="o">*</span> <span class="n">b</span><span class="p">,</span> <span class="n">a</span> <span class="o">/</span> <span class="n">b</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">16</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">([</span><span class="mf">2.345</span><span class="p">,</span> <span class="mf">7.891</span><span class="p">],</span> <span class="mi">1</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">[101 202 303] [100 400 900] [100. 100. 100.]
+[2. 3. 4.] [2.3 7.9]</pre></div></div>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Meaning</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>sum</code>, <code>mean</code></td>
+<td>total, average</td>
+<td>methods: <code>x.mean()</code></td>
+</tr>
+<tr>
+<td><code>np.median(x)</code></td>
+<td>middle value</td>
+<td>a function, not a method</td>
+</tr>
+<tr>
+<td><code>min</code>, <code>max</code>, <code>argmax</code></td>
+<td>extremes and where</td>
+<td><code>argmax</code> gives the position</td>
+</tr>
+<tr>
+<td><code>std</code>, <code>var</code></td>
+<td>spread</td>
+<td><strong>ddof=0 by default</strong>; use <code>ddof=1</code> for a sample</td>
+</tr>
+<tr>
+<td><code>np.percentile(x, q)</code></td>
+<td>value below which q percent fall</td>
+<td>q runs 0 to 100</td>
+</tr>
+<tr>
+<td><code>cumsum</code></td>
+<td>running total</td>
+<td>running balances</td>
+</tr>
+</tbody>
+</table></div>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="nb">print</span><span class="p">(</span><span class="n">sales</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span> <span class="n">sales</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">sales</span><span class="p">),</span> <span class="n">sales</span><span class="o">.</span><span class="n">argmax</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">sales</span><span class="p">,</span> <span class="p">[</span><span class="mi">25</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">75</span><span class="p">]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">sales</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">sales</span><span class="p">),</span> <span class="mi">2</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">sales</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="mi">2</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">615 123.0 120.0 2
+[ 85. 120. 150.]
+[120 205 405 465 615]
+49.15 54.95</pre></div></div>
+<p><code>np.std</code> divides by n (the whole group). A <strong>sample</strong> standard deviation, as in Excel's <code>STDEV.S</code> and pandas' <code>.std()</code>, divides by n - 1, which is <code>ddof=1</code>. Use it when your numbers are a sample of a bigger group.</p>
+
+<h3 id="the-axis-rule"><a class="anchor" href="#the-axis-rule" aria-label="Link to this section">#</a>The axis rule</h3>
+
+<p>In a 2-D array, <strong><code>axis=0</code> collapses the rows</strong> (one answer per column) and <strong><code>axis=1</code> collapses the columns</strong> (one answer per row). Think: the axis you name is the one that disappears.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">rev</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">90</span><span class="p">],</span>
+                <span class="p">[</span><span class="mi">80</span><span class="p">,</span> <span class="mi">110</span><span class="p">,</span> <span class="mi">95</span><span class="p">]])</span>        <span class="c1"># rows = branches, columns = months (Ksh thousands)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">rev</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>                 <span class="c1"># total per month  -&gt; shape (3,)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">rev</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>                 <span class="c1"># total per branch -&gt; shape (2,)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">rev</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">rev</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">[180 230 185]
+[310 285]
+[103.33  95.  ] [100 120  95]</pre></div></div>
+<p><strong>Common mistake.</strong> Mixing up the axes. Print <code>.shape</code> of the result: <code>axis=0</code> gives one value per column.</p>
+
+<div class="callout practice"><div class="c-label">Practice</div><p>For <code>rev</code>, find each month's share of the grand total, as a percentage to one decimal.</p>
+</div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">share</span> <span class="o">=</span> <span class="n">rev</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">/</span> <span class="n">rev</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">*</span> <span class="mi">100</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">share</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">share</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">[30.3 38.7 31.1] 100.0</pre></div></div>
+<p><strong>Solution.</strong> Sum over <code>axis=0</code> for monthly totals, then divide by the grand total; shares add to 100.</p>
+
+<h2 id="3-5-reshape-and-broadcasting"><a class="anchor" href="#3-5-reshape-and-broadcasting" aria-label="Link to this section">#</a>3.5 Reshape and broadcasting</h2>
+
+<p><code>reshape</code> changes the shape without changing the data, as long as the item count stays the same. One dimension may be <code>-1</code>, meaning &quot;work it out&quot;. <code>.T</code> swaps rows and columns.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>      <span class="c1"># -1 becomes 3</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">[[0 1 2]
+ [3 4 5]]
+(3, 2)
+(3, 2)</pre></div></div>
+<p><strong>Broadcasting</strong> is how NumPy combines arrays of different shapes. Compare shapes from the right: two dimensions fit if they are <strong>equal or one of them is 1</strong>, and a 1 is stretched to match.</p>
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Shape A</th>
+<th>Shape B</th>
+<th>Result</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>(2, 3)</td>
+<td>single number</td>
+<td>(2, 3)</td>
+<td>the number is stretched</td>
+</tr>
+<tr>
+<td>(2, 3)</td>
+<td>(3,)</td>
+<td>(2, 3)</td>
+<td>the row is repeated down</td>
+</tr>
+<tr>
+<td>(2, 3)</td>
+<td>(2, 1)</td>
+<td>(2, 3)</td>
+<td>the column is repeated across</td>
+</tr>
+<tr>
+<td>(2, 3)</td>
+<td>(2,)</td>
+<td>error</td>
+<td>3 versus 2 do not match</td>
+</tr>
+</tbody>
+</table></div>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">fees</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">])</span>               <span class="c1"># one fee per month, shape (3,)</span>
+<span class="nb">print</span><span class="p">((</span><span class="n">rev</span> <span class="o">*</span> <span class="n">fees</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>                   <span class="c1"># the row of fees applies to every branch</span>
+<span class="n">branch_tot</span> <span class="o">=</span> <span class="n">rev</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>    <span class="c1"># shape (2, 1), not (2,)</span>
+<span class="nb">print</span><span class="p">((</span><span class="n">rev</span> <span class="o">/</span> <span class="n">branch_tot</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>       <span class="c1"># each month as a % of its branch total</span>
+</code></pre></div><div class="cell-out"><pre class="out">[[100. 180. 180.]
+ [ 80. 165. 190.]]
+[[32.3 38.7 29. ]
+ [28.1 38.6 33.3]]</pre></div></div>
+<p><code>keepdims=True</code> keeps the collapsed axis as length 1 so the result broadcasts back. When shapes do not fit, add an axis with <code>[:, np.newaxis]</code>.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">per_branch</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">])</span>                <span class="c1"># shape (2,)</span>
+<span class="n">rev</span> <span class="o">+</span> <span class="n">per_branch</span>
+</code></pre></div><div class="cell-out"><div class="err"><span class="err-tag">Error on purpose</span><code>ValueError: operands could not be broadcast together with shapes (2,3) (2,) </code></div></div></div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="nb">print</span><span class="p">(</span><span class="n">rev</span> <span class="o">+</span> <span class="n">per_branch</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">])</span>         <span class="c1"># shape (2, 1) lines up with the rows</span>
+</code></pre></div><div class="cell-out"><pre class="out">[[110 130 100]
+ [100 130 115]]</pre></div></div>
+<div class="callout practice"><div class="c-label">Practice</div><p>Convert <code>rev</code> (Ksh thousands) to US dollars at an illustrative 129 Ksh per dollar.</p>
+</div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="nb">print</span><span class="p">((</span><span class="n">rev</span> <span class="o">*</span> <span class="mi">1000</span> <span class="o">/</span> <span class="mi">129</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">[[775. 930. 698.]
+ [620. 853. 736.]]</pre></div></div>
+<p><strong>Solution.</strong> A single number broadcasts over every item.</p>
+
+<h2 id="3-6-missing-values-nan"><a class="anchor" href="#3-6-missing-values-nan" aria-label="Link to this section">#</a>3.6 Missing values (NaN)</h2>
+
+<p>Real data has gaps. In a float array a missing value is <strong>NaN</strong> (not a number). NaN is contagious: any calculation that touches it returns NaN. <code>np.isnan</code> finds the gaps and the <code>nan</code> functions skip them.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mf">40.0</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">nansum</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmedian</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">x</span><span class="p">)])</span>             <span class="c1"># keep only the real values</span>
+</code></pre></div><div class="cell-out"><pre class="out">nan [False  True False False] 1
+26.666666666666668 80.0 30.0
+[10. 30. 40.]</pre></div></div>
+<p>Dividing by zero in a float array gives <code>inf</code> (or NaN for 0/0) instead of stopping. <code>np.nan_to_num</code> swaps these for numbers you choose.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<span class="n">paid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">500.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">300.0</span><span class="p">]);</span> <span class="n">due</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1000.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">])</span>
+<span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>
+    <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">"ignore"</span><span class="p">)</span>
+    <span class="n">ratio</span> <span class="o">=</span> <span class="n">paid</span> <span class="o">/</span> <span class="n">due</span>                 <span class="c1"># 0/0 -&gt; nan, 300/0 -&gt; inf</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ratio</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">ratio</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan_to_num</span><span class="p">(</span><span class="n">ratio</span><span class="p">,</span> <span class="n">nan</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">posinf</span><span class="o">=</span><span class="mf">1.0</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">[0.5 nan inf] [ True False False]
+[0.5 0.  1. ]</pre></div></div>
+<p><strong>Common mistake.</strong> Switching to <code>nanmean</code> without asking why the value is missing. A blank M-Pesa balance may mean &quot;no activity&quot; (zero) or &quot;not recorded&quot; (unknown), and the two need different treatment. Part 4 covers the same idea in pandas.</p>
+
+<div class="callout practice"><div class="c-label">Practice</div><p>Weekly repayments (Ksh) are <code>[800, nan, 650, nan, 900]</code>. Find the mean of the recorded weeks and the mean if a missing week meant zero.</p>
+</div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">rep</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">800</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="mi">650</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="mi">900</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">rep</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">nan_to_num</span><span class="p">(</span><span class="n">rep</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+</code></pre></div><div class="cell-out"><pre class="out">783.33 470.0</pre></div></div>
+<p><strong>Solution.</strong> Skipping averages 3 weeks; treating blanks as zero averages all 5. The answer depends on what a blank means.</p>
+
+<h2 id="3-7-joining-sorting-and-unique-values"><a class="anchor" href="#3-7-joining-sorting-and-unique-values" aria-label="Link to this section">#</a>3.7 Joining, sorting and unique values</h2>
+
+<p><code>concatenate</code>, <code>vstack</code> and <code>hstack</code> join arrays. <code>np.sort</code> returns sorted values, and <code>np.argsort</code> returns the positions that would sort them, which is how you rank one array by another.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]);</span> <span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">]))</span>           <span class="c1"># stacked as rows, shape (2, 3)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">([</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">]))</span>     <span class="c1"># a and b as columns, shape (3, 2)</span>
+<span class="n">agents</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s2">"Kamau"</span><span class="p">,</span> <span class="s2">"Achieng"</span><span class="p">,</span> <span class="s2">"Wekesa"</span><span class="p">,</span> <span class="s2">"Njeri"</span><span class="p">,</span> <span class="s2">"Hassan"</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">agents</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="o">-</span><span class="n">sales</span><span class="p">)])</span>  <span class="c1"># ranked by sales, highest first</span>
+</code></pre></div><div class="cell-out"><pre class="out">[1 2 3 4 5 6]
+[[1 2 3]
+ [4 5 6]]
+[[1 4]
+ [2 5]
+ [3 6]]
+[&#x27;Wekesa&#x27; &#x27;Hassan&#x27; &#x27;Kamau&#x27; &#x27;Achieng&#x27; &#x27;Njeri&#x27;]</pre></div></div>
+<p><code>np.unique</code> gives the distinct values and, with <code>return_counts=True</code>, how often each appears: a frequency table in one line.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">county</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s2">"Nairobi"</span><span class="p">,</span> <span class="s2">"Kisumu"</span><span class="p">,</span> <span class="s2">"Nairobi"</span><span class="p">,</span> <span class="s2">"Mombasa"</span><span class="p">,</span> <span class="s2">"Nairobi"</span><span class="p">,</span> <span class="s2">"Kisumu"</span><span class="p">])</span>
+<span class="n">vals</span><span class="p">,</span> <span class="n">counts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">county</span><span class="p">,</span> <span class="n">return_counts</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">vals</span><span class="p">,</span> <span class="n">counts</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">vals</span><span class="p">[</span><span class="n">counts</span><span class="o">.</span><span class="n">argmax</span><span class="p">()])</span>       <span class="c1"># the most frequent county</span>
+</code></pre></div><div class="cell-out"><pre class="out">[&#x27;Kisumu&#x27; &#x27;Mombasa&#x27; &#x27;Nairobi&#x27;] [2 1 3]
+Nairobi</pre></div></div>
+<p><code>np.clip</code> caps values into a range. Check what a value means before you cap or replace it.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">ret</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">300</span><span class="p">,</span> <span class="o">-</span><span class="mi">50</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="o">-</span><span class="mi">120</span><span class="p">,</span> <span class="mi">80</span><span class="p">])</span>      <span class="c1"># daily sales, negatives are refunds</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">ret</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">250</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"net:"</span><span class="p">,</span> <span class="n">ret</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span> <span class="s2">"| if refunds were zeroed:"</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">ret</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">ret</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+</code></pre></div><div class="cell-out"><pre class="out">[250   0 200   0  80]
+net: 410 | if refunds were zeroed: 580</pre></div></div>
+<p><strong>Common mistake.</strong> Replacing negatives with zero without asking. A negative may be a legitimate refund, and zeroing it overstates revenue (see the two totals above).</p>
+
+<h2 id="3-8-random-numbers-with-default-rng"><a class="anchor" href="#3-8-random-numbers-with-default-rng" aria-label="Link to this section">#</a>3.8 Random numbers with default_rng</h2>
+
+<p>Simulation and synthetic data need random numbers. Create one <strong>Generator</strong> with a <strong>seed</strong> and draw from it. The same seed repeats the same numbers, so your work is reproducible.</p>
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Draws</th>
+<th>Example use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>rng.random(n)</code></td>
+<td>uniform 0 to 1</td>
+<td>probabilities</td>
+</tr>
+<tr>
+<td><code>rng.integers(lo, hi, n)</code></td>
+<td>whole numbers, hi excluded</td>
+<td>IDs, counts</td>
+</tr>
+<tr>
+<td><code>rng.normal(mean, sd, n)</code></td>
+<td>bell curve</td>
+<td>scores, errors</td>
+</tr>
+<tr>
+<td><code>rng.lognormal(m, s, n)</code></td>
+<td>right-skewed positives</td>
+<td>incomes, loan sizes</td>
+</tr>
+<tr>
+<td><code>rng.choice(a, n, p=...)</code></td>
+<td>pick from a list</td>
+<td>assign channels</td>
+</tr>
+<tr>
+<td><code>rng.permutation(a)</code></td>
+<td>shuffled copy</td>
+<td>train/test split</td>
+</tr>
+</tbody>
+</table></div>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">2025</span><span class="p">)</span>
+<span class="n">income</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">lognormal</span><span class="p">(</span><span class="n">mean</span><span class="o">=</span><span class="mf">10.6</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>    <span class="c1"># synthetic monthly incomes</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"mean:"</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"Ksh </span><span class="si">{</span><span class="n">income</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">,.0f</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="s2">"| median:"</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"Ksh </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">income</span><span class="p">)</span><span class="si">:</span><span class="s2">,.0f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"mean above median (right-skewed):"</span><span class="p">,</span> <span class="n">income</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">income</span><span class="p">))</span>
+<span class="n">same</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">2025</span><span class="p">)</span><span class="o">.</span><span class="n">lognormal</span><span class="p">(</span><span class="mf">10.6</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"same seed, same numbers:"</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array_equal</span><span class="p">(</span><span class="n">income</span><span class="p">,</span> <span class="n">same</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">mean: Ksh 45,399 | median: Ksh 40,804
+mean above median (right-skewed): True
+same seed, same numbers: True</pre></div></div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+<span class="n">channel</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s2">"M-Pesa"</span><span class="p">,</span> <span class="s2">"App"</span><span class="p">,</span> <span class="s2">"Agent"</span><span class="p">],</span> <span class="n">size</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="p">[</span><span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">])</span>
+<span class="n">v</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">channel</span><span class="p">,</span> <span class="n">return_counts</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="p">(</span><span class="n">c</span> <span class="o">/</span> <span class="n">c</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">())))</span>      <span class="c1"># near 0.6 / 0.3 / 0.1</span>
+<span class="n">idx</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">permutation</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">train</span><span class="p">,</span> <span class="n">test</span> <span class="o">=</span> <span class="n">idx</span><span class="p">[:</span><span class="mi">8</span><span class="p">],</span> <span class="n">idx</span><span class="p">[</span><span class="mi">8</span><span class="p">:]</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">train</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">test</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">train</span><span class="p">)</span> <span class="o">&amp;</span> <span class="nb">set</span><span class="p">(</span><span class="n">test</span><span class="p">)))</span>          <span class="c1"># no overlap</span>
+</code></pre></div><div class="cell-out"><pre class="out">{&#x27;Agent&#x27;: 0.096, &#x27;App&#x27;: 0.302, &#x27;M-Pesa&#x27;: 0.602}
+8 2 0</pre></div></div>
+<p><strong>Common mistake.</strong> Creating <code>default_rng(42)</code> inside a loop, so every pass draws the same numbers. Create the generator once, outside the loop.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">same</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)]</span>
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">different</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">same</span><span class="p">,</span> <span class="n">different</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">[8, 8, 8] [8, 77, 65]</pre></div></div>
+<h2 id="3-9-vectorisation-versus-loops"><a class="anchor" href="#3-9-vectorisation-versus-loops" aria-label="Link to this section">#</a>3.9 Vectorisation versus loops</h2>
+
+<p><strong>Vectorisation</strong> means replacing a Python <code>for</code> loop with one array expression. The loop handles one item at a time in Python; the array expression runs in fast compiled code over all items. The result is the same, and the array form is shorter and easier to read. Always check that both agree.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">price</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">100_000</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">qty</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">100_000</span><span class="p">)</span>
+
+<span class="n">total_loop</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">price</span><span class="p">)):</span>               <span class="c1"># one row at a time</span>
+    <span class="n">total_loop</span> <span class="o">+=</span> <span class="n">price</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">qty</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+<span class="n">total_vec</span> <span class="o">=</span> <span class="p">(</span><span class="n">price</span> <span class="o">*</span> <span class="n">qty</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>           <span class="c1"># one expression</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"loop </span><span class="si">{</span><span class="n">total_loop</span><span class="si">:</span><span class="s2">,.2f</span><span class="si">}</span><span class="s2"> | vectorised </span><span class="si">{</span><span class="n">total_vec</span><span class="si">:</span><span class="s2">,.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"same answer:"</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">total_loop</span><span class="p">,</span> <span class="n">total_vec</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">loop 273,981,782.34 | vectorised 273,981,782.34
+same answer: True</pre></div></div>
+<p>Rules written as if/else vectorise too. Here is an illustrative levy (not a real rate): 2% of amounts up to Ksh 10,000, and 3% on the part above that.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">amt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">2500.0</span><span class="p">,</span> <span class="mf">10000.0</span><span class="p">,</span> <span class="mf">18000.0</span><span class="p">,</span> <span class="mf">60000.0</span><span class="p">])</span>
+<span class="n">levy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">amt</span> <span class="o">&lt;=</span> <span class="mi">10000</span><span class="p">,</span> <span class="n">amt</span> <span class="o">*</span> <span class="mf">0.02</span><span class="p">,</span> <span class="mi">200</span> <span class="o">+</span> <span class="p">(</span><span class="n">amt</span> <span class="o">-</span> <span class="mi">10000</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.03</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">levy</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">[  50.  200.  440. 1700.]</pre></div></div>
+<p><strong>Common mistake.</strong> Writing a loop over rows out of habit. Write the array expression first. Pandas has the same rule (Part 4): avoid row-by-row <code>apply</code> when a column expression exists.</p>
+
+<h2 id="3-10-linear-algebra-basics"><a class="anchor" href="#3-10-linear-algebra-basics" aria-label="Link to this section">#</a>3.10 Linear algebra basics</h2>
+
+<p><strong>Linear algebra</strong> is maths with lists of numbers (vectors) and grids of numbers (matrices). Machine learning is built on it: a model's inputs are a matrix, its weights are a vector, and a prediction is a matrix multiplied by weights. Linear regression (Part 10) and neural networks (Part 14) are largely this one operation repeated. You need only a few tools.</p>
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>NumPy</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Dot product</td>
+<td><code>a @ b</code></td>
+<td>sum of item-by-item products (a weighted total)</td>
+</tr>
+<tr>
+<td>Matrix product</td>
+<td><code>A @ B</code></td>
+<td>rows times columns; inner sizes must match</td>
+</tr>
+<tr>
+<td>Transpose</td>
+<td><code>A.T</code></td>
+<td>swap rows and columns</td>
+</tr>
+<tr>
+<td>Inverse</td>
+<td><code>np.linalg.inv(A)</code></td>
+<td>the matrix that undoes A</td>
+</tr>
+<tr>
+<td>Solve Ax = b</td>
+<td><code>np.linalg.solve(A, b)</code></td>
+<td>find x; better than <code>inv(A) @ b</code></td>
+</tr>
+</tbody>
+</table></div>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">qty</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>                 <span class="c1"># items bought</span>
+<span class="n">price</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">120</span><span class="p">,</span> <span class="mi">450</span><span class="p">,</span> <span class="mi">80</span><span class="p">])</span>          <span class="c1"># unit prices in Ksh</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">qty</span> <span class="o">@</span> <span class="n">price</span><span class="p">)</span>                        <span class="c1"># basket total: 3*120 + 2*450 + 5*80</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]]);</span> <span class="n">B</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">A</span> <span class="o">*</span> <span class="n">B</span><span class="p">)</span>                              <span class="c1"># item by item</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">A</span> <span class="o">@</span> <span class="n">B</span><span class="p">)</span>                              <span class="c1"># true matrix product</span>
+</code></pre></div><div class="cell-out"><pre class="out">1660
+[[0 2]
+ [3 0]]
+[[2 1]
+ [4 3]]</pre></div></div>
+<p><strong>Solving a system.</strong> A shop sells two packs. Pack 1 uses 2 screens and 1 board; pack 2 uses 1 screen and 3 boards. With 100 screens and 120 boards, how many of each pack use the stock exactly? That is <code>A x = b</code>.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">]])</span>    <span class="c1"># rows: screens, boards; columns: pack 1, pack 2</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">100.0</span><span class="p">,</span> <span class="mf">120.0</span><span class="p">])</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">A</span> <span class="o">@</span> <span class="n">x</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span>
+<span class="n">Ainv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">A</span> <span class="o">@</span> <span class="n">Ainv</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">2</span><span class="p">)))</span>   <span class="c1"># a matrix times its inverse is the identity</span>
+</code></pre></div><div class="cell-out"><pre class="out">[36. 28.] True
+True</pre></div></div>
+<p>A <strong>singular</strong> matrix has no inverse. It happens when one row is a multiple of another, for example two predictors that carry the same information.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">]]))</span>
+</code></pre></div><div class="cell-out"><div class="err"><span class="err-tag">Error on purpose</span><code>LinAlgError: Singular matrix</code></div></div></div>
+<p><strong>Common mistake.</strong> Using <code>*</code> when you mean a matrix product. <code>*</code> multiplies item by item and gives no error when it is wrong; <code>@</code> does rows times columns.</p>
+
+<div class="callout practice"><div class="c-label">Practice</div><p>Branch X sold 4 screens and 10 chargers for Ksh 9,800; branch Y sold 6 screens and 5 chargers for Ksh 11,500. Find the unit prices (illustrative).</p>
+</div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">6.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">]]);</span> <span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">9800.0</span><span class="p">,</span> <span class="mf">11500.0</span><span class="p">])</span>
+<span class="n">screen</span><span class="p">,</span> <span class="n">charger</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"screen Ksh </span><span class="si">{</span><span class="n">screen</span><span class="si">:</span><span class="s2">,.0f</span><span class="si">}</span><span class="s2">, charger Ksh </span><span class="si">{</span><span class="n">charger</span><span class="si">:</span><span class="s2">,.0f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">screen Ksh 1,650, charger Ksh 320</pre></div></div>
+<p><strong>Solution.</strong> Each branch is one equation in two unknown prices; <code>solve</code> returns both.</p>
+
+<h2 id="3-11-a-short-practical-example-revenue-margin-and-outliers"><a class="anchor" href="#3-11-a-short-practical-example-revenue-margin-and-outliers" aria-label="Link to this section">#</a>3.11 A short practical example: revenue, margin and outliers</h2>
+
+<p>Here the pieces combine. A small shop sells three products. You will compute revenue, margin and growth, then flag unusual days with the <strong>IQR rule</strong>: a value is an outlier if it is below Q1 - 1.5 x IQR or above Q3 + 1.5 x IQR, where IQR = Q3 - Q1. An outlier is not automatically an error; investigate first.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">units</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">15</span><span class="p">])</span>
+<span class="n">price</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">100</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">80</span><span class="p">])</span>            <span class="c1"># Ksh</span>
+<span class="n">cost</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">60</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">50</span><span class="p">])</span>
+<span class="n">revenue</span> <span class="o">=</span> <span class="n">units</span> <span class="o">*</span> <span class="n">price</span>
+<span class="n">profit</span> <span class="o">=</span> <span class="n">units</span> <span class="o">*</span> <span class="p">(</span><span class="n">price</span> <span class="o">-</span> <span class="n">cost</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">revenue</span><span class="p">,</span> <span class="n">profit</span><span class="p">,</span> <span class="p">(</span><span class="n">profit</span> <span class="o">/</span> <span class="n">revenue</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"overall margin:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">profit</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="n">revenue</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="s2">"%"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">[1000 1000 1200] [400 400 450] [40.  40.  37.5]
+overall margin: 39.1 %</pre></div></div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">sales</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">120</span><span class="p">,</span> <span class="mi">135</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">162</span><span class="p">,</span> <span class="mi">158</span><span class="p">])</span>         <span class="c1"># six months, Ksh thousands</span>
+<span class="n">growth</span> <span class="o">=</span> <span class="p">(</span><span class="n">sales</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">sales</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="n">sales</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mi">100</span>     <span class="c1"># each month divided by the PREVIOUS one</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">growth</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"months with a fall:"</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">growth</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">[12.5 -5.2 17.2  8.  -2.5]
+months with a fall: [3 6]</pre></div></div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">daily</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">420</span><span class="p">,</span> <span class="mi">380</span><span class="p">,</span> <span class="mi">510</span><span class="p">,</span> <span class="mi">460</span><span class="p">,</span> <span class="mi">1900</span><span class="p">,</span> <span class="mi">440</span><span class="p">,</span> <span class="mi">395</span><span class="p">])</span>    <span class="c1"># agent commission per day, Ksh</span>
+<span class="n">q1</span><span class="p">,</span> <span class="n">q3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">daily</span><span class="p">,</span> <span class="p">[</span><span class="mi">25</span><span class="p">,</span> <span class="mi">75</span><span class="p">])</span>
+<span class="n">low</span><span class="p">,</span> <span class="n">high</span> <span class="o">=</span> <span class="n">q1</span> <span class="o">-</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">q3</span> <span class="o">-</span> <span class="n">q1</span><span class="p">),</span> <span class="n">q3</span> <span class="o">+</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">q3</span> <span class="o">-</span> <span class="n">q1</span><span class="p">)</span>
+<span class="n">out</span> <span class="o">=</span> <span class="p">(</span><span class="n">daily</span> <span class="o">&lt;</span> <span class="n">low</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">daily</span> <span class="o">&gt;</span> <span class="n">high</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">q1</span><span class="p">,</span> <span class="n">q3</span><span class="p">,</span> <span class="n">low</span><span class="p">,</span> <span class="n">high</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"outliers:"</span><span class="p">,</span> <span class="n">daily</span><span class="p">[</span><span class="n">out</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"mean with:"</span><span class="p">,</span> <span class="n">daily</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="s2">"| without:"</span><span class="p">,</span> <span class="n">daily</span><span class="p">[</span><span class="o">~</span><span class="n">out</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">407.5 485.0 291.25 601.25
+outliers: [1900]
+mean with: 643.6 | without: 434.2</pre></div></div>
+<p>One extreme day pulls the mean up a lot, which is why the median and the IQR are more robust.</p>
+
+<h3 id="numpy-mistakes-at-a-glance"><a class="anchor" href="#numpy-mistakes-at-a-glance" aria-label="Link to this section">#</a>NumPy mistakes at a glance</h3>
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Mistake</th>
+<th>Symptom</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>and</code> / <code>or</code> on arrays</td>
+<td>ValueError: truth value is ambiguous</td>
+<td>use <code>&amp;</code>, <code>|</code>, <code>~</code> with brackets</td>
+</tr>
+<tr>
+<td>One NaN in the data</td>
+<td><code>mean()</code> returns nan</td>
+<td><code>np.nanmean</code>, after asking why</td>
+</tr>
+<tr>
+<td>Shape mismatch</td>
+<td>ValueError: could not broadcast</td>
+<td>print both <code>.shape</code>; add an axis</td>
+</tr>
+<tr>
+<td>Editing a view</td>
+<td>the original array changes</td>
+<td>use <code>.copy()</code></td>
+</tr>
+<tr>
+<td><code>*</code> instead of <code>@</code></td>
+<td>wrong result, no error</td>
+<td>use <code>@</code> for matrix products</td>
+</tr>
+</tbody>
+</table></div>
+
+<div class="callout practice"><div class="c-label">Practice</div><p>Why does <code>np.array([1, 2, 3]) == np.array([1, 2, 4])</code> not give one True or False? Write the expression that does.</p>
+</div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]);</span> <span class="n">q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">p</span> <span class="o">==</span> <span class="n">q</span><span class="p">,</span> <span class="p">(</span><span class="n">p</span> <span class="o">==</span> <span class="n">q</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">(),</span> <span class="n">np</span><span class="o">.</span><span class="n">array_equal</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">q</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">[ True  True False] False False</pre></div></div>
+<p><strong>Solution.</strong> The comparison is item by item. Use <code>.all()</code> or <code>np.array_equal</code> for one answer.</p>
+
+<h2 id="3-12-advanced-linear-algebra-extras"><a class="anchor" href="#3-12-advanced-linear-algebra-extras" aria-label="Link to this section">#</a>3.12 (Advanced) Linear algebra extras</h2>
+
+<p>These tools appear again in regression and dimensionality reduction. You only need to recognise them now.</p>
+
+<p>An <strong>eigenvector</strong> of a matrix is a direction that the matrix only stretches, by its <strong>eigenvalue</strong>. Eigen-analysis of a covariance matrix is the idea behind principal components (Part 13). The <strong>determinant</strong> is 0 for a singular matrix.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">C</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">]])</span>     <span class="c1"># a small symmetric, covariance-like matrix</span>
+<span class="n">vals</span><span class="p">,</span> <span class="n">vecs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="n">C</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">vals</span><span class="o">.</span><span class="n">real</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">det</span><span class="p">(</span><span class="n">C</span><span class="p">),</span> <span class="mi">2</span><span class="p">))</span>
+<span class="n">v</span> <span class="o">=</span> <span class="n">vecs</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">C</span> <span class="o">@</span> <span class="n">v</span><span class="p">,</span> <span class="n">vals</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">v</span><span class="p">))</span>     <span class="c1"># A v = lambda v</span>
+</code></pre></div><div class="cell-out"><pre class="out">[1.438 5.562] 8.0
+True</pre></div></div>
+<p><strong>Least squares</strong>, the heart of linear regression, is also one call. Fit a line to noisy synthetic data: add a column of ones to X so the line gets an intercept, then <code>lstsq</code> finds the weights that make the squared errors smallest.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="mi">3</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>           <span class="c1"># true intercept 3, true slope 2</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">x</span><span class="p">])</span>       <span class="c1"># design matrix</span>
+<span class="n">coef</span><span class="p">,</span> <span class="o">*</span><span class="n">_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">lstsq</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">rcond</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"intercept, slope:"</span><span class="p">,</span> <span class="n">coef</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"close to the truth:"</span><span class="p">,</span> <span class="nb">abs</span><span class="p">(</span><span class="n">coef</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">3</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">0.5</span><span class="p">,</span> <span class="nb">abs</span><span class="p">(</span><span class="n">coef</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">0.2</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">intercept, slope: [3.08 1.98]
+close to the truth: True True</pre></div></div>
+<div class="callout note"><p><strong>Why ML needs this.</strong> Predictions from a linear model are just <code>X @ coef</code>. Every row is a weighted total of its features, computed for all rows at once. This is why ML libraries want numeric arrays and why shapes must line up.</p>
+</div>
+<div class="callout takeaways"><div class="c-label">Key takeaways</div><ul>
+<li>An array holds one type and lets you calculate on a whole column with no loop.</li>
+<li>Check <code>shape</code> and <code>dtype</code> often; slices are views, so use <code>.copy()</code> before editing.</li>
+<li>Filter with Boolean masks using <code>&amp;</code>, <code>|</code>, <code>~</code> and brackets, never <code>and</code> / <code>or</code>.</li>
+<li><code>axis=0</code> gives one answer per column, <code>axis=1</code> one per row; broadcasting needs equal or 1-sized dimensions.</li>
+<li>NaN spreads through calculations: find it, ask why it is missing, then choose how to treat it.</li>
+<li>Use <code>default_rng(seed)</code> once, prefer array expressions to loops, and use <code>@</code> and <code>solve</code> for linear algebra.</li>
+</ul>
+</div></div><nav class="pager" aria-label="Previous and next"><a class="prev" href="part-02.html"><small>Previous</small><span>Part 2: Python Basics</span></a><a class="next" href="part-04.html"><small>Next</small><span>Part 4: Pandas: Working with Tables</span></a></nav>
+<footer class="foot"><p>Data Science from Zero to Advanced &middot; written by Benson M. Merita &middot; &copy; 2026 MeritaAnalytics. Public datasets keep their own licences, listed in <a href="appendix-b.html">Appendix B</a>.</p></footer>
+</main>
+</div>
+<script src="search-index.js"></script>
+<script src="site.js"></script>
+</body>
+</html>

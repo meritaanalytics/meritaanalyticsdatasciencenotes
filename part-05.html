@@ -1,0 +1,815 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>Part 5: Data Visualisation | MeritaAnalytics</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to the notes</a>
+<header class="top"><button class="menu" id="menu" aria-controls="side" aria-expanded="false">Contents</button><span class="top-title">Part 5: Data Visualisation</span></header>
+<div class="shell">
+<nav class="side" id="side" aria-label="Handbook contents">
+<a class="brand" href="index.html"><span class="mark" aria-hidden="true">MA</span><span><b>MeritaAnalytics</b><small>Data Science Notes</small></span></a>
+<label class="search"><span class="sr">Search the notes</span><input id="q" type="search" placeholder="Search topics, e.g. groupby" autocomplete="off"></label>
+<div id="results" class="results" hidden></div>
+<ol class="nav">
+<li class="lvl0"><a href="index.html" class="">Start here</a></li>
+<li class="lvl"><div class="lvl-name"><span>Level 1</span>Foundations</div><ol>
+<li data-slug="part-01"><a href="part-01.html" class=""><span class="pn">1</span><span class="pt">What Is Data Science?</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-02"><a href="part-02.html" class=""><span class="pn">2</span><span class="pt">Python Basics</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-03"><a href="part-03.html" class=""><span class="pn">3</span><span class="pt">NumPy: Fast Numbers</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 2</span>Data Analysis</div><ol>
+<li data-slug="part-04"><a href="part-04.html" class=""><span class="pn">4</span><span class="pt">Pandas: Working with Tables</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-05"><a href="part-05.html" class="on"><span class="pn">5</span><span class="pt">Data Visualisation</span><span class="done-dot" aria-hidden="true"></span></a>
+<ol class="sub"><li><a href="#5-1-anatomy-of-a-figure">5.1 Anatomy of a figure</a></li><li><a href="#5-2-line-and-bar-charts-trends-and-comparisons">5.2 Line and bar charts: trends and comparisons</a></li><li><a href="#5-3-histogram-and-box-plot-distributions-and-outliers">5.3 Histogram and box plot: distributions and outliers</a></li><li><a href="#5-4-scatter-plot-and-correlation-relationships">5.4 Scatter plot and correlation: relationships</a></li><li><a href="#5-5-choosing-the-right-chart">5.5 Choosing the right chart</a></li><li><a href="#5-6-subplots-and-layout">5.6 Subplots and layout</a></li><li><a href="#5-7-seaborn-statistical-plots">5.7 Seaborn statistical plots</a></li><li><a href="#5-8-annotation-and-styling-point-at-the-one-thing-to-notice">5.8 Annotation and styling: point at the one thing to notice</a></li><li><a href="#5-9-saving-figures">5.9 Saving figures</a></li><li><a href="#5-10-common-chart-mistakes">5.10 Common chart mistakes</a></li><li><a href="#5-11-charts-from-real-public-data">5.11 Charts from real public data</a></li></ol>
+</li>
+<li data-slug="part-06"><a href="part-06.html" class=""><span class="pn">6</span><span class="pt">SQL for Data Analysts</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-07"><a href="part-07.html" class=""><span class="pn">7</span><span class="pt">Exploratory Data Analysis</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 3</span>Statistics</div><ol>
+<li data-slug="part-08"><a href="part-08.html" class=""><span class="pn">8</span><span class="pt">Statistics for Data Science</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 4</span>Machine Learning</div><ol>
+<li data-slug="part-09"><a href="part-09.html" class=""><span class="pn">9</span><span class="pt">Machine Learning Foundations</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-10"><a href="part-10.html" class=""><span class="pn">10</span><span class="pt">Regression</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-11"><a href="part-11.html" class=""><span class="pn">11</span><span class="pt">Classification</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-12"><a href="part-12.html" class=""><span class="pn">12</span><span class="pt">Ensembles, Tuning and Feature Engineering</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-13"><a href="part-13.html" class=""><span class="pn">13</span><span class="pt">Unsupervised Learning</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 5</span>Deep Learning and Modern AI</div><ol>
+<li data-slug="part-14"><a href="part-14.html" class=""><span class="pn">14</span><span class="pt">Neural Networks and Deep Learning</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-15"><a href="part-15.html" class=""><span class="pn">15</span><span class="pt">Reinforcement Learning</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-16"><a href="part-16.html" class=""><span class="pn">16</span><span class="pt">Generative AI and Large Language Models</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 6</span>The Real World</div><ol>
+<li data-slug="part-17"><a href="part-17.html" class=""><span class="pn">17</span><span class="pt">Business Metrics, Excel and Power BI</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-18"><a href="part-18.html" class=""><span class="pn">18</span><span class="pt">Automation, Git, Deployment and Responsible AI</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-19"><a href="part-19.html" class=""><span class="pn">19</span><span class="pt">End-to-End Projects</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 7</span>Career and Reference</div><ol>
+<li data-slug="part-20"><a href="part-20.html" class=""><span class="pn">20</span><span class="pt">Practice Exercises and Answer Key</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-21"><a href="part-21.html" class=""><span class="pn">21</span><span class="pt">Interview Preparation</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-22"><a href="part-22.html" class=""><span class="pn">22</span><span class="pt">Roadmap, Cheat Sheets and Glossary</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Appendix</span>Reference</div><ol>
+<li><a href="appendix-a.html" class=""><span class="pn">A</span><span class="pt">Sources and Next Steps</span></a></li>
+<li><a href="appendix-b.html" class=""><span class="pn">B</span><span class="pt">Data Catalogue</span></a></li>
+</ol></li></ol>
+<p class="side-foot">By Benson M. Merita &middot; &copy; 2026 MeritaAnalytics</p></nav>
+<main id="main" class="main"><header class="part-head"><span class="lv">Level 2 &middot; Data Analysis</span><p class="part-no">Part 5</p><h1>Data Visualisation</h1><p class="lede">A picture finds the trend, the outlier and the gap in seconds, where a table of hundreds of rows hides them. This Part teaches the anatomy of a chart, the five core chart types, how to choose between them, subplots, seaborn statistical plots, annotation, saving and the most common chart mistakes, then applies it all to real public data.</p><button class="mark-done" id="done" data-slug="part-05" aria-pressed="false">Mark this part as done</button></header><div class="prose"><div class="callout learn"><div class="c-label">In this part</div><ul>
+<li>Build a complete, labelled chart with matplotlib (figure, axes, title, labels, formatter)</li>
+<li>Draw line, bar, histogram, box and scatter charts and know what each one answers</li>
+<li>Pick the right chart from the question you are asking</li>
+<li>Use subplots and seaborn to compare groups quickly</li>
+<li>Annotate, save and sanity-check a chart so it can go in a report</li>
+</ul>
+<div class="meta"><span><b>You need first</b> Part 4</span><span><b>Time</b> 3 to 4 hours</span></div></div>
+<h2 id="5-1-anatomy-of-a-figure"><a class="anchor" href="#5-1-anatomy-of-a-figure" aria-label="Link to this section">#</a>5.1 Anatomy of a figure</h2>
+
+<p><strong>Matplotlib</strong> is the drawing engine of Python analytics. <strong>Seaborn</strong> sits on top of it and draws statistical charts from a table in one line. A matplotlib picture is a <strong>Figure</strong> (the canvas) holding one or more <strong>Axes</strong> (one chart with its own x and y axis). Always use the <strong>object style</strong>: <code>fig, ax = plt.subplots()</code> and then <code>ax.plot(...)</code>. You always know which chart a command belongs to.</p>
+
+<p>Most examples in this section use a small <strong>synthetic</strong> table of 500 orders from an electronics and accessories shop. The prices are illustrative and describe no real business.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span><span class="o">,</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+
+<span class="n">BLUE</span><span class="p">,</span> <span class="n">GREEN</span><span class="p">,</span> <span class="n">GREY</span><span class="p">,</span> <span class="n">DARK</span><span class="p">,</span> <span class="n">AMBER</span> <span class="o">=</span> <span class="s2">"#1F5FD6"</span><span class="p">,</span> <span class="s2">"#2BB38A"</span><span class="p">,</span> <span class="s2">"#9CA3AF"</span><span class="p">,</span> <span class="s2">"#0B2A4A"</span><span class="p">,</span> <span class="s2">"#B45309"</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_theme</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">"whitegrid"</span><span class="p">,</span> <span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s2">"axes.titleweight"</span><span class="p">:</span> <span class="s2">"bold"</span><span class="p">,</span> <span class="s2">"axes.titlesize"</span><span class="p">:</span> <span class="mi">11</span><span class="p">})</span>
+
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">500</span>
+<span class="n">shop</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">"order_date"</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="s2">"2025-01-01"</span><span class="p">)</span> <span class="o">+</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_timedelta</span><span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">365</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span> <span class="n">unit</span><span class="o">=</span><span class="s2">"D"</span><span class="p">),</span>
+    <span class="s2">"branch"</span><span class="p">:</span> <span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s2">"Nairobi CBD"</span><span class="p">,</span> <span class="s2">"Eastleigh"</span><span class="p">,</span> <span class="s2">"Thika"</span><span class="p">,</span> <span class="s2">"Nakuru"</span><span class="p">],</span> <span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="p">[</span><span class="mf">.4</span><span class="p">,</span> <span class="mf">.3</span><span class="p">,</span> <span class="mf">.15</span><span class="p">,</span> <span class="mf">.15</span><span class="p">]),</span>
+    <span class="s2">"category"</span><span class="p">:</span> <span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s2">"TV parts"</span><span class="p">,</span> <span class="s2">"Chargers"</span><span class="p">,</span> <span class="s2">"Cables"</span><span class="p">,</span> <span class="s2">"Speakers"</span><span class="p">],</span> <span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="p">[</span><span class="mf">.35</span><span class="p">,</span> <span class="mf">.25</span><span class="p">,</span> <span class="mf">.25</span><span class="p">,</span> <span class="mf">.15</span><span class="p">]),</span>
+    <span class="s2">"units"</span><span class="p">:</span> <span class="n">rng</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span>
+<span class="p">})</span>
+<span class="n">base</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"TV parts"</span><span class="p">:</span> <span class="mi">4200</span><span class="p">,</span> <span class="s2">"Chargers"</span><span class="p">:</span> <span class="mi">900</span><span class="p">,</span> <span class="s2">"Cables"</span><span class="p">:</span> <span class="mi">350</span><span class="p">,</span> <span class="s2">"Speakers"</span><span class="p">:</span> <span class="mi">2600</span><span class="p">}</span>
+<span class="n">shop</span><span class="p">[</span><span class="s2">"unit_price"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">shop</span><span class="p">[</span><span class="s2">"category"</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">base</span><span class="p">)</span> <span class="o">*</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.12</span><span class="p">,</span> <span class="n">n</span><span class="p">))</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">shop</span><span class="p">[</span><span class="s2">"revenue"</span><span class="p">]</span> <span class="o">=</span> <span class="n">shop</span><span class="p">[</span><span class="s2">"units"</span><span class="p">]</span> <span class="o">*</span> <span class="n">shop</span><span class="p">[</span><span class="s2">"unit_price"</span><span class="p">]</span>
+<span class="n">shop</span><span class="p">[</span><span class="s2">"month"</span><span class="p">]</span> <span class="o">=</span> <span class="n">shop</span><span class="p">[</span><span class="s2">"order_date"</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">to_period</span><span class="p">(</span><span class="s2">"M"</span><span class="p">)</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">to_timestamp</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">shop</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">shop</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">(500, 7)</pre><div class="table-wrap df"><div>
+
+<table class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th>order_date</th>
+      <th>branch</th>
+      <th>category</th>
+      <th>units</th>
+      <th>unit_price</th>
+      <th>revenue</th>
+      <th>month</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2025-12-11</td>
+      <td>Nairobi CBD</td>
+      <td>Chargers</td>
+      <td>3</td>
+      <td>928.0</td>
+      <td>2784.0</td>
+      <td>2025-12-01</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2025-08-17</td>
+      <td>Eastleigh</td>
+      <td>Cables</td>
+      <td>10</td>
+      <td>270.0</td>
+      <td>2700.0</td>
+      <td>2025-08-01</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2025-09-07</td>
+      <td>Nairobi CBD</td>
+      <td>Chargers</td>
+      <td>10</td>
+      <td>765.0</td>
+      <td>7650.0</td>
+      <td>2025-09-01</td>
+    </tr>
+  </tbody>
+</table></div>
+</div></div></div></div>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Part of the chart</th>
+<th>Command</th>
+<th>Rule of thumb</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Canvas size</td>
+<td><code>plt.subplots(figsize=(10, 3.6))</code></td>
+<td>width x height in inches</td>
+</tr>
+<tr>
+<td>Title</td>
+<td><code>ax.set_title(...)</code></td>
+<td>say what is measured and when</td>
+</tr>
+<tr>
+<td>Axis labels</td>
+<td><code>ax.set_xlabel(...)</code></td>
+<td>always include units (Ksh, %, count)</td>
+</tr>
+<tr>
+<td>Limits</td>
+<td><code>ax.set_ylim(0, None)</code></td>
+<td>bars must start at zero</td>
+</tr>
+<tr>
+<td>Legend</td>
+<td><code>ax.legend()</code></td>
+<td>only when there are several series</td>
+</tr>
+<tr>
+<td>Save</td>
+<td><code>plt.savefig(&quot;x.png&quot;, dpi=130)</code></td>
+<td>save before <code>plt.close()</code></td>
+</tr>
+</tbody>
+</table></div>
+
+<p>Here is the smallest complete chart: total revenue by branch. Raw money axes show numbers like 1e6, which are hard to read, so we add a <strong>formatter</strong>, a tiny function that turns each tick value into text.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.ticker</span><span class="w"> </span><span class="kn">import</span> <span class="n">FuncFormatter</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">ksh_millions</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">pos</span><span class="p">):</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">x</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">1e6</span><span class="si">:</span><span class="s2">,.1f</span><span class="si">}</span><span class="s2">M"</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">ksh_thousands</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">pos</span><span class="p">):</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">x</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">1e3</span><span class="si">:</span><span class="s2">,.0f</span><span class="si">}</span><span class="s2">K"</span>
+
+<span class="n">by_branch</span> <span class="o">=</span> <span class="n">shop</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"branch"</span><span class="p">)[</span><span class="s2">"revenue"</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">3.4</span><span class="p">))</span>
+<span class="n">bars</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">by_branch</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">by_branch</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="n">BLUE</span><span class="p">,</span> <span class="n">GREEN</span><span class="p">,</span> <span class="n">GREEN</span><span class="p">,</span> <span class="n">GREEN</span><span class="p">])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">FuncFormatter</span><span class="p">(</span><span class="n">ksh_millions</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">bar_label</span><span class="p">(</span><span class="n">bars</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s2">"Ksh </span><span class="si">{</span><span class="n">v</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">1e6</span><span class="si">:</span><span class="s2">,.2f</span><span class="si">}</span><span class="s2">M"</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">by_branch</span><span class="o">.</span><span class="n">values</span><span class="p">],</span> <span class="n">padding</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">by_branch</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">*</span> <span class="mf">1.15</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Total 2025 revenue by branch (synthetic shop)"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"Branch"</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Revenue (Ksh millions)"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">"p05_anatomy.png"</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">130</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"saved p05_anatomy.png"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">saved p05_anatomy.png</pre></div></div>
+<div class="cell only-out"><div class="cell-out"><figure class="fig"><img src="img/part-05-001.png" alt="Chart output" loading="lazy"></figure></div></div>
+<p>A title that says what is measured, labelled axes with units, direct value labels and one highlighted bar: the reader needs no gridline arithmetic.</p>
+
+<div class="callout tip"><p><strong>Rule.</strong> Write one sentence first: the question this chart answers. If you cannot write it, you do not need the chart yet.</p>
+</div>
+<h2 id="5-2-line-and-bar-charts-trends-and-comparisons"><a class="anchor" href="#5-2-line-and-bar-charts-trends-and-comparisons" aria-label="Link to this section">#</a>5.2 Line and bar charts: trends and comparisons</h2>
+
+<p>Use a <strong>line chart</strong> for change over time: the line joins points that belong together in sequence, so time goes on the x axis. Use a <strong>bar chart</strong> to compare categories: bar length encodes the value, so it must start at zero. Sort bars from largest to smallest unless the categories have a natural order such as months.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">monthly</span> <span class="o">=</span> <span class="n">shop</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"month"</span><span class="p">)[</span><span class="s2">"revenue"</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="n">by_cat</span> <span class="o">=</span> <span class="n">shop</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"category"</span><span class="p">)[</span><span class="s2">"revenue"</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"peak month:"</span><span class="p">,</span> <span class="n">monthly</span><span class="o">.</span><span class="n">idxmax</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">"%b %Y"</span><span class="p">),</span> <span class="sa">f</span><span class="s2">"Ksh </span><span class="si">{</span><span class="n">monthly</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s2">,.0f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"largest category:"</span><span class="p">,</span> <span class="n">by_cat</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="sa">f</span><span class="s2">"Ksh </span><span class="si">{</span><span class="n">by_cat</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">,.0f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">3.6</span><span class="p">))</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">monthly</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">monthly</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">BLUE</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">"o"</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">FuncFormatter</span><span class="p">(</span><span class="n">ksh_thousands</span><span class="p">))</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Monthly revenue, 2025"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"Month"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Revenue (Ksh thousands)"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">"x"</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="n">by_cat</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">by_cat</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="n">GREEN</span><span class="p">,</span> <span class="n">GREEN</span><span class="p">,</span> <span class="n">GREEN</span><span class="p">,</span> <span class="n">BLUE</span><span class="p">])</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">FuncFormatter</span><span class="p">(</span><span class="n">ksh_millions</span><span class="p">))</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Revenue by category, 2025"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"Revenue (Ksh millions)"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Category"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">"p05_line_bar.png"</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">130</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"saved p05_line_bar.png"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">peak month: May 2025 Ksh 712,464
+largest category: TV parts Ksh 4,542,275
+saved p05_line_bar.png</pre></div></div>
+<div class="cell only-out"><div class="cell-out"><figure class="fig"><img src="img/part-05-002.png" alt="Chart output" loading="lazy"></figure></div></div>
+<p>The left chart answers <em>how did sales move?</em> and the right chart answers <em>which category is largest?</em> A line through categories would imply an order that does not exist. A horizontal bar (<code>barh</code>) keeps long category names readable.</p>
+
+<p>To compare the <strong>mix</strong> across groups of different size, convert counts to shares that sum to 100 for each group.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">cb</span> <span class="o">=</span> <span class="n">shop</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s2">"branch"</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s2">"category"</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s2">"revenue"</span><span class="p">,</span> <span class="n">aggfunc</span><span class="o">=</span><span class="s2">"sum"</span><span class="p">)</span>
+<span class="n">share</span> <span class="o">=</span> <span class="n">cb</span><span class="o">.</span><span class="n">div</span><span class="p">(</span><span class="n">cb</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">share</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"each branch sums to 100:"</span><span class="p">,</span> <span class="nb">bool</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">share</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="mi">100</span><span class="p">)))</span>
+</code></pre></div><div class="cell-out"><pre class="out">category     Cables  Chargers  Speakers  TV parts
+branch                                           
+Eastleigh       2.7       7.1      21.6      68.5
+Nairobi CBD     3.0       9.8      19.4      67.8
+Nakuru          3.0       8.2      16.3      72.5
+Thika           4.3      14.1      29.6      52.0
+each branch sums to 100: True</pre></div></div>
+<p><strong>Common mistake.</strong> Plotting a time series in the order the rows happen to be stored. Sort by date first (<code>sort_index()</code>), or the line zigzags back and forth.</p>
+
+<div class="callout practice"><div class="c-label">Practice</div><p>Plot month-over-month percentage change in revenue as bars, with falls in amber and rises in blue.</p>
+</div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">mom</span> <span class="o">=</span> <span class="n">monthly</span><span class="o">.</span><span class="n">pct_change</span><span class="p">()</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span> <span class="o">*</span> <span class="mi">100</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">mom</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">"%b"</span><span class="p">),</span> <span class="n">mom</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="n">BLUE</span> <span class="k">if</span> <span class="n">v</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">AMBER</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">mom</span><span class="p">])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">DARK</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Month-over-month change in revenue, 2025"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"Month"</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Change vs previous month (%)"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">"p05_mom.png"</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">130</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"months with a fall:"</span><span class="p">,</span> <span class="nb">int</span><span class="p">((</span><span class="n">mom</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()),</span> <span class="s2">"of"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">mom</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">months with a fall: 5 of 11</pre></div></div>
+<p><strong>Solution.</strong> <code>pct_change()</code> gives a fraction; times 100 gives percent; colours come from the sign.</p>
+
+<h2 id="5-3-histogram-and-box-plot-distributions-and-outliers"><a class="anchor" href="#5-3-histogram-and-box-plot-distributions-and-outliers" aria-label="Link to this section">#</a>5.3 Histogram and box plot: distributions and outliers</h2>
+
+<p>A <strong>distribution</strong> shows how often each value occurs. A <strong>histogram</strong> cuts the range into bins and counts rows in each. A <strong>box plot</strong> squeezes the distribution into five numbers: the box runs from the first quartile (Q1) to the third (Q3), the line inside is the <strong>median</strong>, whiskers reach to 1.5 x IQR from the box, and dots beyond are <strong>flagged points</strong>. A flagged point is a candidate outlier, not an error.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">rev</span> <span class="o">=</span> <span class="n">shop</span><span class="p">[</span><span class="s2">"revenue"</span><span class="p">]</span>
+<span class="n">q1</span><span class="p">,</span> <span class="n">med</span><span class="p">,</span> <span class="n">q3</span> <span class="o">=</span> <span class="n">rev</span><span class="o">.</span><span class="n">quantile</span><span class="p">([</span><span class="mf">.25</span><span class="p">,</span> <span class="mf">.5</span><span class="p">,</span> <span class="mf">.75</span><span class="p">])</span>
+<span class="n">fence</span> <span class="o">=</span> <span class="n">q3</span> <span class="o">+</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">q3</span> <span class="o">-</span> <span class="n">q1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"median Ksh </span><span class="si">{</span><span class="n">med</span><span class="si">:</span><span class="s2">,.0f</span><span class="si">}</span><span class="s2"> | mean Ksh </span><span class="si">{</span><span class="n">rev</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">,.0f</span><span class="si">}</span><span class="s2"> | flagged above fence: </span><span class="si">{</span><span class="nb">int</span><span class="p">((</span><span class="n">rev</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">fence</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">3.6</span><span class="p">))</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">rev</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">BLUE</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">"white"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">med</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">DARK</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">"--"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"median"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">rev</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">color</span><span class="o">=</span><span class="n">AMBER</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">"--"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"mean"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Distribution of order revenue"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"Order revenue (Ksh)"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Number of orders"</span><span class="p">)</span>
+<span class="n">order</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"TV parts"</span><span class="p">,</span> <span class="s2">"Speakers"</span><span class="p">,</span> <span class="s2">"Chargers"</span><span class="p">,</span> <span class="s2">"Cables"</span><span class="p">]</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">shop</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">"category"</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">"revenue"</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">GREEN</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Order revenue by category"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"Category"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Order revenue (Ksh)"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">"p05_dist.png"</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">130</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"saved p05_dist.png"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">median Ksh 8,900 | mean Ksh 13,724 | flagged above fence: 4
+saved p05_dist.png</pre></div></div>
+<div class="cell only-out"><div class="cell-out"><figure class="fig"><img src="img/part-05-003.png" alt="Chart output" loading="lazy"></figure></div></div>
+<p>The histogram is right-skewed: a few big orders drag the mean (amber) above the median (dark), so for money amounts report the <strong>median</strong>. The box plot shows that spread differs by category. Try two or three bin counts: too few hide the shape, too many draw noise. For very skewed money data a <strong>log scale</strong> on the axis often gives the clearest picture.</p>
+
+<p><strong>Common mistake.</strong> Deleting every dot on a box plot as an error. First check whether it is a data-entry slip (an extra zero) or a genuine large sale.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">flagged</span> <span class="o">=</span> <span class="n">shop</span><span class="p">[</span><span class="n">rev</span> <span class="o">&gt;</span> <span class="n">fence</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">flagged</span><span class="p">[</span><span class="s2">"category"</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">to_dict</span><span class="p">())</span>
+</code></pre></div><div class="cell-out"><pre class="out">{&#x27;TV parts&#x27;: 4}</pre></div></div>
+<p>Flagged orders sit in the higher-priced categories, which suggests large genuine sales rather than errors.</p>
+
+<h2 id="5-4-scatter-plot-and-correlation-relationships"><a class="anchor" href="#5-4-scatter-plot-and-correlation-relationships" aria-label="Link to this section">#</a>5.4 Scatter plot and correlation: relationships</h2>
+
+<p>A <strong>scatter plot</strong> puts one row at each (x, y) position and shows whether two numeric columns move together. The <strong>correlation coefficient</strong> r summarises a straight-line relationship from -1 (perfect opposite) to +1 (perfect together); 0 means no straight-line pattern. Correlation is <strong>not</strong> cause, and r misses curved patterns, so always look at the plot as well as the number.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">rng2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">21</span><span class="p">)</span>
+<span class="n">age</span> <span class="o">=</span> <span class="n">rng2</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">65</span><span class="p">,</span> <span class="mi">400</span><span class="p">)</span>
+<span class="n">spend</span> <span class="o">=</span> <span class="mi">6000</span> <span class="o">+</span> <span class="mi">150</span> <span class="o">*</span> <span class="n">age</span> <span class="o">+</span> <span class="n">rng2</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2500</span><span class="p">,</span> <span class="mi">400</span><span class="p">)</span>
+<span class="n">cust</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">"age"</span><span class="p">:</span> <span class="n">age</span><span class="p">,</span> <span class="s2">"monthly_spend"</span><span class="p">:</span> <span class="n">spend</span><span class="p">})</span>
+<span class="n">slope</span><span class="p">,</span> <span class="n">intercept</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">polyfit</span><span class="p">(</span><span class="n">cust</span><span class="p">[</span><span class="s2">"age"</span><span class="p">],</span> <span class="n">cust</span><span class="p">[</span><span class="s2">"monthly_spend"</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">cust</span><span class="p">[</span><span class="s2">"age"</span><span class="p">]</span><span class="o">.</span><span class="n">corr</span><span class="p">(</span><span class="n">cust</span><span class="p">[</span><span class="s2">"monthly_spend"</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"slope: Ksh </span><span class="si">{</span><span class="n">slope</span><span class="si">:</span><span class="s2">,.0f</span><span class="si">}</span><span class="s2"> per year of age | r = </span><span class="si">{</span><span class="n">r</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> | r squared = </span><span class="si">{</span><span class="n">r</span><span class="o">**</span><span class="mi">2</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">3.4</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">cust</span><span class="p">[</span><span class="s2">"age"</span><span class="p">],</span> <span class="n">cust</span><span class="p">[</span><span class="s2">"monthly_spend"</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">BLUE</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.45</span><span class="p">)</span>
+<span class="n">xs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">18</span><span class="p">,</span> <span class="mi">64</span><span class="p">])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">intercept</span> <span class="o">+</span> <span class="n">slope</span> <span class="o">*</span> <span class="n">xs</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">AMBER</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">FuncFormatter</span><span class="p">(</span><span class="n">ksh_thousands</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Monthly spend against customer age (synthetic)"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"Age (years)"</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Monthly spend (Ksh thousands)"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">"p05_scatter.png"</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">130</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"saved p05_scatter.png"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">slope: Ksh 134 per year of age | r = 0.59 | r squared = 0.35
+saved p05_scatter.png</pre></div></div>
+<div class="cell only-out"><div class="cell-out"><figure class="fig"><img src="img/part-05-004.png" alt="Chart output" loading="lazy"></figure></div></div>
+<p>The amber line is the least-squares fit (Part 10 explains it) and r squared is the share of the variation in spend that the line accounts for. When thousands of points overlap, lower <code>alpha</code> (transparency) so dense areas look darker.</p>
+
+<p><strong>Common mistake.</strong> Reading r near 0 as 'no relationship'. A perfect U-shape has r close to 0.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"r for a perfect U-shape (y = x squared):"</span><span class="p">,</span> <span class="nb">abs</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">corrcoef</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="mi">3</span><span class="p">)))</span>
+</code></pre></div><div class="cell-out"><pre class="out">r for a perfect U-shape (y = x squared): 0.0</pre></div></div>
+<h2 id="5-5-choosing-the-right-chart"><a class="anchor" href="#5-5-choosing-the-right-chart" aria-label="Link to this section">#</a>5.5 Choosing the right chart</h2>
+
+<p>Start from the <strong>question</strong>, not from a gallery of chart types. Most business questions fall into a few families.</p>
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Question</th>
+<th>Chart</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>How did it change over time?</td>
+<td>Line</td>
+<td>time on x; few lines</td>
+</tr>
+<tr>
+<td>Which group is biggest?</td>
+<td>Sorted bar</td>
+<td>start the axis at zero</td>
+</tr>
+<tr>
+<td>What do the values look like?</td>
+<td>Histogram</td>
+<td>try several bin counts</td>
+</tr>
+<tr>
+<td>Which group varies more?</td>
+<td>Box or violin</td>
+<td>log scale if skewed</td>
+</tr>
+<tr>
+<td>Do two measures move together?</td>
+<td>Scatter (+ trend line)</td>
+<td>colour by a third column</td>
+</tr>
+<tr>
+<td>Which measures are related?</td>
+<td>Correlation heatmap</td>
+<td>not cause</td>
+</tr>
+<tr>
+<td>What is each part's share?</td>
+<td>Stacked or 100% bar</td>
+<td>avoid pies with many slices</td>
+</tr>
+<tr>
+<td>Are we meeting a target?</td>
+<td>Bar plus target line</td>
+<td>colour only the breaches</td>
+</tr>
+</tbody>
+</table></div>
+
+<p>Before you share any chart, check six things: the question is stated, the title says what is measured and when, both axes have units, bars start at zero, the one important thing is highlighted, and it still reads in greyscale.</p>
+
+<div class="callout practice"><div class="c-label">Practice</div><p>A lender asks which of five loan products has the highest default rate, and whether late payments cluster in certain months. Name a chart for each.</p>
+</div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="nb">print</span><span class="p">(</span><span class="s2">"default rate by product -&gt; sorted bar chart, rate labelled, axis from 0"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"late payments by month  -&gt; line chart over the months"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">default rate by product -&gt; sorted bar chart, rate labelled, axis from 0
+late payments by month  -&gt; line chart over the months</pre></div></div>
+<p><strong>Solution.</strong> A ranking of categories is a sorted bar; a question about time is a line.</p>
+
+<h2 id="5-6-subplots-and-layout"><a class="anchor" href="#5-6-subplots-and-layout" aria-label="Link to this section">#</a>5.6 Subplots and layout</h2>
+
+<p><code>plt.subplots(rows, cols)</code> creates a grid of axes and returns <code>fig</code> and an array <code>ax</code> (one-dimensional for a single row, two-dimensional for a grid). <code>sharex=True</code> and <code>sharey=True</code> give every panel the same scale so panels compare fairly. A set of the same chart for each group is called <strong>small multiples</strong>.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">branches</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"Nairobi CBD"</span><span class="p">,</span> <span class="s2">"Eastleigh"</span><span class="p">,</span> <span class="s2">"Thika"</span><span class="p">,</span> <span class="s2">"Nakuru"</span><span class="p">]</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axes</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">branches</span><span class="p">):</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">shop</span><span class="p">[</span><span class="n">shop</span><span class="p">[</span><span class="s2">"branch"</span><span class="p">]</span> <span class="o">==</span> <span class="n">b</span><span class="p">]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"month"</span><span class="p">)[</span><span class="s2">"revenue"</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">BLUE</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.8</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">FuncFormatter</span><span class="p">(</span><span class="n">ksh_thousands</span><span class="p">))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">"x"</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">supxlabel</span><span class="p">(</span><span class="s2">"Month, 2025"</span><span class="p">);</span> <span class="n">fig</span><span class="o">.</span><span class="n">supylabel</span><span class="p">(</span><span class="s2">"Revenue (Ksh thousands)"</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s2">"Monthly revenue by branch, same scale in every panel"</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s2">"bold"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">"p05_multiples.png"</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">130</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"saved p05_multiples.png | axes grid shape:"</span><span class="p">,</span> <span class="n">axes</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">saved p05_multiples.png | axes grid shape: (2, 2)</pre></div></div>
+<div class="cell only-out"><div class="cell-out"><figure class="fig"><img src="img/part-05-005.png" alt="Chart output" loading="lazy"></figure></div></div>
+<p>Because the y axis is shared, a branch that looks small really is smaller, not just drawn at a different zoom. Remove <code>sharey=True</code> only when you want to compare <em>shape</em> rather than size. For panels of unequal size use <code>fig.add_gridspec</code>.</p>
+
+<p><strong>Common mistake.</strong> With one row of panels <code>ax[0, 1]</code> fails because <code>ax</code> is one-dimensional. Use <code>ax[1]</code>, or pass <code>squeeze=False</code> so <code>ax</code> is always two-dimensional.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+</code></pre></div><div class="cell-out"><div class="err"><span class="err-tag">Error on purpose</span><code>IndexError: too many indices for array: array is 1-dimensional, but 2 were indexed</code></div><figure class="fig"><img src="img/part-05-006.png" alt="Chart output" loading="lazy"></figure></div></div>
+<h2 id="5-7-seaborn-statistical-plots"><a class="anchor" href="#5-7-seaborn-statistical-plots" aria-label="Link to this section">#</a>5.7 Seaborn statistical plots</h2>
+
+<p>Seaborn takes a table plus column names (<code>data=</code>, <code>x=</code>, <code>y=</code>, <code>hue=</code>) and does the grouping and statistics for you. <strong>Axes-level</strong> functions (<code>histplot</code>, <code>boxplot</code>, <code>violinplot</code>, <code>heatmap</code>) draw on an axes you pass with <code>ax=</code>. <strong>Figure-level</strong> functions (<code>pairplot</code>, <code>displot</code>, <code>catplot</code>) make their own figure. <code>hue</code> splits by a third column.</p>
+
+<p>For these plots we use real public data: the <strong>Palmer penguins</strong> table (344 penguins of three species, CC0 licence, Horst, Hill and Gorman). A few measurements are missing, so we drop incomplete rows for plotting.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span><span class="o">,</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="n">BLUE</span><span class="p">,</span> <span class="n">GREEN</span><span class="p">,</span> <span class="n">GREY</span><span class="p">,</span> <span class="n">DARK</span><span class="p">,</span> <span class="n">AMBER</span> <span class="o">=</span> <span class="s2">"#1F5FD6"</span><span class="p">,</span> <span class="s2">"#2BB38A"</span><span class="p">,</span> <span class="s2">"#9CA3AF"</span><span class="p">,</span> <span class="s2">"#0B2A4A"</span><span class="p">,</span> <span class="s2">"#B45309"</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_theme</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">"whitegrid"</span><span class="p">,</span> <span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s2">"axes.titleweight"</span><span class="p">:</span> <span class="s2">"bold"</span><span class="p">,</span> <span class="s2">"axes.titlesize"</span><span class="p">:</span> <span class="mi">11</span><span class="p">})</span>
+<span class="n">PUB</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">"GUIDE_ROOT"</span><span class="p">])</span> <span class="o">/</span> <span class="s2">"datasets"</span> <span class="o">/</span> <span class="s2">"public"</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">load_public</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">PUB</span> <span class="o">/</span> <span class="n">name</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">p</span> <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span> <span class="k">else</span> <span class="n">url</span><span class="p">)</span>
+
+<span class="n">peng</span> <span class="o">=</span> <span class="n">load_public</span><span class="p">(</span><span class="s2">"penguins.csv"</span><span class="p">,</span>
+                   <span class="s2">"https://raw.githubusercontent.com/mwaskom/seaborn-data/master/penguins.csv"</span><span class="p">)</span>
+<span class="n">pg</span> <span class="o">=</span> <span class="n">peng</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">peng</span><span class="p">),</span> <span class="s2">"rows;"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">pg</span><span class="p">),</span> <span class="s2">"complete rows"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pg</span><span class="p">[</span><span class="s2">"species"</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">to_dict</span><span class="p">())</span>
+</code></pre></div><div class="cell-out"><pre class="out">344 rows; 333 complete rows
+{&#x27;Adelie&#x27;: 146, &#x27;Gentoo&#x27;: 119, &#x27;Chinstrap&#x27;: 68}</pre></div></div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">sp_pal</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"Adelie"</span><span class="p">:</span> <span class="n">BLUE</span><span class="p">,</span> <span class="s2">"Chinstrap"</span><span class="p">:</span> <span class="n">AMBER</span><span class="p">,</span> <span class="s2">"Gentoo"</span><span class="p">:</span> <span class="n">GREEN</span><span class="p">}</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">3.8</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">pg</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">"body_mass_g"</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">"species"</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="n">sp_pal</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">element</span><span class="o">=</span><span class="s2">"step"</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Body mass by species"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"Body mass (g)"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Number of penguins"</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">violinplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">pg</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">"species"</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">"flipper_length_mm"</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">"species"</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="n">sp_pal</span><span class="p">,</span>
+               <span class="n">inner</span><span class="o">=</span><span class="s2">"quartile"</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Flipper length by species"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"Species"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Flipper length (mm)"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">"p05_penguin_dist.png"</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">130</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pg</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"species"</span><span class="p">)[[</span><span class="s2">"body_mass_g"</span><span class="p">,</span> <span class="s2">"flipper_length_mm"</span><span class="p">]]</span><span class="o">.</span><span class="n">median</span><span class="p">()</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+</code></pre></div><div class="cell-out"><pre class="out">           body_mass_g  flipper_length_mm
+species                                  
+Adelie          3700.0              190.0
+Chinstrap       3700.0              196.0
+Gentoo          5050.0              216.0</pre></div></div>
+<div class="cell only-out"><div class="cell-out"><figure class="fig"><img src="img/part-05-007.png" alt="Chart output" loading="lazy"></figure></div></div>
+<p>The histogram with a KDE curve (a smoothed outline) shows that one species is clearly heavier. The <strong>violin</strong> plot is a box plot that also shows the shape: the wider the violin at a height, the more penguins have that flipper length. The lines inside mark the quartiles.</p>
+
+<p>A <strong>pair plot</strong> draws every pair of numeric columns, with distributions on the diagonal. It is a first look at a new table, not a finished chart; with more than about six columns it becomes unreadable.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"bill_length_mm"</span><span class="p">,</span> <span class="s2">"bill_depth_mm"</span><span class="p">,</span> <span class="s2">"flipper_length_mm"</span><span class="p">,</span> <span class="s2">"body_mass_g"</span><span class="p">,</span> <span class="s2">"species"</span><span class="p">]</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">pairplot</span><span class="p">(</span><span class="n">pg</span><span class="p">[</span><span class="n">cols</span><span class="p">],</span> <span class="n">hue</span><span class="o">=</span><span class="s2">"species"</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="n">sp_pal</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">1.9</span><span class="p">,</span> <span class="n">diag_kind</span><span class="o">=</span><span class="s2">"kde"</span><span class="p">,</span>
+                 <span class="n">plot_kws</span><span class="o">=</span><span class="p">{</span><span class="s2">"s"</span><span class="p">:</span> <span class="mi">14</span><span class="p">,</span> <span class="s2">"alpha"</span><span class="p">:</span> <span class="mf">0.7</span><span class="p">})</span>
+<span class="n">g</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s2">"Penguin measurements, every pair of columns"</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">1.02</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s2">"bold"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">"p05_pair.png"</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">110</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s2">"tight"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">figure</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"saved p05_pair.png"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">saved p05_pair.png</pre></div></div>
+<div class="cell only-out"><div class="cell-out"><figure class="fig"><img src="img/part-05-008.png" alt="Chart output" loading="lazy"></figure></div></div>
+<p>Each species forms its own cluster in several panels, and Gentoo separates most clearly. Colouring by group is what reveals this; a single colour would show one confusing blob.</p>
+
+<p>A <strong>heatmap</strong> colours a table of numbers. With a correlation matrix, use a <strong>diverging</strong> palette centred on 0 so positive and negative relationships look different.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">corr</span> <span class="o">=</span> <span class="n">pg</span><span class="p">[[</span><span class="s2">"bill_length_mm"</span><span class="p">,</span> <span class="s2">"bill_depth_mm"</span><span class="p">,</span> <span class="s2">"flipper_length_mm"</span><span class="p">,</span> <span class="s2">"body_mass_g"</span><span class="p">]]</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
+<span class="n">within</span> <span class="o">=</span> <span class="p">(</span><span class="n">pg</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"species"</span><span class="p">)[[</span><span class="s2">"bill_length_mm"</span><span class="p">,</span> <span class="s2">"bill_depth_mm"</span><span class="p">]]</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
+          <span class="o">.</span><span class="n">xs</span><span class="p">(</span><span class="s2">"bill_length_mm"</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">1</span><span class="p">)[</span><span class="s2">"bill_depth_mm"</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"bill depth vs length, all penguins:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">corr</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">"bill_length_mm"</span><span class="p">,</span> <span class="s2">"bill_depth_mm"</span><span class="p">],</span> <span class="mi">2</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"same correlation inside each species:"</span><span class="p">,</span> <span class="n">within</span><span class="o">.</span><span class="n">to_dict</span><span class="p">())</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">6.5</span><span class="p">,</span> <span class="mf">4.2</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">corr</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s2">".2f"</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">"vlag"</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Correlation between penguin measurements"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">"p05_heatmap.png"</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">130</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"saved p05_heatmap.png"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">bill depth vs length, all penguins: -0.23
+same correlation inside each species: {&#x27;Adelie&#x27;: 0.39, &#x27;Chinstrap&#x27;: 0.65, &#x27;Gentoo&#x27;: 0.65}
+saved p05_heatmap.png</pre></div></div>
+<div class="cell only-out"><div class="cell-out"><figure class="fig"><img src="img/part-05-009.png" alt="Chart output" loading="lazy"></figure></div></div>
+<p>Overall, bill depth is weakly negative against bill length, yet inside each species the correlation is positive. Mixing groups can reverse a trend (this is called <strong>Simpson's paradox</strong>), so colour or split by group before you believe a correlation.</p>
+
+<h2 id="5-8-annotation-and-styling-point-at-the-one-thing-to-notice"><a class="anchor" href="#5-8-annotation-and-styling-point-at-the-one-thing-to-notice" aria-label="Link to this section">#</a>5.8 Annotation and styling: point at the one thing to notice</h2>
+
+<p>A chart without a point is wallpaper. Decide the single message, then use colour and text so the reader sees it first. Tools: <code>ax.annotate(text, xy=..., xytext=..., arrowprops=...)</code> for a labelled arrow, <code>ax.axhline</code> and <code>ax.axvline</code> for reference lines, <code>ax.axvspan</code> for a shaded period. Use grey for the context and one accent colour (amber) for the point. Build the label text from the data with an f-string so it can never disagree with the chart.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.ticker</span><span class="w"> </span><span class="kn">import</span> <span class="n">FuncFormatter</span>
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">months</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="s2">"2025-01-01"</span><span class="p">,</span> <span class="n">periods</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s2">"MS"</span><span class="p">)</span>
+<span class="n">sales</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="mi">60</span> <span class="o">+</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">30</span><span class="p">],</span> <span class="n">index</span><span class="o">=</span><span class="n">months</span><span class="p">)</span>
+<span class="n">best</span><span class="p">,</span> <span class="n">avg</span> <span class="o">=</span> <span class="n">sales</span><span class="o">.</span><span class="n">idxmax</span><span class="p">(),</span> <span class="n">sales</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"peak:"</span><span class="p">,</span> <span class="n">best</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">"%B"</span><span class="p">),</span> <span class="sa">f</span><span class="s2">"Ksh </span><span class="si">{</span><span class="n">sales</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2">K | average Ksh </span><span class="si">{</span><span class="n">avg</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2">K (synthetic)"</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">3.6</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sales</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">sales</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">GREY</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">([</span><span class="n">best</span><span class="p">],</span> <span class="p">[</span><span class="n">sales</span><span class="o">.</span><span class="n">max</span><span class="p">()],</span> <span class="n">color</span><span class="o">=</span><span class="n">AMBER</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">70</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">avg</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">DARK</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">"--"</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">sales</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">avg</span> <span class="o">+</span> <span class="mf">1.5</span><span class="p">,</span> <span class="s2">"monthly average"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">DARK</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Peak: </span><span class="si">{</span><span class="n">best</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">'%B'</span><span class="p">)</span><span class="si">}</span><span class="s2">, Ksh </span><span class="si">{</span><span class="n">sales</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2">K"</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">best</span><span class="p">,</span> <span class="n">sales</span><span class="o">.</span><span class="n">max</span><span class="p">()),</span>
+            <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="n">sales</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="n">sales</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="mi">3</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="n">AMBER</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s2">"bold"</span><span class="p">,</span>
+            <span class="n">arrowprops</span><span class="o">=</span><span class="p">{</span><span class="s2">"arrowstyle"</span><span class="p">:</span> <span class="s2">"-&gt;"</span><span class="p">,</span> <span class="s2">"color"</span><span class="p">:</span> <span class="n">AMBER</span><span class="p">})</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">sales</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">*</span> <span class="mf">1.15</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Monthly sales of a shop, 2025: one peak stands out (synthetic)"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"Month"</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Sales (Ksh thousands)"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">"p05_annotated.png"</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">130</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"saved p05_annotated.png"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">peak: December Ksh 83K | average Ksh 63K (synthetic)
+saved p05_annotated.png</pre></div></div>
+<div class="cell only-out"><div class="cell-out"><figure class="fig"><img src="img/part-05-010.png" alt="Chart output" loading="lazy"></figure></div></div>
+<p>Grey context, one amber point, a dashed average and a title that names the finding: that is the whole recipe. For colour choices, remember that about one man in twelve has some colour-vision deficiency. Vary lightness as well as hue, add markers or direct labels so a legend is not the only key, and prefer palettes such as <code>&quot;colorblind&quot;</code>, <code>&quot;viridis&quot;</code> (ordered data) or <code>&quot;vlag&quot;</code> (diverging) over rainbow colormaps like <code>jet</code>.</p>
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Data type</th>
+<th>Palette type</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Categories with no order</td>
+<td>qualitative</td>
+<td><code>&quot;colorblind&quot;</code></td>
+</tr>
+<tr>
+<td>Ordered low to high</td>
+<td>sequential</td>
+<td><code>&quot;viridis&quot;</code>, <code>&quot;BuGn&quot;</code></td>
+</tr>
+<tr>
+<td>Above and below a midpoint</td>
+<td>diverging</td>
+<td><code>&quot;vlag&quot;</code> with <code>center=0</code></td>
+</tr>
+<tr>
+<td>Highlight one item</td>
+<td>grey plus one accent</td>
+<td>GREY and AMBER</td>
+</tr>
+</tbody>
+</table></div>
+
+<p><strong>Common mistake.</strong> Typing the annotation text by hand (&quot;Peak in December&quot;) and then refreshing the data. The label stays and the peak moves. Build labels from computed values.</p>
+
+<h2 id="5-9-saving-figures"><a class="anchor" href="#5-9-saving-figures" aria-label="Link to this section">#</a>5.9 Saving figures</h2>
+
+<p><code>plt.savefig(&quot;name.png&quot;, dpi=130)</code> writes the file. <code>dpi</code> is dots per inch, so 10 inches x 130 is 1300 pixels wide; use 130 for notebooks and 200 or more for print. Use <code>.png</code> for slides and reports and <code>.svg</code> or <code>.pdf</code> when you need crisp vector graphics. Add <code>bbox_inches=&quot;tight&quot;</code> if long labels are clipped, and always <code>plt.close()</code> in loops so figures do not pile up in memory.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">BLUE</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"A throw-away chart"</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">"p05_tiny.png"</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s2">"tight"</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">"p05_tiny.svg"</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s2">"tight"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"p05_tiny.png"</span><span class="p">,</span> <span class="s2">"p05_tiny.svg"</span><span class="p">]:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="s2">"exists:"</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">f</span><span class="p">),</span> <span class="s2">"| not empty:"</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getsize</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">p05_tiny.png exists: True | not empty: True
+p05_tiny.svg exists: True | not empty: True</pre></div></div>
+<p><strong>Common mistake.</strong> With <code>plt.show()</code> or <code>plt.close()</code> called first, the figure is gone and <code>plt.savefig</code> writes a blank canvas. Save first, close second. The simplest safe habit is <code>fig.savefig(...)</code> on the figure object itself.</p>
+
+<h2 id="5-10-common-chart-mistakes"><a class="anchor" href="#5-10-common-chart-mistakes" aria-label="Link to this section">#</a>5.10 Common chart mistakes</h2>
+
+<p>Most misleading charts are not lies, they are shortcuts. Learn to spot these in your own work first.</p>
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Mistake</th>
+<th>Why it misleads</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Truncated bar axis</td>
+<td>bar length no longer matches value</td>
+<td>start at zero</td>
+</tr>
+<tr>
+<td>3D bars and pies</td>
+<td>perspective distorts size</td>
+<td>flat 2D charts</td>
+</tr>
+<tr>
+<td>Pie with many slices</td>
+<td>angles are hard to compare</td>
+<td>sorted bar</td>
+</tr>
+<tr>
+<td>Dual y axes</td>
+<td>scales can fake a correlation</td>
+<td>two panels sharing x</td>
+</tr>
+<tr>
+<td>Cherry-picked window</td>
+<td>start date chosen to show a trend</td>
+<td>show the full period</td>
+</tr>
+</tbody>
+</table></div>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">vals</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">({</span><span class="s2">"Branch A"</span><span class="p">:</span> <span class="mf">97.0</span><span class="p">,</span> <span class="s2">"Branch B"</span><span class="p">:</span> <span class="mf">98.5</span><span class="p">,</span> <span class="s2">"Branch C"</span><span class="p">:</span> <span class="mf">99.2</span><span class="p">})</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">3.3</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">floor</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="n">ttl</span> <span class="ow">in</span> <span class="p">[(</span><span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">96</span><span class="p">,</span> <span class="n">AMBER</span><span class="p">,</span> <span class="s2">"Misleading: axis starts at 96"</span><span class="p">),</span>
+                           <span class="p">(</span><span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="n">BLUE</span><span class="p">,</span> <span class="s2">"Honest: axis starts at 0"</span><span class="p">)]:</span>
+    <span class="n">a</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">vals</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">vals</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">col</span><span class="p">)</span>
+    <span class="n">a</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">floor</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+    <span class="n">a</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">ttl</span><span class="p">);</span> <span class="n">a</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"Branch"</span><span class="p">);</span> <span class="n">a</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"On-time delivery (%)"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">"p05_axis_crime.png"</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">130</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"C looks"</span><span class="p">,</span> <span class="nb">round</span><span class="p">((</span><span class="mf">99.2</span> <span class="o">-</span> <span class="mi">96</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mf">97.0</span> <span class="o">-</span> <span class="mi">96</span><span class="p">),</span> <span class="mi">1</span><span class="p">),</span> <span class="s2">"x taller than A on the left; real ratio:"</span><span class="p">,</span>
+      <span class="nb">round</span><span class="p">(</span><span class="mf">99.2</span> <span class="o">/</span> <span class="mf">97.0</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">C looks 3.2 x taller than A on the left; real ratio: 1.023</pre></div></div>
+<div class="cell only-out"><div class="cell-out"><figure class="fig"><img src="img/part-05-011.png" alt="Chart output" loading="lazy"></figure></div></div>
+<p>On the left, branch C's bar looks several times taller than A's, though the real gap is about two percentage points. A truncated axis is acceptable on a <strong>line</strong> chart, where position rather than length carries the value, as long as the axis is labelled.</p>
+
+<div class="callout practice"><div class="c-label">Practice</div><p>Name the mistake: a 3D bar chart of satisfaction scores 4.1, 4.3 and 4.4 out of 5, drawn on an axis from 4.0 to 4.5.</p>
+</div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="nb">print</span><span class="p">(</span><span class="s2">"Two mistakes: 3D bars, and a truncated bar axis that exaggerates a 0.3 gap on a 5-point scale."</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Fix: flat bars from 0 to 5 with the values labelled."</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">Two mistakes: 3D bars, and a truncated bar axis that exaggerates a 0.3 gap on a 5-point scale.
+Fix: flat bars from 0 to 5 with the values labelled.</pre></div></div>
+<p><strong>Solution.</strong> Flat bars that start at zero, with labels.</p>
+
+<h2 id="5-11-charts-from-real-public-data"><a class="anchor" href="#5-11-charts-from-real-public-data" aria-label="Link to this section">#</a>5.11 Charts from real public data</h2>
+
+<p>Real data adds two things a tidy example never has: awkward values and a duty to be honest about what the chart shows. Here the recipe is applied to World Bank GDP, population and inflation and to the Our World in Data CO2 file.</p>
+
+<div class="callout note"><p><strong>Data note.</strong> World Bank series via datahub.io (GDP NY.GDP.MKTP.CD, CC BY 4.0; inflation FP.CPI.TOTL.ZG and population SP.POP.TOTL, ODC-PDDL) and the Our World in Data CO2 dataset (CC BY 4.0; Global Carbon Project). <strong>What we changed:</strong> kept countries only (the files also hold aggregates such as 'World'), renamed columns, merged on country code and year, and computed GDP per person. GDP is in current US dollars, not adjusted for price changes; inflation is the annual average change in consumer prices.</p>
+</div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span><span class="o">,</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="n">BLUE</span><span class="p">,</span> <span class="n">GREEN</span><span class="p">,</span> <span class="n">GREY</span><span class="p">,</span> <span class="n">DARK</span><span class="p">,</span> <span class="n">AMBER</span> <span class="o">=</span> <span class="s2">"#1F5FD6"</span><span class="p">,</span> <span class="s2">"#2BB38A"</span><span class="p">,</span> <span class="s2">"#9CA3AF"</span><span class="p">,</span> <span class="s2">"#0B2A4A"</span><span class="p">,</span> <span class="s2">"#B45309"</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_theme</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">"whitegrid"</span><span class="p">,</span> <span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s2">"axes.titleweight"</span><span class="p">:</span> <span class="s2">"bold"</span><span class="p">,</span> <span class="s2">"axes.titlesize"</span><span class="p">:</span> <span class="mi">11</span><span class="p">})</span>
+<span class="n">PUB</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">"GUIDE_ROOT"</span><span class="p">])</span> <span class="o">/</span> <span class="s2">"datasets"</span> <span class="o">/</span> <span class="s2">"public"</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">load_public</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">PUB</span> <span class="o">/</span> <span class="n">name</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">p</span> <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span> <span class="k">else</span> <span class="n">url</span><span class="p">)</span>
+
+<span class="n">U</span> <span class="o">=</span> <span class="s2">"https://raw.githubusercontent.com/datasets/"</span>
+<span class="n">co2</span> <span class="o">=</span> <span class="n">load_public</span><span class="p">(</span><span class="s2">"owid_co2_countries_1960_on.csv"</span><span class="p">)</span>
+<span class="n">COUNTRIES</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">co2</span><span class="p">[</span><span class="s2">"iso_code"</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">())</span>
+<span class="n">gdp</span> <span class="o">=</span> <span class="n">load_public</span><span class="p">(</span><span class="s2">"gdp.csv"</span><span class="p">,</span> <span class="n">U</span> <span class="o">+</span> <span class="s2">"gdp/master/data/gdp.csv"</span><span class="p">)</span>
+<span class="n">pop</span> <span class="o">=</span> <span class="n">load_public</span><span class="p">(</span><span class="s2">"population.csv"</span><span class="p">,</span> <span class="n">U</span> <span class="o">+</span> <span class="s2">"population/master/data/population.csv"</span><span class="p">)</span>
+<span class="n">inf</span> <span class="o">=</span> <span class="n">load_public</span><span class="p">(</span><span class="s2">"inflation_consumer.csv"</span><span class="p">,</span> <span class="n">U</span> <span class="o">+</span> <span class="s2">"inflation/master/data/inflation-consumer.csv"</span><span class="p">)</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">gdp</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">"Country Name"</span><span class="p">:</span> <span class="s2">"country"</span><span class="p">,</span> <span class="s2">"Country Code"</span><span class="p">:</span> <span class="s2">"code"</span><span class="p">,</span> <span class="s2">"Year"</span><span class="p">:</span> <span class="s2">"year"</span><span class="p">,</span> <span class="s2">"Value"</span><span class="p">:</span> <span class="s2">"gdp"</span><span class="p">})</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">pop</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">"Country Code"</span><span class="p">:</span> <span class="s2">"code"</span><span class="p">,</span> <span class="s2">"Year"</span><span class="p">:</span> <span class="s2">"year"</span><span class="p">,</span> <span class="s2">"Value"</span><span class="p">:</span> <span class="s2">"pop"</span><span class="p">})</span>
+<span class="n">gp</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">p</span><span class="p">[[</span><span class="s2">"code"</span><span class="p">,</span> <span class="s2">"year"</span><span class="p">,</span> <span class="s2">"pop"</span><span class="p">]],</span> <span class="n">on</span><span class="o">=</span><span class="p">[</span><span class="s2">"code"</span><span class="p">,</span> <span class="s2">"year"</span><span class="p">])</span>
+<span class="n">gp</span> <span class="o">=</span> <span class="n">gp</span><span class="p">[</span><span class="n">gp</span><span class="p">[</span><span class="s2">"code"</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">COUNTRIES</span><span class="p">)]</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">gdp_pc</span><span class="o">=</span><span class="k">lambda</span> <span class="n">d</span><span class="p">:</span> <span class="n">d</span><span class="p">[</span><span class="s2">"gdp"</span><span class="p">]</span> <span class="o">/</span> <span class="n">d</span><span class="p">[</span><span class="s2">"pop"</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">COUNTRIES</span><span class="p">),</span> <span class="s2">"country codes | GDP-per-person rows:"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">gp</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">218 country codes | GDP-per-person rows: 10920</pre></div></div>
+<h3 id="kenya-s-gdp-per-person-against-peers"><a class="anchor" href="#kenya-s-gdp-per-person-against-peers" aria-label="Link to this section">#</a>Kenya's GDP per person against peers</h3>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">peers</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"KEN"</span><span class="p">,</span> <span class="s2">"UGA"</span><span class="p">,</span> <span class="s2">"TZA"</span><span class="p">,</span> <span class="s2">"RWA"</span><span class="p">,</span> <span class="s2">"ETH"</span><span class="p">,</span> <span class="s2">"NGA"</span><span class="p">,</span> <span class="s2">"ZAF"</span><span class="p">]</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">gp</span><span class="p">[</span><span class="n">gp</span><span class="p">[</span><span class="s2">"code"</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">peers</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">gp</span><span class="p">[</span><span class="s2">"year"</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">1990</span><span class="p">)]</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">3.8</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">code</span><span class="p">,</span> <span class="n">sub</span> <span class="ow">in</span> <span class="n">d</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"code"</span><span class="p">):</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sub</span><span class="p">[</span><span class="s2">"year"</span><span class="p">],</span> <span class="n">sub</span><span class="p">[</span><span class="s2">"gdp_pc"</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">BLUE</span> <span class="k">if</span> <span class="n">code</span> <span class="o">==</span> <span class="s2">"KEN"</span> <span class="k">else</span> <span class="n">GREY</span><span class="p">,</span>
+            <span class="n">lw</span><span class="o">=</span><span class="mi">3</span> <span class="k">if</span> <span class="n">code</span> <span class="o">==</span> <span class="s2">"KEN"</span> <span class="k">else</span> <span class="mf">1.3</span><span class="p">)</span>
+    <span class="n">last</span> <span class="o">=</span> <span class="n">sub</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">last</span><span class="p">[</span><span class="s2">"year"</span><span class="p">]</span> <span class="o">+</span> <span class="mf">0.4</span><span class="p">,</span> <span class="n">last</span><span class="p">[</span><span class="s2">"gdp_pc"</span><span class="p">],</span> <span class="n">last</span><span class="p">[</span><span class="s2">"country"</span><span class="p">],</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s2">"center"</span><span class="p">,</span>
+            <span class="n">color</span><span class="o">=</span><span class="n">BLUE</span> <span class="k">if</span> <span class="n">code</span> <span class="o">==</span> <span class="s2">"KEN"</span> <span class="k">else</span> <span class="n">DARK</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">1990</span><span class="p">,</span> <span class="mi">2030</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"GDP per person, Kenya and six peers, 1990-2023 (current US dollars)"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"Year"</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"GDP per person (US$)"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">"p05_gdp_pc.png"</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">130</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="n">latest</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="n">d</span><span class="p">[</span><span class="s2">"year"</span><span class="p">]</span> <span class="o">==</span> <span class="n">d</span><span class="p">[</span><span class="s2">"year"</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()]</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">"country"</span><span class="p">)[</span><span class="s2">"gdp_pc"</span><span class="p">]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">latest</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+</code></pre></div><div class="cell-out"><pre class="out">country
+South Africa    5976.0
+Kenya           1941.0
+Nigeria         1592.0
+Ethiopia        1272.0
+Tanzania        1188.0
+Uganda          1013.0
+Rwanda          1010.0</pre></div></div>
+<div class="cell only-out"><div class="cell-out"><figure class="fig"><img src="img/part-05-012.png" alt="Chart output" loading="lazy"></figure></div></div>
+<p>Kenya is the thick blue line and the table gives the latest values. The lines can fall as well as rise because the values are in current dollars, so exchange-rate moves show up as drops. This compares levels in nominal dollars, not real living standards.</p>
+
+<h3 id="kenya-s-inflation-with-the-peak-years-marked"><a class="anchor" href="#kenya-s-inflation-with-the-peak-years-marked" aria-label="Link to this section">#</a>Kenya's inflation, with the peak years marked</h3>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">i</span> <span class="o">=</span> <span class="n">inf</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">"Country Code"</span><span class="p">:</span> <span class="s2">"code"</span><span class="p">,</span> <span class="s2">"Year"</span><span class="p">:</span> <span class="s2">"year"</span><span class="p">,</span> <span class="s2">"Inflation"</span><span class="p">:</span> <span class="s2">"infl"</span><span class="p">})</span>
+<span class="n">ken</span> <span class="o">=</span> <span class="n">i</span><span class="p">[(</span><span class="n">i</span><span class="p">[</span><span class="s2">"code"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"KEN"</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="s2">"year"</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">1990</span><span class="p">)]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">top3</span> <span class="o">=</span> <span class="n">ken</span><span class="o">.</span><span class="n">nlargest</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s2">"infl"</span><span class="p">)</span>
+<span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="n">AMBER</span> <span class="k">if</span> <span class="n">y</span> <span class="o">==</span> <span class="n">top3</span><span class="p">[</span><span class="s2">"year"</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">else</span> <span class="n">BLUE</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">ken</span><span class="p">[</span><span class="s2">"year"</span><span class="p">]]</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">3.4</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">ken</span><span class="p">[</span><span class="s2">"year"</span><span class="p">],</span> <span class="n">ken</span><span class="p">[</span><span class="s2">"infl"</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">top3</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s1">'year'</span><span class="p">])</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">'infl'</span><span class="p">]</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">%"</span><span class="p">,</span> <span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s2">"year"</span><span class="p">],</span> <span class="n">r</span><span class="p">[</span><span class="s2">"infl"</span><span class="p">]),</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
+                <span class="n">textcoords</span><span class="o">=</span><span class="s2">"offset points"</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">"center"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">ken</span><span class="p">[</span><span class="s2">"infl"</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">*</span> <span class="mf">1.15</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Kenya: annual consumer-price inflation, 1990-2023"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"Year"</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Inflation (% per year)"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">"p05_kenya_infl.png"</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">130</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">top3</span><span class="p">[[</span><span class="s2">"year"</span><span class="p">,</span> <span class="s2">"infl"</span><span class="p">]]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"years above 10 percent:"</span><span class="p">,</span> <span class="nb">int</span><span class="p">((</span><span class="n">ken</span><span class="p">[</span><span class="s2">"infl"</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()),</span> <span class="s2">"of"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">ken</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out"> year  infl
+ 1996  42.0
+ 2009  27.7
+ 1993  25.7
+years above 10 percent: 12 of 34</pre></div></div>
+<div class="cell only-out"><div class="cell-out"><figure class="fig"><img src="img/part-05-013.png" alt="Chart output" loading="lazy"></figure></div></div>
+<p>The highest year is amber and the next two are labelled. The bars start at zero, so heights are honest. A year of falling inflation still means prices rose, only more slowly.</p>
+
+<h3 id="co2-per-person-against-gdp-per-person"><a class="anchor" href="#co2-per-person-against-gdp-per-person" aria-label="Link to this section">#</a>CO2 per person against GDP per person</h3>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">yr</span> <span class="o">=</span> <span class="mi">2023</span>
+<span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="n">g</span><span class="p">[</span><span class="n">g</span><span class="p">[</span><span class="s2">"year"</span><span class="p">]</span> <span class="o">==</span> <span class="n">yr</span><span class="p">]</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="n">p</span><span class="p">[</span><span class="s2">"year"</span><span class="p">]</span> <span class="o">==</span> <span class="n">yr</span><span class="p">][[</span><span class="s2">"code"</span><span class="p">,</span> <span class="s2">"pop"</span><span class="p">]],</span> <span class="n">on</span><span class="o">=</span><span class="s2">"code"</span><span class="p">)</span>
+     <span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">co2</span><span class="p">[</span><span class="n">co2</span><span class="p">[</span><span class="s2">"year"</span><span class="p">]</span> <span class="o">==</span> <span class="n">yr</span><span class="p">][[</span><span class="s2">"iso_code"</span><span class="p">,</span> <span class="s2">"co2_per_capita"</span><span class="p">]],</span> <span class="n">left_on</span><span class="o">=</span><span class="s2">"code"</span><span class="p">,</span> <span class="n">right_on</span><span class="o">=</span><span class="s2">"iso_code"</span><span class="p">))</span>
+<span class="n">x</span><span class="p">[</span><span class="s2">"gdp_pc"</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="s2">"gdp"</span><span class="p">]</span> <span class="o">/</span> <span class="n">x</span><span class="p">[</span><span class="s2">"pop"</span><span class="p">]</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s2">"gdp_pc"</span><span class="p">,</span> <span class="s2">"co2_per_capita"</span><span class="p">])</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">"co2_per_capita &gt; 0"</span><span class="p">)</span>
+<span class="n">k</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="s2">"code"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"KEN"</span><span class="p">]</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">3.6</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s2">"gdp_pc"</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="s2">"co2_per_capita"</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">GREY</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Other countries"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">k</span><span class="p">[</span><span class="s2">"gdp_pc"</span><span class="p">],</span> <span class="n">k</span><span class="p">[</span><span class="s2">"co2_per_capita"</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">AMBER</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Kenya"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xscale</span><span class="p">(</span><span class="s2">"log"</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="s2">"log"</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">"CO2 per person against GDP per person, </span><span class="si">{</span><span class="n">yr</span><span class="si">}</span><span class="s2"> (log scales)"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"GDP per person (current US$, log scale)"</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"CO2 per person (tonnes, log scale)"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">"p05_co2_gdp.png"</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">130</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="n">rho</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="s2">"gdp_pc"</span><span class="p">]</span><span class="o">.</span><span class="n">corr</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s2">"co2_per_capita"</span><span class="p">],</span> <span class="n">method</span><span class="o">=</span><span class="s2">"spearman"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="s2">"countries | Spearman rank correlation:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Kenya CO2 per person (t):"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">k</span><span class="p">[</span><span class="s2">"co2_per_capita"</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">2</span><span class="p">),</span>
+      <span class="s2">"| countries with lower:"</span><span class="p">,</span> <span class="nb">int</span><span class="p">((</span><span class="n">x</span><span class="p">[</span><span class="s2">"co2_per_capita"</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">k</span><span class="p">[</span><span class="s2">"co2_per_capita"</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">sum</span><span class="p">()))</span>
+</code></pre></div><div class="cell-out"><pre class="out">183 countries | Spearman rank correlation: 0.84
+Kenya CO2 per person (t): 0.38 | countries with lower: 25</pre></div></div>
+<div class="cell only-out"><div class="cell-out"><figure class="fig"><img src="img/part-05-014.png" alt="Chart output" loading="lazy"></figure></div></div>
+<p>Richer countries tend to emit more CO2 per person. Log axes are needed because both variables span a very wide range, and the <strong>Spearman</strong> rank correlation (a correlation of ranks, robust to extreme values) summarises the trend. This is an association across countries in one year; it does not show that more income causes more emissions.</p>
+
+<h3 id="inflation-across-many-countries"><a class="anchor" href="#inflation-across-many-countries" aria-label="Link to this section">#</a>Inflation across many countries</h3>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">y</span> <span class="o">=</span> <span class="n">i</span><span class="p">[(</span><span class="n">i</span><span class="p">[</span><span class="s2">"year"</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2023</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">i</span><span class="p">[</span><span class="s2">"code"</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">COUNTRIES</span><span class="p">)]</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s2">"infl"</span><span class="p">])</span>
+<span class="n">kv</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">y</span><span class="p">[</span><span class="s2">"code"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"KEN"</span><span class="p">,</span> <span class="s2">"infl"</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">cap</span> <span class="o">=</span> <span class="mi">30</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">3.4</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="s2">"infl"</span><span class="p">]</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">upper</span><span class="o">=</span><span class="n">cap</span><span class="p">),</span> <span class="n">bins</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="n">cap</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="n">BLUE</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">"white"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">kv</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">AMBER</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">2.5</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">kv</span> <span class="o">+</span> <span class="mf">0.6</span><span class="p">,</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_ylim</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.88</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"Kenya </span><span class="si">{</span><span class="n">kv</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">%"</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">AMBER</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s2">"bold"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Inflation across countries in 2023 (values above 30</span><span class="si">% s</span><span class="s2">hare the last bar)"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"Inflation (% per year)"</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Number of countries"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">"p05_infl_hist.png"</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">130</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">),</span> <span class="s2">"countries | median"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="s2">"infl"</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">(),</span> <span class="mi">1</span><span class="p">),</span> <span class="s2">"| above 30%:"</span><span class="p">,</span> <span class="nb">int</span><span class="p">((</span><span class="n">y</span><span class="p">[</span><span class="s2">"infl"</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">cap</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"share of countries with lower inflation than Kenya:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">((</span><span class="n">y</span><span class="p">[</span><span class="s2">"infl"</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">kv</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="mi">2</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">190 countries | median 4.8 | above 30%: 9
+share of countries with lower inflation than Kenya: 0.57</pre></div></div>
+<div class="cell only-out"><div class="cell-out"><figure class="fig"><img src="img/part-05-015.png" alt="Chart output" loading="lazy"></figure></div></div>
+<p>The distribution is skewed: most countries sit at low single-digit inflation and a few extreme cases stretch the right tail. Those cases are gathered in one capped bar instead of stretching the axis, and the median is a better centre than the mean.</p>
+
+<div class="callout tip"><p><strong>Checklist for real data.</strong> 1) Say where the data comes from and what you changed. 2) Use log axes when values span orders of magnitude, and say so. 3) Cap or annotate extreme values instead of letting one country squash the rest. 4) Keep bar baselines at zero. 5) Describe association, not cause.</p>
+</div>
+<div class="callout takeaways"><div class="c-label">Key takeaways</div><ul>
+<li>Every chart starts with a question; the title states what is measured and when, and axes carry units.</li>
+<li>Line = change over time, bar = compare categories (from zero), histogram and box = distribution, scatter = relationship.</li>
+<li>Use <code>fig, ax = plt.subplots()</code> (object style), share axes in small multiples, and save before you close.</li>
+<li>Seaborn draws grouped statistical plots in one line; split by group before you trust a correlation.</li>
+<li>Highlight one thing in amber and build labels from the data; check charts in greyscale.</li>
+<li>Avoid truncated bars, many-slice pies and dual axes; with real data, cite the source and avoid claiming cause.</li>
+</ul>
+</div></div><nav class="pager" aria-label="Previous and next"><a class="prev" href="part-04.html"><small>Previous</small><span>Part 4: Pandas: Working with Tables</span></a><a class="next" href="part-06.html"><small>Next</small><span>Part 6: SQL for Data Analysts</span></a></nav>
+<footer class="foot"><p>Data Science from Zero to Advanced &middot; written by Benson M. Merita &middot; &copy; 2026 MeritaAnalytics. Public datasets keep their own licences, listed in <a href="appendix-b.html">Appendix B</a>.</p></footer>
+</main>
+</div>
+<script src="search-index.js"></script>
+<script src="site.js"></script>
+</body>
+</html>

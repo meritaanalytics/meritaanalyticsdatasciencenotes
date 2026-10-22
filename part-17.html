@@ -1,0 +1,1144 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>Part 17: Business Metrics, Excel and Power BI | MeritaAnalytics</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to the notes</a>
+<header class="top"><button class="menu" id="menu" aria-controls="side" aria-expanded="false">Contents</button><span class="top-title">Part 17: Business Metrics, Excel and Power BI</span></header>
+<div class="shell">
+<nav class="side" id="side" aria-label="Handbook contents">
+<a class="brand" href="index.html"><span class="mark" aria-hidden="true">MA</span><span><b>MeritaAnalytics</b><small>Data Science Notes</small></span></a>
+<label class="search"><span class="sr">Search the notes</span><input id="q" type="search" placeholder="Search topics, e.g. groupby" autocomplete="off"></label>
+<div id="results" class="results" hidden></div>
+<ol class="nav">
+<li class="lvl0"><a href="index.html" class="">Start here</a></li>
+<li class="lvl"><div class="lvl-name"><span>Level 1</span>Foundations</div><ol>
+<li data-slug="part-01"><a href="part-01.html" class=""><span class="pn">1</span><span class="pt">What Is Data Science?</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-02"><a href="part-02.html" class=""><span class="pn">2</span><span class="pt">Python Basics</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-03"><a href="part-03.html" class=""><span class="pn">3</span><span class="pt">NumPy: Fast Numbers</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 2</span>Data Analysis</div><ol>
+<li data-slug="part-04"><a href="part-04.html" class=""><span class="pn">4</span><span class="pt">Pandas: Working with Tables</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-05"><a href="part-05.html" class=""><span class="pn">5</span><span class="pt">Data Visualisation</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-06"><a href="part-06.html" class=""><span class="pn">6</span><span class="pt">SQL for Data Analysts</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-07"><a href="part-07.html" class=""><span class="pn">7</span><span class="pt">Exploratory Data Analysis</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 3</span>Statistics</div><ol>
+<li data-slug="part-08"><a href="part-08.html" class=""><span class="pn">8</span><span class="pt">Statistics for Data Science</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 4</span>Machine Learning</div><ol>
+<li data-slug="part-09"><a href="part-09.html" class=""><span class="pn">9</span><span class="pt">Machine Learning Foundations</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-10"><a href="part-10.html" class=""><span class="pn">10</span><span class="pt">Regression</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-11"><a href="part-11.html" class=""><span class="pn">11</span><span class="pt">Classification</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-12"><a href="part-12.html" class=""><span class="pn">12</span><span class="pt">Ensembles, Tuning and Feature Engineering</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-13"><a href="part-13.html" class=""><span class="pn">13</span><span class="pt">Unsupervised Learning</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 5</span>Deep Learning and Modern AI</div><ol>
+<li data-slug="part-14"><a href="part-14.html" class=""><span class="pn">14</span><span class="pt">Neural Networks and Deep Learning</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-15"><a href="part-15.html" class=""><span class="pn">15</span><span class="pt">Reinforcement Learning</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-16"><a href="part-16.html" class=""><span class="pn">16</span><span class="pt">Generative AI and Large Language Models</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 6</span>The Real World</div><ol>
+<li data-slug="part-17"><a href="part-17.html" class="on"><span class="pn">17</span><span class="pt">Business Metrics, Excel and Power BI</span><span class="done-dot" aria-hidden="true"></span></a>
+<ol class="sub"><li><a href="#17-1-how-a-business-makes-money">17.1 How a Business Makes Money</a></li><li><a href="#17-2-growth-and-retention-metrics">17.2 Growth and Retention Metrics</a></li><li><a href="#17-3-acquisition-cost-payback-and-lifetime-value">17.3 Acquisition Cost, Payback and Lifetime Value</a></li><li><a href="#17-4-cash-flow-and-runway">17.4 Cash Flow and Runway</a></li><li><a href="#17-5-excel-essentials-and-their-pandas-twins">17.5 Excel Essentials and Their pandas Twins</a></li><li><a href="#17-6-credit-and-lending-metrics">17.6 Credit and Lending Metrics</a></li><li><a href="#17-7-power-bi-power-query-and-the-star-schema">17.7 Power BI: Power Query and the Star Schema</a></li><li><a href="#17-8-dax-measures-with-a-pandas-proof">17.8 DAX Measures with a pandas Proof</a></li><li><a href="#17-9-the-sql-to-python-to-power-bi-workflow">17.9 The SQL to Python to Power BI Workflow</a></li><li><a href="#17-10-one-page-dashboard-design-checklist">17.10 One-Page Dashboard Design Checklist</a></li></ol>
+</li>
+<li data-slug="part-18"><a href="part-18.html" class=""><span class="pn">18</span><span class="pt">Automation, Git, Deployment and Responsible AI</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-19"><a href="part-19.html" class=""><span class="pn">19</span><span class="pt">End-to-End Projects</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 7</span>Career and Reference</div><ol>
+<li data-slug="part-20"><a href="part-20.html" class=""><span class="pn">20</span><span class="pt">Practice Exercises and Answer Key</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-21"><a href="part-21.html" class=""><span class="pn">21</span><span class="pt">Interview Preparation</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-22"><a href="part-22.html" class=""><span class="pn">22</span><span class="pt">Roadmap, Cheat Sheets and Glossary</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Appendix</span>Reference</div><ol>
+<li><a href="appendix-a.html" class=""><span class="pn">A</span><span class="pt">Sources and Next Steps</span></a></li>
+<li><a href="appendix-b.html" class=""><span class="pn">B</span><span class="pt">Data Catalogue</span></a></li>
+</ol></li></ol>
+<p class="side-foot">By Benson M. Merita &middot; &copy; 2026 MeritaAnalytics</p></nav>
+<main id="main" class="main"><header class="part-head"><span class="lv">Level 6 &middot; The Real World</span><p class="part-no">Part 17</p><h1>Business Metrics, Excel and Power BI</h1><p class="lede">How a business makes money and which numbers show it, how Excel habits map onto Python, how lenders measure risk, and how data travels from SQL through Python into a Power BI dashboard. All data is synthetic and all rates are illustrative.</p><button class="mark-done" id="done" data-slug="part-17" aria-pressed="false">Mark this part as done</button></header><div class="prose"><div class="callout learn"><div class="c-label">In this part</div><ul>
+<li>Explain revenue, cost, margin, contribution margin and break-even, and calculate them</li>
+<li>Calculate growth, churn, retention, CAC, payback and cash runway</li>
+<li>Translate everyday Excel formulas (XLOOKUP, SUMIFS, pivot tables, IFERROR) into pandas</li>
+<li>Define PD, LGD, EAD, expected loss, NPL ratio, PAR30, AUC and KS for a lender</li>
+<li>Build a star schema, a date table and DAX measures, and prove each number in Python</li>
+<li>Run a SQL to Python to Power BI workflow and check a dashboard before sharing it</li>
+</ul>
+<div class="meta"><span><b>You need first</b> Part 4 and Part 6</span><span><b>Time</b> 5 to 7 hours</span></div></div>
+<h2 id="17-1-how-a-business-makes-money"><a class="anchor" href="#17-1-how-a-business-makes-money" aria-label="Link to this section">#</a>17.1 How a Business Makes Money</h2>
+
+<p>Every business sells something for a price and pays costs to do it. <strong>Revenue</strong> is price times quantity sold. <strong>Variable costs</strong> rise with each sale (parts, airtime, delivery). <strong>Fixed costs</strong> do not (rent, licences, salaries). <strong>Profit</strong> is revenue minus all costs.</p>
+
+<p><strong>Contribution margin (CM)</strong> is price minus variable cost per unit: what one sale contributes toward the fixed costs. The <strong>CM ratio</strong> is CM divided by price. <strong>Break-even</strong> is the sales level where profit is exactly zero: fixed costs divided by the CM ratio. Our example is a synthetic TV repair shop in Nairobi, with made-up prices.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="n">jobs</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">"service"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"Screen repair"</span><span class="p">,</span> <span class="s2">"Board repair"</span><span class="p">,</span> <span class="s2">"HDMI port fix"</span><span class="p">,</span> <span class="s2">"Wall mounting"</span><span class="p">],</span>
+    <span class="s2">"price_ksh"</span><span class="p">:</span> <span class="p">[</span><span class="mi">9500</span><span class="p">,</span> <span class="mi">4500</span><span class="p">,</span> <span class="mi">2500</span><span class="p">,</span> <span class="mi">1500</span><span class="p">],</span>
+    <span class="s2">"variable_ksh"</span><span class="p">:</span> <span class="p">[</span><span class="mi">7000</span><span class="p">,</span> <span class="mi">2700</span><span class="p">,</span> <span class="mi">1300</span><span class="p">,</span> <span class="mi">650</span><span class="p">],</span>      <span class="c1"># parts plus labour per job</span>
+    <span class="s2">"jobs_per_month"</span><span class="p">:</span> <span class="p">[</span><span class="mi">14</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">40</span><span class="p">],</span>
+<span class="p">})</span>
+<span class="n">jobs</span><span class="p">[</span><span class="s2">"cm_per_job"</span><span class="p">]</span> <span class="o">=</span> <span class="n">jobs</span><span class="p">[</span><span class="s2">"price_ksh"</span><span class="p">]</span> <span class="o">-</span> <span class="n">jobs</span><span class="p">[</span><span class="s2">"variable_ksh"</span><span class="p">]</span>
+<span class="n">jobs</span><span class="p">[</span><span class="s2">"cm_ratio_pct"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">100</span> <span class="o">*</span> <span class="n">jobs</span><span class="p">[</span><span class="s2">"cm_per_job"</span><span class="p">]</span> <span class="o">/</span> <span class="n">jobs</span><span class="p">[</span><span class="s2">"price_ksh"</span><span class="p">])</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">jobs</span><span class="p">[</span><span class="s2">"total_cm"</span><span class="p">]</span> <span class="o">=</span> <span class="n">jobs</span><span class="p">[</span><span class="s2">"cm_per_job"</span><span class="p">]</span> <span class="o">*</span> <span class="n">jobs</span><span class="p">[</span><span class="s2">"jobs_per_month"</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">jobs</span><span class="p">[[</span><span class="s2">"service"</span><span class="p">,</span> <span class="s2">"cm_per_job"</span><span class="p">,</span> <span class="s2">"cm_ratio_pct"</span><span class="p">,</span> <span class="s2">"total_cm"</span><span class="p">]]</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">      service  cm_per_job  cm_ratio_pct  total_cm
+Screen repair        2500          26.3     35000
+ Board repair        1800          40.0     54000
+HDMI port fix        1200          48.0     26400
+Wall mounting         850          56.7     34000</pre></div></div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">fixed_costs</span> <span class="o">=</span> <span class="mi">95000</span>                                   <span class="c1"># rent, power, one assistant (illustrative)</span>
+<span class="n">revenue</span> <span class="o">=</span> <span class="p">(</span><span class="n">jobs</span><span class="p">[</span><span class="s2">"price_ksh"</span><span class="p">]</span> <span class="o">*</span> <span class="n">jobs</span><span class="p">[</span><span class="s2">"jobs_per_month"</span><span class="p">])</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="n">total_cm</span> <span class="o">=</span> <span class="n">jobs</span><span class="p">[</span><span class="s2">"total_cm"</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="n">cm_ratio</span> <span class="o">=</span> <span class="n">total_cm</span> <span class="o">/</span> <span class="n">revenue</span>
+<span class="n">be_revenue</span> <span class="o">=</span> <span class="n">fixed_costs</span> <span class="o">/</span> <span class="n">cm_ratio</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Revenue Ksh </span><span class="si">{</span><span class="n">revenue</span><span class="si">:</span><span class="s2">,.0f</span><span class="si">}</span><span class="s2"> | CM Ksh </span><span class="si">{</span><span class="n">total_cm</span><span class="si">:</span><span class="s2">,.0f</span><span class="si">}</span><span class="s2"> | blended CM ratio </span><span class="si">{</span><span class="n">cm_ratio</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Profit: Ksh </span><span class="si">{</span><span class="n">total_cm</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">fixed_costs</span><span class="si">:</span><span class="s2">,.0f</span><span class="si">}</span><span class="s2"> | break-even revenue: Ksh </span><span class="si">{</span><span class="n">be_revenue</span><span class="si">:</span><span class="s2">,.0f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Margin of safety: </span><span class="si">{</span><span class="p">(</span><span class="n">revenue</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">be_revenue</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">revenue</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"profit at break-even is zero:"</span><span class="p">,</span> <span class="nb">bool</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">cm_ratio</span> <span class="o">*</span> <span class="n">be_revenue</span> <span class="o">-</span> <span class="n">fixed_costs</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">1e-6</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">Revenue Ksh 383,000 | CM Ksh 149,400 | blended CM ratio 39.0%
+Profit: Ksh 54,400 | break-even revenue: Ksh 243,541
+Margin of safety: 36.4%
+profit at break-even is zero: True</pre></div></div>
+<p>Plug the answer back into the formula: profit at break-even must be zero. The result assumes the mix of jobs stays the same.</p>
+
+<div class="callout mistake"><p><strong>Common mistake.</strong> A high price does not mean a high margin. Compare services by CM ratio, not by price: here the cheapest service earns a better ratio than the most expensive one.</p>
+</div>
+<h2 id="17-2-growth-and-retention-metrics"><a class="anchor" href="#17-2-growth-and-retention-metrics" aria-label="Link to this section">#</a>17.2 Growth and Retention Metrics</h2>
+
+<p><strong>Growth rate</strong> is (this period - last period) / last period. <strong>Churn</strong> is the share of customers lost in a period, and <strong>retention</strong> is 1 minus churn. A <strong>cohort</strong> is a group who started in the same month; a retention matrix shows whether newer groups stay longer than older ones, which one overall average would hide.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">rev</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">410</span><span class="p">,</span> <span class="mi">436</span><span class="p">,</span> <span class="mi">452</span><span class="p">,</span> <span class="mi">441</span><span class="p">,</span> <span class="mi">470</span><span class="p">,</span> <span class="mi">505</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s2">"revenue_k"</span><span class="p">,</span>
+                <span class="n">index</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">period_range</span><span class="p">(</span><span class="s2">"2025-01"</span><span class="p">,</span> <span class="n">periods</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s2">"M"</span><span class="p">))</span>
+<span class="n">growth</span> <span class="o">=</span> <span class="p">(</span><span class="n">rev</span><span class="o">.</span><span class="n">pct_change</span><span class="p">()</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">cagr_like</span> <span class="o">=</span> <span class="p">((</span><span class="n">rev</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">rev</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">**</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">rev</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">"revenue_k"</span><span class="p">:</span> <span class="n">rev</span><span class="p">,</span> <span class="s2">"mom_growth_pct"</span><span class="p">:</span> <span class="n">growth</span><span class="p">})</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Average compound monthly growth: </span><span class="si">{</span><span class="n">cagr_like</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">%"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">         revenue_k  mom_growth_pct
+2025-01        410             NaN
+2025-02        436             6.3
+2025-03        452             3.7
+2025-04        441            -2.4
+2025-05        470             6.6
+2025-06        505             7.4
+Average compound monthly growth: 4.26%</pre></div></div>
+<p>Revenue in thousands of Ksh, synthetic. The compound rate is smoother than any single month.</p>
+
+<p>Now a synthetic activity log of 600 customers, each active for a random number of months. We count how many of each cohort are still active n months later.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">96</span><span class="p">)</span>
+<span class="n">n_cust</span> <span class="o">=</span> <span class="mi">600</span>
+<span class="n">start</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="n">n_cust</span><span class="p">)</span>                    <span class="c1"># first month 0..5 (Jan to Jun 2025)</span>
+<span class="n">rows</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">cid</span><span class="p">,</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="n">stay</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">geometric</span><span class="p">(</span><span class="mf">0.28</span><span class="p">)</span>                        <span class="c1"># months the customer stays active</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">stay</span><span class="p">,</span> <span class="mi">6</span> <span class="o">-</span> <span class="n">s</span><span class="p">)):</span>
+        <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">cid</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="s2">"2025-01-01"</span><span class="p">)</span> <span class="o">+</span> <span class="n">pd</span><span class="o">.</span><span class="n">DateOffset</span><span class="p">(</span><span class="n">months</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">s</span> <span class="o">+</span> <span class="n">k</span><span class="p">))))</span>
+<span class="n">act</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">"customer_id"</span><span class="p">,</span> <span class="s2">"active_month"</span><span class="p">])</span>
+<span class="n">first</span> <span class="o">=</span> <span class="n">act</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"customer_id"</span><span class="p">)[</span><span class="s2">"active_month"</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="s2">"min"</span><span class="p">)</span>
+<span class="n">act</span><span class="p">[</span><span class="s2">"cohort"</span><span class="p">]</span> <span class="o">=</span> <span class="n">first</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">"%Y-%m"</span><span class="p">)</span>
+<span class="n">act</span><span class="p">[</span><span class="s2">"age"</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="n">act</span><span class="p">[</span><span class="s2">"active_month"</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">year</span> <span class="o">-</span> <span class="n">first</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">year</span><span class="p">)</span> <span class="o">*</span> <span class="mi">12</span>
+              <span class="o">+</span> <span class="n">act</span><span class="p">[</span><span class="s2">"active_month"</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">month</span> <span class="o">-</span> <span class="n">first</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">month</span><span class="p">)</span>
+<span class="n">counts</span> <span class="o">=</span> <span class="n">act</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s2">"cohort"</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s2">"age"</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s2">"customer_id"</span><span class="p">,</span> <span class="n">aggfunc</span><span class="o">=</span><span class="s2">"nunique"</span><span class="p">)</span>
+<span class="n">retention</span> <span class="o">=</span> <span class="n">counts</span><span class="o">.</span><span class="n">div</span><span class="p">(</span><span class="n">counts</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">mul</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">retention</span>
+</code></pre></div><div class="cell-out"><div class="table-wrap df"><div>
+
+<table class="dataframe">
+  <thead>
+    <tr>
+      <th>age</th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+      <th>5</th>
+    </tr>
+    <tr>
+      <th>cohort</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2025-01</th>
+      <td>100.0</td>
+      <td>73.0</td>
+      <td>49.0</td>
+      <td>37.0</td>
+      <td>25.0</td>
+      <td>21.0</td>
+    </tr>
+    <tr>
+      <th>2025-02</th>
+      <td>100.0</td>
+      <td>75.0</td>
+      <td>59.0</td>
+      <td>41.0</td>
+      <td>29.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2025-03</th>
+      <td>100.0</td>
+      <td>70.0</td>
+      <td>49.0</td>
+      <td>34.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2025-04</th>
+      <td>100.0</td>
+      <td>75.0</td>
+      <td>54.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2025-05</th>
+      <td>100.0</td>
+      <td>77.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2025-06</th>
+      <td>100.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table></div>
+</div></div></div></div>
+<p>Read row by row: column 0 is always 100 percent (the joining month), column 1 is the share still active a month later. The empty bottom-right triangle is not zero: later cohorts simply have not had time yet, so never fill it with zero.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="n">BLUE</span><span class="p">,</span> <span class="n">GREEN</span><span class="p">,</span> <span class="n">GREY</span><span class="p">,</span> <span class="n">DARK</span><span class="p">,</span> <span class="n">AMBER</span> <span class="o">=</span> <span class="s2">"#1F5FD6"</span><span class="p">,</span> <span class="s2">"#2BB38A"</span><span class="p">,</span> <span class="s2">"#9CA3AF"</span><span class="p">,</span> <span class="s2">"#0B2A4A"</span><span class="p">,</span> <span class="s2">"#B45309"</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_theme</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">"whitegrid"</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">3.6</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">retention</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s2">".0f"</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">sns</span><span class="o">.</span><span class="n">light_palette</span><span class="p">(</span><span class="n">BLUE</span><span class="p">,</span> <span class="n">as_cmap</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+            <span class="n">cbar_kws</span><span class="o">=</span><span class="p">{</span><span class="s2">"label"</span><span class="p">:</span> <span class="s2">"</span><span class="si">% o</span><span class="s2">f cohort still active"</span><span class="p">},</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">linewidths</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Monthly retention by signup cohort (synthetic)"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"Months since first activity"</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Signup cohort"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">"p17_retention.png"</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">130</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"saved p17_retention.png"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">saved p17_retention.png</pre></div></div>
+<div class="cell only-out"><div class="cell-out"><figure class="fig"><img src="img/part-17-054.png" alt="Chart output" loading="lazy"></figure></div></div>
+<p>Colours fade fastest between month 0 and month 1: most churn happens early, which is where onboarding effort pays off.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">m1</span> <span class="o">=</span> <span class="n">counts</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="n">counts</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">counts</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">notna</span><span class="p">(),</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Pooled month-1 retention: </span><span class="si">{</span><span class="n">m1</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2"> | implied monthly churn: </span><span class="si">{</span><span class="mi">1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">m1</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">Pooled month-1 retention: 74.1% | implied monthly churn: 25.9%</pre></div></div>
+<h2 id="17-3-acquisition-cost-payback-and-lifetime-value"><a class="anchor" href="#17-3-acquisition-cost-payback-and-lifetime-value" aria-label="Link to this section">#</a>17.3 Acquisition Cost, Payback and Lifetime Value</h2>
+
+<p><strong>Customer acquisition cost (CAC)</strong> is marketing spend divided by new customers won. <strong>Payback period</strong> is CAC divided by the monthly gross margin per customer: how many months until a customer has paid back what it cost to win them. A simple <strong>lifetime value (LTV)</strong> is monthly margin divided by monthly churn. The LTV to CAC ratio is a quick health check (many teams like 3 or more; that is a rule of thumb, not a law).</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">ch</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">"channel"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"WhatsApp ads"</span><span class="p">,</span> <span class="s2">"Radio"</span><span class="p">,</span> <span class="s2">"Referral"</span><span class="p">,</span> <span class="s2">"Roadside poster"</span><span class="p">],</span>
+    <span class="s2">"spend_ksh"</span><span class="p">:</span> <span class="p">[</span><span class="mi">60000</span><span class="p">,</span> <span class="mi">90000</span><span class="p">,</span> <span class="mi">48000</span><span class="p">,</span> <span class="mi">15000</span><span class="p">],</span>
+    <span class="s2">"new_customers"</span><span class="p">:</span> <span class="p">[</span><span class="mi">150</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">25</span><span class="p">],</span>
+    <span class="s2">"monthly_margin_ksh"</span><span class="p">:</span> <span class="p">[</span><span class="mi">350</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">350</span><span class="p">,</span> <span class="mi">250</span><span class="p">],</span>
+    <span class="s2">"monthly_churn"</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.08</span><span class="p">,</span> <span class="mf">0.06</span><span class="p">,</span> <span class="mf">0.06</span><span class="p">,</span> <span class="mf">0.10</span><span class="p">],</span>
+<span class="p">})</span>
+<span class="n">ch</span><span class="p">[</span><span class="s2">"CAC"</span><span class="p">]</span> <span class="o">=</span> <span class="n">ch</span><span class="p">[</span><span class="s2">"spend_ksh"</span><span class="p">]</span> <span class="o">/</span> <span class="n">ch</span><span class="p">[</span><span class="s2">"new_customers"</span><span class="p">]</span>
+<span class="n">ch</span><span class="p">[</span><span class="s2">"payback_months"</span><span class="p">]</span> <span class="o">=</span> <span class="n">ch</span><span class="p">[</span><span class="s2">"CAC"</span><span class="p">]</span> <span class="o">/</span> <span class="n">ch</span><span class="p">[</span><span class="s2">"monthly_margin_ksh"</span><span class="p">]</span>
+<span class="n">ch</span><span class="p">[</span><span class="s2">"LTV"</span><span class="p">]</span> <span class="o">=</span> <span class="n">ch</span><span class="p">[</span><span class="s2">"monthly_margin_ksh"</span><span class="p">]</span> <span class="o">/</span> <span class="n">ch</span><span class="p">[</span><span class="s2">"monthly_churn"</span><span class="p">]</span>
+<span class="n">ch</span><span class="p">[</span><span class="s2">"LTV_to_CAC"</span><span class="p">]</span> <span class="o">=</span> <span class="n">ch</span><span class="p">[</span><span class="s2">"LTV"</span><span class="p">]</span> <span class="o">/</span> <span class="n">ch</span><span class="p">[</span><span class="s2">"CAC"</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ch</span><span class="p">[[</span><span class="s2">"channel"</span><span class="p">,</span> <span class="s2">"CAC"</span><span class="p">,</span> <span class="s2">"payback_months"</span><span class="p">,</span> <span class="s2">"LTV"</span><span class="p">,</span> <span class="s2">"LTV_to_CAC"</span><span class="p">]]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+<span class="n">blended</span> <span class="o">=</span> <span class="n">ch</span><span class="p">[</span><span class="s2">"spend_ksh"</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="n">ch</span><span class="p">[</span><span class="s2">"new_customers"</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Blended CAC: Ksh </span><span class="si">{</span><span class="n">blended</span><span class="si">:</span><span class="s2">,.0f</span><span class="si">}</span><span class="s2"> | best LTV:CAC: </span><span class="si">{</span><span class="n">ch</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ch</span><span class="p">[</span><span class="s1">'LTV_to_CAC'</span><span class="p">]</span><span class="o">.</span><span class="n">idxmax</span><span class="p">(),</span><span class="w"> </span><span class="s1">'channel'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">        channel   CAC  payback_months    LTV  LTV_to_CAC
+   WhatsApp ads 400.0             1.1 4375.0        10.9
+          Radio 750.0             2.5 5000.0         6.7
+       Referral 600.0             1.7 5833.3         9.7
+Roadside poster 600.0             2.4 2500.0         4.2
+Blended CAC: Ksh 568 | best LTV:CAC: WhatsApp ads</pre></div></div>
+<div class="callout mistake"><p><strong>Common mistake.</strong> Reporting only the blended CAC hides that one channel may cost several times another. Compare by channel, and use gross margin, not revenue, for payback.</p>
+</div>
+<div class="callout practice"><div class="c-label">Practice</div><p>A channel costs Ksh 40,000 and wins 50 customers with Ksh 500 monthly margin. What is the payback in months?</p>
+</div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">cac</span> <span class="o">=</span> <span class="mi">40000</span> <span class="o">/</span> <span class="mi">50</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">cac</span><span class="p">,</span> <span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">cac</span> <span class="o">/</span> <span class="mi">500</span><span class="p">,</span> <span class="s2">"months"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">800.0 -&gt; 1.6 months</pre></div></div>
+<p><strong>Solution.</strong> CAC is Ksh 800; divided by Ksh 500 of monthly margin gives 1.6 months.</p>
+
+<h2 id="17-4-cash-flow-and-runway"><a class="anchor" href="#17-4-cash-flow-and-runway" aria-label="Link to this section">#</a>17.4 Cash Flow and Runway</h2>
+
+<p>Profit is not cash: a customer who has not paid yet is revenue but not cash. <strong>Operating cash flow</strong> comes from the business, <strong>investing</strong> is equipment, and <strong>financing</strong> is loans and repayments. <strong>Net cash flow</strong> is the sum of the three and the <strong>closing balance</strong> is the opening balance plus the running total. <strong>Runway</strong> is cash divided by monthly burn.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">months</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">period_range</span><span class="p">(</span><span class="s2">"2025-01"</span><span class="p">,</span> <span class="s2">"2025-12"</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s2">"M"</span><span class="p">)</span>
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">97</span><span class="p">)</span>
+<span class="n">cf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">"operating"</span><span class="p">:</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">60000</span><span class="p">,</span> <span class="mi">25000</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">),</span>
+    <span class="s2">"investing"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">months</span><span class="o">.</span><span class="n">month</span> <span class="o">==</span> <span class="mi">4</span><span class="p">,</span> <span class="o">-</span><span class="mi">320000</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>       <span class="c1"># buy equipment in April</span>
+    <span class="s2">"financing"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">months</span><span class="o">.</span><span class="n">month</span> <span class="o">==</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">100000</span><span class="p">,</span> <span class="o">-</span><span class="mi">12000</span><span class="p">),</span>   <span class="c1"># SACCO loan, then repayments</span>
+<span class="p">},</span> <span class="n">index</span><span class="o">=</span><span class="n">months</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">))</span>
+<span class="n">opening</span> <span class="o">=</span> <span class="mi">50000</span>
+<span class="n">cf</span><span class="p">[</span><span class="s2">"net"</span><span class="p">]</span> <span class="o">=</span> <span class="n">cf</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">cf</span><span class="p">[</span><span class="s2">"closing"</span><span class="p">]</span> <span class="o">=</span> <span class="n">opening</span> <span class="o">+</span> <span class="n">cf</span><span class="p">[</span><span class="s2">"net"</span><span class="p">]</span><span class="o">.</span><span class="n">cumsum</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">cf</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"lowest balance:"</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">cf</span><span class="p">[</span><span class="s1">'closing'</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">:</span><span class="s2">,.0f</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="s2">"in"</span><span class="p">,</span> <span class="n">cf</span><span class="p">[</span><span class="s2">"closing"</span><span class="p">]</span><span class="o">.</span><span class="n">idxmin</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"months below zero:"</span><span class="p">,</span> <span class="n">cf</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">cf</span><span class="p">[</span><span class="s2">"closing"</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+</code></pre></div><div class="cell-out"><pre class="out">         operating  investing  financing       net   closing
+2025-01    53500.0          0     -12000   41500.0   91500.0
+2025-02    89000.0          0     -12000   77000.0  168500.0
+2025-03    49400.0          0     -12000   37400.0  205900.0
+2025-04    35400.0    -320000     100000 -184600.0   21300.0
+2025-05    28200.0          0     -12000   16200.0   37500.0
+2025-06    37000.0          0     -12000   25000.0   62500.0
+2025-07    47900.0          0     -12000   35900.0   98400.0
+2025-08    26300.0          0     -12000   14300.0  112700.0
+2025-09    85200.0          0     -12000   73200.0  185900.0
+2025-10    26700.0          0     -12000   14700.0  200600.0
+2025-11    87100.0          0     -12000   75100.0  275700.0
+2025-12    48500.0          0     -12000   36500.0  312200.0
+lowest balance: 21,300 in 2025-04
+months below zero: []</pre></div></div>
+<div class="callout practice"><div class="c-label">Practice</div><p>Cash is Ksh 400,000 and average net burn is Ksh 50,000 a month. Runway?</p>
+</div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="nb">print</span><span class="p">(</span><span class="mi">400000</span> <span class="o">/</span> <span class="mi">50000</span><span class="p">,</span> <span class="s2">"months"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">8.0 months</pre></div></div>
+<p><strong>Solution.</strong> Runway = cash / burn = 8 months. Recompute it whenever burn changes.</p>
+
+<h2 id="17-5-excel-essentials-and-their-pandas-twins"><a class="anchor" href="#17-5-excel-essentials-and-their-pandas-twins" aria-label="Link to this section">#</a>17.5 Excel Essentials and Their pandas Twins</h2>
+
+<p>Most Kenyan finance, retail and fintech teams still live in Excel. If you know the pandas twin of each Excel habit, you can do the work in either tool and automate it later. The table is the map; the cells prove the main rows on a small synthetic sales table.</p>
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Excel</th>
+<th>pandas</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>XLOOKUP</code> / <code>VLOOKUP</code></td>
+<td><code>df.merge(lookup, on=key, how=&quot;left&quot;)</code></td>
+<td>left keeps every row</td>
+</tr>
+<tr>
+<td><code>SUMIFS</code></td>
+<td><code>df.loc[mask, &quot;x&quot;].sum()</code> or <code>groupby().sum()</code></td>
+<td>mask = the criteria</td>
+</tr>
+<tr>
+<td><code>COUNTIFS</code></td>
+<td><code>mask.sum()</code> or <code>groupby().size()</code></td>
+<td>True counts as 1</td>
+</tr>
+<tr>
+<td><code>IFERROR(x, alt)</code></td>
+<td><code>pd.to_numeric(..., errors=&quot;coerce&quot;).fillna(alt)</code></td>
+<td>bad text -&gt; NaN</td>
+</tr>
+<tr>
+<td><code>IF</code> / <code>IFS</code></td>
+<td><code>np.where</code> / <code>np.select</code></td>
+<td>vectorised, no loop</td>
+</tr>
+<tr>
+<td>Pivot table</td>
+<td><code>pd.pivot_table(..., margins=True)</code></td>
+<td>margins = grand totals</td>
+</tr>
+<tr>
+<td><code>TRIM</code>, <code>PROPER</code>, <code>LEFT</code></td>
+<td><code>s.str.strip()</code>, <code>.str.title()</code>, <code>.str[:3]</code></td>
+<td><code>.str</code> accessor</td>
+</tr>
+<tr>
+<td>Remove Duplicates</td>
+<td><code>df.drop_duplicates(subset=[...])</code></td>
+<td>choose key columns</td>
+</tr>
+</tbody>
+</table></div>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">12</span>
+<span class="n">sales</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">"order_id"</span><span class="p">:</span> <span class="p">[</span><span class="sa">f</span><span class="s2">"O</span><span class="si">{</span><span class="n">i</span><span class="si">:</span><span class="s2">03d</span><span class="si">}</span><span class="s2">"</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)],</span>
+    <span class="s2">"shop_code"</span><span class="p">:</span> <span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s2">"NBO"</span><span class="p">,</span> <span class="s2">"MSA"</span><span class="p">,</span> <span class="s2">"KSM"</span><span class="p">,</span> <span class="s2">"XXX"</span><span class="p">],</span> <span class="n">n</span><span class="p">),</span>
+    <span class="s2">"qty"</span><span class="p">:</span> <span class="n">rng</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span>
+    <span class="s2">"unit_price"</span><span class="p">:</span> <span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="mi">350</span><span class="p">,</span> <span class="mi">450</span><span class="p">,</span> <span class="mi">1200</span><span class="p">,</span> <span class="mi">2500</span><span class="p">],</span> <span class="n">n</span><span class="p">),</span>
+    <span class="s2">"order_date"</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="s2">"2025-01-28"</span><span class="p">,</span> <span class="n">periods</span><span class="o">=</span><span class="n">n</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s2">"9D"</span><span class="p">),</span>
+<span class="p">})</span>
+<span class="n">sales</span><span class="p">[</span><span class="s2">"amount"</span><span class="p">]</span> <span class="o">=</span> <span class="n">sales</span><span class="p">[</span><span class="s2">"qty"</span><span class="p">]</span> <span class="o">*</span> <span class="n">sales</span><span class="p">[</span><span class="s2">"unit_price"</span><span class="p">]</span>
+<span class="n">shops</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">"shop_code"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"NBO"</span><span class="p">,</span> <span class="s2">"MSA"</span><span class="p">,</span> <span class="s2">"KSM"</span><span class="p">],</span>
+                      <span class="s2">"shop_name"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"Nairobi CBD"</span><span class="p">,</span> <span class="s2">"Mombasa"</span><span class="p">,</span> <span class="s2">"Kisumu"</span><span class="p">]})</span>
+<span class="n">m</span> <span class="o">=</span> <span class="n">sales</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">shops</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">"shop_code"</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">validate</span><span class="o">=</span><span class="s2">"many_to_one"</span><span class="p">)</span>
+<span class="n">m</span><span class="p">[</span><span class="s2">"shop_name"</span><span class="p">]</span> <span class="o">=</span> <span class="n">m</span><span class="p">[</span><span class="s2">"shop_name"</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s2">"UNKNOWN"</span><span class="p">)</span>        <span class="c1"># IFERROR(XLOOKUP(...), "UNKNOWN")</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sales</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">m</span><span class="p">),</span> <span class="s2">"| unknown shops:"</span><span class="p">,</span> <span class="nb">int</span><span class="p">((</span><span class="n">m</span><span class="p">[</span><span class="s2">"shop_name"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"UNKNOWN"</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()))</span>
+<span class="n">m</span><span class="p">[[</span><span class="s2">"order_id"</span><span class="p">,</span> <span class="s2">"shop_code"</span><span class="p">,</span> <span class="s2">"shop_name"</span><span class="p">,</span> <span class="s2">"amount"</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">12 12 | unknown shops: 5</pre><div class="table-wrap df"><div>
+
+<table class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th>order_id</th>
+      <th>shop_code</th>
+      <th>shop_name</th>
+      <th>amount</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>O001</td>
+      <td>MSA</td>
+      <td>Mombasa</td>
+      <td>6000</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>O002</td>
+      <td>XXX</td>
+      <td>UNKNOWN</td>
+      <td>1750</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>O003</td>
+      <td>XXX</td>
+      <td>UNKNOWN</td>
+      <td>1400</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>O004</td>
+      <td>MSA</td>
+      <td>Mombasa</td>
+      <td>12500</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>O005</td>
+      <td>NBO</td>
+      <td>Nairobi CBD</td>
+      <td>450</td>
+    </tr>
+  </tbody>
+</table></div>
+</div></div></div></div>
+<div class="callout tip"><p><strong>Rule.</strong> <code>validate=&quot;many_to_one&quot;</code> makes pandas stop if the lookup table has duplicate keys. Excel quietly returns the first match; a duplicate key in pandas would inflate your totals.</p>
+</div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">nbo</span> <span class="o">=</span> <span class="n">sales</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">sales</span><span class="p">[</span><span class="s2">"shop_code"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"NBO"</span><span class="p">,</span> <span class="s2">"amount"</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>                   <span class="c1"># SUMIFS</span>
+<span class="n">big</span> <span class="o">=</span> <span class="p">((</span><span class="n">sales</span><span class="p">[</span><span class="s2">"amount"</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">2000</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">sales</span><span class="p">[</span><span class="s2">"shop_code"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"NBO"</span><span class="p">))</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>        <span class="c1"># COUNTIFS</span>
+<span class="n">messy</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="s2">"120"</span><span class="p">,</span> <span class="s2">"45.5"</span><span class="p">,</span> <span class="s2">"n/a"</span><span class="p">,</span> <span class="s2">""</span><span class="p">,</span> <span class="s2">"300"</span><span class="p">])</span>
+<span class="n">clean</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">messy</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s2">"coerce"</span><span class="p">)</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>                        <span class="c1"># IFERROR(VALUE())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"NBO revenue:"</span><span class="p">,</span> <span class="n">nbo</span><span class="p">,</span> <span class="s2">"| NBO orders &gt;= 2000:"</span><span class="p">,</span> <span class="n">big</span><span class="p">,</span> <span class="s2">"| cleaned:"</span><span class="p">,</span> <span class="n">clean</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+<span class="n">sales</span><span class="p">[</span><span class="s2">"month"</span><span class="p">]</span> <span class="o">=</span> <span class="n">sales</span><span class="p">[</span><span class="s2">"order_date"</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">"%Y-%m"</span><span class="p">)</span>
+<span class="n">pv</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">sales</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="s2">"shop_code"</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s2">"month"</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s2">"amount"</span><span class="p">,</span>
+                    <span class="n">aggfunc</span><span class="o">=</span><span class="s2">"sum"</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">margins</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">margins_name</span><span class="o">=</span><span class="s2">"Total"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pv</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"grand total matches:"</span><span class="p">,</span> <span class="nb">bool</span><span class="p">(</span><span class="n">pv</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">"Total"</span><span class="p">,</span> <span class="s2">"Total"</span><span class="p">]</span> <span class="o">==</span> <span class="n">sales</span><span class="p">[</span><span class="s2">"amount"</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()))</span>
+</code></pre></div><div class="cell-out"><pre class="out">NBO revenue: 450 | NBO orders &gt;= 2000: 0 | cleaned: [120.0, 45.5, 0.0, 0.0, 300.0]
+month      2025-01  2025-02  2025-03  2025-04  2025-05  Total
+shop_code                                                    
+KSM              0        0     4300    11350        0  15650
+MSA           6000    12500        0        0        0  18500
+NBO              0        0      450        0        0    450
+XXX              0     3150        0    20000     1200  24350
+Total         6000    15650     4750    31350     1200  58950
+grand total matches: True</pre></div></div>
+<p>Always check that the pivot's grand total equals the column sum: if not, rows were lost.</p>
+
+<p>A finished report is more than numbers: a title, header colours, number formats and a total that is a live formula. <code>xlsxwriter</code> writes new workbooks; <code>openpyxl</code> reads or edits them.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">import</span><span class="w"> </span><span class="nn">xlsxwriter</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">openpyxl</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_workbook</span>
+<span class="n">summary</span> <span class="o">=</span> <span class="n">sales</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"shop_code"</span><span class="p">,</span> <span class="n">as_index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span>
+    <span class="n">orders</span><span class="o">=</span><span class="p">(</span><span class="s2">"order_id"</span><span class="p">,</span> <span class="s2">"size"</span><span class="p">),</span> <span class="n">revenue</span><span class="o">=</span><span class="p">(</span><span class="s2">"amount"</span><span class="p">,</span> <span class="s2">"sum"</span><span class="p">))</span>
+<span class="n">wb</span> <span class="o">=</span> <span class="n">xlsxwriter</span><span class="o">.</span><span class="n">Workbook</span><span class="p">(</span><span class="s2">"p17_report.xlsx"</span><span class="p">)</span>
+<span class="n">ws</span> <span class="o">=</span> <span class="n">wb</span><span class="o">.</span><span class="n">add_worksheet</span><span class="p">(</span><span class="s2">"Summary"</span><span class="p">)</span>
+<span class="n">head</span> <span class="o">=</span> <span class="n">wb</span><span class="o">.</span><span class="n">add_format</span><span class="p">({</span><span class="s2">"bold"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">"bg_color"</span><span class="p">:</span> <span class="s2">"#1F5FD6"</span><span class="p">,</span> <span class="s2">"font_color"</span><span class="p">:</span> <span class="s2">"white"</span><span class="p">})</span>
+<span class="n">money</span> <span class="o">=</span> <span class="n">wb</span><span class="o">.</span><span class="n">add_format</span><span class="p">({</span><span class="s2">"num_format"</span><span class="p">:</span> <span class="s2">"Ksh #,##0"</span><span class="p">})</span>
+<span class="k">for</span> <span class="n">c</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">([</span><span class="s2">"Shop"</span><span class="p">,</span> <span class="s2">"Orders"</span><span class="p">,</span> <span class="s2">"Revenue"</span><span class="p">]):</span>
+    <span class="n">ws</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">head</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">r</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">summary</span><span class="o">.</span><span class="n">itertuples</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span> <span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">ws</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">row</span><span class="o">.</span><span class="n">shop_code</span><span class="p">);</span> <span class="n">ws</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">orders</span><span class="p">));</span> <span class="n">ws</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">revenue</span><span class="p">),</span> <span class="n">money</span><span class="p">)</span>
+<span class="n">end</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">summary</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="n">ws</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">end</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"Total"</span><span class="p">)</span>
+<span class="n">ws</span><span class="o">.</span><span class="n">write_formula</span><span class="p">(</span><span class="n">end</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"=SUM(C2:C</span><span class="si">{</span><span class="n">end</span><span class="si">}</span><span class="s2">)"</span><span class="p">,</span> <span class="n">money</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">summary</span><span class="p">[</span><span class="s2">"revenue"</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()))</span>
+<span class="n">ws</span><span class="o">.</span><span class="n">set_column</span><span class="p">(</span><span class="s2">"C:C"</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">wb</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="n">back</span> <span class="o">=</span> <span class="n">load_workbook</span><span class="p">(</span><span class="s2">"p17_report.xlsx"</span><span class="p">)[</span><span class="s2">"Summary"</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"formula stored:"</span><span class="p">,</span> <span class="n">back</span><span class="p">[</span><span class="sa">f</span><span class="s2">"C</span><span class="si">{</span><span class="n">end</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">"</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="s2">"| format:"</span><span class="p">,</span> <span class="n">back</span><span class="p">[</span><span class="s2">"C2"</span><span class="p">]</span><span class="o">.</span><span class="n">number_format</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">formula stored: =SUM(C2:C5) | format: Ksh #,##0</pre></div></div>
+<div class="callout mistake"><p><strong>Common mistake.</strong> <code>pd.read_excel</code> returns the last cached value of a formula and never recalculates. A file written by <code>xlsxwriter</code> has no cached value unless you pass one, as we did above.</p>
+</div>
+<h2 id="17-6-credit-and-lending-metrics"><a class="anchor" href="#17-6-credit-and-lending-metrics" aria-label="Link to this section">#</a>17.6 Credit and Lending Metrics</h2>
+
+<p>Lenders measure risk with a few numbers. <strong>PD</strong> (probability of default) is the chance a borrower defaults within a stated period. <strong>EAD</strong> (exposure at default) is the amount owed when that happens. <strong>LGD</strong> (loss given default) is the share of EAD not recovered. <strong>Expected loss</strong> is EL = PD x LGD x EAD. These are teaching definitions on synthetic data; regulated lenders follow detailed supervisory rules (such as IFRS 9).</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">907</span><span class="p">)</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">4000</span>
+<span class="n">band</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s2">"A (low risk)"</span><span class="p">,</span> <span class="s2">"B"</span><span class="p">,</span> <span class="s2">"C"</span><span class="p">,</span> <span class="s2">"D (high risk)"</span><span class="p">],</span> <span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="p">[</span><span class="mf">.30</span><span class="p">,</span> <span class="mf">.35</span><span class="p">,</span> <span class="mf">.25</span><span class="p">,</span> <span class="mf">.10</span><span class="p">])</span>
+<span class="n">pd_map</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"A (low risk)"</span><span class="p">:</span> <span class="mf">.02</span><span class="p">,</span> <span class="s2">"B"</span><span class="p">:</span> <span class="mf">.06</span><span class="p">,</span> <span class="s2">"C"</span><span class="p">:</span> <span class="mf">.14</span><span class="p">,</span> <span class="s2">"D (high risk)"</span><span class="p">:</span> <span class="mf">.30</span><span class="p">}</span>   <span class="c1"># illustrative</span>
+<span class="n">book</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">"band"</span><span class="p">:</span> <span class="n">band</span><span class="p">,</span>
+    <span class="s2">"ead_ksh"</span><span class="p">:</span> <span class="n">rng</span><span class="o">.</span><span class="n">lognormal</span><span class="p">(</span><span class="mf">10.8</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">),</span>
+    <span class="s2">"default"</span><span class="p">:</span> <span class="n">rng</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">band</span><span class="p">)</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">pd_map</span><span class="p">)</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(),</span>
+<span class="p">})</span>
+<span class="n">book</span><span class="p">[</span><span class="s2">"recovery"</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">book</span><span class="p">[</span><span class="s2">"default"</span><span class="p">],</span> <span class="n">rng</span><span class="o">.</span><span class="n">beta</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+<span class="n">seg</span> <span class="o">=</span> <span class="n">book</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"band"</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">loans</span><span class="o">=</span><span class="p">(</span><span class="s2">"default"</span><span class="p">,</span> <span class="s2">"size"</span><span class="p">),</span> <span class="n">PD</span><span class="o">=</span><span class="p">(</span><span class="s2">"default"</span><span class="p">,</span> <span class="s2">"mean"</span><span class="p">),</span>
+                               <span class="n">EAD</span><span class="o">=</span><span class="p">(</span><span class="s2">"ead_ksh"</span><span class="p">,</span> <span class="s2">"sum"</span><span class="p">))</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">book</span><span class="p">[</span><span class="n">book</span><span class="p">[</span><span class="s2">"default"</span><span class="p">]]</span>
+<span class="n">lost</span> <span class="o">=</span> <span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="n">d</span><span class="p">[</span><span class="s2">"recovery"</span><span class="p">])</span> <span class="o">*</span> <span class="n">d</span><span class="p">[</span><span class="s2">"ead_ksh"</span><span class="p">])</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s2">"band"</span><span class="p">])</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="n">seg</span><span class="p">[</span><span class="s2">"LGD"</span><span class="p">]</span> <span class="o">=</span> <span class="n">lost</span> <span class="o">/</span> <span class="n">d</span><span class="p">[</span><span class="s2">"ead_ksh"</span><span class="p">]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s2">"band"</span><span class="p">])</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="n">seg</span><span class="p">[</span><span class="s2">"EL_ksh"</span><span class="p">]</span> <span class="o">=</span> <span class="n">seg</span><span class="p">[</span><span class="s2">"PD"</span><span class="p">]</span> <span class="o">*</span> <span class="n">seg</span><span class="p">[</span><span class="s2">"LGD"</span><span class="p">]</span> <span class="o">*</span> <span class="n">seg</span><span class="p">[</span><span class="s2">"EAD"</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">seg</span><span class="o">.</span><span class="n">round</span><span class="p">({</span><span class="s2">"PD"</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">"LGD"</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">"EL_ksh"</span><span class="p">:</span> <span class="mi">0</span><span class="p">})</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Portfolio EL: Ksh </span><span class="si">{</span><span class="n">seg</span><span class="p">[</span><span class="s1">'EL_ksh'</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">:</span><span class="s2">,.0f</span><span class="si">}</span><span class="s2"> = </span><span class="si">{</span><span class="mi">100</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">seg</span><span class="p">[</span><span class="s1">'EL_ksh'</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">seg</span><span class="p">[</span><span class="s1">'EAD'</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">% of EAD"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">               loans     PD         EAD    LGD     EL_ksh
+band                                                     
+A (low risk)    1185  0.023  68937200.0  0.662  1039359.0
+B               1403  0.051  82120600.0  0.577  2433168.0
+C               1022  0.141  58636100.0  0.563  4654492.0
+D (high risk)    390  0.256  24006300.0  0.557  3430125.0
+Portfolio EL: Ksh 11,557,144 = 4.95% of EAD</pre></div></div>
+<p>Synthetic loan book. PD is a default rate per band; LGD is weighted by exposure, not a simple average.</p>
+
+<div class="callout mistake"><p><strong>Careful.</strong> PD from a sample is only valid if every loan was watched for the same length of time. Young loans have not had time to default, which makes PD look too low.</p>
+</div>
+<h3 id="npl-ratio-and-par30"><a class="anchor" href="#npl-ratio-and-par30" aria-label="Link to this section">#</a>NPL ratio and PAR30</h3>
+
+<p>The <strong>NPL ratio</strong> is non-performing loans divided by gross loans; a loan is commonly non-performing at 90 or more days past due (your regulator's definition decides). <strong>PAR30</strong> counts balances more than 30 days past due. The synthetic lender database has no balance column, so principal stands in for the balance.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">import</span><span class="w"> </span><span class="nn">sqlite3</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fintech_db</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_fintech_db</span>
+<span class="n">con</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">build_fintech_db</span><span class="p">(</span><span class="s2">"p17_lender.db"</span><span class="p">))</span>
+<span class="n">loans</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="s2">"SELECT * FROM loans"</span><span class="p">,</span> <span class="n">con</span><span class="p">)</span>
+<span class="n">live</span> <span class="o">=</span> <span class="n">loans</span><span class="p">[</span><span class="n">loans</span><span class="p">[</span><span class="s2">"status"</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">"Closed"</span><span class="p">]</span>                     <span class="c1"># not Closed = the live book</span>
+<span class="n">gross</span> <span class="o">=</span> <span class="n">live</span><span class="p">[</span><span class="s2">"principal_ksh"</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="n">npl</span> <span class="o">=</span> <span class="n">live</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">live</span><span class="p">[</span><span class="s2">"days_past_due"</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">90</span><span class="p">,</span> <span class="s2">"principal_ksh"</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="n">par30</span> <span class="o">=</span> <span class="n">live</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">live</span><span class="p">[</span><span class="s2">"days_past_due"</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">30</span><span class="p">,</span> <span class="s2">"principal_ksh"</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Gross Ksh </span><span class="si">{</span><span class="n">gross</span><span class="si">:</span><span class="s2">,.0f</span><span class="si">}</span><span class="s2"> | NPL ratio </span><span class="si">{</span><span class="n">npl</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">gross</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2"> | PAR30 </span><span class="si">{</span><span class="n">par30</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">gross</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"PAR30 is at least the NPL ratio:"</span><span class="p">,</span> <span class="nb">bool</span><span class="p">(</span><span class="n">par30</span> <span class="o">&gt;=</span> <span class="n">npl</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">Gross Ksh 66,882,700 | NPL ratio 46.6% | PAR30 50.3%
+PAR30 is at least the NPL ratio: True</pre></div></div>
+<p>The ratios are high because this synthetic book keeps defaulted loans at full principal with no write-offs. A real lender would report far less.</p>
+
+<h3 id="scorecard-quality-auc-and-ks"><a class="anchor" href="#scorecard-quality-auc-and-ks" aria-label="Link to this section">#</a>Scorecard quality: AUC and KS</h3>
+
+<p>A <strong>scorecard</strong> ranks borrowers by risk. <strong>AUC</strong> is the chance that a randomly chosen defaulter scores worse than a randomly chosen non-defaulter: 0.5 is a coin flip, 1.0 is perfect. <strong>KS</strong> is the largest gap between the cumulative share of defaulters and non-defaulters as you move down the score. Both measure separation, not calibration. We build a small synthetic scorecard, then compute both and check against scikit-learn and SciPy.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">roc_auc_score</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">ks_2samp</span>
+
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">908</span><span class="p">)</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">6000</span>
+<span class="n">risk</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>                                    <span class="c1"># hidden true risk</span>
+<span class="n">y</span> <span class="o">=</span> <span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="o">-</span><span class="mf">2.3</span> <span class="o">+</span> <span class="n">risk</span><span class="p">))))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>   <span class="c1"># 1 = defaulted</span>
+<span class="n">score</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">620</span> <span class="o">-</span> <span class="mi">55</span> <span class="o">*</span> <span class="p">(</span><span class="n">risk</span> <span class="o">+</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="n">n</span><span class="p">)))</span>   <span class="c1"># imperfect score, high = good</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">ks_stat</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">"y"</span><span class="p">:</span> <span class="n">y</span><span class="p">,</span> <span class="s2">"s"</span><span class="p">:</span> <span class="n">s</span><span class="p">})</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"s"</span><span class="p">)[</span><span class="s2">"y"</span><span class="p">]</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">bad</span><span class="o">=</span><span class="s2">"sum"</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="s2">"size"</span><span class="p">)</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span>
+    <span class="n">bad</span> <span class="o">=</span> <span class="n">t</span><span class="p">[</span><span class="s2">"bad"</span><span class="p">]</span><span class="o">.</span><span class="n">cumsum</span><span class="p">()</span> <span class="o">/</span> <span class="n">t</span><span class="p">[</span><span class="s2">"bad"</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="n">good</span> <span class="o">=</span> <span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="s2">"n"</span><span class="p">]</span> <span class="o">-</span> <span class="n">t</span><span class="p">[</span><span class="s2">"bad"</span><span class="p">])</span><span class="o">.</span><span class="n">cumsum</span><span class="p">()</span> <span class="o">/</span> <span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="s2">"n"</span><span class="p">]</span> <span class="o">-</span> <span class="n">t</span><span class="p">[</span><span class="s2">"bad"</span><span class="p">])</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">bad</span> <span class="o">-</span> <span class="n">good</span><span class="p">)</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+
+<span class="n">auc</span><span class="p">,</span> <span class="n">ks</span> <span class="o">=</span> <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="o">-</span><span class="n">score</span><span class="p">),</span> <span class="n">ks_stat</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">score</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"default rate </span><span class="si">{</span><span class="n">y</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> | AUC </span><span class="si">{</span><span class="n">auc</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> | Gini </span><span class="si">{</span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">auc</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> | KS </span><span class="si">{</span><span class="n">ks</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"KS matches SciPy:"</span><span class="p">,</span> <span class="nb">bool</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">ks</span><span class="p">,</span> <span class="n">ks_2samp</span><span class="p">(</span><span class="n">score</span><span class="p">[</span><span class="n">y</span> <span class="o">==</span> <span class="mi">1</span><span class="p">],</span> <span class="n">score</span><span class="p">[</span><span class="n">y</span> <span class="o">==</span> <span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">statistic</span><span class="p">)))</span>
+<span class="n">bands</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span><span class="n">score</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">520</span><span class="p">,</span> <span class="mi">570</span><span class="p">,</span> <span class="mi">620</span><span class="p">,</span> <span class="mi">670</span><span class="p">,</span> <span class="mi">1000</span><span class="p">],</span> <span class="n">right</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+               <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s2">"&lt;520"</span><span class="p">,</span> <span class="s2">"520-569"</span><span class="p">,</span> <span class="s2">"570-619"</span><span class="p">,</span> <span class="s2">"620-669"</span><span class="p">,</span> <span class="s2">"670+"</span><span class="p">])</span>
+<span class="n">tab</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">"band"</span><span class="p">:</span> <span class="n">bands</span><span class="p">,</span> <span class="s2">"y"</span><span class="p">:</span> <span class="n">y</span><span class="p">})</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"band"</span><span class="p">,</span> <span class="n">observed</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="s2">"y"</span><span class="p">]</span><span class="o">.</span><span class="n">agg</span><span class="p">([</span><span class="s2">"size"</span><span class="p">,</span> <span class="s2">"mean"</span><span class="p">])</span>
+<span class="n">tab</span><span class="p">[</span><span class="s2">"mean"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">100</span> <span class="o">*</span> <span class="n">tab</span><span class="p">[</span><span class="s2">"mean"</span><span class="p">])</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">tab</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">"size"</span><span class="p">:</span> <span class="s2">"borrowers"</span><span class="p">,</span> <span class="s2">"mean"</span><span class="p">:</span> <span class="s2">"default_rate_pct"</span><span class="p">})</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+</code></pre></div><div class="cell-out"><pre class="out">default rate 0.125 | AUC 0.701 | Gini 0.403 | KS 0.308
+KS matches SciPy: True
+         borrowers  default_rate_pct
+band                                
+&lt;520           464              33.0
+520-569        966              20.3
+570-619       1585              12.7
+620-669       1535               9.0
+670+          1450               4.3</pre></div></div>
+<p>A good scorecard shows a lower default rate in each higher band.</p>
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>AUC</th>
+<th>Rough reading (illustrative rule of thumb)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0.50</td>
+<td>no better than chance</td>
+</tr>
+<tr>
+<td>0.60 to 0.70</td>
+<td>weak</td>
+</tr>
+<tr>
+<td>0.70 to 0.80</td>
+<td>acceptable</td>
+</tr>
+<tr>
+<td>0.80 to 0.90</td>
+<td>strong</td>
+</tr>
+<tr>
+<td>above 0.90</td>
+<td>check for leakage</td>
+</tr>
+</tbody>
+</table></div>
+
+<div class="callout real"><p><strong>Using it in the real world.</strong> Measure AUC and KS on held-out data, and never use a feature only known after default (leakage). In practice monitor them monthly: a falling AUC means the score is ageing.</p>
+</div>
+<h2 id="17-7-power-bi-power-query-and-the-star-schema"><a class="anchor" href="#17-7-power-bi-power-query-and-the-star-schema" aria-label="Link to this section">#</a>17.7 Power BI: Power Query and the Star Schema</h2>
+
+<p><strong>Power BI</strong> is Microsoft's dashboard tool. <strong>Power Query</strong> is its data-preparation engine (Get Data, then Transform Data). Every click becomes a step in the <strong>M language</strong> and the steps replay at each refresh, just like a pandas pipeline. Use it for light, repeatable shaping; use SQL or Python for heavy logic.</p>
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Power Query step</th>
+<th>M function</th>
+<th>pandas twin</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Change type</td>
+<td><code>Table.TransformColumnTypes</code></td>
+<td><code>astype</code>, <code>pd.to_datetime</code></td>
+</tr>
+<tr>
+<td>Trim / Capitalise</td>
+<td><code>Text.Trim</code>, <code>Text.Proper</code></td>
+<td><code>.str.strip()</code>, <code>.str.title()</code></td>
+</tr>
+<tr>
+<td>Group by</td>
+<td><code>Table.Group</code></td>
+<td><code>groupby().agg()</code></td>
+</tr>
+<tr>
+<td>Merge queries</td>
+<td><code>Table.NestedJoin</code></td>
+<td><code>merge</code></td>
+</tr>
+<tr>
+<td>Append queries</td>
+<td><code>Table.Combine</code></td>
+<td><code>pd.concat</code></td>
+</tr>
+<tr>
+<td>Unpivot columns</td>
+<td><code>Table.UnpivotOtherColumns</code></td>
+<td><code>melt</code></td>
+</tr>
+<tr>
+<td>Add custom column</td>
+<td><code>Table.AddColumn</code></td>
+<td><code>assign</code>, <code>np.where</code></td>
+</tr>
+</tbody>
+</table></div>
+
+<pre class="code"><code><span class="n">let</span>
+    <span class="n">Source</span>   <span class="o">=</span> <span class="n">Csv</span><span class="o">.</span><span class="n">Document</span><span class="p">(</span><span class="n">File</span><span class="o">.</span><span class="n">Contents</span><span class="p">(</span><span class="s2">"C:\data\p17_sales.csv"</span><span class="p">),</span> <span class="p">[</span><span class="n">Delimiter</span><span class="o">=</span><span class="s2">","</span><span class="p">]),</span>
+    <span class="n">Promoted</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">PromoteHeaders</span><span class="p">(</span><span class="n">Source</span><span class="p">,</span> <span class="p">[</span><span class="n">PromoteAllScalars</span><span class="o">=</span><span class="n">true</span><span class="p">]),</span>
+    <span class="n">Typed</span>    <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">TransformColumnTypes</span><span class="p">(</span><span class="n">Promoted</span><span class="p">,</span> <span class="p">{{</span><span class="s2">"qty"</span><span class="p">,</span> <span class="n">Int64</span><span class="o">.</span><span class="n">Type</span><span class="p">},</span> <span class="p">{</span><span class="s2">"unit_price"</span><span class="p">,</span> <span class="nb">type</span> <span class="n">number</span><span class="p">}}),</span>
+    <span class="n">Revenue</span>  <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">AddColumn</span><span class="p">(</span><span class="n">Typed</span><span class="p">,</span> <span class="s2">"amount"</span><span class="p">,</span> <span class="n">each</span> <span class="p">[</span><span class="n">qty</span><span class="p">]</span> <span class="o">*</span> <span class="p">[</span><span class="n">unit_price</span><span class="p">],</span> <span class="nb">type</span> <span class="n">number</span><span class="p">),</span>
+    <span class="n">Grouped</span>  <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">Group</span><span class="p">(</span><span class="n">Revenue</span><span class="p">,</span> <span class="p">{</span><span class="s2">"shop_code"</span><span class="p">},</span> <span class="p">{{</span><span class="s2">"revenue"</span><span class="p">,</span> <span class="n">each</span> <span class="n">List</span><span class="o">.</span><span class="n">Sum</span><span class="p">([</span><span class="n">amount</span><span class="p">]),</span> <span class="nb">type</span> <span class="n">number</span><span class="p">}})</span>
+<span class="ow">in</span>
+    <span class="n">Grouped</span>
+</code></pre>
+<p><em>Not executed in this notebook (needs a service or setting you must provide yourself).</em></p>
+
+<p>Power Query M, for reading: it runs inside Power BI, not Python.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">sales</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">"p17_sales.csv"</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">src</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"p17_sales.csv"</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">str</span><span class="p">)</span>                       <span class="c1"># Csv.Document + PromoteHeaders</span>
+<span class="n">typed</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">astype</span><span class="p">({</span><span class="s2">"qty"</span><span class="p">:</span> <span class="s2">"int64"</span><span class="p">,</span> <span class="s2">"unit_price"</span><span class="p">:</span> <span class="s2">"float64"</span><span class="p">})</span>       <span class="c1"># TransformColumnTypes</span>
+<span class="n">typed</span><span class="p">[</span><span class="s2">"amount"</span><span class="p">]</span> <span class="o">=</span> <span class="n">typed</span><span class="p">[</span><span class="s2">"qty"</span><span class="p">]</span> <span class="o">*</span> <span class="n">typed</span><span class="p">[</span><span class="s2">"unit_price"</span><span class="p">]</span>                <span class="c1"># AddColumn</span>
+<span class="n">typed</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"shop_code"</span><span class="p">,</span> <span class="n">as_index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">revenue</span><span class="o">=</span><span class="p">(</span><span class="s2">"amount"</span><span class="p">,</span> <span class="s2">"sum"</span><span class="p">))</span>   <span class="c1"># Table.Group</span>
+</code></pre></div><div class="cell-out"><div class="table-wrap df"><div>
+
+<table class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th>shop_code</th>
+      <th>revenue</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>KSM</td>
+      <td>15650.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>MSA</td>
+      <td>18500.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>NBO</td>
+      <td>450.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>XXX</td>
+      <td>24350.0</td>
+    </tr>
+  </tbody>
+</table></div>
+</div></div></div></div>
+<p>The same steps in pandas give the numbers your Power Query result must match.</p>
+
+<div class="callout note"><p><strong>Performance.</strong> When Power Query can turn your steps into one SQL statement it sends the work to the database (<strong>query folding</strong>). Put filters and column selection first, and check <strong>View Native Query</strong>.</p>
+</div>
+<h3 id="the-star-schema"><a class="anchor" href="#the-star-schema" aria-label="Link to this section">#</a>The star schema</h3>
+
+<p>Power BI works best with a <strong>star schema</strong>: a central <strong>fact table</strong> of events (transactions) with numbers to add up, surrounded by small <strong>dimension tables</strong> that describe them (customer, channel, date). A dimension's unique key relates one-to-many to the fact table, and filters flow from the dimension to the fact. Build one from the lender database and run three tests: unique dimension keys, no orphan keys, same totals as the source.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">txn</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="s2">"SELECT * FROM transactions"</span><span class="p">,</span> <span class="n">con</span><span class="p">)</span>
+<span class="n">cust</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="s2">"SELECT * FROM customers"</span><span class="p">,</span> <span class="n">con</span><span class="p">)</span>
+<span class="n">dim_customer</span> <span class="o">=</span> <span class="n">cust</span><span class="p">[[</span><span class="s2">"customer_id"</span><span class="p">,</span> <span class="s2">"county"</span><span class="p">,</span> <span class="s2">"occupation"</span><span class="p">,</span> <span class="s2">"segment"</span><span class="p">]]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">dim_channel</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">"channel"</span><span class="p">:</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">txn</span><span class="p">[</span><span class="s2">"channel"</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())})</span>
+<span class="n">dim_channel</span><span class="p">[</span><span class="s2">"channel_key"</span><span class="p">]</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">dim_channel</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">fact_txn</span> <span class="o">=</span> <span class="p">(</span><span class="n">txn</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">dim_channel</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">"channel"</span><span class="p">,</span> <span class="n">validate</span><span class="o">=</span><span class="s2">"many_to_one"</span><span class="p">)</span>
+               <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">date_key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">t</span><span class="p">[</span><span class="s2">"txn_date"</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"-"</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">))</span>
+               <span class="p">[[</span><span class="s2">"txn_id"</span><span class="p">,</span> <span class="s2">"customer_id"</span><span class="p">,</span> <span class="s2">"date_key"</span><span class="p">,</span> <span class="s2">"channel_key"</span><span class="p">,</span> <span class="s2">"status"</span><span class="p">,</span> <span class="s2">"amount_ksh"</span><span class="p">]])</span>
+<span class="n">dates</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="s2">"2024-01-01"</span><span class="p">,</span> <span class="s2">"2025-12-31"</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s2">"D"</span><span class="p">)</span>
+<span class="n">dim_date</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">"date"</span><span class="p">:</span> <span class="n">dates</span><span class="p">,</span> <span class="s2">"date_key"</span><span class="p">:</span> <span class="n">dates</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">"%Y%m</span><span class="si">%d</span><span class="s2">"</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">),</span>
+                         <span class="s2">"year"</span><span class="p">:</span> <span class="n">dates</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="s2">"month"</span><span class="p">:</span> <span class="n">dates</span><span class="o">.</span><span class="n">month</span><span class="p">,</span>
+                         <span class="s2">"year_month"</span><span class="p">:</span> <span class="n">dates</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">"%Y-%m"</span><span class="p">)})</span>
+<span class="n">tests</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"dim keys unique"</span><span class="p">:</span> <span class="n">dim_customer</span><span class="p">[</span><span class="s2">"customer_id"</span><span class="p">]</span><span class="o">.</span><span class="n">is_unique</span> <span class="ow">and</span> <span class="n">dim_date</span><span class="p">[</span><span class="s2">"date_key"</span><span class="p">]</span><span class="o">.</span><span class="n">is_unique</span><span class="p">,</span>
+    <span class="s2">"date table has no gaps"</span><span class="p">:</span> <span class="nb">bool</span><span class="p">((</span><span class="n">dim_date</span><span class="p">[</span><span class="s2">"date"</span><span class="p">]</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span> <span class="o">==</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">all</span><span class="p">()),</span>
+    <span class="s2">"no orphan customers"</span><span class="p">:</span> <span class="n">fact_txn</span><span class="p">[</span><span class="s2">"customer_id"</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">dim_customer</span><span class="p">[</span><span class="s2">"customer_id"</span><span class="p">])</span><span class="o">.</span><span class="n">all</span><span class="p">(),</span>
+    <span class="s2">"no orphan dates"</span><span class="p">:</span> <span class="n">fact_txn</span><span class="p">[</span><span class="s2">"date_key"</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">dim_date</span><span class="p">[</span><span class="s2">"date_key"</span><span class="p">])</span><span class="o">.</span><span class="n">all</span><span class="p">(),</span>
+    <span class="s2">"fact total = source total"</span><span class="p">:</span> <span class="nb">bool</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">fact_txn</span><span class="p">[</span><span class="s2">"amount_ksh"</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span> <span class="n">txn</span><span class="p">[</span><span class="s2">"amount_ksh"</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">())),</span>
+<span class="p">}</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">tests</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">bool</span><span class="p">)</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+<span class="k">assert</span> <span class="nb">all</span><span class="p">(</span><span class="n">tests</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+</code></pre></div><div class="cell-out"><pre class="out">dim keys unique              True
+date table has no gaps       True
+no orphan customers          True
+no orphan dates              True
+fact total = source total    True</pre></div></div>
+<p>Run these tests every time the model is rebuilt. An orphan key shows up in Power BI as a blank row in every visual.</p>
+
+<div class="callout tip"><p><strong>Rule.</strong> Keep relationships one-to-many with a single filter direction. Avoid many-to-many and two-way filters until you can explain why you need them. Mark the date table as the date table, and keep it free of gaps, or time-intelligence functions return blanks.</p>
+</div>
+<h2 id="17-8-dax-measures-with-a-pandas-proof"><a class="anchor" href="#17-8-dax-measures-with-a-pandas-proof" aria-label="Link to this section">#</a>17.8 DAX Measures with a pandas Proof</h2>
+
+<p><strong>DAX</strong> (Data Analysis Expressions) is the formula language of Power BI. A <strong>measure</strong> is not stored in a column; it is recalculated for the <strong>filter context</strong> of every visual cell (the row, column, slicer and page filters active there). In pandas you get the same number by filtering first, then aggregating. The DAX below is for reading; each line has a pandas proof so you know what number it must return.</p>
+
+<pre class="code"><code><span class="n">Total</span> <span class="n">Value</span> <span class="o">=</span> <span class="n">SUM</span> <span class="p">(</span> <span class="n">fact_txn</span><span class="p">[</span><span class="n">amount_ksh</span><span class="p">]</span> <span class="p">)</span>
+<span class="n">Txn</span> <span class="n">Count</span>   <span class="o">=</span> <span class="n">COUNTROWS</span> <span class="p">(</span> <span class="n">fact_txn</span> <span class="p">)</span>
+<span class="n">Success</span> <span class="n">Rate</span> <span class="o">=</span>
+    <span class="n">DIVIDE</span> <span class="p">(</span> <span class="n">CALCULATE</span> <span class="p">(</span> <span class="p">[</span><span class="n">Txn</span> <span class="n">Count</span><span class="p">],</span> <span class="n">fact_txn</span><span class="p">[</span><span class="n">status</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"Success"</span> <span class="p">),</span> <span class="p">[</span><span class="n">Txn</span> <span class="n">Count</span><span class="p">]</span> <span class="p">)</span>
+<span class="n">M</span><span class="o">-</span><span class="n">Pesa</span> <span class="n">Value</span> <span class="o">=</span> <span class="n">CALCULATE</span> <span class="p">(</span> <span class="p">[</span><span class="n">Total</span> <span class="n">Value</span><span class="p">],</span> <span class="n">dim_channel</span><span class="p">[</span><span class="n">channel</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"M-Pesa"</span> <span class="p">)</span>
+<span class="n">Share</span> <span class="n">of</span> <span class="n">All</span> <span class="n">Counties</span> <span class="o">=</span>
+    <span class="n">DIVIDE</span> <span class="p">(</span> <span class="p">[</span><span class="n">Total</span> <span class="n">Value</span><span class="p">],</span> <span class="n">CALCULATE</span> <span class="p">(</span> <span class="p">[</span><span class="n">Total</span> <span class="n">Value</span><span class="p">],</span> <span class="n">ALL</span> <span class="p">(</span> <span class="n">dim_customer</span><span class="p">[</span><span class="n">county</span><span class="p">]</span> <span class="p">)</span> <span class="p">)</span> <span class="p">)</span>
+<span class="n">Value</span> <span class="n">LY</span> <span class="o">=</span> <span class="n">CALCULATE</span> <span class="p">(</span> <span class="p">[</span><span class="n">Total</span> <span class="n">Value</span><span class="p">],</span> <span class="n">SAMEPERIODLASTYEAR</span> <span class="p">(</span> <span class="n">dim_date</span><span class="p">[</span><span class="n">date</span><span class="p">]</span> <span class="p">)</span> <span class="p">)</span>
+<span class="n">YoY</span> <span class="o">%</span>    <span class="o">=</span> <span class="n">DIVIDE</span> <span class="p">(</span> <span class="p">[</span><span class="n">Total</span> <span class="n">Value</span><span class="p">]</span> <span class="o">-</span> <span class="p">[</span><span class="n">Value</span> <span class="n">LY</span><span class="p">],</span> <span class="p">[</span><span class="n">Value</span> <span class="n">LY</span><span class="p">]</span> <span class="p">)</span>
+</code></pre>
+<p><em>Not executed in this notebook (needs a service or setting you must provide yourself).</em></p>
+
+<p>DAX measures, for reading: they run inside Power BI Desktop.</p>
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>DAX idea</th>
+<th>What it does</th>
+<th>pandas twin</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SUM</code>, <code>COUNTROWS</code></td>
+<td>aggregate in the current filter context</td>
+<td><code>groupby().sum()</code>, <code>size()</code></td>
+</tr>
+<tr>
+<td><code>CALCULATE</code></td>
+<td>re-evaluate with a changed filter</td>
+<td>mask, then aggregate</td>
+</tr>
+<tr>
+<td><code>ALL(column)</code></td>
+<td>remove a filter</td>
+<td>aggregate the whole table (the denominator)</td>
+</tr>
+<tr>
+<td><code>DIVIDE(a, b, alt)</code></td>
+<td>safe division</td>
+<td>divide, then replace inf or NaN</td>
+</tr>
+<tr>
+<td><code>SAMEPERIODLASTYEAR</code></td>
+<td>same dates one year earlier</td>
+<td><code>shift(12)</code> on a complete monthly series</td>
+</tr>
+</tbody>
+</table></div>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">f</span> <span class="o">=</span> <span class="p">(</span><span class="n">fact_txn</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">dim_customer</span><span class="p">[[</span><span class="s2">"customer_id"</span><span class="p">,</span> <span class="s2">"county"</span><span class="p">]],</span> <span class="n">on</span><span class="o">=</span><span class="s2">"customer_id"</span><span class="p">)</span>
+             <span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">dim_channel</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">"channel_key"</span><span class="p">)</span>
+             <span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">dim_date</span><span class="p">[[</span><span class="s2">"date_key"</span><span class="p">,</span> <span class="s2">"year_month"</span><span class="p">]],</span> <span class="n">on</span><span class="o">=</span><span class="s2">"date_key"</span><span class="p">))</span>
+<span class="n">total</span> <span class="o">=</span> <span class="n">f</span><span class="p">[</span><span class="s2">"amount_ksh"</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>                                         <span class="c1"># Total Value</span>
+<span class="n">success</span> <span class="o">=</span> <span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="s2">"status"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"Success"</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>                   <span class="c1"># Success Rate</span>
+<span class="n">mpesa</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">f</span><span class="p">[</span><span class="s2">"channel"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"M-Pesa"</span><span class="p">,</span> <span class="s2">"amount_ksh"</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>           <span class="c1"># M-Pesa Value</span>
+<span class="n">share</span> <span class="o">=</span> <span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"county"</span><span class="p">)[</span><span class="s2">"amount_ksh"</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="n">total</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Total Value Ksh </span><span class="si">{</span><span class="n">total</span><span class="si">:</span><span class="s2">,.0f</span><span class="si">}</span><span class="s2"> | Success Rate </span><span class="si">{</span><span class="n">success</span><span class="si">:</span><span class="s2">.2%</span><span class="si">}</span><span class="s2"> | M-Pesa Value Ksh </span><span class="si">{</span><span class="n">mpesa</span><span class="si">:</span><span class="s2">,.0f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"top county share:"</span><span class="p">,</span> <span class="n">share</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">share</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+      <span class="s2">"| shares sum to 1:"</span><span class="p">,</span> <span class="nb">bool</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">share</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span> <span class="mi">1</span><span class="p">)))</span>
+<span class="n">mv</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"year_month"</span><span class="p">)[</span><span class="s2">"amount_ksh"</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">to_frame</span><span class="p">(</span><span class="s2">"value"</span><span class="p">)</span>
+<span class="n">mv</span><span class="p">[</span><span class="s2">"value_ly"</span><span class="p">]</span> <span class="o">=</span> <span class="n">mv</span><span class="p">[</span><span class="s2">"value"</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>                                <span class="c1"># SAMEPERIODLASTYEAR</span>
+<span class="n">mv</span><span class="p">[</span><span class="s2">"yoy_pct"</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="n">mv</span><span class="p">[</span><span class="s2">"value"</span><span class="p">]</span> <span class="o">/</span> <span class="n">mv</span><span class="p">[</span><span class="s2">"value_ly"</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">mv</span><span class="o">.</span><span class="n">iloc</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">23</span><span class="p">]]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+</code></pre></div><div class="cell-out"><pre class="out">Total Value Ksh 68,391,943 | Success Rate 95.65% | M-Pesa Value Ksh 37,561,536
+top county share: Nairobi 35.0% | shares sum to 1: True
+                value   value_ly  yoy_pct
+year_month                               
+2024-01     2602383.0        NaN      NaN
+2025-01     2525240.0  2602383.0     -3.0
+2025-02     2531682.0  2445017.0      4.0
+2025-12     3725656.0  3480646.0      7.0</pre></div></div>
+<p>The first 12 months have no year-ago value, so YoY is blank (NaN), as in Power BI.</p>
+
+<div class="callout mistake"><p><strong>Common mistake.</strong> Build ratios from measures (a sum divided by a count), never by averaging a column of pre-computed ratios: the average of ratios is not the ratio of totals.</p>
+</div>
+<h2 id="17-9-the-sql-to-python-to-power-bi-workflow"><a class="anchor" href="#17-9-the-sql-to-python-to-power-bi-workflow" aria-label="Link to this section">#</a>17.9 The SQL to Python to Power BI Workflow</h2>
+
+<p>The common pattern is: <strong>database, then Python for cleaning, validation and metrics, then a tidy dataset, then Power BI for visuals.</strong> The skill is knowing which tool owns which step, so every rule is written once and every report agrees.</p>
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Best home</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Filter, join and aggregate big tables</td>
+<td>SQL query or view</td>
+<td>runs where the data lives</td>
+</tr>
+<tr>
+<td>Shared definitions (active customer, net revenue)</td>
+<td>one SQL view or one DAX measure</td>
+<td>one definition for all reports</td>
+</tr>
+<tr>
+<td>Regex cleaning, fuzzy matching, outlier rules</td>
+<td>Python</td>
+<td>expressive, testable, loggable</td>
+</tr>
+<tr>
+<td>Validation and reconciliation</td>
+<td>Python</td>
+<td>reusable, schedulable</td>
+</tr>
+<tr>
+<td>Renames, type changes</td>
+<td>Power Query</td>
+<td>stays inside the refresh</td>
+</tr>
+<tr>
+<td>Ratios and time intelligence</td>
+<td>DAX measures</td>
+<td>must react to slicers</td>
+</tr>
+<tr>
+<td>Visuals, slicers, row-level security</td>
+<td>Power BI</td>
+<td>what stakeholders use</td>
+</tr>
+</tbody>
+</table></div>
+
+<h3 id="credentials-stay-out-of-code"><a class="anchor" href="#credentials-stay-out-of-code" aria-label="Link to this section">#</a>Credentials stay out of code</h3>
+
+<p>Never type a password into a notebook or commit it to Git. Prefer Windows Authentication (no password), or read secrets from environment variables, for example from a <code>.env</code> file listed in <code>.gitignore</code>. Use a read-only account. A SQL Server connection needs packages not installed here, so it is shown, not run.</p>
+
+<pre class="code"><code><span class="c1"># .env  (never commit; add ".env" to .gitignore)</span>
+<span class="c1">#   SQL_SERVER=MYSERVER\SQLEXPRESS</span>
+<span class="c1">#   SQL_DATABASE=Sales</span>
+<span class="c1">#   SQL_USER=report_reader</span>
+<span class="c1">#   SQL_PASSWORD=change_me</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span><span class="o">,</span><span class="w"> </span><span class="nn">urllib.parse</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dotenv</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_dotenv</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sqlalchemy</span><span class="w"> </span><span class="kn">import</span> <span class="n">create_engine</span>
+
+<span class="n">load_dotenv</span><span class="p">()</span>                                   <span class="c1"># copies .env values into os.environ</span>
+<span class="n">odbc</span> <span class="o">=</span> <span class="p">(</span><span class="s2">"DRIVER={ODBC Driver 18 for SQL Server};"</span>
+        <span class="sa">f</span><span class="s2">"SERVER=</span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">'SQL_SERVER'</span><span class="p">]</span><span class="si">}</span><span class="s2">;DATABASE=</span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">'SQL_DATABASE'</span><span class="p">]</span><span class="si">}</span><span class="s2">;"</span>
+        <span class="sa">f</span><span class="s2">"UID=</span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">'SQL_USER'</span><span class="p">]</span><span class="si">}</span><span class="s2">;PWD=</span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">'SQL_PASSWORD'</span><span class="p">]</span><span class="si">}</span><span class="s2">;TrustServerCertificate=yes"</span><span class="p">)</span>
+<span class="n">engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="s2">"mssql+pyodbc:///?odbc_connect="</span> <span class="o">+</span> <span class="n">urllib</span><span class="o">.</span><span class="n">parse</span><span class="o">.</span><span class="n">quote_plus</span><span class="p">(</span><span class="n">odbc</span><span class="p">))</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="s2">"SELECT order_id, order_date, region, units, revenue FROM dbo.fact_sales"</span><span class="p">,</span> <span class="n">engine</span><span class="p">)</span>
+</code></pre>
+<p><em>Not executed in this notebook (needs a service or setting you must provide yourself).</em></p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">get_setting</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+    <span class="n">value</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">value</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Missing environment variable </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">value</span>
+
+<span class="n">get_setting</span><span class="p">(</span><span class="s2">"P17_DEMO_PASSWORD"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><div class="err"><span class="err-tag">Error on purpose</span><code>RuntimeError: Missing environment variable P17_DEMO_PASSWORD</code></div></div></div>
+<p>Fail early with a clear message instead of a confusing connection error.</p>
+
+<h3 id="a-runnable-workflow"><a class="anchor" href="#a-runnable-workflow" aria-label="Link to this section">#</a>A runnable workflow</h3>
+
+<p>SQLite stands in for SQL Server so every cell runs anywhere. The five steps are <strong>extract</strong> with SQL, <strong>clean</strong> in pandas, <strong>validate</strong>, <strong>reconcile</strong> against an independent SQL total, and <strong>publish</strong> tidy files for Power BI. Small functions make a pipeline you can schedule later (Part 18).</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+
+<span class="n">EXTRACT_SQL</span> <span class="o">=</span> <span class="s1">'''</span>
+<span class="s1">SELECT t.txn_id, t.customer_id, t.txn_date, t.channel, t.status, t.amount_ksh, c.county, c.segment</span>
+<span class="s1">FROM transactions t JOIN customers c ON c.customer_id = t.customer_id</span>
+<span class="s1">'''</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">clean</span><span class="p">(</span><span class="n">raw</span><span class="p">):</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">raw</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"channel"</span><span class="p">,</span> <span class="s2">"status"</span><span class="p">,</span> <span class="s2">"county"</span><span class="p">,</span> <span class="s2">"segment"</span><span class="p">]:</span>
+        <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">"txn_date"</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">"txn_date"</span><span class="p">],</span> <span class="nb">format</span><span class="o">=</span><span class="s2">"%Y-%m-</span><span class="si">%d</span><span class="s2">"</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s2">"coerce"</span><span class="p">)</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">"amount_ksh"</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">"amount_ksh"</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s2">"coerce"</span><span class="p">)</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">"year_month"</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">"txn_date"</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">"%Y-%m"</span><span class="p">)</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">"is_success"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">"status"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"Success"</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">df</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">validate</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">"duplicate txn_id"</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">"txn_id"</span><span class="p">]</span><span class="o">.</span><span class="n">duplicated</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()),</span>
+        <span class="s2">"bad date"</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">"txn_date"</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()),</span>
+        <span class="s2">"bad amount"</span><span class="p">:</span> <span class="nb">int</span><span class="p">((</span><span class="n">df</span><span class="p">[</span><span class="s2">"amount_ksh"</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span> <span class="o">|</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">"amount_ksh"</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">))</span><span class="o">.</span><span class="n">sum</span><span class="p">()),</span>
+        <span class="s2">"unknown status"</span><span class="p">:</span> <span class="nb">int</span><span class="p">((</span><span class="o">~</span><span class="n">df</span><span class="p">[</span><span class="s2">"status"</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s2">"Success"</span><span class="p">,</span> <span class="s2">"Failed"</span><span class="p">,</span> <span class="s2">"Reversed"</span><span class="p">]))</span><span class="o">.</span><span class="n">sum</span><span class="p">()),</span>
+    <span class="p">}</span>
+
+<span class="n">raw</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="n">EXTRACT_SQL</span><span class="p">,</span> <span class="n">con</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">clean</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span>
+<span class="n">broken</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">raw</span><span class="p">,</span> <span class="n">raw</span><span class="o">.</span><span class="n">iloc</span><span class="p">[[</span><span class="mi">0</span><span class="p">]],</span> <span class="n">raw</span><span class="o">.</span><span class="n">iloc</span><span class="p">[[</span><span class="mi">1</span><span class="p">]]</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">amount_ksh</span><span class="o">=-</span><span class="mi">50</span><span class="p">)],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">"real data"</span><span class="p">:</span> <span class="n">validate</span><span class="p">(</span><span class="n">df</span><span class="p">),</span> <span class="s2">"broken on purpose"</span><span class="p">:</span> <span class="n">validate</span><span class="p">(</span><span class="n">clean</span><span class="p">(</span><span class="n">broken</span><span class="p">))}))</span>
+</code></pre></div><div class="cell-out"><pre class="out">                  real data  broken on purpose
+duplicate txn_id          0                  2
+bad date                  0                  0
+bad amount                0                  1
+unknown status            0                  0</pre></div></div>
+<p>Test your validator on data you broke on purpose; a check that never fails proves nothing.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="k">def</span><span class="w"> </span><span class="nf">reconcile</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">con</span><span class="p">):</span>
+    <span class="n">sql</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="s2">"SELECT strftime('%Y-%m', txn_date) AS year_month, COUNT(*) AS n, "</span>
+                      <span class="s2">"ROUND(SUM(amount_ksh), 2) AS total FROM transactions GROUP BY 1"</span><span class="p">,</span> <span class="n">con</span><span class="p">)</span>
+    <span class="n">py</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"year_month"</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="p">(</span><span class="s2">"txn_id"</span><span class="p">,</span> <span class="s2">"size"</span><span class="p">),</span> <span class="n">total</span><span class="o">=</span><span class="p">(</span><span class="s2">"amount_ksh"</span><span class="p">,</span> <span class="s2">"sum"</span><span class="p">))</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">sql</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">py</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">"year_month"</span><span class="p">,</span> <span class="n">suffixes</span><span class="o">=</span><span class="p">(</span><span class="s2">"_sql"</span><span class="p">,</span> <span class="s2">"_py"</span><span class="p">),</span> <span class="n">validate</span><span class="o">=</span><span class="s2">"one_to_one"</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">bool</span><span class="p">((</span><span class="n">m</span><span class="p">[</span><span class="s2">"n_sql"</span><span class="p">]</span> <span class="o">==</span> <span class="n">m</span><span class="p">[</span><span class="s2">"n_py"</span><span class="p">])</span><span class="o">.</span><span class="n">all</span><span class="p">()</span> <span class="ow">and</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">m</span><span class="p">[</span><span class="s2">"total_sql"</span><span class="p">],</span> <span class="n">m</span><span class="p">[</span><span class="s2">"total_py"</span><span class="p">]))</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">publish</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">out_dir</span><span class="p">):</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">out_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">kpi</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"year_month"</span><span class="p">)</span>
+             <span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">txns</span><span class="o">=</span><span class="p">(</span><span class="s2">"txn_id"</span><span class="p">,</span> <span class="s2">"size"</span><span class="p">),</span> <span class="n">value_ksh</span><span class="o">=</span><span class="p">(</span><span class="s2">"amount_ksh"</span><span class="p">,</span> <span class="s2">"sum"</span><span class="p">),</span>
+                  <span class="n">success_rate</span><span class="o">=</span><span class="p">(</span><span class="s2">"is_success"</span><span class="p">,</span> <span class="s2">"mean"</span><span class="p">),</span> <span class="n">active_customers</span><span class="o">=</span><span class="p">(</span><span class="s2">"customer_id"</span><span class="p">,</span> <span class="s2">"nunique"</span><span class="p">))</span>
+             <span class="o">.</span><span class="n">round</span><span class="p">({</span><span class="s2">"value_ksh"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">"success_rate"</span><span class="p">:</span> <span class="mi">4</span><span class="p">})</span><span class="o">.</span><span class="n">reset_index</span><span class="p">())</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">txn_date</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s2">"txn_date"</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">"%Y-%m-</span><span class="si">%d</span><span class="s2">"</span><span class="p">))</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">out_dir</span><span class="si">}</span><span class="s2">/fact_transactions.csv"</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">kpi</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">out_dir</span><span class="si">}</span><span class="s2">/kpi_monthly.csv"</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">kpi</span>
+
+<span class="n">issues</span> <span class="o">=</span> <span class="n">validate</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+<span class="n">ok</span> <span class="o">=</span> <span class="n">reconcile</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">con</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">ok</span> <span class="ow">and</span> <span class="nb">sum</span><span class="p">(</span><span class="n">issues</span><span class="o">.</span><span class="n">values</span><span class="p">())</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"stop: do not publish unvalidated data"</span>
+<span class="n">kpi</span> <span class="o">=</span> <span class="n">publish</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="s2">"p17_powerbi"</span><span class="p">)</span>
+<span class="n">log</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"rows"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">),</span> <span class="s2">"months"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">kpi</span><span class="p">),</span> <span class="s2">"reconciled"</span><span class="p">:</span> <span class="n">ok</span><span class="p">,</span> <span class="s2">"issues"</span><span class="p">:</span> <span class="nb">sum</span><span class="p">(</span><span class="n">issues</span><span class="o">.</span><span class="n">values</span><span class="p">())}</span>
+<span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">log</span><span class="p">,</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"p17_powerbi/run_log.json"</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">log</span><span class="p">,</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s2">"p17_powerbi"</span><span class="p">)))</span>
+</code></pre></div><div class="cell-out"><pre class="out">{&#x27;rows&#x27;: 20000, &#x27;months&#x27;: 24, &#x27;reconciled&#x27;: True, &#x27;issues&#x27;: 0} [&#x27;fact_transactions.csv&#x27;, &#x27;kpi_monthly.csv&#x27;, &#x27;run_log.json&#x27;]</pre></div></div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">fact</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"p17_powerbi/fact_transactions.csv"</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="s2">"txn_date"</span><span class="p">])</span>
+<span class="n">k</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"p17_powerbi/kpi_monthly.csv"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"rows preserved:"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">fact</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">raw</span><span class="p">),</span>
+      <span class="s2">"| total preserved:"</span><span class="p">,</span> <span class="nb">bool</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">fact</span><span class="p">[</span><span class="s2">"amount_ksh"</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span> <span class="n">raw</span><span class="p">[</span><span class="s2">"amount_ksh"</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">())))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"KPI table sums to fact:"</span><span class="p">,</span> <span class="nb">bool</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">k</span><span class="p">[</span><span class="s2">"value_ksh"</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span> <span class="n">fact</span><span class="p">[</span><span class="s2">"amount_ksh"</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">())))</span>
+<span class="n">k</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">rows preserved: True | total preserved: True
+KPI table sums to fact: True</pre><div class="table-wrap df"><div>
+
+<table class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th>year_month</th>
+      <th>txns</th>
+      <th>value_ksh</th>
+      <th>success_rate</th>
+      <th>active_customers</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2024-01</td>
+      <td>728</td>
+      <td>2602383.16</td>
+      <td>0.9588</td>
+      <td>454</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2024-02</td>
+      <td>711</td>
+      <td>2445017.25</td>
+      <td>0.9536</td>
+      <td>451</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2024-03</td>
+      <td>833</td>
+      <td>2706225.95</td>
+      <td>0.9496</td>
+      <td>491</td>
+    </tr>
+  </tbody>
+</table></div>
+</div></div></div></div>
+<p>Read the files back the way Power BI will, and prove nothing was lost on the way out.</p>
+
+<ul>
+<li><strong>Get Data, Text/CSV</strong>, choose <code>fact_transactions.csv</code>, then <strong>Transform Data</strong> to confirm types.</li>
+<li>Relate <code>dim_date</code> to the fact date (one-to-many, single direction) and mark it as the date table.</li>
+<li>Write the measures (17.8) first, then visuals. Compare the cards with <code>kpi_monthly.csv</code> before sharing.</li>
+<li>To refresh: re-run the Python script, then refresh the dataset (a data gateway handles on-premises sources).</li>
+</ul>
+
+<div class="callout practice"><div class="c-label">Practice</div><p>Why does the pipeline <code>assert</code> before publishing instead of just printing the result?</p>
+</div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="k">try</span><span class="p">:</span>
+    <span class="k">assert</span> <span class="nb">sum</span><span class="p">(</span><span class="n">validate</span><span class="p">(</span><span class="n">clean</span><span class="p">(</span><span class="n">broken</span><span class="p">))</span><span class="o">.</span><span class="n">values</span><span class="p">())</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"stop: do not publish unvalidated data"</span>
+<span class="k">except</span> <span class="ne">AssertionError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"pipeline stopped:"</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">pipeline stopped: stop: do not publish unvalidated data</pre></div></div>
+<p><strong>Solution.</strong> A printed warning scrolls past unseen in a scheduled run; an exception stops the pipeline so bad data never reaches the dashboard.</p>
+
+<h2 id="17-10-one-page-dashboard-design-checklist"><a class="anchor" href="#17-10-one-page-dashboard-design-checklist" aria-label="Link to this section">#</a>17.10 One-Page Dashboard Design Checklist</h2>
+
+<p>A dashboard is judged in ten seconds. Before you share one, tick every line.</p>
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Area</th>
+<th>Check</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Purpose</td>
+<td>One audience and one decision it supports; the title says what it measures</td>
+</tr>
+<tr>
+<td>Top row</td>
+<td>3 to 5 KPI cards with definition, period and comparison (last month or target)</td>
+</tr>
+<tr>
+<td>Layout</td>
+<td>Most important at top left; one idea per visual; no more than about 6 visuals</td>
+</tr>
+<tr>
+<td>Chart choice</td>
+<td>Line for trend, bar for comparison, table for exact values; no pie with many slices</td>
+</tr>
+<tr>
+<td>Colour</td>
+<td>One accent colour for the thing to notice; grey for the rest; readable without colour</td>
+</tr>
+<tr>
+<td>Labels</td>
+<td>Units (Ksh, %), axis titles and a readable number format (Ksh 1.2M)</td>
+</tr>
+<tr>
+<td>Filters</td>
+<td>A few slicers (date, county, product); default to a sensible period</td>
+</tr>
+<tr>
+<td>Trust</td>
+<td>Reconciled to an independent SQL total; refresh date and data source shown</td>
+</tr>
+<tr>
+<td>Access</td>
+<td>Read-only data account; row-level security if people should see only their region</td>
+</tr>
+</tbody>
+</table></div>
+
+<div class="callout note"><p><strong>Before you share.</strong> Reconcile three numbers (a row count, one total, one ratio) against an independent SQL query, write each KPI definition on the page, and show the refresh date. These habits prevent most arguments about whose number is right.</p>
+</div>
+<div class="callout takeaways"><div class="c-label">Key takeaways</div><ul>
+<li>Margin, not price, tells you which sales help: contribution margin pays the fixed costs, and break-even is fixed costs divided by the CM ratio.</li>
+<li>Compare churn, CAC and payback by channel or cohort; blended averages hide the story.</li>
+<li>Profit is not cash: track the closing balance and runway.</li>
+<li>Every Excel formula has a pandas twin; check the pivot's grand total against the raw column sum.</li>
+<li>Expected loss = PD x LGD x EAD; NPL and PAR30 describe the book, and AUC and KS describe a scorecard on held-out data.</li>
+<li>Power BI wants a star schema, a gap-free date table and measures; prove each measure in pandas and reconcile before sharing.</li>
+</ul>
+</div></div><nav class="pager" aria-label="Previous and next"><a class="prev" href="part-16.html"><small>Previous</small><span>Part 16: Generative AI and Large Language Models</span></a><a class="next" href="part-18.html"><small>Next</small><span>Part 18: Automation, Git, Deployment and Responsible AI</span></a></nav>
+<footer class="foot"><p>Data Science from Zero to Advanced &middot; written by Benson M. Merita &middot; &copy; 2026 MeritaAnalytics. Public datasets keep their own licences, listed in <a href="appendix-b.html">Appendix B</a>.</p></footer>
+</main>
+</div>
+<script src="search-index.js"></script>
+<script src="site.js"></script>
+</body>
+</html>

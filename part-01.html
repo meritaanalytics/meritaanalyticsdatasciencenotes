@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>Part 1: What Is Data Science? | MeritaAnalytics</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to the notes</a>
+<header class="top"><button class="menu" id="menu" aria-controls="side" aria-expanded="false">Contents</button><span class="top-title">Part 1: What Is Data Science?</span></header>
+<div class="shell">
+<nav class="side" id="side" aria-label="Handbook contents">
+<a class="brand" href="index.html"><span class="mark" aria-hidden="true">MA</span><span><b>MeritaAnalytics</b><small>Data Science Notes</small></span></a>
+<label class="search"><span class="sr">Search the notes</span><input id="q" type="search" placeholder="Search topics, e.g. groupby" autocomplete="off"></label>
+<div id="results" class="results" hidden></div>
+<ol class="nav">
+<li class="lvl0"><a href="index.html" class="">Start here</a></li>
+<li class="lvl"><div class="lvl-name"><span>Level 1</span>Foundations</div><ol>
+<li data-slug="part-01"><a href="part-01.html" class="on"><span class="pn">1</span><span class="pt">What Is Data Science?</span><span class="done-dot" aria-hidden="true"></span></a>
+<ol class="sub"><li><a href="#1-1-what-is-data-science">1.1 What is data science?</a></li><li><a href="#1-2-the-workflow">1.2 The workflow</a></li><li><a href="#1-3-which-tool-for-which-job">1.3 Which tool for which job?</a></li><li><a href="#1-4-a-first-taste">1.4 A first taste</a></li><li><a href="#1-5-the-32-week-path">1.5 The 32-week path</a></li><li><a href="#1-6-habits-that-make-you-good">1.6 Habits that make you good</a></li></ol>
+</li>
+<li data-slug="part-02"><a href="part-02.html" class=""><span class="pn">2</span><span class="pt">Python Basics</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-03"><a href="part-03.html" class=""><span class="pn">3</span><span class="pt">NumPy: Fast Numbers</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 2</span>Data Analysis</div><ol>
+<li data-slug="part-04"><a href="part-04.html" class=""><span class="pn">4</span><span class="pt">Pandas: Working with Tables</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-05"><a href="part-05.html" class=""><span class="pn">5</span><span class="pt">Data Visualisation</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-06"><a href="part-06.html" class=""><span class="pn">6</span><span class="pt">SQL for Data Analysts</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-07"><a href="part-07.html" class=""><span class="pn">7</span><span class="pt">Exploratory Data Analysis</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 3</span>Statistics</div><ol>
+<li data-slug="part-08"><a href="part-08.html" class=""><span class="pn">8</span><span class="pt">Statistics for Data Science</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 4</span>Machine Learning</div><ol>
+<li data-slug="part-09"><a href="part-09.html" class=""><span class="pn">9</span><span class="pt">Machine Learning Foundations</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-10"><a href="part-10.html" class=""><span class="pn">10</span><span class="pt">Regression</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-11"><a href="part-11.html" class=""><span class="pn">11</span><span class="pt">Classification</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-12"><a href="part-12.html" class=""><span class="pn">12</span><span class="pt">Ensembles, Tuning and Feature Engineering</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-13"><a href="part-13.html" class=""><span class="pn">13</span><span class="pt">Unsupervised Learning</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 5</span>Deep Learning and Modern AI</div><ol>
+<li data-slug="part-14"><a href="part-14.html" class=""><span class="pn">14</span><span class="pt">Neural Networks and Deep Learning</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-15"><a href="part-15.html" class=""><span class="pn">15</span><span class="pt">Reinforcement Learning</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-16"><a href="part-16.html" class=""><span class="pn">16</span><span class="pt">Generative AI and Large Language Models</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 6</span>The Real World</div><ol>
+<li data-slug="part-17"><a href="part-17.html" class=""><span class="pn">17</span><span class="pt">Business Metrics, Excel and Power BI</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-18"><a href="part-18.html" class=""><span class="pn">18</span><span class="pt">Automation, Git, Deployment and Responsible AI</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-19"><a href="part-19.html" class=""><span class="pn">19</span><span class="pt">End-to-End Projects</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 7</span>Career and Reference</div><ol>
+<li data-slug="part-20"><a href="part-20.html" class=""><span class="pn">20</span><span class="pt">Practice Exercises and Answer Key</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-21"><a href="part-21.html" class=""><span class="pn">21</span><span class="pt">Interview Preparation</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-22"><a href="part-22.html" class=""><span class="pn">22</span><span class="pt">Roadmap, Cheat Sheets and Glossary</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Appendix</span>Reference</div><ol>
+<li><a href="appendix-a.html" class=""><span class="pn">A</span><span class="pt">Sources and Next Steps</span></a></li>
+<li><a href="appendix-b.html" class=""><span class="pn">B</span><span class="pt">Data Catalogue</span></a></li>
+</ol></li></ol>
+<p class="side-foot">By Benson M. Merita &middot; &copy; 2026 MeritaAnalytics</p></nav>
+<main id="main" class="main"><header class="part-head"><span class="lv">Level 1 &middot; Foundations</span><p class="part-no">Part 1</p><h1>What Is Data Science?</h1><p class="lede">The big picture before any code: what data scientists do, the workflow they follow, and the path through this handbook.</p><button class="mark-done" id="done" data-slug="part-01" aria-pressed="false">Mark this part as done</button></header><div class="prose"><div class="callout learn"><div class="c-label">In this part</div><ul>
+<li>What data science is, and how analyst, scientist and engineer roles differ</li>
+<li>The workflow every data project follows</li>
+<li>Which tool to use for which job</li>
+<li>The 32-week path through this handbook</li>
+</ul>
+<div class="meta"><span><b>You need first</b> Nothing</span><span><b>Time</b> 1 hour</span></div></div>
+<h2 id="1-1-what-is-data-science"><a class="anchor" href="#1-1-what-is-data-science" aria-label="Link to this section">#</a>1.1 What is data science?</h2>
+
+<p><strong>Data science</strong> is the practice of turning data into decisions. A shop owner who looks at last month's sales to decide what to restock is doing a small version of it. Data science adds tools that scale: code to clean millions of rows, statistics to tell real patterns from luck, and <strong>machine learning</strong> to make predictions.</p>
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Main question</th>
+<th>Typical tools</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Data analyst</td>
+<td>What happened and why?</td>
+<td>SQL, Excel, Power BI, Python</td>
+</tr>
+<tr>
+<td>Data scientist</td>
+<td>What will happen, and what should we do?</td>
+<td>Python, statistics, machine learning</td>
+</tr>
+<tr>
+<td>Machine learning engineer</td>
+<td>How do we run models reliably for users?</td>
+<td>Python, deployment, monitoring</td>
+</tr>
+<tr>
+<td>Credit risk analyst</td>
+<td>Who is likely to repay?</td>
+<td>SQL, Python, scorecards</td>
+</tr>
+</tbody>
+</table></div>
+
+<p>This handbook starts where an analyst starts and ends where a machine learning practitioner works, so you can stop at the level your job needs.</p>
+
+<h2 id="1-2-the-workflow"><a class="anchor" href="#1-2-the-workflow" aria-label="Link to this section">#</a>1.2 The workflow</h2>
+
+<p>Every project, big or small, loops through the same steps. Notice that modelling is only one of them: most of the time goes into understanding and preparing data.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">steps</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"1 Ask a clear question"</span><span class="p">,</span> <span class="s2">"2 Get the data"</span><span class="p">,</span> <span class="s2">"3 Clean and check it"</span><span class="p">,</span> <span class="s2">"4 Explore it"</span><span class="p">,</span>
+         <span class="s2">"5 Model or test"</span><span class="p">,</span> <span class="s2">"6 Judge the result honestly"</span><span class="p">,</span> <span class="s2">"7 Tell the story"</span><span class="p">,</span> <span class="s2">"8 Deploy and monitor"</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">steps</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">1 Ask a clear question
+2 Get the data
+3 Clean and check it
+4 Explore it
+5 Model or test
+6 Judge the result honestly
+7 Tell the story
+8 Deploy and monitor</pre></div></div>
+<h2 id="1-3-which-tool-for-which-job"><a class="anchor" href="#1-3-which-tool-for-which-job" aria-label="Link to this section">#</a>1.3 Which tool for which job?</h2>
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Job</th>
+<th>Best tool</th>
+<th>Part</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Quick look at a small table</td>
+<td>Excel</td>
+<td>17</td>
+</tr>
+<tr>
+<td>Pull and summarise data from a database</td>
+<td>SQL</td>
+<td>6</td>
+</tr>
+<tr>
+<td>Clean, reshape and analyse tables</td>
+<td>Python with pandas</td>
+<td>4</td>
+</tr>
+<tr>
+<td>Charts for yourself or a report</td>
+<td>matplotlib and seaborn</td>
+<td>5</td>
+</tr>
+<tr>
+<td>Interactive dashboards for managers</td>
+<td>Power BI</td>
+<td>17</td>
+</tr>
+<tr>
+<td>Predictions and patterns</td>
+<td>scikit-learn, then deep learning</td>
+<td>9 to 16</td>
+</tr>
+</tbody>
+</table></div>
+
+<div class="callout tip"><p><strong>Rule of thumb.</strong> Heavy joins in SQL; cleaning, statistics and modelling in Python; presentation in Power BI; one-off checks in Excel.</p>
+</div>
+<h2 id="1-4-a-first-taste"><a class="anchor" href="#1-4-a-first-taste" aria-label="Link to this section">#</a>1.4 A first taste</h2>
+
+<p>Do not worry about the syntax yet; every line is explained in the next parts. Read it like a story: make a tiny table, then answer a question with it.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="n">sales</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">"item"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"maize flour"</span><span class="p">,</span> <span class="s2">"sugar"</span><span class="p">,</span> <span class="s2">"cooking oil"</span><span class="p">,</span> <span class="s2">"rice"</span><span class="p">],</span>
+                      <span class="s2">"units"</span><span class="p">:</span> <span class="p">[</span><span class="mi">30</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">25</span><span class="p">],</span> <span class="s2">"price_ksh"</span><span class="p">:</span> <span class="p">[</span><span class="mi">150</span><span class="p">,</span> <span class="mi">180</span><span class="p">,</span> <span class="mi">320</span><span class="p">,</span> <span class="mi">210</span><span class="p">]})</span>
+<span class="n">sales</span><span class="p">[</span><span class="s2">"revenue_ksh"</span><span class="p">]</span> <span class="o">=</span> <span class="n">sales</span><span class="o">.</span><span class="n">units</span> <span class="o">*</span> <span class="n">sales</span><span class="o">.</span><span class="n">price_ksh</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sales</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">"revenue_ksh"</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Best seller by revenue:"</span><span class="p">,</span> <span class="n">sales</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">sales</span><span class="o">.</span><span class="n">revenue_ksh</span><span class="o">.</span><span class="n">idxmax</span><span class="p">(),</span> <span class="s2">"item"</span><span class="p">])</span>
+</code></pre></div><div class="cell-out"><pre class="out">          item  units  price_ksh  revenue_ksh
+3         rice     25        210         5250
+0  maize flour     30        150         4500
+2  cooking oil     12        320         3840
+1        sugar     18        180         3240
+Best seller by revenue: rice</pre></div></div>
+<h2 id="1-5-the-32-week-path"><a class="anchor" href="#1-5-the-32-week-path" aria-label="Link to this section">#</a>1.5 The 32-week path</h2>
+
+<p>The table below is a suggested pace at 8 to 10 hours a week. Each level ends with a project, because you learn most by building.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="n">path</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span>
+ <span class="p">(</span><span class="s2">"1 Foundations"</span><span class="p">,</span>              <span class="s2">"1-3"</span><span class="p">,</span>   <span class="mi">1</span><span class="p">,</span>  <span class="mi">4</span><span class="p">,</span> <span class="s2">"Python and NumPy exercises"</span><span class="p">),</span>
+ <span class="p">(</span><span class="s2">"2 Data Analysis"</span><span class="p">,</span>            <span class="s2">"4-7"</span><span class="p">,</span>   <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="s2">"Project 1: shop sales analysis"</span><span class="p">),</span>
+ <span class="p">(</span><span class="s2">"3 Statistics"</span><span class="p">,</span>               <span class="s2">"8"</span><span class="p">,</span>    <span class="mi">11</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="s2">"A/B test write-up"</span><span class="p">),</span>
+ <span class="p">(</span><span class="s2">"4 Machine Learning"</span><span class="p">,</span>         <span class="s2">"9-13"</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="s2">"Project 7: loan default model"</span><span class="p">),</span>
+ <span class="p">(</span><span class="s2">"5 Deep Learning, RL, GenAI"</span><span class="p">,</span> <span class="s2">"14-16"</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">26</span><span class="p">,</span> <span class="s2">"A small neural network and a RAG demo"</span><span class="p">),</span>
+ <span class="p">(</span><span class="s2">"6 The Real World"</span><span class="p">,</span>           <span class="s2">"17-19"</span><span class="p">,</span> <span class="mi">27</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="s2">"Projects 8 and 9, deployment"</span><span class="p">),</span>
+ <span class="p">(</span><span class="s2">"7 Career and Reference"</span><span class="p">,</span>     <span class="s2">"20-22"</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="s2">"Exercises and mock interview"</span><span class="p">),</span>
+<span class="p">],</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">"level"</span><span class="p">,</span> <span class="s2">"parts"</span><span class="p">,</span> <span class="s2">"week_from"</span><span class="p">,</span> <span class="s2">"week_to"</span><span class="p">,</span> <span class="s2">"milestone"</span><span class="p">])</span>
+<span class="n">path</span><span class="p">[</span><span class="s2">"weeks"</span><span class="p">]</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">week_to</span> <span class="o">-</span> <span class="n">path</span><span class="o">.</span><span class="n">week_from</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">path</span><span class="p">[[</span><span class="s2">"level"</span><span class="p">,</span> <span class="s2">"parts"</span><span class="p">,</span> <span class="s2">"weeks"</span><span class="p">,</span> <span class="s2">"milestone"</span><span class="p">]]</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"total weeks:"</span><span class="p">,</span> <span class="n">path</span><span class="o">.</span><span class="n">weeks</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+</code></pre></div><div class="cell-out"><pre class="out">                     level parts  weeks                             milestone
+             1 Foundations   1-3      4            Python and NumPy exercises
+           2 Data Analysis   4-7      6        Project 1: shop sales analysis
+              3 Statistics     8      3                     A/B test write-up
+        4 Machine Learning  9-13      8         Project 7: loan default model
+5 Deep Learning, RL, GenAI 14-16      5 A small neural network and a RAG demo
+          6 The Real World 17-19      4          Projects 8 and 9, deployment
+    7 Career and Reference 20-22      2          Exercises and mock interview
+total weeks: 32</pre></div></div>
+<h2 id="1-6-habits-that-make-you-good"><a class="anchor" href="#1-6-habits-that-make-you-good" aria-label="Link to this section">#</a>1.6 Habits that make you good</h2>
+
+<ul>
+<li><strong>Question first.</strong> Write the business question in one sentence before you open the data.</li>
+<li><strong>Check before you trust.</strong> Count rows, look at missing values, reconcile totals.</li>
+<li><strong>Explain simply.</strong> If you cannot explain a result to a shopkeeper, you do not understand it yet.</li>
+<li><strong>Be honest about limits.</strong> Say what the data cannot show.</li>
+<li><strong>Keep a portfolio.</strong> Save each project to GitHub with a short README.</li>
+</ul>
+
+<div class="callout takeaways"><div class="c-label">Key takeaways</div><ul>
+<li>Data science turns data into decisions; modelling is one step of an eight-step loop.</li>
+<li>Pick the tool for the job: SQL, pandas, Power BI, or machine learning.</li>
+<li>This handbook climbs from Python basics to deep learning and LLMs, one level at a time.</li>
+<li>Build a project at the end of each level.</li>
+</ul>
+</div></div><nav class="pager" aria-label="Previous and next"><a class="prev" href="index.html"><small>Previous</small><span>Start here: Welcome: How to Use This Handbook</span></a><a class="next" href="part-02.html"><small>Next</small><span>Part 2: Python Basics</span></a></nav>
+<footer class="foot"><p>Data Science from Zero to Advanced &middot; written by Benson M. Merita &middot; &copy; 2026 MeritaAnalytics. Public datasets keep their own licences, listed in <a href="appendix-b.html">Appendix B</a>.</p></footer>
+</main>
+</div>
+<script src="search-index.js"></script>
+<script src="site.js"></script>
+</body>
+</html>

@@ -1,0 +1,718 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>Part 2: Python Basics | MeritaAnalytics</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to the notes</a>
+<header class="top"><button class="menu" id="menu" aria-controls="side" aria-expanded="false">Contents</button><span class="top-title">Part 2: Python Basics</span></header>
+<div class="shell">
+<nav class="side" id="side" aria-label="Handbook contents">
+<a class="brand" href="index.html"><span class="mark" aria-hidden="true">MA</span><span><b>MeritaAnalytics</b><small>Data Science Notes</small></span></a>
+<label class="search"><span class="sr">Search the notes</span><input id="q" type="search" placeholder="Search topics, e.g. groupby" autocomplete="off"></label>
+<div id="results" class="results" hidden></div>
+<ol class="nav">
+<li class="lvl0"><a href="index.html" class="">Start here</a></li>
+<li class="lvl"><div class="lvl-name"><span>Level 1</span>Foundations</div><ol>
+<li data-slug="part-01"><a href="part-01.html" class=""><span class="pn">1</span><span class="pt">What Is Data Science?</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-02"><a href="part-02.html" class="on"><span class="pn">2</span><span class="pt">Python Basics</span><span class="done-dot" aria-hidden="true"></span></a>
+<ol class="sub"><li><a href="#2-1-what-a-program-is-and-how-to-run-python">2.1 What a program is, and how to run Python</a></li><li><a href="#2-2-variables-types-and-numbers">2.2 Variables, types and numbers</a></li><li><a href="#2-3-strings-and-f-strings">2.3 Strings and f-strings</a></li><li><a href="#2-4-true-false-comparisons-and-if-elif-else">2.4 True/False, comparisons and if/elif/else</a></li><li><a href="#2-5-lists-tuples-sets-and-dictionaries">2.5 Lists, tuples, sets and dictionaries</a></li><li><a href="#2-6-indexing-and-slicing">2.6 Indexing and slicing</a></li><li><a href="#2-7-loops-and-list-comprehensions">2.7 Loops and list comprehensions</a></li><li><a href="#2-8-functions-and-lambdas">2.8 Functions and lambdas</a></li><li><a href="#2-9-modules-files-and-dates">2.9 Modules, files and dates</a></li><li><a href="#2-10-reading-error-messages">2.10 Reading error messages</a></li><li><a href="#2-11-mini-project-a-shop-stock-report">2.11 Mini project: a shop stock report</a></li><li><a href="#2-12-advanced-classes-recursion-and-virtual-environments">2.12 (Advanced) Classes, recursion and virtual environments</a></li></ol>
+</li>
+<li data-slug="part-03"><a href="part-03.html" class=""><span class="pn">3</span><span class="pt">NumPy: Fast Numbers</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 2</span>Data Analysis</div><ol>
+<li data-slug="part-04"><a href="part-04.html" class=""><span class="pn">4</span><span class="pt">Pandas: Working with Tables</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-05"><a href="part-05.html" class=""><span class="pn">5</span><span class="pt">Data Visualisation</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-06"><a href="part-06.html" class=""><span class="pn">6</span><span class="pt">SQL for Data Analysts</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-07"><a href="part-07.html" class=""><span class="pn">7</span><span class="pt">Exploratory Data Analysis</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 3</span>Statistics</div><ol>
+<li data-slug="part-08"><a href="part-08.html" class=""><span class="pn">8</span><span class="pt">Statistics for Data Science</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 4</span>Machine Learning</div><ol>
+<li data-slug="part-09"><a href="part-09.html" class=""><span class="pn">9</span><span class="pt">Machine Learning Foundations</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-10"><a href="part-10.html" class=""><span class="pn">10</span><span class="pt">Regression</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-11"><a href="part-11.html" class=""><span class="pn">11</span><span class="pt">Classification</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-12"><a href="part-12.html" class=""><span class="pn">12</span><span class="pt">Ensembles, Tuning and Feature Engineering</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-13"><a href="part-13.html" class=""><span class="pn">13</span><span class="pt">Unsupervised Learning</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 5</span>Deep Learning and Modern AI</div><ol>
+<li data-slug="part-14"><a href="part-14.html" class=""><span class="pn">14</span><span class="pt">Neural Networks and Deep Learning</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-15"><a href="part-15.html" class=""><span class="pn">15</span><span class="pt">Reinforcement Learning</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-16"><a href="part-16.html" class=""><span class="pn">16</span><span class="pt">Generative AI and Large Language Models</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 6</span>The Real World</div><ol>
+<li data-slug="part-17"><a href="part-17.html" class=""><span class="pn">17</span><span class="pt">Business Metrics, Excel and Power BI</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-18"><a href="part-18.html" class=""><span class="pn">18</span><span class="pt">Automation, Git, Deployment and Responsible AI</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-19"><a href="part-19.html" class=""><span class="pn">19</span><span class="pt">End-to-End Projects</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 7</span>Career and Reference</div><ol>
+<li data-slug="part-20"><a href="part-20.html" class=""><span class="pn">20</span><span class="pt">Practice Exercises and Answer Key</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-21"><a href="part-21.html" class=""><span class="pn">21</span><span class="pt">Interview Preparation</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-22"><a href="part-22.html" class=""><span class="pn">22</span><span class="pt">Roadmap, Cheat Sheets and Glossary</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Appendix</span>Reference</div><ol>
+<li><a href="appendix-a.html" class=""><span class="pn">A</span><span class="pt">Sources and Next Steps</span></a></li>
+<li><a href="appendix-b.html" class=""><span class="pn">B</span><span class="pt">Data Catalogue</span></a></li>
+</ol></li></ol>
+<p class="side-foot">By Benson M. Merita &middot; &copy; 2026 MeritaAnalytics</p></nav>
+<main id="main" class="main"><header class="part-head"><span class="lv">Level 1 &middot; Foundations</span><p class="part-no">Part 2</p><h1>Python Basics</h1><p class="lede">Learn the Python you need for data work, from your first line of code to functions, files and dates, using everyday Kenyan examples such as M-Pesa fees, matatu fares and shop stock.</p><button class="mark-done" id="done" data-slug="part-02" aria-pressed="false">Mark this part as done</button></header><div class="prose"><div class="callout learn"><div class="c-label">In this part</div><ul>
+<li>Explain what a program is and run Python code in a Jupyter notebook</li>
+<li>Store values in variables and tell the basic types apart</li>
+<li>Work with numbers, text, lists, tuples, sets and dictionaries</li>
+<li>Make decisions with if/elif/else and repeat work with loops</li>
+<li>Write functions, read and write files, and read an error message</li>
+</ul>
+<div class="meta"><span><b>You need first</b> None</span><span><b>Time</b> 6 to 10 hours</span></div></div>
+<h2 id="2-1-what-a-program-is-and-how-to-run-python"><a class="anchor" href="#2-1-what-a-program-is-and-how-to-run-python" aria-label="Link to this section">#</a>2.1 What a program is, and how to run Python</h2>
+
+<p>A <strong>program</strong> is a list of instructions that a computer follows from top to bottom. <strong>Python</strong> is a programming language that reads like plain English, which is why most data scientists use it. You write instructions, Python runs them, and you see the result.</p>
+
+<p>The easiest place to learn is a <strong>Jupyter notebook</strong>. A notebook is a page made of <strong>cells</strong>. A code cell holds Python; you run it with Shift+Enter and the result appears right under it. Text cells hold notes. Cells share memory, so a value created in one cell can be used in the cells below it.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="nb">print</span><span class="p">(</span><span class="s2">"Habari, Nairobi!"</span><span class="p">)</span>
+<span class="mi">2</span> <span class="o">+</span> <span class="mi">3</span>
+</code></pre></div><div class="cell-out"><pre class="out">Habari, Nairobi!</pre><pre class="out">5</pre></div></div>
+<p><code>print()</code> shows a value on the screen. If the last line of a cell is just a value, the notebook shows it automatically. Anything after a <code>#</code> is a <strong>comment</strong>: a note for humans that Python ignores.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="c1"># a comment: Python skips this line</span>
+<span class="n">fare</span> <span class="o">=</span> <span class="mi">50</span>      <span class="c1"># matatu fare in Ksh</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">fare</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">100</pre></div></div>
+<div class="callout mistake"><p><strong>Common mistake.</strong> Run cells from top to bottom. If you change a cell, run it again, and run the cells below it, otherwise they still use the old values.</p>
+</div>
+<div class="callout practice"><div class="c-label">Practice</div><p>print your own name and the number of days in a week multiplied by 4.</p>
+<details class="answer"><summary>Show solution</summary><p><code>print(&quot;Wanjiru&quot;)</code> then <code>print(7 * 4)</code>.</p>
+</details></div>
+<h2 id="2-2-variables-types-and-numbers"><a class="anchor" href="#2-2-variables-types-and-numbers" aria-label="Link to this section">#</a>2.2 Variables, types and numbers</h2>
+
+<p>A <strong>variable</strong> is a name that points to a value. You create it with <code>=</code>. Python works out the <strong>type</strong> of the value for you. The four basic types are <code>int</code> (whole numbers), <code>float</code> (decimals), <code>str</code> (text) and <code>bool</code> (True or False).</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">shop</span> <span class="o">=</span> <span class="s2">"Mama Njeri Stores"</span>
+<span class="n">items_in_stock</span> <span class="o">=</span> <span class="mi">120</span>
+<span class="n">price</span> <span class="o">=</span> <span class="mf">85.5</span>
+<span class="n">is_open</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="p">(</span><span class="n">shop</span><span class="p">,</span> <span class="n">items_in_stock</span><span class="p">,</span> <span class="n">price</span><span class="p">,</span> <span class="n">is_open</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="s2">"-&gt;"</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">Mama Njeri Stores -&gt; str
+120 -&gt; int
+85.5 -&gt; float
+True -&gt; bool</pre></div></div>
+<p>Variable names use letters, digits and underscores, cannot start with a digit, and are case sensitive. Pick names that say what the value means (<code>unit_price</code>, not <code>x</code>).</p>
+
+<h3 id="arithmetic"><a class="anchor" href="#arithmetic" aria-label="Link to this section">#</a>Arithmetic</h3>
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Operator</th>
+<th>Meaning</th>
+<th>Example</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>+</code> <code>-</code> <code>*</code></td>
+<td>add, subtract, multiply</td>
+<td><code>7 * 3</code></td>
+<td>21</td>
+</tr>
+<tr>
+<td><code>/</code></td>
+<td>divide (always a float)</td>
+<td><code>7 / 2</code></td>
+<td>3.5</td>
+</tr>
+<tr>
+<td><code>//</code></td>
+<td>whole-number division</td>
+<td><code>7 // 2</code></td>
+<td>3</td>
+</tr>
+<tr>
+<td><code>%</code></td>
+<td>remainder</td>
+<td><code>7 % 2</code></td>
+<td>1</td>
+</tr>
+<tr>
+<td><code>**</code></td>
+<td>power</td>
+<td><code>2 ** 3</code></td>
+<td>8</td>
+</tr>
+</tbody>
+</table></div>
+
+<p>Here is a loan example. A SACCO lends Ksh 50,000 at 12 percent a year for one year, with simple interest.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">principal</span> <span class="o">=</span> <span class="mi">50000</span>
+<span class="n">rate</span> <span class="o">=</span> <span class="mf">0.12</span>
+<span class="n">interest</span> <span class="o">=</span> <span class="n">principal</span> <span class="o">*</span> <span class="n">rate</span>
+<span class="n">total</span> <span class="o">=</span> <span class="n">principal</span> <span class="o">+</span> <span class="n">interest</span>
+<span class="n">monthly</span> <span class="o">=</span> <span class="n">total</span> <span class="o">/</span> <span class="mi">12</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Interest: Ksh </span><span class="si">{</span><span class="n">interest</span><span class="si">:</span><span class="s2">,.0f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Total to repay: Ksh </span><span class="si">{</span><span class="n">total</span><span class="si">:</span><span class="s2">,.0f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Monthly instalment: Ksh </span><span class="si">{</span><span class="n">monthly</span><span class="si">:</span><span class="s2">,.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">Interest: Ksh 6,000
+Total to repay: Ksh 56,000
+Monthly instalment: Ksh 4,666.67</pre></div></div>
+<p>Useful built-ins for numbers are <code>round(x, 2)</code>, <code>abs(x)</code>, <code>min()</code>, <code>max()</code>, <code>sum()</code> and <code>divmod(a, b)</code> (quotient and remainder together). Use <code>int(&quot;42&quot;)</code> and <code>float(&quot;3.5&quot;)</code> to convert text to numbers.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="nb">print</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="mi">2</span> <span class="o">/</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="nb">abs</span><span class="p">(</span><span class="o">-</span><span class="mi">40</span><span class="p">),</span> <span class="nb">divmod</span><span class="p">(</span><span class="mi">1250</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="mf">0.1</span> <span class="o">+</span> <span class="mf">0.2</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">0.667 40 (12, 50)
+0.30000000000000004</pre></div></div>
+<div class="callout tip"><p><strong>Good to know.</strong> Decimals are stored in binary, so <code>0.1 + 0.2</code> is not exactly 0.3. This is normal in every language. Round for display and never compare floats with <code>==</code>.</p>
+</div>
+<div class="callout practice"><div class="c-label">Practice</div><p>a boda rider earns Ksh 1,350 a day for 6 days. What is the total, and how many full Ksh 500 notes could he get?</p>
+<details class="answer"><summary>Show solution</summary><p><code>divmod(1350 * 6, 500)</code> gives <code>(16, 100)</code>.</p>
+</details></div>
+<h2 id="2-3-strings-and-f-strings"><a class="anchor" href="#2-3-strings-and-f-strings" aria-label="Link to this section">#</a>2.3 Strings and f-strings</h2>
+
+<p>A <strong>string</strong> is text inside quotes. Strings come with many <strong>methods</strong>, which are actions written after a dot, such as <code>.upper()</code>. Strings are <strong>immutable</strong>: a method returns a new string and never changes the original.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">name</span> <span class="o">=</span> <span class="s2">"  wanjiru kamau  "</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">name</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">title</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">name</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"kamau"</span> <span class="ow">in</span> <span class="n">name</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">name</span><span class="o">.</span><span class="n">strip</span><span class="p">()))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"m-pesa,airtel money,t-kash"</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">","</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"2025-03-14"</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"-"</span><span class="p">,</span> <span class="s2">"/"</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">Wanjiru Kamau
+WANJIRU KAMAU
+True 13
+[&#x27;m-pesa&#x27;, &#x27;airtel money&#x27;, &#x27;t-kash&#x27;]
+2025/03/14</pre></div></div>
+<p>The most useful tool is the <strong>f-string</strong>: put <code>f</code> before the quotes and place variables inside braces. After a colon you can format the value: <code>:,</code> adds thousands commas, <code>.2f</code> keeps two decimals and <code>.1%</code> turns 0.125 into 12.5%.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">customer</span><span class="p">,</span> <span class="n">balance</span><span class="p">,</span> <span class="n">rate</span> <span class="o">=</span> <span class="s2">"Otieno"</span><span class="p">,</span> <span class="mf">1234567.891</span><span class="p">,</span> <span class="mf">0.125</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">customer</span><span class="si">}</span><span class="s2"> has Ksh </span><span class="si">{</span><span class="n">balance</span><span class="si">:</span><span class="s2">,.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Interest rate: </span><span class="si">{</span><span class="n">rate</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="s1">'Item'</span><span class="si">:</span><span class="s2">&lt;10</span><span class="si">}{</span><span class="s1">'Qty'</span><span class="si">:</span><span class="s2">&gt;5</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="s1">'Sugar'</span><span class="si">:</span><span class="s2">&lt;10</span><span class="si">}{</span><span class="mi">40</span><span class="si">:</span><span class="s2">&gt;5</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">Otieno has Ksh 1,234,567.89
+Interest rate: 12.5%
+Item        Qty
+Sugar        40</pre></div></div>
+<p>Here <code>&lt;10</code> pads to ten characters aligned left and <code>&gt;5</code> aligns right in five. Joining text uses <code>+</code> or <code>&quot;, &quot;.join(list_of_text)</code>.</p>
+
+<div class="callout mistake"><p><strong>Common mistake.</strong> You cannot add text to a number: <code>&quot;Total: &quot; + 500</code> fails. Use an f-string: <code>f&quot;Total: {500}&quot;</code>.</p>
+</div>
+<div class="callout practice"><div class="c-label">Practice</div><p>format 0.0825 as a percent with two decimals.</p>
+<details class="answer"><summary>Show solution</summary><p><code>f&quot;{0.0825:.2%}&quot;</code> gives <code>8.25%</code>.</p>
+</details></div>
+<h2 id="2-4-true-false-comparisons-and-if-elif-else"><a class="anchor" href="#2-4-true-false-comparisons-and-if-elif-else" aria-label="Link to this section">#</a>2.4 True/False, comparisons and if/elif/else</h2>
+
+<p>A <strong>Boolean</strong> is <code>True</code> or <code>False</code>. You get one by comparing values with <code>==</code> (equal), <code>!=</code> (not equal), <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code>. Combine tests with <code>and</code>, <code>or</code> and <code>not</code>. Remember that <code>=</code> stores a value but <code>==</code> asks a question.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">stock</span><span class="p">,</span> <span class="n">reorder_level</span> <span class="o">=</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">10</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">stock</span> <span class="o">&lt;</span> <span class="n">reorder_level</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">stock</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">stock</span> <span class="o">&lt;</span> <span class="n">reorder_level</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="ow">not</span> <span class="p">(</span><span class="n">stock</span> <span class="o">==</span> <span class="mi">0</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">True
+True
+True</pre></div></div>
+<p>An <strong>if statement</strong> runs code only when a test is True. Add <code>elif</code> (else if) for more tests and <code>else</code> for everything left over. Python checks from the top and stops at the first True. The indented lines (four spaces) after the colon belong to that branch; indentation is how Python knows.</p>
+
+<p>Example: an illustrative M-Pesa send-money fee table (not real rates). Order the tests carefully, because the first match wins.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">amount</span> <span class="o">=</span> <span class="mi">450</span>
+<span class="k">if</span> <span class="n">amount</span> <span class="o">&lt;=</span> <span class="mi">100</span><span class="p">:</span>
+    <span class="n">fee</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">elif</span> <span class="n">amount</span> <span class="o">&lt;=</span> <span class="mi">500</span><span class="p">:</span>
+    <span class="n">fee</span> <span class="o">=</span> <span class="mi">7</span>
+<span class="k">elif</span> <span class="n">amount</span> <span class="o">&lt;=</span> <span class="mi">1000</span><span class="p">:</span>
+    <span class="n">fee</span> <span class="o">=</span> <span class="mi">13</span>
+<span class="k">elif</span> <span class="n">amount</span> <span class="o">&lt;=</span> <span class="mi">5000</span><span class="p">:</span>
+    <span class="n">fee</span> <span class="o">=</span> <span class="mi">30</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">fee</span> <span class="o">=</span> <span class="mi">60</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Send Ksh </span><span class="si">{</span><span class="n">amount</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">: fee Ksh </span><span class="si">{</span><span class="n">fee</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">Send Ksh 450: fee Ksh 7</pre></div></div>
+<p>Change <code>amount</code> to 80, 1000, 3200 and 20000 and run again to see the other branches (section 2.8 turns this into a reusable function).</p>
+
+<div class="callout mistake"><p><strong>Common mistake.</strong> Putting a wide test first (such as <code>amount &lt;= 5000</code>) would catch every small amount and hide the narrower tests below it. Order tests from most specific to most general.</p>
+</div>
+<div class="callout practice"><div class="c-label">Practice</div><p>a school grade is A for 80 or more, B for 65 or more, C for 50 or more, otherwise D. Write the rule with <code>if/elif/else</code> and test marks 92, 70, 50 and 31.</p>
+</div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">mark</span> <span class="o">=</span> <span class="mi">70</span>
+<span class="k">if</span> <span class="n">mark</span> <span class="o">&gt;=</span> <span class="mi">80</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"A"</span><span class="p">)</span>
+<span class="k">elif</span> <span class="n">mark</span> <span class="o">&gt;=</span> <span class="mi">65</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"B"</span><span class="p">)</span>
+<span class="k">elif</span> <span class="n">mark</span> <span class="o">&gt;=</span> <span class="mi">50</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"C"</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"D"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">B</pre></div></div>
+<p>Solution (try 92, 50 and 31 too).</p>
+
+<h2 id="2-5-lists-tuples-sets-and-dictionaries"><a class="anchor" href="#2-5-lists-tuples-sets-and-dictionaries" aria-label="Link to this section">#</a>2.5 Lists, tuples, sets and dictionaries</h2>
+
+<p>Real data comes in groups, so Python has four <strong>collections</strong>. Choose by what you need.</p>
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Written</th>
+<th>Ordered</th>
+<th>Can change</th>
+<th>Use it for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>list</td>
+<td><code>[1, 2, 3]</code></td>
+<td>yes</td>
+<td>yes</td>
+<td>a sequence of values</td>
+</tr>
+<tr>
+<td>tuple</td>
+<td><code>(1, 2, 3)</code></td>
+<td>yes</td>
+<td>no</td>
+<td>a fixed record, such as a point</td>
+</tr>
+<tr>
+<td>set</td>
+<td><code>{1, 2, 3}</code></td>
+<td>no</td>
+<td>yes</td>
+<td>unique values, membership tests</td>
+</tr>
+<tr>
+<td>dict</td>
+<td><code>{&quot;a&quot;: 1}</code></td>
+<td>yes</td>
+<td>yes</td>
+<td>look up a value by a key</td>
+</tr>
+</tbody>
+</table></div>
+
+<h3 id="lists"><a class="anchor" href="#lists" aria-label="Link to this section">#</a>Lists</h3>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">fares</span> <span class="o">=</span> <span class="p">[</span><span class="mi">50</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span> <span class="mi">100</span><span class="p">]</span>
+<span class="n">fares</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">120</span><span class="p">)</span>
+<span class="n">fares</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+<span class="n">fares</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="mi">70</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">fares</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">fares</span><span class="p">),</span> <span class="nb">sum</span><span class="p">(</span><span class="n">fares</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">fares</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">fares</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">[30, 50, 100, 120] 4 300 120
+[120, 100, 50, 30]</pre></div></div>
+<h3 id="tuples-and-sets"><a class="anchor" href="#tuples-and-sets" aria-label="Link to this section">#</a>Tuples and sets</h3>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">location</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mf">1.286</span><span class="p">,</span> <span class="mf">36.817</span><span class="p">)</span>          <span class="c1"># latitude, longitude: should not change</span>
+<span class="n">lat</span><span class="p">,</span> <span class="n">lon</span> <span class="o">=</span> <span class="n">location</span>                  <span class="c1"># unpacking</span>
+<span class="n">counties</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"Nairobi"</span><span class="p">,</span> <span class="s2">"Kiambu"</span><span class="p">,</span> <span class="s2">"Nairobi"</span><span class="p">,</span> <span class="s2">"Nakuru"</span><span class="p">}</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">lat</span><span class="p">,</span> <span class="n">lon</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">counties</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">counties</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Kiambu"</span> <span class="ow">in</span> <span class="n">counties</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">-1.286 36.817
+{&#x27;Kiambu&#x27;, &#x27;Nakuru&#x27;, &#x27;Nairobi&#x27;} 3
+True</pre></div></div>
+<p>A set drops duplicates, which makes it a quick way to find unique values. Sets also support <code>a &amp; b</code> (in both) and <code>a | b</code> (in either).</p>
+
+<h3 id="dictionaries"><a class="anchor" href="#dictionaries" aria-label="Link to this section">#</a>Dictionaries</h3>
+
+<p>A <strong>dictionary</strong> stores <strong>key: value</strong> pairs. It is the Python version of a lookup table, and it is the shape of one row of data.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">stock</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"sugar"</span><span class="p">:</span> <span class="mi">40</span><span class="p">,</span> <span class="s2">"maize flour"</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span> <span class="s2">"cooking oil"</span><span class="p">:</span> <span class="mi">12</span><span class="p">}</span>
+<span class="n">stock</span><span class="p">[</span><span class="s2">"rice"</span><span class="p">]</span> <span class="o">=</span> <span class="mi">30</span>                      <span class="c1"># add</span>
+<span class="n">stock</span><span class="p">[</span><span class="s2">"sugar"</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">5</span>                     <span class="c1"># change</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">stock</span><span class="p">[</span><span class="s2">"sugar"</span><span class="p">],</span> <span class="n">stock</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"tea"</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">item</span><span class="p">,</span> <span class="n">qty</span> <span class="ow">in</span> <span class="n">stock</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">item</span><span class="si">:</span><span class="s2">&lt;12</span><span class="si">}{</span><span class="n">qty</span><span class="si">:</span><span class="s2">&gt;4</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">stock</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
+</code></pre></div><div class="cell-out"><pre class="out">35 0
+sugar         35
+maize flour   25
+cooking oil   12
+rice          30
+[&#x27;sugar&#x27;, &#x27;maize flour&#x27;, &#x27;cooking oil&#x27;, &#x27;rice&#x27;]</pre></div></div>
+<p>Use <code>.get(key, default)</code> when a key might be missing, so you get a default instead of an error. Dictionaries can hold lists and other dictionaries, which is exactly how JSON files are built (section 2.9).</p>
+
+<div class="callout practice"><div class="c-label">Practice</div><p>from <code>[&quot;mpesa&quot;, &quot;cash&quot;, &quot;mpesa&quot;, &quot;card&quot;, &quot;cash&quot;, &quot;mpesa&quot;]</code> count how many times each payment method appears.</p>
+</div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">counts</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">method</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"mpesa"</span><span class="p">,</span> <span class="s2">"cash"</span><span class="p">,</span> <span class="s2">"mpesa"</span><span class="p">,</span> <span class="s2">"card"</span><span class="p">,</span> <span class="s2">"cash"</span><span class="p">,</span> <span class="s2">"mpesa"</span><span class="p">]:</span>
+    <span class="n">counts</span><span class="p">[</span><span class="n">method</span><span class="p">]</span> <span class="o">=</span> <span class="n">counts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">counts</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">{&#x27;mpesa&#x27;: 3, &#x27;cash&#x27;: 2, &#x27;card&#x27;: 1}</pre></div></div>
+<p>Solution.</p>
+
+<h2 id="2-6-indexing-and-slicing"><a class="anchor" href="#2-6-indexing-and-slicing" aria-label="Link to this section">#</a>2.6 Indexing and slicing</h2>
+
+<p><strong>Indexing</strong> picks one item by its position. Positions start at <strong>0</strong>, and negative positions count from the end (<code>-1</code> is the last). <strong>Slicing</strong> picks a range with <code>[start:stop:step]</code>; it includes <code>start</code> and excludes <code>stop</code>. This works the same for lists, tuples and strings.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">marks</span> <span class="o">=</span> <span class="p">[</span><span class="mi">72</span><span class="p">,</span> <span class="mi">55</span><span class="p">,</span> <span class="mi">88</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">91</span><span class="p">,</span> <span class="mi">47</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">marks</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">marks</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">marks</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">marks</span><span class="p">[:</span><span class="mi">3</span><span class="p">],</span> <span class="n">marks</span><span class="p">[</span><span class="mi">3</span><span class="p">:])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">marks</span><span class="p">[::</span><span class="mi">2</span><span class="p">],</span> <span class="n">marks</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Nairobi"</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">])</span>
+</code></pre></div><div class="cell-out"><pre class="out">72 47
+[55, 88, 64]
+[72, 55, 88] [64, 91, 47]
+[72, 88, 91] [47, 91, 64, 88, 55, 72]
+Nai</pre></div></div>
+<p>A good way to remember: a slice <code>[1:4]</code> gives positions 1, 2 and 3, and <code>stop - start</code> is its length. These same ideas return in NumPy (Part 3) and pandas (Part 4).</p>
+
+<div class="callout mistake"><p><strong>Common mistake.</strong> A list of 6 items has positions 0 to 5. Asking for <code>marks[6]</code> raises an IndexError.</p>
+</div>
+<div class="callout practice"><div class="c-label">Practice</div><p>from <code>marks</code> get the last three marks and the middle two (positions 2 and 3).</p>
+<details class="answer"><summary>Show solution</summary><p><code>marks[-3:]</code> and <code>marks[2:4]</code>.</p>
+</details></div>
+<h2 id="2-7-loops-and-list-comprehensions"><a class="anchor" href="#2-7-loops-and-list-comprehensions" aria-label="Link to this section">#</a>2.7 Loops and list comprehensions</h2>
+
+<p>A <strong>loop</strong> repeats code. A <strong>for loop</strong> visits each item of a collection. <code>range(n)</code> gives the numbers 0 to n-1, and <code>enumerate()</code> gives the position together with the item.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">fares</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"Rongai"</span><span class="p">:</span> <span class="mi">80</span><span class="p">,</span> <span class="s2">"Kikuyu"</span><span class="p">:</span> <span class="mi">60</span><span class="p">,</span> <span class="s2">"Githurai"</span><span class="p">:</span> <span class="mi">50</span><span class="p">}</span>
+<span class="n">total</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">stage</span><span class="p">,</span> <span class="n">fare</span> <span class="ow">in</span> <span class="n">fares</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">total</span> <span class="o">+=</span> <span class="n">fare</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">stage</span><span class="si">:</span><span class="s2">&lt;9</span><span class="si">}</span><span class="s2"> Ksh </span><span class="si">{</span><span class="n">fare</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Total:"</span><span class="p">,</span> <span class="n">total</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">stage</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">fares</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">stage</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">Rongai    Ksh 80
+Kikuyu    Ksh 60
+Githurai  Ksh 50
+Total: 190
+1 Rongai
+2 Kikuyu
+3 Githurai</pre></div></div>
+<p>A <strong>while loop</strong> repeats while a test stays True. Be sure something inside changes the test, or it never stops. <code>break</code> leaves the loop early and <code>continue</code> skips to the next round.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">balance</span><span class="p">,</span> <span class="n">month</span> <span class="o">=</span> <span class="mi">10000</span><span class="p">,</span> <span class="mi">0</span>
+<span class="k">while</span> <span class="n">balance</span> <span class="o">&lt;</span> <span class="mi">15000</span><span class="p">:</span>
+    <span class="n">balance</span> <span class="o">*=</span> <span class="mf">1.05</span>            <span class="c1"># grows 5 percent a month</span>
+    <span class="n">month</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">month</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">balance</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">9 15513</pre></div></div>
+<h3 id="list-comprehensions"><a class="anchor" href="#list-comprehensions" aria-label="Link to this section">#</a>List comprehensions</h3>
+
+<p>A <strong>list comprehension</strong> builds a new list in one line: <code>[expression for item in collection if test]</code>. It is a short form of a for loop that appends to a list.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">marks</span> <span class="o">=</span> <span class="p">[</span><span class="mi">72</span><span class="p">,</span> <span class="mi">55</span><span class="p">,</span> <span class="mi">88</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">91</span><span class="p">,</span> <span class="mi">47</span><span class="p">]</span>
+<span class="n">passed</span> <span class="o">=</span> <span class="p">[</span><span class="n">m</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">marks</span> <span class="k">if</span> <span class="n">m</span> <span class="o">&gt;=</span> <span class="mi">50</span><span class="p">]</span>
+<span class="n">scaled</span> <span class="o">=</span> <span class="p">[</span><span class="nb">round</span><span class="p">(</span><span class="n">m</span> <span class="o">/</span> <span class="mi">100</span> <span class="o">*</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">marks</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">passed</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">scaled</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">({</span><span class="n">m</span><span class="p">:</span> <span class="p">(</span><span class="s2">"pass"</span> <span class="k">if</span> <span class="n">m</span> <span class="o">&gt;=</span> <span class="mi">50</span> <span class="k">else</span> <span class="s2">"fail"</span><span class="p">)</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">marks</span><span class="p">[:</span><span class="mi">3</span><span class="p">]})</span>
+</code></pre></div><div class="cell-out"><pre class="out">[72, 55, 88, 64, 91]
+[14.4, 11.0, 17.6, 12.8, 18.2, 9.4]
+{72: &#x27;pass&#x27;, 55: &#x27;pass&#x27;, 88: &#x27;pass&#x27;}</pre></div></div>
+<p>The last line is a <strong>dictionary comprehension</strong>. Keep comprehensions short; when the logic needs several steps, use a normal loop so it stays readable.</p>
+
+<div class="callout practice"><div class="c-label">Practice</div><p>make a list of the squares of the even numbers from 1 to 10.</p>
+<details class="answer"><summary>Show solution</summary><p><code>[n**2 for n in range(1, 11) if n % 2 == 0]</code> gives <code>[4, 16, 36, 64, 100]</code>.</p>
+</details></div>
+<h2 id="2-8-functions-and-lambdas"><a class="anchor" href="#2-8-functions-and-lambdas" aria-label="Link to this section">#</a>2.8 Functions and lambdas</h2>
+
+<p>A <strong>function</strong> is a named, reusable block of code. You define it with <code>def</code>, give it <strong>parameters</strong> (inputs), and send a result back with <code>return</code>. Functions stop you repeating yourself and make code easy to test.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="k">def</span><span class="w"> </span><span class="nf">mpesa_fee</span><span class="p">(</span><span class="n">amount</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">amount</span> <span class="o">&lt;=</span> <span class="mi">100</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">0</span>
+    <span class="k">elif</span> <span class="n">amount</span> <span class="o">&lt;=</span> <span class="mi">500</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">7</span>
+    <span class="k">elif</span> <span class="n">amount</span> <span class="o">&lt;=</span> <span class="mi">1000</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">13</span>
+    <span class="k">elif</span> <span class="n">amount</span> <span class="o">&lt;=</span> <span class="mi">5000</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">30</span>
+    <span class="k">return</span> <span class="mi">60</span>
+
+<span class="k">for</span> <span class="n">amt</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">80</span><span class="p">,</span> <span class="mi">450</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">3200</span><span class="p">,</span> <span class="mi">20000</span><span class="p">]:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Send Ksh </span><span class="si">{</span><span class="n">amt</span><span class="si">:</span><span class="s2">&gt;6,</span><span class="si">}</span><span class="s2">: fee Ksh </span><span class="si">{</span><span class="n">mpesa_fee</span><span class="p">(</span><span class="n">amt</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">Send Ksh     80: fee Ksh 0
+Send Ksh    450: fee Ksh 7
+Send Ksh  1,000: fee Ksh 13
+Send Ksh  3,200: fee Ksh 30
+Send Ksh 20,000: fee Ksh 60</pre></div></div>
+<p>Parameters can have <strong>default values</strong>, and you can call a function with names for clarity. A function with no <code>return</code> gives back <code>None</code>.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="k">def</span><span class="w"> </span><span class="nf">loan_total</span><span class="p">(</span><span class="n">principal</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="mf">0.12</span><span class="p">,</span> <span class="n">years</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Total repayable with simple interest."""</span>
+    <span class="k">return</span> <span class="nb">round</span><span class="p">(</span><span class="n">principal</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">rate</span> <span class="o">*</span> <span class="n">years</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">loan_total</span><span class="p">(</span><span class="mi">50000</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">loan_total</span><span class="p">(</span><span class="mi">50000</span><span class="p">,</span> <span class="n">years</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">loan_total</span><span class="p">(</span><span class="n">rate</span><span class="o">=</span><span class="mf">0.15</span><span class="p">,</span> <span class="n">principal</span><span class="o">=</span><span class="mi">20000</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">56000.0
+62000.0
+23000.0</pre></div></div>
+<p>Variables created inside a function are <strong>local</strong>: they exist only while it runs. Return what you need rather than relying on outside variables.</p>
+
+<h3 id="lambdas"><a class="anchor" href="#lambdas" aria-label="Link to this section">#</a>Lambdas</h3>
+
+<p>A <strong>lambda</strong> is a tiny unnamed function written on one line: <code>lambda x: x * 2</code>. They are handy as a throw-away rule, for example to sort or to apply a calculation.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">vat</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">price</span><span class="p">:</span> <span class="n">price</span> <span class="o">*</span> <span class="mf">1.16</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">vat</span><span class="p">(</span><span class="mi">1000</span><span class="p">),</span> <span class="mi">2</span><span class="p">))</span>
+<span class="n">shops</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">"Kasarani"</span><span class="p">,</span> <span class="mi">340</span><span class="p">),</span> <span class="p">(</span><span class="s2">"Rongai"</span><span class="p">,</span> <span class="mi">510</span><span class="p">),</span> <span class="p">(</span><span class="s2">"Thika"</span><span class="p">,</span> <span class="mi">275</span><span class="p">)]</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">shops</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">upper</span><span class="p">(),</span> <span class="n">shops</span><span class="p">)))</span>
+</code></pre></div><div class="cell-out"><pre class="out">1160.0
+[(&#x27;Rongai&#x27;, 510), (&#x27;Kasarani&#x27;, 340), (&#x27;Thika&#x27;, 275)]
+[&#x27;KASARANI&#x27;, &#x27;RONGAI&#x27;, &#x27;THIKA&#x27;]</pre></div></div>
+<div class="callout mistake"><p><strong>Common mistake.</strong> Forgetting <code>return</code> is a classic slip: the function prints its answer but gives back <code>None</code>, so later calculations fail. If you need the value again, return it.</p>
+</div>
+<div class="callout practice"><div class="c-label">Practice</div><p>write <code>bmi(weight_kg, height_m)</code> that returns weight divided by height squared, rounded to 1 decimal.</p>
+<details class="answer"><summary>Show solution</summary><p><code>def bmi(w, h): return round(w / h**2, 1)</code>; <code>bmi(70, 1.75)</code> gives <code>22.9</code>.</p>
+</details></div>
+<h2 id="2-9-modules-files-and-dates"><a class="anchor" href="#2-9-modules-files-and-dates" aria-label="Link to this section">#</a>2.9 Modules, files and dates</h2>
+
+<h3 id="importing-modules"><a class="anchor" href="#importing-modules" aria-label="Link to this section">#</a>Importing modules</h3>
+
+<p>A <strong>module</strong> is a file of ready-made Python code, and a <strong>library</strong> is a bundle of modules. <code>import</code> brings one in. The standard library ships with Python; others such as NumPy are installed with pip. You can give a module a short <strong>alias</strong> with <code>as</code>.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">statistics</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">st</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">random</span><span class="w"> </span><span class="kn">import</span> <span class="n">Random</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">144</span><span class="p">),</span> <span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="mf">7.2</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">st</span><span class="o">.</span><span class="n">mean</span><span class="p">([</span><span class="mi">72</span><span class="p">,</span> <span class="mi">55</span><span class="p">,</span> <span class="mi">88</span><span class="p">,</span> <span class="mi">64</span><span class="p">]),</span> <span class="n">st</span><span class="o">.</span><span class="n">median</span><span class="p">([</span><span class="mi">72</span><span class="p">,</span> <span class="mi">55</span><span class="p">,</span> <span class="mi">88</span><span class="p">,</span> <span class="mi">64</span><span class="p">]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">Random</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s2">"Nairobi"</span><span class="p">,</span> <span class="s2">"Mombasa"</span><span class="p">,</span> <span class="s2">"Kisumu"</span><span class="p">]))</span>
+</code></pre></div><div class="cell-out"><pre class="out">12.0 8 3.1416
+69.75 68.0
+Kisumu</pre></div></div>
+<h3 id="reading-and-writing-files"><a class="anchor" href="#reading-and-writing-files" aria-label="Link to this section">#</a>Reading and writing files</h3>
+
+<p>Use <code>pathlib.Path</code> for file locations and the <code>with</code> statement to open files, because <code>with</code> closes the file for you. The <code>csv</code> module reads rows of a spreadsheet-style file, and <code>json</code> handles nested data made of dictionaries and lists. For big tables you will use pandas instead (Part 4).</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">csv</span><span class="o">,</span><span class="w"> </span><span class="nn">json</span>
+
+<span class="n">Path</span><span class="p">(</span><span class="s2">"p02_data"</span><span class="p">)</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">rows</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">"sugar"</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">180</span><span class="p">),</span> <span class="p">(</span><span class="s2">"maize flour"</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">150</span><span class="p">),</span> <span class="p">(</span><span class="s2">"cooking oil"</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">320</span><span class="p">)]</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"p02_data/stock.csv"</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s2">""</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">writer</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+    <span class="n">w</span><span class="o">.</span><span class="n">writerow</span><span class="p">([</span><span class="s2">"item"</span><span class="p">,</span> <span class="s2">"qty"</span><span class="p">,</span> <span class="s2">"price"</span><span class="p">])</span>
+    <span class="n">w</span><span class="o">.</span><span class="n">writerows</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"p02_data/stock.csv"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">csv</span><span class="o">.</span><span class="n">DictReader</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s2">"item"</span><span class="p">],</span> <span class="nb">int</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s2">"qty"</span><span class="p">])</span> <span class="o">*</span> <span class="nb">int</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s2">"price"</span><span class="p">]))</span>
+</code></pre></div><div class="cell-out"><pre class="out">sugar 7200
+maize flour 3750
+cooking oil 3840</pre></div></div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">shop</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Mama Njeri Stores"</span><span class="p">,</span> <span class="s2">"open"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">"items"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"sugar"</span><span class="p">,</span> <span class="s2">"oil"</span><span class="p">]}</span>
+<span class="n">Path</span><span class="p">(</span><span class="s2">"p02_data/shop.json"</span><span class="p">)</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">shop</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">back</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="s2">"p02_data/shop.json"</span><span class="p">)</span><span class="o">.</span><span class="n">read_text</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">back</span><span class="p">[</span><span class="s2">"items"</span><span class="p">],</span> <span class="n">Path</span><span class="p">(</span><span class="s2">"p02_data/shop.json"</span><span class="p">)</span><span class="o">.</span><span class="n">exists</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="s2">"p02_data/stock.csv"</span><span class="p">)</span><span class="o">.</span><span class="n">suffix</span><span class="p">,</span> <span class="n">Path</span><span class="p">(</span><span class="s2">"p02_data"</span><span class="p">)</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">[&#x27;sugar&#x27;, &#x27;oil&#x27;] True
+.csv p02_data</pre></div></div>
+<h3 id="dates-and-times"><a class="anchor" href="#dates-and-times" aria-label="Link to this section">#</a>Dates and times</h3>
+
+<p>The <code>datetime</code> module has <code>date</code> for calendar days, <code>datetime</code> for date plus time and <code>timedelta</code> for a gap between them. Turn text into a date with <code>strptime</code>, and a date into text with <code>strftime</code>.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">date</span><span class="p">,</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span>
+<span class="n">issued</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="s2">"2025-03-14"</span><span class="p">,</span> <span class="s2">"%Y-%m-</span><span class="si">%d</span><span class="s2">"</span><span class="p">)</span><span class="o">.</span><span class="n">date</span><span class="p">()</span>
+<span class="n">due</span> <span class="o">=</span> <span class="n">issued</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">due</span><span class="p">,</span> <span class="n">due</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">"</span><span class="si">%d</span><span class="s2"> %B %Y"</span><span class="p">),</span> <span class="n">due</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">"%A"</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">((</span><span class="n">date</span><span class="p">(</span><span class="mi">2025</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">25</span><span class="p">)</span> <span class="o">-</span> <span class="n">issued</span><span class="p">)</span><span class="o">.</span><span class="n">days</span><span class="p">,</span> <span class="s2">"days between"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">2025-06-12 12 June 2025 Thursday
+286 days between</pre></div></div>
+<p>Common format codes: <code>%Y</code> year, <code>%m</code> month number, <code>%d</code> day, <code>%B</code> month name, <code>%A</code> weekday name, <code>%H:%M</code> hours and minutes.</p>
+
+<div class="callout practice"><div class="c-label">Practice</div><p>a loan disbursed on 2025-01-31 is repaid in 30-day instalments. On what date is the third instalment due?</p>
+<details class="answer"><summary>Show solution</summary><p><code>date(2025, 1, 31) + timedelta(days=90)</code> gives 2025-05-01.</p>
+</details></div>
+<h2 id="2-10-reading-error-messages"><a class="anchor" href="#2-10-reading-error-messages" aria-label="Link to this section">#</a>2.10 Reading error messages</h2>
+
+<p>Every programmer sees errors daily. An error is Python telling you what went wrong, so read it from the bottom: the <strong>last line</strong> names the error type and the reason; the lines above show where. Fix the first error you see, then run again.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">stock</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"sugar"</span><span class="p">:</span> <span class="mi">40</span><span class="p">}</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">stock</span><span class="p">[</span><span class="s2">"tea"</span><span class="p">])</span>
+</code></pre></div><div class="cell-out"><div class="err"><span class="err-tag">Error on purpose</span><code>KeyError: &#x27;tea&#x27;</code></div></div></div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">total</span> <span class="o">=</span> <span class="s2">"Total: "</span> <span class="o">+</span> <span class="mi">500</span>
+</code></pre></div><div class="cell-out"><div class="err"><span class="err-tag">Error on purpose</span><code>TypeError: can only concatenate str (not &quot;int&quot;) to str</code></div></div></div>
+<p>The first shows a KeyError (the key <code>tea</code> does not exist) and the second a TypeError (text and a number cannot be added). These are the six errors you will meet most often:</p>
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Error</th>
+<th>Usual cause</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SyntaxError</code></td>
+<td>missing colon, bracket or quote</td>
+<td>check the line shown and the one before it</td>
+</tr>
+<tr>
+<td><code>NameError</code></td>
+<td>variable not defined, a typo, or a cell not run</td>
+<td>fix the spelling; run the earlier cell</td>
+</tr>
+<tr>
+<td><code>TypeError</code></td>
+<td>mixing types, e.g. text plus number</td>
+<td>convert with <code>str()</code>, <code>int()</code> or an f-string</td>
+</tr>
+<tr>
+<td><code>ValueError</code></td>
+<td>right type, bad value, e.g. <code>int(&quot;abc&quot;)</code></td>
+<td>clean or check the input first</td>
+</tr>
+<tr>
+<td><code>KeyError</code> / <code>IndexError</code></td>
+<td>missing dictionary key or position</td>
+<td>use <code>.get()</code>; check <code>len()</code></td>
+</tr>
+<tr>
+<td><code>IndentationError</code></td>
+<td>inconsistent spaces after a colon</td>
+<td>use four spaces everywhere</td>
+</tr>
+</tbody>
+</table></div>
+
+<p>To handle an error that you expect, wrap the risky line in <code>try</code> and <code>except</code>. Catch the specific error type, not everything.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="k">for</span> <span class="n">text</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"250"</span><span class="p">,</span> <span class="s2">"1,200"</span><span class="p">,</span> <span class="s2">"abc"</span><span class="p">]:</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">amount</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">","</span><span class="p">,</span> <span class="s2">""</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"OK"</span><span class="p">,</span> <span class="n">amount</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Cannot read"</span><span class="p">,</span> <span class="nb">repr</span><span class="p">(</span><span class="n">text</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">OK 250
+OK 1200
+Cannot read &#x27;abc&#x27;</pre></div></div>
+<p>When stuck: read the last line, look at the line number, print the variables involved and search the error text.</p>
+
+<h2 id="2-11-mini-project-a-shop-stock-report"><a class="anchor" href="#2-11-mini-project-a-shop-stock-report" aria-label="Link to this section">#</a>2.11 Mini project: a shop stock report</h2>
+
+<p>Let us combine everything. In this synthetic example a small shop keeps prices in a dictionary and daily stock in a CSV file. The report lists stock value, flags items to reorder and totals the shop. Steps: create the data, read it, compute, then print a report.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">import</span><span class="w"> </span><span class="nn">csv</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="n">prices</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"sugar"</span><span class="p">:</span> <span class="mi">180</span><span class="p">,</span> <span class="s2">"maize flour"</span><span class="p">:</span> <span class="mi">150</span><span class="p">,</span> <span class="s2">"cooking oil"</span><span class="p">:</span> <span class="mi">320</span><span class="p">,</span> <span class="s2">"rice"</span><span class="p">:</span> <span class="mi">210</span><span class="p">,</span> <span class="s2">"tea leaves"</span><span class="p">:</span> <span class="mi">95</span><span class="p">}</span>
+<span class="n">reorder_at</span> <span class="o">=</span> <span class="mi">15</span>
+<span class="n">lines</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"item,qty"</span><span class="p">,</span> <span class="s2">"sugar,40"</span><span class="p">,</span> <span class="s2">"maize flour,12"</span><span class="p">,</span> <span class="s2">"cooking oil,9"</span><span class="p">,</span> <span class="s2">"rice,30"</span><span class="p">,</span> <span class="s2">"tea leaves,6"</span><span class="p">]</span>
+<span class="n">Path</span><span class="p">(</span><span class="s2">"p02_stock_today.csv"</span><span class="p">)</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lines</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">"items in the file"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">5 items in the file</pre></div></div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="k">def</span><span class="w"> </span><span class="nf">stock_report</span><span class="p">(</span><span class="n">csv_path</span><span class="p">,</span> <span class="n">prices</span><span class="p">,</span> <span class="n">reorder_at</span><span class="p">):</span>
+    <span class="n">report</span><span class="p">,</span> <span class="n">total</span> <span class="o">=</span> <span class="p">[],</span> <span class="mi">0</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">csv_path</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">csv</span><span class="o">.</span><span class="n">DictReader</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+            <span class="n">qty</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s2">"qty"</span><span class="p">])</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">qty</span> <span class="o">*</span> <span class="n">prices</span><span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="s2">"item"</span><span class="p">]]</span>
+            <span class="n">total</span> <span class="o">+=</span> <span class="n">value</span>
+            <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">row</span><span class="p">[</span><span class="s2">"item"</span><span class="p">],</span> <span class="n">qty</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">qty</span> <span class="o">&lt;</span> <span class="n">reorder_at</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">report</span><span class="p">,</span> <span class="n">total</span>
+
+<span class="n">report</span><span class="p">,</span> <span class="n">total</span> <span class="o">=</span> <span class="n">stock_report</span><span class="p">(</span><span class="s2">"p02_stock_today.csv"</span><span class="p">,</span> <span class="n">prices</span><span class="p">,</span> <span class="n">reorder_at</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="s1">'Item'</span><span class="si">:</span><span class="s2">&lt;13</span><span class="si">}{</span><span class="s1">'Qty'</span><span class="si">:</span><span class="s2">&gt;5</span><span class="si">}{</span><span class="s1">'Value (Ksh)'</span><span class="si">:</span><span class="s2">&gt;13</span><span class="si">}</span><span class="s2">  Status"</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">item</span><span class="p">,</span> <span class="n">qty</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">low</span> <span class="ow">in</span> <span class="n">report</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">item</span><span class="si">:</span><span class="s2">&lt;13</span><span class="si">}{</span><span class="n">qty</span><span class="si">:</span><span class="s2">&gt;5</span><span class="si">}{</span><span class="n">value</span><span class="si">:</span><span class="s2">&gt;13,</span><span class="si">}</span><span class="s2">  </span><span class="si">{</span><span class="s1">'REORDER'</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">low</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">'ok'</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Total stock value: Ksh </span><span class="si">{</span><span class="n">total</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">Item           Qty  Value (Ksh)  Status
+sugar           40        7,200  ok
+maize flour     12        1,800  REORDER
+cooking oil      9        2,880  REORDER
+rice            30        6,300  ok
+tea leaves       6          570  REORDER
+Total stock value: Ksh 18,750</pre></div></div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">to_buy</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span> <span class="k">for</span> <span class="n">item</span><span class="p">,</span> <span class="n">qty</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">low</span> <span class="ow">in</span> <span class="n">report</span> <span class="k">if</span> <span class="n">low</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Reorder:"</span><span class="p">,</span> <span class="s2">", "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">to_buy</span><span class="p">))</span>
+<span class="n">best</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">report</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">r</span><span class="p">:</span> <span class="n">r</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Most valuable line: </span><span class="si">{</span><span class="n">best</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> (Ksh </span><span class="si">{</span><span class="n">best</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">)"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">Reorder: maize flour, cooking oil, tea leaves
+Most valuable line: sugar (Ksh 7,200)</pre></div></div>
+<p><strong>Extensions:</strong> save the reorder list to a JSON file, add a <code>date</code> to the report with <code>datetime</code>, or catch the KeyError when the CSV has an item missing from <code>prices</code>.</p>
+
+<h2 id="2-12-advanced-classes-recursion-and-virtual-environments"><a class="anchor" href="#2-12-advanced-classes-recursion-and-virtual-environments" aria-label="Link to this section">#</a>2.12 (Advanced) Classes, recursion and virtual environments</h2>
+
+<h3 id="classes"><a class="anchor" href="#classes" aria-label="Link to this section">#</a>Classes</h3>
+
+<p>A <strong>class</strong> is a blueprint that bundles data (<strong>attributes</strong>) with actions (<strong>methods</strong>). <code>__init__</code> runs when you create an <strong>object</strong> (an instance), and <code>self</code> refers to that object. You will use classes from libraries all the time (a pandas table is an object) even if you rarely write your own.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="k">class</span><span class="w"> </span><span class="nc">Loan</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">principal</span><span class="p">,</span> <span class="n">rate</span><span class="p">,</span> <span class="n">months</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">principal</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rate</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">months</span> <span class="o">=</span> <span class="n">principal</span><span class="p">,</span> <span class="n">rate</span><span class="p">,</span> <span class="n">months</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">total</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">principal</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">rate</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">months</span> <span class="o">/</span> <span class="mi">12</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">instalment</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">total</span><span class="p">()</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">months</span>
+
+<span class="n">loan</span> <span class="o">=</span> <span class="n">Loan</span><span class="p">(</span><span class="mi">60000</span><span class="p">,</span> <span class="mf">0.14</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">loan</span><span class="o">.</span><span class="n">total</span><span class="p">()),</span> <span class="nb">round</span><span class="p">(</span><span class="n">loan</span><span class="o">.</span><span class="n">instalment</span><span class="p">(),</span> <span class="mi">2</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">64200 10700.0</pre></div></div>
+<h3 id="recursion"><a class="anchor" href="#recursion" aria-label="Link to this section">#</a>Recursion</h3>
+
+<p>A <strong>recursive</strong> function calls itself on a smaller problem until it reaches a simple <strong>base case</strong>. Without a base case it never stops.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="k">def</span><span class="w"> </span><span class="nf">total_savings</span><span class="p">(</span><span class="n">deposits</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">deposits</span><span class="p">:</span>                  <span class="c1"># base case: nothing left</span>
+        <span class="k">return</span> <span class="mi">0</span>
+    <span class="k">return</span> <span class="n">deposits</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">total_savings</span><span class="p">(</span><span class="n">deposits</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">total_savings</span><span class="p">([</span><span class="mi">500</span><span class="p">,</span> <span class="mi">1200</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">800</span><span class="p">]))</span>
+</code></pre></div><div class="cell-out"><pre class="out">2800</pre></div></div>
+<p>In practice a loop or <code>sum()</code> is usually simpler; recursion shines on nested data such as folders or trees.</p>
+
+<h3 id="pip-and-virtual-environments"><a class="anchor" href="#pip-and-virtual-environments" aria-label="Link to this section">#</a>pip and virtual environments</h3>
+
+<p><strong>pip</strong> installs libraries. A <strong>virtual environment</strong> is a private folder of libraries for one project, so projects do not break each other. Run these in a terminal (not in a notebook cell):</p>
+
+<pre class="code"><code><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">venv</span> <span class="o">.</span><span class="n">venv</span>
+<span class="n">source</span> <span class="o">.</span><span class="n">venv</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">activate</span>          <span class="c1"># Windows: .venv\Scripts\activate</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="n">pandas</span> <span class="n">numpy</span> <span class="n">matplotlib</span>
+<span class="n">pip</span> <span class="n">freeze</span> <span class="o">&gt;</span> <span class="n">requirements</span><span class="o">.</span><span class="n">txt</span>      <span class="c1"># record the versions you used</span>
+</code></pre>
+<p><em>Not executed in this notebook (needs a service or setting you must provide yourself).</em></p>
+
+<p>Anyone can rebuild your setup later with <code>pip install -r requirements.txt</code>.</p>
+
+<div class="callout takeaways"><div class="c-label">Key takeaways</div><ul>
+<li>A program is a list of instructions; a notebook runs it cell by cell, top to bottom.</li>
+<li>Variables name values; the basic types are int, float, str and bool.</li>
+<li>Use f-strings to format output, for example <code>f&quot;Ksh {x:,.2f}&quot;</code>.</li>
+<li>Lists, tuples, sets and dicts hold groups of values; indexing starts at 0.</li>
+<li>if/elif/else decide, loops repeat, and functions package logic you reuse.</li>
+<li>Read errors from the last line up, and fix one at a time.</li>
+</ul>
+</div></div><nav class="pager" aria-label="Previous and next"><a class="prev" href="part-01.html"><small>Previous</small><span>Part 1: What Is Data Science?</span></a><a class="next" href="part-03.html"><small>Next</small><span>Part 3: NumPy: Fast Numbers</span></a></nav>
+<footer class="foot"><p>Data Science from Zero to Advanced &middot; written by Benson M. Merita &middot; &copy; 2026 MeritaAnalytics. Public datasets keep their own licences, listed in <a href="appendix-b.html">Appendix B</a>.</p></footer>
+</main>
+</div>
+<script src="search-index.js"></script>
+<script src="site.js"></script>
+</body>
+</html>

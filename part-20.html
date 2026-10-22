@@ -1,0 +1,949 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>Part 20: Practice Exercises and Answer Key | MeritaAnalytics</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to the notes</a>
+<header class="top"><button class="menu" id="menu" aria-controls="side" aria-expanded="false">Contents</button><span class="top-title">Part 20: Practice Exercises and Answer Key</span></header>
+<div class="shell">
+<nav class="side" id="side" aria-label="Handbook contents">
+<a class="brand" href="index.html"><span class="mark" aria-hidden="true">MA</span><span><b>MeritaAnalytics</b><small>Data Science Notes</small></span></a>
+<label class="search"><span class="sr">Search the notes</span><input id="q" type="search" placeholder="Search topics, e.g. groupby" autocomplete="off"></label>
+<div id="results" class="results" hidden></div>
+<ol class="nav">
+<li class="lvl0"><a href="index.html" class="">Start here</a></li>
+<li class="lvl"><div class="lvl-name"><span>Level 1</span>Foundations</div><ol>
+<li data-slug="part-01"><a href="part-01.html" class=""><span class="pn">1</span><span class="pt">What Is Data Science?</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-02"><a href="part-02.html" class=""><span class="pn">2</span><span class="pt">Python Basics</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-03"><a href="part-03.html" class=""><span class="pn">3</span><span class="pt">NumPy: Fast Numbers</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 2</span>Data Analysis</div><ol>
+<li data-slug="part-04"><a href="part-04.html" class=""><span class="pn">4</span><span class="pt">Pandas: Working with Tables</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-05"><a href="part-05.html" class=""><span class="pn">5</span><span class="pt">Data Visualisation</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-06"><a href="part-06.html" class=""><span class="pn">6</span><span class="pt">SQL for Data Analysts</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-07"><a href="part-07.html" class=""><span class="pn">7</span><span class="pt">Exploratory Data Analysis</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 3</span>Statistics</div><ol>
+<li data-slug="part-08"><a href="part-08.html" class=""><span class="pn">8</span><span class="pt">Statistics for Data Science</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 4</span>Machine Learning</div><ol>
+<li data-slug="part-09"><a href="part-09.html" class=""><span class="pn">9</span><span class="pt">Machine Learning Foundations</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-10"><a href="part-10.html" class=""><span class="pn">10</span><span class="pt">Regression</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-11"><a href="part-11.html" class=""><span class="pn">11</span><span class="pt">Classification</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-12"><a href="part-12.html" class=""><span class="pn">12</span><span class="pt">Ensembles, Tuning and Feature Engineering</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-13"><a href="part-13.html" class=""><span class="pn">13</span><span class="pt">Unsupervised Learning</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 5</span>Deep Learning and Modern AI</div><ol>
+<li data-slug="part-14"><a href="part-14.html" class=""><span class="pn">14</span><span class="pt">Neural Networks and Deep Learning</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-15"><a href="part-15.html" class=""><span class="pn">15</span><span class="pt">Reinforcement Learning</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-16"><a href="part-16.html" class=""><span class="pn">16</span><span class="pt">Generative AI and Large Language Models</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 6</span>The Real World</div><ol>
+<li data-slug="part-17"><a href="part-17.html" class=""><span class="pn">17</span><span class="pt">Business Metrics, Excel and Power BI</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-18"><a href="part-18.html" class=""><span class="pn">18</span><span class="pt">Automation, Git, Deployment and Responsible AI</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-19"><a href="part-19.html" class=""><span class="pn">19</span><span class="pt">End-to-End Projects</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 7</span>Career and Reference</div><ol>
+<li data-slug="part-20"><a href="part-20.html" class="on"><span class="pn">20</span><span class="pt">Practice Exercises and Answer Key</span><span class="done-dot" aria-hidden="true"></span></a>
+<ol class="sub"><li><a href="#20-1-how-to-use-these-exercises">20.1 How to use these exercises</a></li><li><a href="#20-2-python-e1-to-e6">20.2 Python (E1 to E6)</a></li><li><a href="#20-3-numpy-and-pandas-e7-to-e14">20.3 NumPy and pandas (E7 to E14)</a></li><li><a href="#20-4-sql-e15-to-e19">20.4 SQL (E15 to E19)</a></li><li><a href="#20-5-statistics-e20-to-e25">20.5 Statistics (E20 to E25)</a></li><li><a href="#20-6-machine-learning-basics-e26-to-e28">20.6 Machine learning basics (E26 to E28)</a></li><li><a href="#20-7-regression-and-classification-e29-to-e32">20.7 Regression and classification (E29 to E32)</a></li><li><a href="#20-8-unsupervised-learning-e33-to-e34">20.8 Unsupervised learning (E33 to E34)</a></li><li><a href="#20-9-deep-learning-concepts-e35-to-e36">20.9 Deep learning concepts (E35 to E36)</a></li><li><a href="#20-10-score-yourself">20.10 Score yourself</a></li></ol>
+</li>
+<li data-slug="part-21"><a href="part-21.html" class=""><span class="pn">21</span><span class="pt">Interview Preparation</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-22"><a href="part-22.html" class=""><span class="pn">22</span><span class="pt">Roadmap, Cheat Sheets and Glossary</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Appendix</span>Reference</div><ol>
+<li><a href="appendix-a.html" class=""><span class="pn">A</span><span class="pt">Sources and Next Steps</span></a></li>
+<li><a href="appendix-b.html" class=""><span class="pn">B</span><span class="pt">Data Catalogue</span></a></li>
+</ol></li></ol>
+<p class="side-foot">By Benson M. Merita &middot; &copy; 2026 MeritaAnalytics</p></nav>
+<main id="main" class="main"><header class="part-head"><span class="lv">Level 7 &middot; Career and Reference</span><p class="part-no">Part 20</p><h1>Practice Exercises and Answer Key</h1><p class="lede">Thirty-six exercises that follow the book from Python to deep learning, each with an executed, asserted answer key.</p><button class="mark-done" id="done" data-slug="part-20" aria-pressed="false">Mark this part as done</button></header><div class="prose"><div class="callout learn"><div class="c-label">In this part</div><ul>
+<li>Test yourself on every Level of the book with short, realistic tasks.</li>
+<li>Check each answer with an assert, so a printed ok means the solution is verified.</li>
+<li>Find your weak areas with a self-scoring table and know which Part to reread.</li>
+<li>Practise the habit of writing your own answer before looking at a key.</li>
+</ul>
+<div class="meta"><span><b>You need first</b> Parts 2 to 14 (the more, the better)</span><span><b>Time</b> 6 to 10 hours</span></div></div>
+<h2 id="20-1-how-to-use-these-exercises"><a class="anchor" href="#20-1-how-to-use-these-exercises" aria-label="Link to this section">#</a>20.1 How to use these exercises</h2>
+
+<p>Skills stick when you <strong>retrieve</strong> them, not when you reread them. For each exercise, read the question, <strong>write your own answer first</strong>, run it, and only then open the key. Every key cell uses <code>assert</code> against the expected result, then prints <code>ok</code>. A wrong answer would stop the build with an <code>AssertionError</code>.</p>
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Area</th>
+<th>Exercises</th>
+<th>Taught in</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Python</td>
+<td>E1 to E6</td>
+<td>Part 2</td>
+</tr>
+<tr>
+<td>NumPy and pandas</td>
+<td>E7 to E14</td>
+<td>Parts 3, 4</td>
+</tr>
+<tr>
+<td>SQL</td>
+<td>E15 to E19</td>
+<td>Part 6</td>
+</tr>
+<tr>
+<td>Statistics</td>
+<td>E20 to E25</td>
+<td>Part 8</td>
+</tr>
+<tr>
+<td>Machine learning basics</td>
+<td>E26 to E28</td>
+<td>Part 9</td>
+</tr>
+<tr>
+<td>Regression and classification</td>
+<td>E29 to E32</td>
+<td>Parts 10, 11, 12</td>
+</tr>
+<tr>
+<td>Unsupervised learning</td>
+<td>E33 to E34</td>
+<td>Part 13</td>
+</tr>
+<tr>
+<td>Deep learning concepts</td>
+<td>E35 to E36</td>
+<td>Part 14</td>
+</tr>
+</tbody>
+</table></div>
+
+<p>Inside each area the exercises go from easy to hard. All data is tiny and synthetic. Prices, fees and rates are illustrative, not real tariffs. The helper below prints one standard line per verified answer.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">ok</span><span class="p">(</span><span class="n">tag</span><span class="p">,</span> <span class="o">*</span><span class="n">shown</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Print a verification line such as: E1 ok 29"""</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">tag</span><span class="p">,</span> <span class="s2">"ok"</span><span class="p">,</span> <span class="o">*</span><span class="n">shown</span><span class="p">)</span>
+
+<span class="n">ok</span><span class="p">(</span><span class="s2">"setup"</span><span class="p">,</span> <span class="s2">"ready"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">setup ok ready</pre></div></div>
+<div class="callout tip"><p><strong>Rule.</strong> Cover the key with your hand or a sheet of paper. Keep a list of the exercises you got wrong and redo them after three days. Redoing is where the learning happens.</p>
+</div>
+<h2 id="20-2-python-e1-to-e6"><a class="anchor" href="#20-2-python-e1-to-e6" aria-label="Link to this section">#</a>20.2 Python (E1 to E6)</h2>
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Question</th>
+<th>Expected result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>E1</td>
+<td>An illustrative mobile-money fee: Ksh 0 up to 100, Ksh 11 up to 1,000, Ksh 29 up to 5,000, else Ksh 50. Write <code>fee(amount)</code>. What is <code>fee(1500)</code>?</td>
+<td>29</td>
+</tr>
+<tr>
+<td>E2</td>
+<td>Matatu fares {'CBD': 50, 'Ruiru': 80, 'Thika': 120}. Add a 20 percent peak surcharge with a dict comprehension. Fare to Ruiru?</td>
+<td>96.0</td>
+</tr>
+<tr>
+<td>E3</td>
+<td>Loan of Ksh 50,000 grows 2 percent a month for 3 months (compound). Final amount, 2 decimals?</td>
+<td>53060.4</td>
+</tr>
+<tr>
+<td>E4</td>
+<td>BMI = kg / m^2. For (70, 1.75), (95, 1.70), (58, 1.80), (82, 1.65) count people with BMI of 25 or more.</td>
+<td>2</td>
+</tr>
+<tr>
+<td>E5</td>
+<td>Which word is most common in 'send send money pay bill send airtime pay'?</td>
+<td>send (3)</td>
+</tr>
+<tr>
+<td>E6</td>
+<td>Write <code>safe_float(text)</code> that turns '1,250' into 1250.0 and returns None for 'n/a'.</td>
+<td>1250.0 and None</td>
+</tr>
+</tbody>
+</table></div>
+
+<p><strong>Hints.</strong> E1: <code>if / elif / else</code>. E3: <code>x * (1 + r) ** n</code>. E4: list comprehension with a condition. E5: <code>collections.Counter</code>. E6: <code>try / except ValueError</code> and <code>replace(',', '')</code>.</p>
+
+<h3 id="answer-key"><a class="anchor" href="#answer-key" aria-label="Link to this section">#</a>Answer key</h3>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="k">def</span><span class="w"> </span><span class="nf">fee</span><span class="p">(</span><span class="n">amount</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">amount</span> <span class="o">&lt;=</span> <span class="mi">100</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">0</span>
+    <span class="k">elif</span> <span class="n">amount</span> <span class="o">&lt;=</span> <span class="mi">1000</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">11</span>
+    <span class="k">elif</span> <span class="n">amount</span> <span class="o">&lt;=</span> <span class="mi">5000</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">29</span>
+    <span class="k">return</span> <span class="mi">50</span>
+
+<span class="k">assert</span> <span class="n">fee</span><span class="p">(</span><span class="mi">1500</span><span class="p">)</span> <span class="o">==</span> <span class="mi">29</span> <span class="ow">and</span> <span class="n">fee</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">fee</span><span class="p">(</span><span class="mi">9000</span><span class="p">)</span> <span class="o">==</span> <span class="mi">50</span>
+<span class="n">ok</span><span class="p">(</span><span class="s2">"E1"</span><span class="p">,</span> <span class="n">fee</span><span class="p">(</span><span class="mi">1500</span><span class="p">))</span>
+
+<span class="n">fares</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"CBD"</span><span class="p">:</span> <span class="mi">50</span><span class="p">,</span> <span class="s2">"Ruiru"</span><span class="p">:</span> <span class="mi">80</span><span class="p">,</span> <span class="s2">"Thika"</span><span class="p">:</span> <span class="mi">120</span><span class="p">}</span>
+<span class="n">peak</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="o">*</span> <span class="mf">1.2</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">fares</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+<span class="k">assert</span> <span class="nb">round</span><span class="p">(</span><span class="n">peak</span><span class="p">[</span><span class="s2">"Ruiru"</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="mf">96.0</span>
+<span class="n">ok</span><span class="p">(</span><span class="s2">"E2"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">peak</span><span class="p">[</span><span class="s2">"Ruiru"</span><span class="p">],</span> <span class="mi">1</span><span class="p">))</span>
+
+<span class="n">final</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="mi">50000</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mf">0.02</span><span class="p">)</span> <span class="o">**</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">final</span> <span class="o">==</span> <span class="mf">53060.4</span>
+<span class="n">ok</span><span class="p">(</span><span class="s2">"E3"</span><span class="p">,</span> <span class="n">final</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">E1 ok 29
+E2 ok 96.0
+E3 ok 53060.4</pre></div></div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">Counter</span>
+
+<span class="n">people</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">70</span><span class="p">,</span> <span class="mf">1.75</span><span class="p">),</span> <span class="p">(</span><span class="mi">95</span><span class="p">,</span> <span class="mf">1.70</span><span class="p">),</span> <span class="p">(</span><span class="mi">58</span><span class="p">,</span> <span class="mf">1.80</span><span class="p">),</span> <span class="p">(</span><span class="mi">82</span><span class="p">,</span> <span class="mf">1.65</span><span class="p">)]</span>
+<span class="n">n_high</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="mi">1</span> <span class="k">for</span> <span class="n">kg</span><span class="p">,</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">people</span> <span class="k">if</span> <span class="n">kg</span> <span class="o">/</span> <span class="n">m</span><span class="o">**</span><span class="mi">2</span> <span class="o">&gt;=</span> <span class="mi">25</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">n_high</span> <span class="o">==</span> <span class="mi">2</span>
+<span class="n">ok</span><span class="p">(</span><span class="s2">"E4"</span><span class="p">,</span> <span class="n">n_high</span><span class="p">)</span>
+
+<span class="n">word</span><span class="p">,</span> <span class="n">times</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="s2">"send send money pay bill send airtime pay"</span><span class="o">.</span><span class="n">split</span><span class="p">())</span><span class="o">.</span><span class="n">most_common</span><span class="p">(</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="k">assert</span> <span class="p">(</span><span class="n">word</span><span class="p">,</span> <span class="n">times</span><span class="p">)</span> <span class="o">==</span> <span class="p">(</span><span class="s2">"send"</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">ok</span><span class="p">(</span><span class="s2">"E5"</span><span class="p">,</span> <span class="n">word</span><span class="p">,</span> <span class="n">times</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">safe_float</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">","</span><span class="p">,</span> <span class="s2">""</span><span class="p">))</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+<span class="k">assert</span> <span class="n">safe_float</span><span class="p">(</span><span class="s2">"1,250"</span><span class="p">)</span> <span class="o">==</span> <span class="mf">1250.0</span> <span class="ow">and</span> <span class="n">safe_float</span><span class="p">(</span><span class="s2">"n/a"</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span>
+<span class="n">ok</span><span class="p">(</span><span class="s2">"E6"</span><span class="p">,</span> <span class="n">safe_float</span><span class="p">(</span><span class="s2">"1,250"</span><span class="p">),</span> <span class="n">safe_float</span><span class="p">(</span><span class="s2">"n/a"</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">E4 ok 2
+E5 ok send 3
+E6 ok 1250.0 None</pre></div></div>
+<p><strong>Common mistake in E3:</strong> typing <code>50000 * 0.02 * 3</code>. That is simple interest. Compound interest multiplies the growing balance each month.</p>
+
+<h2 id="20-3-numpy-and-pandas-e7-to-e14"><a class="anchor" href="#20-3-numpy-and-pandas-e7-to-e14" aria-label="Link to this section">#</a>20.3 NumPy and pandas (E7 to E14)</h2>
+
+<p>Use this small shop table (synthetic) for E9 to E14.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">shop</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">"sale_id"</span><span class="p">:</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span>
+    <span class="s2">"county"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"Nairobi"</span><span class="p">,</span> <span class="s2">"Kisumu"</span><span class="p">,</span> <span class="s2">"Nairobi"</span><span class="p">,</span> <span class="s2">"Nakuru"</span><span class="p">,</span> <span class="s2">"Kisumu"</span><span class="p">,</span> <span class="s2">"Nairobi"</span><span class="p">,</span> <span class="s2">"Nakuru"</span><span class="p">,</span> <span class="s2">"Mombasa"</span><span class="p">],</span>
+    <span class="s2">"item"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"cable"</span><span class="p">,</span> <span class="s2">"remote"</span><span class="p">,</span> <span class="s2">"cable"</span><span class="p">,</span> <span class="s2">"panel"</span><span class="p">,</span> <span class="s2">"remote"</span><span class="p">,</span> <span class="s2">"panel"</span><span class="p">,</span> <span class="s2">"cable"</span><span class="p">,</span> <span class="s2">"remote"</span><span class="p">],</span>
+    <span class="s2">"units"</span><span class="p">:</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">],</span>
+    <span class="s2">"price"</span><span class="p">:</span> <span class="p">[</span><span class="mi">250</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">250</span><span class="p">,</span> <span class="mi">600</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">600</span><span class="p">,</span> <span class="mi">250</span><span class="p">,</span> <span class="mi">400</span><span class="p">],</span>
+    <span class="s2">"date"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"2026-01-08"</span><span class="p">,</span> <span class="s2">"2026-01-22"</span><span class="p">,</span> <span class="s2">"2026-02-05"</span><span class="p">,</span> <span class="s2">"2026-02-18"</span><span class="p">,</span>
+             <span class="s2">"2026-02-27"</span><span class="p">,</span> <span class="s2">"2026-03-04"</span><span class="p">,</span> <span class="s2">"2026-03-19"</span><span class="p">,</span> <span class="s2">"2026-03-28"</span><span class="p">],</span>
+<span class="p">})</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">shop</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">shop</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">(8, 6)</pre><div class="table-wrap df"><div>
+
+<table class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th>sale_id</th>
+      <th>county</th>
+      <th>item</th>
+      <th>units</th>
+      <th>price</th>
+      <th>date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>Nairobi</td>
+      <td>cable</td>
+      <td>4.0</td>
+      <td>250</td>
+      <td>2026-01-08</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>Kisumu</td>
+      <td>remote</td>
+      <td>6.0</td>
+      <td>400</td>
+      <td>2026-01-22</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>Nairobi</td>
+      <td>cable</td>
+      <td>10.0</td>
+      <td>250</td>
+      <td>2026-02-05</td>
+    </tr>
+  </tbody>
+</table></div>
+</div></div></div></div>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Question</th>
+<th>Expected result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>E7</td>
+<td>Standardise marks [40, 55, 70, 85] to z-scores (population sd). Mean of the result?</td>
+<td>0.0</td>
+</tr>
+<tr>
+<td>E8</td>
+<td>Units sold of 3 items in 2 shops [[4, 2, 1], [3, 5, 6]] at prices [250, 400, 600]. Revenue per shop using a matrix product.</td>
+<td>[2400, 6350]</td>
+</tr>
+<tr>
+<td>E9</td>
+<td>How many missing values are in <code>units</code>? Fill them with the column median.</td>
+<td>1 missing, median 6.0</td>
+</tr>
+<tr>
+<td>E10</td>
+<td>Add <code>revenue = units * price</code> (after E9). Total revenue?</td>
+<td>18650.0</td>
+</tr>
+<tr>
+<td>E11</td>
+<td>Revenue per county, largest first. Which county is first?</td>
+<td>Nairobi</td>
+</tr>
+<tr>
+<td>E12</td>
+<td>Left-join county managers (Nairobi, Kisumu only). How many sales have no manager?</td>
+<td>3</td>
+</tr>
+<tr>
+<td>E13</td>
+<td>Monthly revenue for Jan, Feb, Mar. Which month is highest?</td>
+<td>Mar</td>
+</tr>
+<tr>
+<td>E14</td>
+<td>Pivot: rows county, columns item, values sum of units. Value for Nairobi and cable?</td>
+<td>14.0</td>
+</tr>
+</tbody>
+</table></div>
+
+<p><strong>Hints.</strong> E7: <code>(x - x.mean()) / x.std()</code> with NumPy's default population sd. E8: <code>units @ prices</code>. E9: <code>isna().sum()</code> and <code>fillna</code>. E12: <code>merge(..., how='left', validate='many_to_one')</code>, then count NaN. E13: convert with <code>pd.to_datetime</code>, then <code>dt.month</code>. E14: <code>pivot_table</code>.</p>
+
+<h3 id="answer-key-2"><a class="anchor" href="#answer-key-2" aria-label="Link to this section">#</a>Answer key</h3>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">marks</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">40</span><span class="p">,</span> <span class="mi">55</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span> <span class="mi">85</span><span class="p">])</span>
+<span class="n">z</span> <span class="o">=</span> <span class="p">(</span><span class="n">marks</span> <span class="o">-</span> <span class="n">marks</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="o">/</span> <span class="n">marks</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+<span class="k">assert</span> <span class="nb">abs</span><span class="p">(</span><span class="n">z</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="o">&lt;</span> <span class="mf">1e-12</span>
+<span class="n">ok</span><span class="p">(</span><span class="s2">"E7"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">z</span><span class="o">.</span><span class="n">mean</span><span class="p">()),</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="n">units</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]])</span>
+<span class="n">prices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">250</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">600</span><span class="p">])</span>
+<span class="n">rev</span> <span class="o">=</span> <span class="n">units</span> <span class="o">@</span> <span class="n">prices</span>
+<span class="k">assert</span> <span class="n">rev</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="o">==</span> <span class="p">[</span><span class="mi">2400</span><span class="p">,</span> <span class="mi">6350</span><span class="p">]</span>
+<span class="n">ok</span><span class="p">(</span><span class="s2">"E8"</span><span class="p">,</span> <span class="n">rev</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+
+<span class="n">n_missing</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">shop</span><span class="p">[</span><span class="s2">"units"</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+<span class="n">med</span> <span class="o">=</span> <span class="n">shop</span><span class="p">[</span><span class="s2">"units"</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">()</span>
+<span class="n">shop</span><span class="p">[</span><span class="s2">"units"</span><span class="p">]</span> <span class="o">=</span> <span class="n">shop</span><span class="p">[</span><span class="s2">"units"</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">med</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">n_missing</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">med</span> <span class="o">==</span> <span class="mf">6.0</span>
+<span class="n">ok</span><span class="p">(</span><span class="s2">"E9"</span><span class="p">,</span> <span class="n">n_missing</span><span class="p">,</span> <span class="n">med</span><span class="p">)</span>
+
+<span class="n">shop</span><span class="p">[</span><span class="s2">"revenue"</span><span class="p">]</span> <span class="o">=</span> <span class="n">shop</span><span class="p">[</span><span class="s2">"units"</span><span class="p">]</span> <span class="o">*</span> <span class="n">shop</span><span class="p">[</span><span class="s2">"price"</span><span class="p">]</span>
+<span class="k">assert</span> <span class="n">shop</span><span class="p">[</span><span class="s2">"revenue"</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">==</span> <span class="mf">18650.0</span>
+<span class="n">ok</span><span class="p">(</span><span class="s2">"E10"</span><span class="p">,</span> <span class="n">shop</span><span class="p">[</span><span class="s2">"revenue"</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+</code></pre></div><div class="cell-out"><pre class="out">E7 ok 0.0
+E8 ok [2400, 6350]
+E9 ok 1 6.0
+E10 ok 18650.0</pre></div></div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">by_county</span> <span class="o">=</span> <span class="n">shop</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"county"</span><span class="p">)[</span><span class="s2">"revenue"</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">by_county</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"Nairobi"</span>
+<span class="n">ok</span><span class="p">(</span><span class="s2">"E11"</span><span class="p">,</span> <span class="n">by_county</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">by_county</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="n">managers</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">"county"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"Nairobi"</span><span class="p">,</span> <span class="s2">"Kisumu"</span><span class="p">],</span> <span class="s2">"manager"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"Wanjiru"</span><span class="p">,</span> <span class="s2">"Otieno"</span><span class="p">]})</span>
+<span class="n">joined</span> <span class="o">=</span> <span class="n">shop</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">managers</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">"county"</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">validate</span><span class="o">=</span><span class="s2">"many_to_one"</span><span class="p">)</span>
+<span class="n">no_mgr</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">joined</span><span class="p">[</span><span class="s2">"manager"</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+<span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">joined</span><span class="p">)</span> <span class="o">==</span> <span class="mi">8</span> <span class="ow">and</span> <span class="n">no_mgr</span> <span class="o">==</span> <span class="mi">3</span>
+<span class="n">ok</span><span class="p">(</span><span class="s2">"E12"</span><span class="p">,</span> <span class="n">no_mgr</span><span class="p">)</span>
+
+<span class="n">shop</span><span class="p">[</span><span class="s2">"month"</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">shop</span><span class="p">[</span><span class="s2">"date"</span><span class="p">])</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">month</span>
+<span class="n">monthly</span> <span class="o">=</span> <span class="n">shop</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"month"</span><span class="p">)[</span><span class="s2">"revenue"</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="k">assert</span> <span class="n">monthly</span><span class="o">.</span><span class="n">idxmax</span><span class="p">()</span> <span class="o">==</span> <span class="mi">3</span> <span class="ow">and</span> <span class="n">monthly</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">==</span> <span class="mf">8950.0</span>
+<span class="n">ok</span><span class="p">(</span><span class="s2">"E13"</span><span class="p">,</span> <span class="n">monthly</span><span class="o">.</span><span class="n">to_dict</span><span class="p">())</span>
+
+<span class="n">pv</span> <span class="o">=</span> <span class="n">shop</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s2">"county"</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s2">"item"</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s2">"units"</span><span class="p">,</span> <span class="n">aggfunc</span><span class="o">=</span><span class="s2">"sum"</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">pv</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">"Nairobi"</span><span class="p">,</span> <span class="s2">"cable"</span><span class="p">]</span> <span class="o">==</span> <span class="mf">14.0</span>
+<span class="n">ok</span><span class="p">(</span><span class="s2">"E14"</span><span class="p">,</span> <span class="n">pv</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">"Nairobi"</span><span class="p">,</span> <span class="s2">"cable"</span><span class="p">])</span>
+</code></pre></div><div class="cell-out"><pre class="out">E11 ok Nairobi 7100.0
+E12 ok 3
+E13 ok {1: 3400.0, 2: 6300.0, 3: 8950.0}
+E14 ok 14.0</pre></div></div>
+<p>In E8 the matrix product multiplies each row of units by the price vector and adds the results.</p>
+
+<h2 id="20-4-sql-e15-to-e19"><a class="anchor" href="#20-4-sql-e15-to-e19" aria-label="Link to this section">#</a>20.4 SQL (E15 to E19)</h2>
+
+<p>These use an in-memory SQLite database built from two small synthetic tables, so you can run them anywhere.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">import</span><span class="w"> </span><span class="nn">sqlite3</span>
+
+<span class="n">con</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">":memory:"</span><span class="p">)</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">"loan_id"</span><span class="p">:</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span>
+    <span class="s2">"customer_id"</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span>
+    <span class="s2">"county"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"Nairobi"</span><span class="p">,</span> <span class="s2">"Nairobi"</span><span class="p">,</span> <span class="s2">"Kisumu"</span><span class="p">,</span> <span class="s2">"Nakuru"</span><span class="p">,</span> <span class="s2">"Nairobi"</span><span class="p">,</span> <span class="s2">"Nairobi"</span><span class="p">,</span> <span class="s2">"Kisumu"</span><span class="p">,</span> <span class="s2">"Nakuru"</span><span class="p">],</span>
+    <span class="s2">"principal"</span><span class="p">:</span> <span class="p">[</span><span class="mi">20000</span><span class="p">,</span> <span class="mi">35000</span><span class="p">,</span> <span class="mi">15000</span><span class="p">,</span> <span class="mi">50000</span><span class="p">,</span> <span class="mi">10000</span><span class="p">,</span> <span class="mi">25000</span><span class="p">,</span> <span class="mi">40000</span><span class="p">,</span> <span class="mi">30000</span><span class="p">],</span>
+    <span class="s2">"status"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"Closed"</span><span class="p">,</span> <span class="s2">"Active"</span><span class="p">,</span> <span class="s2">"Defaulted"</span><span class="p">,</span> <span class="s2">"Active"</span><span class="p">,</span> <span class="s2">"Closed"</span><span class="p">,</span> <span class="s2">"Defaulted"</span><span class="p">,</span> <span class="s2">"Active"</span><span class="p">,</span> <span class="s2">"Closed"</span><span class="p">],</span>
+<span class="p">})</span><span class="o">.</span><span class="n">to_sql</span><span class="p">(</span><span class="s2">"loans"</span><span class="p">,</span> <span class="n">con</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">"customer_id"</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">],</span>
+              <span class="s2">"name"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"Amina"</span><span class="p">,</span> <span class="s2">"Brian"</span><span class="p">,</span> <span class="s2">"Cheri"</span><span class="p">,</span> <span class="s2">"Dan"</span><span class="p">,</span> <span class="s2">"Eve"</span><span class="p">,</span> <span class="s2">"Faith"</span><span class="p">,</span> <span class="s2">"Gift"</span><span class="p">]}</span>
+            <span class="p">)</span><span class="o">.</span><span class="n">to_sql</span><span class="p">(</span><span class="s2">"customers"</span><span class="p">,</span> <span class="n">con</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="s2">"SELECT COUNT(*) AS n FROM loans"</span><span class="p">,</span> <span class="n">con</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">   n
+0  8</pre></div></div>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Question</th>
+<th>Expected result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>E15</td>
+<td>List loans above Ksh 25,000 that are not Closed, largest principal first. How many rows?</td>
+<td>3</td>
+</tr>
+<tr>
+<td>E16</td>
+<td>Default count by county, only counties with at least 1 default. Which counties?</td>
+<td>Kisumu, Nairobi</td>
+</tr>
+<tr>
+<td>E17</td>
+<td>Which customers have no loan? (anti-join with LEFT JOIN ... IS NULL)</td>
+<td>Gift</td>
+</tr>
+<tr>
+<td>E18</td>
+<td>Rank loans by principal inside each county with a window function. Rank-1 loan of Nakuru?</td>
+<td>loan 4</td>
+</tr>
+<tr>
+<td>E19</td>
+<td>With a CTE, find counties whose average principal beats the overall average. Which?</td>
+<td>Nakuru</td>
+</tr>
+</tbody>
+</table></div>
+
+<p><strong>Hints.</strong> E16: <code>GROUP BY</code> then <code>HAVING</code>. E17: the unmatched side has NULL in the other table's key. E18: <code>RANK() OVER (PARTITION BY county ORDER BY principal DESC)</code>. E19: <code>WITH avg_by AS (...)</code>.</p>
+
+<h3 id="answer-key-3"><a class="anchor" href="#answer-key-3" aria-label="Link to this section">#</a>Answer key</h3>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">q15</span> <span class="o">=</span> <span class="s2">"SELECT * FROM loans WHERE principal &gt; 25000 AND status &lt;&gt; 'Closed' ORDER BY principal DESC"</span>
+<span class="n">r15</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="n">q15</span><span class="p">,</span> <span class="n">con</span><span class="p">)</span>
+<span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">r15</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span> <span class="ow">and</span> <span class="n">r15</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="s2">"loan_id"</span><span class="p">]</span> <span class="o">==</span> <span class="mi">4</span>
+<span class="n">ok</span><span class="p">(</span><span class="s2">"E15"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">r15</span><span class="p">))</span>
+
+<span class="n">q16</span> <span class="o">=</span> <span class="s2">"""SELECT county, COUNT(*) AS defaults FROM loans</span>
+<span class="s2">         WHERE status = 'Defaulted' GROUP BY county HAVING COUNT(*) &gt;= 1 ORDER BY county"""</span>
+<span class="n">r16</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="n">q16</span><span class="p">,</span> <span class="n">con</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">r16</span><span class="p">[</span><span class="s2">"county"</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="o">==</span> <span class="p">[</span><span class="s2">"Kisumu"</span><span class="p">,</span> <span class="s2">"Nairobi"</span><span class="p">]</span>
+<span class="n">ok</span><span class="p">(</span><span class="s2">"E16"</span><span class="p">,</span> <span class="n">r16</span><span class="p">[</span><span class="s2">"county"</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+
+<span class="n">q17</span> <span class="o">=</span> <span class="s2">"""SELECT c.name FROM customers c LEFT JOIN loans l ON l.customer_id = c.customer_id</span>
+<span class="s2">         WHERE l.loan_id IS NULL"""</span>
+<span class="k">assert</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="n">q17</span><span class="p">,</span> <span class="n">con</span><span class="p">)[</span><span class="s2">"name"</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="o">==</span> <span class="p">[</span><span class="s2">"Gift"</span><span class="p">]</span>
+<span class="n">ok</span><span class="p">(</span><span class="s2">"E17"</span><span class="p">,</span> <span class="s2">"Gift"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">E15 ok 3
+E16 ok [&#x27;Kisumu&#x27;, &#x27;Nairobi&#x27;]
+E17 ok Gift</pre></div></div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">q18</span> <span class="o">=</span> <span class="s2">"""SELECT loan_id, county, RANK() OVER (PARTITION BY county ORDER BY principal DESC) AS rnk</span>
+<span class="s2">         FROM loans"""</span>
+<span class="n">r18</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="n">q18</span><span class="p">,</span> <span class="n">con</span><span class="p">)</span>
+<span class="n">top_nakuru</span> <span class="o">=</span> <span class="n">r18</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">"county == 'Nakuru' and rnk == 1"</span><span class="p">)[</span><span class="s2">"loan_id"</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="k">assert</span> <span class="n">top_nakuru</span> <span class="o">==</span> <span class="mi">4</span>
+<span class="n">ok</span><span class="p">(</span><span class="s2">"E18"</span><span class="p">,</span> <span class="n">top_nakuru</span><span class="p">)</span>
+
+<span class="n">q19</span> <span class="o">=</span> <span class="s2">"""WITH avg_by AS (SELECT county, AVG(principal) AS avg_p FROM loans GROUP BY county)</span>
+<span class="s2">         SELECT county FROM avg_by WHERE avg_p &gt; (SELECT AVG(principal) FROM loans)"""</span>
+<span class="n">r19</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="n">q19</span><span class="p">,</span> <span class="n">con</span><span class="p">)[</span><span class="s2">"county"</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="s2">"SELECT * FROM loans"</span><span class="p">,</span> <span class="n">con</span><span class="p">)</span>
+<span class="n">expected</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"county"</span><span class="p">)[</span><span class="s2">"principal"</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span> <span class="o">&gt;</span> <span class="n">df</span><span class="p">[</span><span class="s2">"principal"</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()]</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<span class="k">assert</span> <span class="n">r19</span> <span class="o">==</span> <span class="n">expected</span> <span class="o">==</span> <span class="p">[</span><span class="s2">"Nakuru"</span><span class="p">]</span>
+<span class="n">ok</span><span class="p">(</span><span class="s2">"E19"</span><span class="p">,</span> <span class="n">r19</span><span class="p">,</span> <span class="s2">"matches pandas"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">E18 ok 4
+E19 ok [&#x27;Nakuru&#x27;] matches pandas</pre></div></div>
+<p><strong>Common mistake in E17:</strong> filtering the right table in <code>WHERE</code> for a real value, which silently turns a left join into an inner join. To find the unmatched, test for <code>IS NULL</code> instead.</p>
+
+<h2 id="20-5-statistics-e20-to-e25"><a class="anchor" href="#20-5-statistics-e20-to-e25" aria-label="Link to this section">#</a>20.5 Statistics (E20 to E25)</h2>
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Question</th>
+<th>Expected result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>E20</td>
+<td>Incomes (Ksh thousands) [20, 22, 25, 27, 30, 400]. Is the mean above or below the median? By how much?</td>
+<td>mean 87.3 &gt; median 26.0</td>
+</tr>
+<tr>
+<td>E21</td>
+<td>Marks are normal with mean 60 and sd 5. Probability of a mark above 70, 4 decimals?</td>
+<td>0.0228</td>
+</tr>
+<tr>
+<td>E22</td>
+<td>A 95 percent t-confidence interval for the mean of [48, 52, 50, 55, 47, 51, 53, 49]. Does it contain 50?</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>E23</td>
+<td>Two seeded samples of loan sizes, group A mean 10 and group B mean 12 (n=60, sd=3). Test the difference.</td>
+<td>p below 0.05</td>
+</tr>
+<tr>
+<td>E24</td>
+<td>Is repayment (yes/no) linked to channel (app/agent)? Table [[40, 10], [25, 25]]. Chi-square test.</td>
+<td>p below 0.05</td>
+</tr>
+<tr>
+<td>E25</td>
+<td>A fraud rule catches 90 percent of fraud (sensitivity) and wrongly flags 5 percent of honest cases. Fraud is 1 percent of cases. Chance a flagged case is real?</td>
+<td>0.1538</td>
+</tr>
+</tbody>
+</table></div>
+
+<p><strong>Hints.</strong> E20: <code>np.mean</code> versus <code>np.median</code>. E21: <code>scipy.stats.norm.sf</code>. E22: <code>stats.t.interval</code> with <code>stats.sem</code>. E23: <code>stats.ttest_ind</code> (use <code>equal_var=False</code>). E24: <code>stats.chi2_contingency</code>. E25: Bayes' rule, P(fraud | flag) = P(flag | fraud) x P(fraud) / P(flag).</p>
+
+<h3 id="answer-key-4"><a class="anchor" href="#answer-key-4" aria-label="Link to this section">#</a>Answer key</h3>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">stats</span>
+
+<span class="n">inc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">20</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">27</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">400</span><span class="p">])</span>
+<span class="k">assert</span> <span class="n">inc</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">inc</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">round</span><span class="p">(</span><span class="n">inc</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="mf">87.3</span> <span class="ow">and</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">inc</span><span class="p">)</span> <span class="o">==</span> <span class="mf">26.0</span>
+<span class="n">ok</span><span class="p">(</span><span class="s2">"E20"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">inc</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="mi">1</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">inc</span><span class="p">))</span>
+
+<span class="n">p21</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">sf</span><span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">5</span><span class="p">),</span> <span class="mi">4</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">p21</span> <span class="o">==</span> <span class="mf">0.0228</span>
+<span class="n">ok</span><span class="p">(</span><span class="s2">"E21"</span><span class="p">,</span> <span class="n">p21</span><span class="p">)</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">48</span><span class="p">,</span> <span class="mi">52</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">55</span><span class="p">,</span> <span class="mi">47</span><span class="p">,</span> <span class="mi">51</span><span class="p">,</span> <span class="mi">53</span><span class="p">,</span> <span class="mi">49</span><span class="p">])</span>
+<span class="n">lo</span><span class="p">,</span> <span class="n">hi</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">interval</span><span class="p">(</span><span class="mf">0.95</span><span class="p">,</span> <span class="n">df</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">scale</span><span class="o">=</span><span class="n">stats</span><span class="o">.</span><span class="n">sem</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<span class="k">assert</span> <span class="n">lo</span> <span class="o">&lt;</span> <span class="mi">50</span> <span class="o">&lt;</span> <span class="n">hi</span>
+<span class="n">ok</span><span class="p">(</span><span class="s2">"E22"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">lo</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="n">hi</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">E20 ok 87.3 26.0
+E21 ok 0.0228
+E22 ok 48.39 52.86</pre></div></div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">60</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">60</span><span class="p">)</span>
+<span class="n">t_stat</span><span class="p">,</span> <span class="n">p23</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">ttest_ind</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">equal_var</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">p23</span> <span class="o">&lt;</span> <span class="mf">0.05</span> <span class="ow">and</span> <span class="n">a</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">b</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">ok</span><span class="p">(</span><span class="s2">"E23"</span><span class="p">,</span> <span class="s2">"p ="</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">p23</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+
+<span class="n">chi2</span><span class="p">,</span> <span class="n">p24</span><span class="p">,</span> <span class="n">dof</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">chi2_contingency</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">40</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> <span class="p">[</span><span class="mi">25</span><span class="p">,</span> <span class="mi">25</span><span class="p">]]))</span>
+<span class="k">assert</span> <span class="n">p24</span> <span class="o">&lt;</span> <span class="mf">0.05</span> <span class="ow">and</span> <span class="n">dof</span> <span class="o">==</span> <span class="mi">1</span>
+<span class="n">ok</span><span class="p">(</span><span class="s2">"E24"</span><span class="p">,</span> <span class="s2">"p ="</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">p24</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+
+<span class="n">sens</span><span class="p">,</span> <span class="n">fpr</span><span class="p">,</span> <span class="n">prev</span> <span class="o">=</span> <span class="mf">0.90</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.01</span>
+<span class="n">ppv</span> <span class="o">=</span> <span class="n">sens</span> <span class="o">*</span> <span class="n">prev</span> <span class="o">/</span> <span class="p">(</span><span class="n">sens</span> <span class="o">*</span> <span class="n">prev</span> <span class="o">+</span> <span class="n">fpr</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">prev</span><span class="p">))</span>
+<span class="k">assert</span> <span class="nb">round</span><span class="p">(</span><span class="n">ppv</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span> <span class="o">==</span> <span class="mf">0.1538</span>
+<span class="n">ok</span><span class="p">(</span><span class="s2">"E25"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">ppv</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">E23 ok p = 0.0041
+E24 ok p = 0.0033
+E25 ok 0.1538</pre></div></div>
+<p>E25 is the <strong>base-rate effect</strong>: when fraud is rare, most flags are false alarms even for a good rule. This is why a flagged case goes to a person for review before any action.</p>
+
+<h2 id="20-6-machine-learning-basics-e26-to-e28"><a class="anchor" href="#20-6-machine-learning-basics-e26-to-e28" aria-label="Link to this section">#</a>20.6 Machine learning basics (E26 to E28)</h2>
+
+<p>Use the breast-cancer dataset that ships with scikit-learn (a public medical dataset, BSD licence).</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_breast_cancer</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
+
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">load_breast_cancer</span><span class="p">(</span><span class="n">return_X_y</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">X_tr</span><span class="p">,</span> <span class="n">X_te</span><span class="p">,</span> <span class="n">y_tr</span><span class="p">,</span> <span class="n">y_te</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="s2">"train:"</span><span class="p">,</span> <span class="n">X_tr</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="s2">"test:"</span><span class="p">,</span> <span class="n">X_te</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">(569, 30) train: (426, 30) test: (143, 30)</pre></div></div>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Question</th>
+<th>Expected result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>E26</td>
+<td>Build a majority-class baseline. Does a logistic regression beat its test accuracy?</td>
+<td>True</td>
+</tr>
+<tr>
+<td>E27</td>
+<td>Put a scaler and a logistic regression in a Pipeline and run 5-fold cross-validation. Is the mean score above 0.9? Why must the scaler sit inside the pipeline?</td>
+<td>True</td>
+</tr>
+<tr>
+<td>E28</td>
+<td>Fit an unlimited-depth decision tree. Show that train accuracy is higher than test accuracy, then show a depth-3 tree has a smaller gap.</td>
+<td>True and True</td>
+</tr>
+</tbody>
+</table></div>
+
+<p><strong>Hints.</strong> E26: <code>DummyClassifier(strategy='most_frequent')</code>. E27: <code>make_pipeline(StandardScaler(), ...)</code> and <code>cross_val_score</code>. E28: gap = train score minus test score.</p>
+
+<h3 id="answer-key-5"><a class="anchor" href="#answer-key-5" aria-label="Link to this section">#</a>Answer key</h3>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.dummy</span><span class="w"> </span><span class="kn">import</span> <span class="n">DummyClassifier</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.pipeline</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_pipeline</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">cross_val_score</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.tree</span><span class="w"> </span><span class="kn">import</span> <span class="n">DecisionTreeClassifier</span>
+
+<span class="n">base</span> <span class="o">=</span> <span class="n">DummyClassifier</span><span class="p">(</span><span class="n">strategy</span><span class="o">=</span><span class="s2">"most_frequent"</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_tr</span><span class="p">,</span> <span class="n">y_tr</span><span class="p">)</span>
+<span class="n">logit</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">StandardScaler</span><span class="p">(),</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">))</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_tr</span><span class="p">,</span> <span class="n">y_tr</span><span class="p">)</span>
+<span class="n">beat</span> <span class="o">=</span> <span class="n">logit</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_te</span><span class="p">,</span> <span class="n">y_te</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">base</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_te</span><span class="p">,</span> <span class="n">y_te</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">beat</span>
+<span class="n">ok</span><span class="p">(</span><span class="s2">"E26"</span><span class="p">,</span> <span class="s2">"baseline"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">base</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_te</span><span class="p">,</span> <span class="n">y_te</span><span class="p">),</span> <span class="mi">3</span><span class="p">),</span> <span class="s2">"logit"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">logit</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_te</span><span class="p">,</span> <span class="n">y_te</span><span class="p">),</span> <span class="mi">3</span><span class="p">))</span>
+
+<span class="n">cv</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">make_pipeline</span><span class="p">(</span><span class="n">StandardScaler</span><span class="p">(),</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">)),</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">cv</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mf">0.9</span>
+<span class="n">ok</span><span class="p">(</span><span class="s2">"E27"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">cv</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="mi">3</span><span class="p">))</span>
+<span class="c1"># inside the pipeline the scaler is re-fitted on each training fold only, so no test-fold information leaks.</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">gap</span><span class="p">(</span><span class="n">depth</span><span class="p">):</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="n">depth</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_tr</span><span class="p">,</span> <span class="n">y_tr</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">t</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_tr</span><span class="p">,</span> <span class="n">y_tr</span><span class="p">)</span> <span class="o">-</span> <span class="n">t</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_te</span><span class="p">,</span> <span class="n">y_te</span><span class="p">)</span>
+
+<span class="k">assert</span> <span class="n">gap</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">gap</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">gap</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">ok</span><span class="p">(</span><span class="s2">"E28"</span><span class="p">,</span> <span class="s2">"gap deep"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">gap</span><span class="p">(</span><span class="kc">None</span><span class="p">),</span> <span class="mi">3</span><span class="p">),</span> <span class="s2">"gap depth 3"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">gap</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="mi">3</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">E26 ok baseline 0.629 logit 0.986
+E27 ok 0.981
+E28 ok gap deep 0.077 gap depth 3 0.032</pre></div></div>
+<h2 id="20-7-regression-and-classification-e29-to-e32"><a class="anchor" href="#20-7-regression-and-classification-e29-to-e32" aria-label="Link to this section">#</a>20.7 Regression and classification (E29 to E32)</h2>
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Question</th>
+<th>Expected result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>E29</td>
+<td>On the diabetes dataset, fit linear regression and report test R-squared. Does it beat predicting the training mean (R-squared near 0)?</td>
+<td>True</td>
+</tr>
+<tr>
+<td>E30</td>
+<td>Fit Ridge with a large alpha on scaled features. Is the coefficient vector smaller than the plain regression's?</td>
+<td>True</td>
+</tr>
+<tr>
+<td>E31</td>
+<td>Compute precision and recall of the E26 logistic model by hand from the confusion matrix. Do they match scikit-learn?</td>
+<td>True</td>
+</tr>
+<tr>
+<td>E32</td>
+<td>Make a synthetic 95/5 imbalanced problem. Compare recall of the minority class with and without <code>class_weight='balanced'</code>.</td>
+<td>recall rises</td>
+</tr>
+</tbody>
+</table></div>
+
+<p><strong>Hints.</strong> E29: <code>r2_score</code>. E30: compare <code>np.linalg.norm(model.coef_)</code>. E31: precision = TP / (TP + FP), recall = TP / (TP + FN); the sklearn matrix is [[TN, FP], [FN, TP]]. E32: <code>make_classification(weights=[0.95])</code>.</p>
+
+<h3 id="answer-key-6"><a class="anchor" href="#answer-key-6" aria-label="Link to this section">#</a>Answer key</h3>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_diabetes</span><span class="p">,</span> <span class="n">make_classification</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LinearRegression</span><span class="p">,</span> <span class="n">Ridge</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">r2_score</span><span class="p">,</span> <span class="n">confusion_matrix</span><span class="p">,</span> <span class="n">precision_score</span><span class="p">,</span> <span class="n">recall_score</span>
+
+<span class="n">Xd</span><span class="p">,</span> <span class="n">yd</span> <span class="o">=</span> <span class="n">load_diabetes</span><span class="p">(</span><span class="n">return_X_y</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">Xd_tr</span><span class="p">,</span> <span class="n">Xd_te</span><span class="p">,</span> <span class="n">yd_tr</span><span class="p">,</span> <span class="n">yd_te</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">Xd</span><span class="p">,</span> <span class="n">yd</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">ols</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Xd_tr</span><span class="p">,</span> <span class="n">yd_tr</span><span class="p">)</span>
+<span class="n">r2</span> <span class="o">=</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">yd_te</span><span class="p">,</span> <span class="n">ols</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">Xd_te</span><span class="p">))</span>
+<span class="k">assert</span> <span class="n">r2</span> <span class="o">&gt;</span> <span class="mf">0.3</span>
+<span class="n">ok</span><span class="p">(</span><span class="s2">"E29"</span><span class="p">,</span> <span class="s2">"R2 ="</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">r2</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+
+<span class="n">sc</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Xd_tr</span><span class="p">)</span>
+<span class="n">ols_s</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">sc</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">Xd_tr</span><span class="p">),</span> <span class="n">yd_tr</span><span class="p">)</span>
+<span class="n">ridge</span> <span class="o">=</span> <span class="n">Ridge</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">sc</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">Xd_tr</span><span class="p">),</span> <span class="n">yd_tr</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">ridge</span><span class="o">.</span><span class="n">coef_</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">ols_s</span><span class="o">.</span><span class="n">coef_</span><span class="p">)</span>
+<span class="n">ok</span><span class="p">(</span><span class="s2">"E30"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">ols_s</span><span class="o">.</span><span class="n">coef_</span><span class="p">),</span> <span class="mi">2</span><span class="p">),</span> <span class="s2">"&gt;"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">ridge</span><span class="o">.</span><span class="n">coef_</span><span class="p">),</span> <span class="mi">2</span><span class="p">))</span>
+
+<span class="n">tn</span><span class="p">,</span> <span class="n">fp</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="n">tp</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span> <span class="n">logit</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_te</span><span class="p">))</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+<span class="n">prec</span><span class="p">,</span> <span class="n">rec</span> <span class="o">=</span> <span class="n">tp</span> <span class="o">/</span> <span class="p">(</span><span class="n">tp</span> <span class="o">+</span> <span class="n">fp</span><span class="p">),</span> <span class="n">tp</span> <span class="o">/</span> <span class="p">(</span><span class="n">tp</span> <span class="o">+</span> <span class="n">fn</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">prec</span><span class="p">,</span> <span class="n">precision_score</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span> <span class="n">logit</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_te</span><span class="p">)))</span>
+<span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">rec</span><span class="p">,</span> <span class="n">recall_score</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span> <span class="n">logit</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_te</span><span class="p">)))</span>
+<span class="n">ok</span><span class="p">(</span><span class="s2">"E31"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">prec</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="n">rec</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">E29 ok R2 = 0.485
+E30 ok 70.46 &gt; 21.15
+E31 ok 0.989 0.989</pre></div></div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">Xi</span><span class="p">,</span> <span class="n">yi</span> <span class="o">=</span> <span class="n">make_classification</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">4000</span><span class="p">,</span> <span class="n">n_features</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">n_informative</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+                             <span class="n">weights</span><span class="o">=</span><span class="p">[</span><span class="mf">0.95</span><span class="p">],</span> <span class="n">flip_y</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">Xi_tr</span><span class="p">,</span> <span class="n">Xi_te</span><span class="p">,</span> <span class="n">yi_tr</span><span class="p">,</span> <span class="n">yi_te</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">Xi</span><span class="p">,</span> <span class="n">yi</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><span class="n">yi</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">plain</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Xi_tr</span><span class="p">,</span> <span class="n">yi_tr</span><span class="p">)</span>
+<span class="n">bal</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">class_weight</span><span class="o">=</span><span class="s2">"balanced"</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Xi_tr</span><span class="p">,</span> <span class="n">yi_tr</span><span class="p">)</span>
+<span class="n">r_plain</span> <span class="o">=</span> <span class="n">recall_score</span><span class="p">(</span><span class="n">yi_te</span><span class="p">,</span> <span class="n">plain</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">Xi_te</span><span class="p">))</span>
+<span class="n">r_bal</span> <span class="o">=</span> <span class="n">recall_score</span><span class="p">(</span><span class="n">yi_te</span><span class="p">,</span> <span class="n">bal</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">Xi_te</span><span class="p">))</span>
+<span class="k">assert</span> <span class="n">r_bal</span> <span class="o">&gt;</span> <span class="n">r_plain</span>
+<span class="n">ok</span><span class="p">(</span><span class="s2">"E32"</span><span class="p">,</span> <span class="s2">"recall plain"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">r_plain</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="s2">"balanced"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">r_bal</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">E32 ok recall plain 0.218 balanced 0.782</pre></div></div>
+<p><strong>Common mistake in E32:</strong> judging the imbalanced model by accuracy. A model that always says 'majority' scores about 95 percent here and finds nothing.</p>
+
+<h2 id="20-8-unsupervised-learning-e33-to-e34"><a class="anchor" href="#20-8-unsupervised-learning-e33-to-e34" aria-label="Link to this section">#</a>20.8 Unsupervised learning (E33 to E34)</h2>
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Question</th>
+<th>Expected result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>E33</td>
+<td>Generate 3 well-separated blobs. For k = 2 to 6 compute the silhouette score. Which k is best?</td>
+<td>3</td>
+</tr>
+<tr>
+<td>E34</td>
+<td>Scale the wine dataset and run PCA. How many components keep at least 90 percent of the variance?</td>
+<td>a small whole number (printed)</td>
+</tr>
+</tbody>
+</table></div>
+
+<p><strong>Hints.</strong> E33: <code>make_blobs(random_state=42)</code>, <code>KMeans(n_clusters=k, n_init=10)</code>, <code>silhouette_score</code>. E34: <code>np.cumsum(pca.explained_variance_ratio_)</code> and <code>argmax</code>.</p>
+
+<h3 id="answer-key-7"><a class="anchor" href="#answer-key-7" aria-label="Link to this section">#</a>Answer key</h3>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_blobs</span><span class="p">,</span> <span class="n">load_wine</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.cluster</span><span class="w"> </span><span class="kn">import</span> <span class="n">KMeans</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">silhouette_score</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.decomposition</span><span class="w"> </span><span class="kn">import</span> <span class="n">PCA</span>
+
+<span class="n">Xb</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">make_blobs</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">centers</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">cluster_std</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">scores</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">silhouette_score</span><span class="p">(</span><span class="n">Xb</span><span class="p">,</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="n">k</span><span class="p">,</span> <span class="n">n_init</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span><span class="o">.</span><span class="n">fit_predict</span><span class="p">(</span><span class="n">Xb</span><span class="p">))</span>
+          <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">7</span><span class="p">)}</span>
+<span class="n">best_k</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">scores</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">scores</span><span class="o">.</span><span class="n">get</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">best_k</span> <span class="o">==</span> <span class="mi">3</span>
+<span class="n">ok</span><span class="p">(</span><span class="s2">"E33"</span><span class="p">,</span> <span class="n">best_k</span><span class="p">,</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">scores</span><span class="o">.</span><span class="n">items</span><span class="p">()})</span>
+
+<span class="n">Xw</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">load_wine</span><span class="p">(</span><span class="n">return_X_y</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">pca</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">StandardScaler</span><span class="p">()</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">Xw</span><span class="p">))</span>
+<span class="n">cum</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">pca</span><span class="o">.</span><span class="n">explained_variance_ratio_</span><span class="p">)</span>
+<span class="n">n90</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">cum</span> <span class="o">&gt;=</span> <span class="mf">0.90</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="k">assert</span> <span class="n">cum</span><span class="p">[</span><span class="n">n90</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mf">0.90</span> <span class="ow">and</span> <span class="p">(</span><span class="n">n90</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">or</span> <span class="n">cum</span><span class="p">[</span><span class="n">n90</span> <span class="o">-</span> <span class="mi">2</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">0.90</span><span class="p">)</span>
+<span class="n">ok</span><span class="p">(</span><span class="s2">"E34"</span><span class="p">,</span> <span class="n">n90</span><span class="p">,</span> <span class="s2">"components keep"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">cum</span><span class="p">[</span><span class="n">n90</span> <span class="o">-</span> <span class="mi">1</span><span class="p">],</span> <span class="mi">3</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">E33 ok 3 {2: 0.72, 3: 0.88, 4: 0.7, 5: 0.5, 6: 0.33}
+E34 ok 8 components keep 0.92</pre></div></div>
+<h2 id="20-9-deep-learning-concepts-e35-to-e36"><a class="anchor" href="#20-9-deep-learning-concepts-e35-to-e36" aria-label="Link to this section">#</a>20.9 Deep learning concepts (E35 to E36)</h2>
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Question</th>
+<th>Expected result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>E35</td>
+<td>By hand in NumPy, compute the forward pass of a 2-input, 2-hidden (ReLU), 1-output network with given weights. Does it equal the PyTorch result?</td>
+<td>True</td>
+</tr>
+<tr>
+<td>E36</td>
+<td>Train a tiny PyTorch network on the XOR pattern for a few hundred steps. Does the loss fall a lot?</td>
+<td>True</td>
+</tr>
+</tbody>
+</table></div>
+
+<p><strong>Hints.</strong> E35: hidden = <code>relu(x @ W1 + b1)</code>, output = <code>hidden @ W2 + b2</code>. For PyTorch, copy the same numbers into <code>nn.Linear</code> weights (a Linear layer stores weights as out x in). E36: <code>nn.Sequential</code>, <code>nn.MSELoss</code>, <code>torch.optim.Adam</code>, a loop of forward, loss, <code>backward</code>, <code>step</code>.</p>
+
+<h3 id="answer-key-8"><a class="anchor" href="#answer-key-8" aria-label="Link to this section">#</a>Answer key</h3>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch</span><span class="w"> </span><span class="kn">import</span> <span class="n">nn</span>
+<span class="n">torch</span><span class="o">.</span><span class="n">set_num_threads</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">W1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">1.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">]]);</span> <span class="n">b1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">])</span>
+<span class="n">W2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">2.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">]]);</span>            <span class="n">b2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mf">1.0</span><span class="p">])</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">]])</span>
+<span class="n">by_hand</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">x</span> <span class="o">@</span> <span class="n">W1</span> <span class="o">+</span> <span class="n">b1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">@</span> <span class="n">W2</span> <span class="o">+</span> <span class="n">b2</span>
+
+<span class="n">l1</span><span class="p">,</span> <span class="n">l2</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+    <span class="n">l1</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">copy_</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">W1</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">));</span> <span class="n">l1</span><span class="o">.</span><span class="n">bias</span><span class="o">.</span><span class="n">copy_</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">b1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">))</span>
+    <span class="n">l2</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">copy_</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">W2</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">));</span> <span class="n">l2</span><span class="o">.</span><span class="n">bias</span><span class="o">.</span><span class="n">copy_</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">b2</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">))</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">l2</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">l1</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">))))</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+<span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">by_hand</span><span class="p">,</span> <span class="n">out</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">)</span>
+<span class="n">ok</span><span class="p">(</span><span class="s2">"E35"</span><span class="p">,</span> <span class="n">by_hand</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+</code></pre></div><div class="cell-out"><pre class="out">E35 ok [[6.5]]</pre></div></div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">Xx</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">],</span> <span class="p">[</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span> <span class="p">[</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">]])</span>
+<span class="n">yx</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">0.</span><span class="p">],</span> <span class="p">[</span><span class="mf">1.</span><span class="p">],</span> <span class="p">[</span><span class="mf">1.</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.</span><span class="p">]])</span>
+<span class="n">net</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">nn</span><span class="o">.</span><span class="n">Tanh</span><span class="p">(),</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">opt</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">net</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+<span class="n">loss_fn</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">MSELoss</span><span class="p">()</span>
+<span class="n">first</span> <span class="o">=</span> <span class="n">loss_fn</span><span class="p">(</span><span class="n">net</span><span class="p">(</span><span class="n">Xx</span><span class="p">),</span> <span class="n">yx</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">300</span><span class="p">):</span>
+    <span class="n">opt</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="n">loss_fn</span><span class="p">(</span><span class="n">net</span><span class="p">(</span><span class="n">Xx</span><span class="p">),</span> <span class="n">yx</span><span class="p">)</span>
+    <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+    <span class="n">opt</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+<span class="k">assert</span> <span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mf">0.2</span> <span class="o">*</span> <span class="n">first</span>
+<span class="n">ok</span><span class="p">(</span><span class="s2">"E36"</span><span class="p">,</span> <span class="s2">"loss"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">first</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="s2">"-&gt;"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">(),</span> <span class="mi">4</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">E36 ok loss 0.903 -&gt; 0.0</pre></div></div>
+<p>E36 shows why hidden layers matter: XOR cannot be separated by one straight line, but a small network with a non-linear activation learns it.</p>
+
+<h2 id="20-10-score-yourself"><a class="anchor" href="#20-10-score-yourself" aria-label="Link to this section">#</a>20.10 Score yourself</h2>
+
+<p>Count one point for each exercise you solved correctly <strong>before</strong> looking at the key. Then read your result against the table.</p>
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Area</th>
+<th>Points available</th>
+<th>Below this, reread</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Python (E1 to E6)</td>
+<td>6</td>
+<td>4 of 6: Part 2</td>
+</tr>
+<tr>
+<td>NumPy and pandas (E7 to E14)</td>
+<td>8</td>
+<td>5 of 8: Parts 3 and 4</td>
+</tr>
+<tr>
+<td>SQL (E15 to E19)</td>
+<td>5</td>
+<td>3 of 5: Part 6</td>
+</tr>
+<tr>
+<td>Statistics (E20 to E25)</td>
+<td>6</td>
+<td>4 of 6: Part 8</td>
+</tr>
+<tr>
+<td>ML basics (E26 to E28)</td>
+<td>3</td>
+<td>2 of 3: Part 9</td>
+</tr>
+<tr>
+<td>Regression and classification (E29 to E32)</td>
+<td>4</td>
+<td>3 of 4: Parts 10 to 12</td>
+</tr>
+<tr>
+<td>Unsupervised (E33 to E34)</td>
+<td>2</td>
+<td>1 of 2: Part 13</td>
+</tr>
+<tr>
+<td>Deep learning (E35 to E36)</td>
+<td>2</td>
+<td>1 of 2: Part 14</td>
+</tr>
+</tbody>
+</table></div>
+
+<p>Fill in your own scores in the cell below. It adds them up and tells you where to go next.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">mine</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"Python"</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span> <span class="s2">"NumPy and pandas"</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span> <span class="s2">"SQL"</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">"Statistics"</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+        <span class="s2">"ML basics"</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">"Regression and classification"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">"Unsupervised"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">"Deep learning"</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
+<span class="n">available</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"Python"</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span> <span class="s2">"NumPy and pandas"</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span> <span class="s2">"SQL"</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="s2">"Statistics"</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
+             <span class="s2">"ML basics"</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">"Regression and classification"</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="s2">"Unsupervised"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">"Deep learning"</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
+<span class="n">pass_mark</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"Python"</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="s2">"NumPy and pandas"</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="s2">"SQL"</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">"Statistics"</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+             <span class="s2">"ML basics"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">"Regression and classification"</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">"Unsupervised"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">"Deep learning"</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
+<span class="n">total</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">mine</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Total: </span><span class="si">{</span><span class="n">total</span><span class="si">}</span><span class="s2"> of </span><span class="si">{</span><span class="nb">sum</span><span class="p">(</span><span class="n">available</span><span class="o">.</span><span class="n">values</span><span class="p">())</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">total</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nb">sum</span><span class="p">(</span><span class="n">available</span><span class="o">.</span><span class="n">values</span><span class="p">())</span><span class="si">:</span><span class="s2">.0%</span><span class="si">}</span><span class="s2">)"</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">area</span><span class="p">,</span> <span class="n">pts</span> <span class="ow">in</span> <span class="n">mine</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">area</span><span class="si">:</span><span class="s2">32s</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">pts</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">available</span><span class="p">[</span><span class="n">area</span><span class="p">]</span><span class="si">}</span><span class="s2">  "</span><span class="p">,</span> <span class="s2">"ok"</span> <span class="k">if</span> <span class="n">pts</span> <span class="o">&gt;=</span> <span class="n">pass_mark</span><span class="p">[</span><span class="n">area</span><span class="p">]</span> <span class="k">else</span> <span class="s2">"REREAD"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">Total: 27 of 36 (75%)
+Python                           6/6   ok
+NumPy and pandas                 6/8   ok
+SQL                              3/5   ok
+Statistics                       4/6   ok
+ML basics                        3/3   ok
+Regression and classification    2/4   REREAD
+Unsupervised                     2/2   ok
+Deep learning                    1/2   ok</pre></div></div>
+<p>The numbers above are an example score sheet, not your result. Replace them with your own. Anything marked REREAD is where an hour of revision pays off most.</p>
+
+<div class="callout takeaways"><div class="c-label">Key takeaways</div><ul>
+<li>Write your own answer first; the key is for checking, not copying.</li>
+<li>An assert turns a hope into a test: if it passes, the answer is verified.</li>
+<li>Compare every model with a baseline before you celebrate a score.</li>
+<li>Hidden traps (join duplicates, base rates, leakage, accuracy on imbalanced data) matter more than syntax.</li>
+<li>Redo wrong exercises after three days, and track your score by area.</li>
+</ul>
+</div></div><nav class="pager" aria-label="Previous and next"><a class="prev" href="part-19.html"><small>Previous</small><span>Part 19: End-to-End Projects</span></a><a class="next" href="part-21.html"><small>Next</small><span>Part 21: Interview Preparation</span></a></nav>
+<footer class="foot"><p>Data Science from Zero to Advanced &middot; written by Benson M. Merita &middot; &copy; 2026 MeritaAnalytics. Public datasets keep their own licences, listed in <a href="appendix-b.html">Appendix B</a>.</p></footer>
+</main>
+</div>
+<script src="search-index.js"></script>
+<script src="site.js"></script>
+</body>
+</html>

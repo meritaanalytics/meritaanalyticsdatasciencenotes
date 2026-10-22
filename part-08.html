@@ -1,0 +1,826 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>Part 8: Statistics for Data Science | MeritaAnalytics</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to the notes</a>
+<header class="top"><button class="menu" id="menu" aria-controls="side" aria-expanded="false">Contents</button><span class="top-title">Part 8: Statistics for Data Science</span></header>
+<div class="shell">
+<nav class="side" id="side" aria-label="Handbook contents">
+<a class="brand" href="index.html"><span class="mark" aria-hidden="true">MA</span><span><b>MeritaAnalytics</b><small>Data Science Notes</small></span></a>
+<label class="search"><span class="sr">Search the notes</span><input id="q" type="search" placeholder="Search topics, e.g. groupby" autocomplete="off"></label>
+<div id="results" class="results" hidden></div>
+<ol class="nav">
+<li class="lvl0"><a href="index.html" class="">Start here</a></li>
+<li class="lvl"><div class="lvl-name"><span>Level 1</span>Foundations</div><ol>
+<li data-slug="part-01"><a href="part-01.html" class=""><span class="pn">1</span><span class="pt">What Is Data Science?</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-02"><a href="part-02.html" class=""><span class="pn">2</span><span class="pt">Python Basics</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-03"><a href="part-03.html" class=""><span class="pn">3</span><span class="pt">NumPy: Fast Numbers</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 2</span>Data Analysis</div><ol>
+<li data-slug="part-04"><a href="part-04.html" class=""><span class="pn">4</span><span class="pt">Pandas: Working with Tables</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-05"><a href="part-05.html" class=""><span class="pn">5</span><span class="pt">Data Visualisation</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-06"><a href="part-06.html" class=""><span class="pn">6</span><span class="pt">SQL for Data Analysts</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-07"><a href="part-07.html" class=""><span class="pn">7</span><span class="pt">Exploratory Data Analysis</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 3</span>Statistics</div><ol>
+<li data-slug="part-08"><a href="part-08.html" class="on"><span class="pn">8</span><span class="pt">Statistics for Data Science</span><span class="done-dot" aria-hidden="true"></span></a>
+<ol class="sub"><li><a href="#8-1-what-statistics-is-and-types-of-data">8.1 What statistics is, and types of data</a></li><li><a href="#8-2-describing-data-centre-spread-and-shape">8.2 Describing data: centre, spread and shape</a></li><li><a href="#8-3-probability-and-common-distributions">8.3 Probability and common distributions</a></li><li><a href="#8-4-sampling-bias-and-the-central-limit-theorem">8.4 Sampling, bias and the central limit theorem</a></li><li><a href="#8-5-confidence-intervals">8.5 Confidence intervals</a></li><li><a href="#8-6-the-logic-of-hypothesis-testing">8.6 The logic of hypothesis testing</a></li><li><a href="#8-7-common-tests-t-tests-proportions-chi-square-anova-and-ra">8.7 Common tests: t-tests, proportions, chi-square, ANOVA and rank tests</a></li><li><a href="#8-8-effect-size-correlation-and-causation">8.8 Effect size, correlation and causation</a></li><li><a href="#8-9-a-b-testing-end-to-end-with-bootstrap-and-permutation-te">8.9 A/B testing end to end, with bootstrap and permutation tests</a></li><li><a href="#8-10-advanced-regression-inference-with-statsmodels">8.10 (Advanced) Regression inference with statsmodels</a></li><li><a href="#8-11-advanced-bayesian-thinking-and-the-multiple-testing-tra">8.11 (Advanced) Bayesian thinking and the multiple testing trap</a></li><li><a href="#8-12-which-test-should-i-use">8.12 Which test should I use?</a></li></ol>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 4</span>Machine Learning</div><ol>
+<li data-slug="part-09"><a href="part-09.html" class=""><span class="pn">9</span><span class="pt">Machine Learning Foundations</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-10"><a href="part-10.html" class=""><span class="pn">10</span><span class="pt">Regression</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-11"><a href="part-11.html" class=""><span class="pn">11</span><span class="pt">Classification</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-12"><a href="part-12.html" class=""><span class="pn">12</span><span class="pt">Ensembles, Tuning and Feature Engineering</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-13"><a href="part-13.html" class=""><span class="pn">13</span><span class="pt">Unsupervised Learning</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 5</span>Deep Learning and Modern AI</div><ol>
+<li data-slug="part-14"><a href="part-14.html" class=""><span class="pn">14</span><span class="pt">Neural Networks and Deep Learning</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-15"><a href="part-15.html" class=""><span class="pn">15</span><span class="pt">Reinforcement Learning</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-16"><a href="part-16.html" class=""><span class="pn">16</span><span class="pt">Generative AI and Large Language Models</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 6</span>The Real World</div><ol>
+<li data-slug="part-17"><a href="part-17.html" class=""><span class="pn">17</span><span class="pt">Business Metrics, Excel and Power BI</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-18"><a href="part-18.html" class=""><span class="pn">18</span><span class="pt">Automation, Git, Deployment and Responsible AI</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-19"><a href="part-19.html" class=""><span class="pn">19</span><span class="pt">End-to-End Projects</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 7</span>Career and Reference</div><ol>
+<li data-slug="part-20"><a href="part-20.html" class=""><span class="pn">20</span><span class="pt">Practice Exercises and Answer Key</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-21"><a href="part-21.html" class=""><span class="pn">21</span><span class="pt">Interview Preparation</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-22"><a href="part-22.html" class=""><span class="pn">22</span><span class="pt">Roadmap, Cheat Sheets and Glossary</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Appendix</span>Reference</div><ol>
+<li><a href="appendix-a.html" class=""><span class="pn">A</span><span class="pt">Sources and Next Steps</span></a></li>
+<li><a href="appendix-b.html" class=""><span class="pn">B</span><span class="pt">Data Catalogue</span></a></li>
+</ol></li></ol>
+<p class="side-foot">By Benson M. Merita &middot; &copy; 2026 MeritaAnalytics</p></nav>
+<main id="main" class="main"><header class="part-head"><span class="lv">Level 3 &middot; Statistics</span><p class="part-no">Part 8</p><h1>Statistics for Data Science</h1><p class="lede">From averages and probability to confidence intervals, hypothesis tests, A/B tests and regression inference, step by step, using real public data (penguins, World Bank inflation, diabetes).</p><button class="mark-done" id="done" data-slug="part-08" aria-pressed="false">Mark this part as done</button></header><div class="prose"><div class="callout learn"><div class="c-label">In this part</div><ul>
+<li>Tell the main types of data apart and pick suitable summaries for each</li>
+<li>Describe a column with centre, spread and shape</li>
+<li>Use probability and the normal, binomial and Poisson distributions</li>
+<li>Explain why samples vary, and build and read a confidence interval</li>
+<li>Run and interpret a hypothesis test, an A/B test and a simple regression</li>
+</ul>
+<div class="meta"><span><b>You need first</b> Part 4 and Part 5</span><span><b>Time</b> 8 to 12 hours</span></div></div>
+<h2 id="8-1-what-statistics-is-and-types-of-data"><a class="anchor" href="#8-1-what-statistics-is-and-types-of-data" aria-label="Link to this section">#</a>8.1 What statistics is, and types of data</h2>
+
+<p><strong>Statistics</strong> is the science of learning from data when you are uncertain. You rarely see every customer, farm or transaction. You see a <strong>sample</strong>, and you want to say something about the whole <strong>population</strong>. Statistics gives you tools for two jobs: <strong>describing</strong> the data you have (descriptive statistics) and <strong>judging</strong> what it says about the wider world (inferential statistics).</p>
+
+<p>The right tool depends on the <strong>type</strong> of each column. Data from the Palmer Station penguin study (CC0 licence, file <code>penguins.csv</code>, unchanged) has all the main types.</p>
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Meaning</th>
+<th>Example column</th>
+<th>Sensible summary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nominal</td>
+<td>categories with no order</td>
+<td>species, island, sex</td>
+<td>counts, proportions, mode</td>
+</tr>
+<tr>
+<td>Ordinal</td>
+<td>categories with an order</td>
+<td>small / medium / large</td>
+<td>median, counts per level</td>
+</tr>
+<tr>
+<td>Discrete</td>
+<td>counted whole numbers</td>
+<td>eggs in a nest</td>
+<td>mean, counts</td>
+</tr>
+<tr>
+<td>Continuous</td>
+<td>measured on a scale</td>
+<td>body_mass_g, flipper_length_mm</td>
+<td>mean, median, spread</td>
+</tr>
+</tbody>
+</table></div>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">import</span><span class="w"> </span><span class="nn">os</span><span class="o">,</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span><span class="o">,</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">stats</span>
+<span class="n">PUB</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">"GUIDE_ROOT"</span><span class="p">])</span> <span class="o">/</span> <span class="s2">"datasets"</span> <span class="o">/</span> <span class="s2">"public"</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">load_public</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">PUB</span> <span class="o">/</span> <span class="n">name</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">p</span> <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span> <span class="k">else</span> <span class="n">url</span><span class="p">)</span>
+
+<span class="n">pen</span> <span class="o">=</span> <span class="n">load_public</span><span class="p">(</span><span class="s2">"penguins.csv"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pen</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pen</span><span class="o">.</span><span class="n">dtypes</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pen</span><span class="p">[</span><span class="s2">"species"</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">to_dict</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pen</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()[</span><span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">to_dict</span><span class="p">())</span>
+</code></pre></div><div class="cell-out"><pre class="out">(344, 7)
+species                  str
+island                   str
+bill_length_mm       float64
+bill_depth_mm        float64
+flipper_length_mm    float64
+body_mass_g          float64
+sex                      str
+{&#x27;Adelie&#x27;: 152, &#x27;Gentoo&#x27;: 124, &#x27;Chinstrap&#x27;: 68}
+{&#x27;bill_length_mm&#x27;: 2, &#x27;bill_depth_mm&#x27;: 2, &#x27;flipper_length_mm&#x27;: 2, &#x27;body_mass_g&#x27;: 2, &#x27;sex&#x27;: 11}</pre></div></div>
+<p>Species, island and sex are nominal. The four measurements are continuous. Some measurements are missing, so most summaries below drop missing values first.</p>
+
+<div class="callout mistake"><p><strong>Common mistake.</strong> Do not average category codes. If sex were stored as 0 and 1, a mean of 0.5 would be a proportion, not a typical value. Always ask what a column means before you summarise it.</p>
+</div>
+<h2 id="8-2-describing-data-centre-spread-and-shape"><a class="anchor" href="#8-2-describing-data-centre-spread-and-shape" aria-label="Link to this section">#</a>8.2 Describing data: centre, spread and shape</h2>
+
+<p>A <strong>measure of centre</strong> says what is typical: the <strong>mean</strong> (balance point), the <strong>median</strong> (middle value) and the <strong>mode</strong> (most frequent). A <strong>measure of spread</strong> says how much values vary: the <strong>standard deviation</strong> (typical distance from the mean), the <strong>range</strong>, and the <strong>IQR</strong> (width of the middle 50 percent). <strong>Percentiles</strong> say what share of values fall below a point.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">m</span> <span class="o">=</span> <span class="n">pen</span><span class="p">[</span><span class="s2">"body_mass_g"</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"n:"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">m</span><span class="p">),</span> <span class="s2">"| mean:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="mi">1</span><span class="p">),</span> <span class="s2">"| median:"</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">median</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"std:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">std</span><span class="p">(),</span> <span class="mi">1</span><span class="p">),</span> <span class="s2">"| min:"</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="s2">"| max:"</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+<span class="n">q1</span><span class="p">,</span> <span class="n">q3</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">quantile</span><span class="p">([</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Q1:"</span><span class="p">,</span> <span class="n">q1</span><span class="p">,</span> <span class="s2">"| Q3:"</span><span class="p">,</span> <span class="n">q3</span><span class="p">,</span> <span class="s2">"| IQR:"</span><span class="p">,</span> <span class="n">q3</span> <span class="o">-</span> <span class="n">q1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"90th percentile:"</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.9</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"most common value:"</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">mode</span><span class="p">()</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</code></pre></div><div class="cell-out"><pre class="out">n: 342 | mean: 4201.8 | median: 4050.0
+std: 802.0 | min: 2700.0 | max: 6300.0
+Q1: 3550.0 | Q3: 4750.0 | IQR: 1200.0
+90th percentile: 5400.0
+most common value: 3800.0</pre></div></div>
+<p>Pandas uses the <strong>sample</strong> standard deviation (divides by n - 1), which is what you want when your data is a sample. <code>np.std</code> divides by n by default, so the two differ slightly.</p>
+
+<p><strong>Skewness</strong> measures lopsidedness. A <strong>right-skewed</strong> column has a long tail of large values, and the mean sits above the median. Annual consumer price inflation for Kenya (World Bank, series FP.CPI.TOTL.ZG, ODC-PDDL licence, filtered to Kenya) is a good example.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">infl</span> <span class="o">=</span> <span class="n">load_public</span><span class="p">(</span><span class="s2">"inflation_consumer.csv"</span><span class="p">)</span>
+<span class="n">ken</span> <span class="o">=</span> <span class="n">infl</span><span class="p">[</span><span class="n">infl</span><span class="p">[</span><span class="s2">"Country"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"Kenya"</span><span class="p">]</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">"Year"</span><span class="p">)[</span><span class="s2">"Inflation"</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"years:"</span><span class="p">,</span> <span class="n">ken</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="s2">"to"</span><span class="p">,</span> <span class="n">ken</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="s2">"| n:"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">ken</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"mean:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">ken</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="mi">2</span><span class="p">),</span> <span class="s2">"| median:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">ken</span><span class="o">.</span><span class="n">median</span><span class="p">(),</span> <span class="mi">2</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"skew inflation:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">ken</span><span class="o">.</span><span class="n">skew</span><span class="p">(),</span> <span class="mi">2</span><span class="p">),</span> <span class="s2">"| skew body mass:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">skew</span><span class="p">(),</span> <span class="mi">2</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"highest year:"</span><span class="p">,</span> <span class="n">ken</span><span class="o">.</span><span class="n">idxmax</span><span class="p">(),</span> <span class="nb">round</span><span class="p">(</span><span class="n">ken</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="mi">1</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">years: 1961 to 2023 | n: 63
+mean: 8.69 | median: 7.58
+skew inflation: 1.49 | skew body mass: 0.47
+highest year: 1996 42.0</pre></div></div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span><span class="o">,</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="n">BLUE</span><span class="p">,</span> <span class="n">GREEN</span><span class="p">,</span> <span class="n">GREY</span><span class="p">,</span> <span class="n">DARK</span><span class="p">,</span> <span class="n">AMBER</span> <span class="o">=</span> <span class="s2">"#1F5FD6"</span><span class="p">,</span> <span class="s2">"#2BB38A"</span><span class="p">,</span> <span class="s2">"#9CA3AF"</span><span class="p">,</span> <span class="s2">"#0B2A4A"</span><span class="p">,</span> <span class="s2">"#B45309"</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_theme</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">"whitegrid"</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">3.6</span><span class="p">))</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">BLUE</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">color</span><span class="o">=</span><span class="n">AMBER</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"mean"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Penguin body mass: fairly symmetric"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"Body mass (g)"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Penguins"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">ken</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">GREEN</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">ken</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">color</span><span class="o">=</span><span class="n">AMBER</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"mean"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">ken</span><span class="o">.</span><span class="n">median</span><span class="p">(),</span> <span class="n">color</span><span class="o">=</span><span class="n">DARK</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">"--"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"median"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Kenya annual inflation: right-skewed"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"Inflation (percent)"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Years"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">"p08_shape.png"</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">130</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">();</span> <span class="nb">print</span><span class="p">(</span><span class="s2">"saved p08_shape.png"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">saved p08_shape.png</pre></div></div>
+<div class="cell only-out"><div class="cell-out"><figure class="fig"><img src="img/part-08-020.png" alt="Chart output" loading="lazy"></figure></div></div>
+<p>Body mass is roughly symmetric, so mean and median agree. Inflation has a tail of high-inflation years, so the mean is above the median. For skewed data, report the median beside the mean.</p>
+
+<div class="callout mistake"><p><strong>Common mistake.</strong> The mean is pulled by extreme values; the median is not. Reporting only the mean of incomes, prices or inflation can mislead.</p>
+</div>
+<div class="callout practice"><div class="c-label">Practice</div><p>A matatu route has fares (Ksh) of 50, 50, 60, 70, 500. Which is a better 'typical fare', mean or median?</p>
+</div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">fares</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span> <span class="mi">500</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"mean:"</span><span class="p">,</span> <span class="n">fares</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="s2">"| median:"</span><span class="p">,</span> <span class="n">fares</span><span class="o">.</span><span class="n">median</span><span class="p">())</span>
+</code></pre></div><div class="cell-out"><pre class="out">mean: 146.0 | median: 60.0</pre></div></div>
+<p><strong>Solution.</strong> The single Ksh 500 fare drags the mean up to 146, while the median of 60 describes most trips. Use the median here.</p>
+
+<h2 id="8-3-probability-and-common-distributions"><a class="anchor" href="#8-3-probability-and-common-distributions" aria-label="Link to this section">#</a>8.3 Probability and common distributions</h2>
+
+<p><strong>Probability</strong> is a number from 0 to 1 that says how likely an event is. You can estimate it as a long-run relative frequency: how often the event happens out of many tries. <strong>Conditional probability</strong>, written P(A given B), is the chance of A once you know B happened. Two events are <strong>independent</strong> if knowing one tells you nothing about the other.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">100000</span><span class="p">]:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">n</span><span class="si">:</span><span class="s2">&gt;7</span><span class="si">}</span><span class="s2"> fair coin flips -&gt; share of heads: </span><span class="si">{</span><span class="n">rng</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="n">tab</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">crosstab</span><span class="p">(</span><span class="n">pen</span><span class="p">[</span><span class="s2">"island"</span><span class="p">],</span> <span class="n">pen</span><span class="p">[</span><span class="s2">"species"</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">tab</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"P(Adelie):"</span><span class="p">,</span> <span class="nb">round</span><span class="p">((</span><span class="n">pen</span><span class="p">[</span><span class="s2">"species"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"Adelie"</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="mi">3</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"P(Adelie | Biscoe):"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">tab</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">"Biscoe"</span><span class="p">,</span> <span class="s2">"Adelie"</span><span class="p">]</span> <span class="o">/</span> <span class="n">tab</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">"Biscoe"</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span> <span class="mi">3</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">     10 fair coin flips -&gt; share of heads: 0.400
+   1000 fair coin flips -&gt; share of heads: 0.514
+ 100000 fair coin flips -&gt; share of heads: 0.501
+species    Adelie  Chinstrap  Gentoo
+island                              
+Biscoe         44          0     124
+Dream          56         68       0
+Torgersen      52          0       0
+P(Adelie): 0.442
+P(Adelie | Biscoe): 0.262</pre></div></div>
+<p>With more flips the share of heads settles near 0.5: this is the <strong>law of large numbers</strong>. The second half shows that knowing the island changes the chance of each species, so island and species are not independent.</p>
+
+<p>A <strong>distribution</strong> describes how likely each value is. Four appear everywhere.</p>
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Distribution</th>
+<th>Use it for</th>
+<th>Example</th>
+<th>scipy object</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Normal</td>
+<td>bell-shaped measurements</td>
+<td>body mass, errors</td>
+<td>stats.norm</td>
+</tr>
+<tr>
+<td>Binomial</td>
+<td>number of successes in n yes/no trials</td>
+<td>loan repayers out of 10</td>
+<td>stats.binom</td>
+</tr>
+<tr>
+<td>Poisson</td>
+<td>number of events in a fixed time</td>
+<td>M-Pesa agent customers per hour</td>
+<td>stats.poisson</td>
+</tr>
+<tr>
+<td>Uniform</td>
+<td>every value equally likely</td>
+<td>a random draw from 0 to 1</td>
+<td>stats.uniform</td>
+</tr>
+</tbody>
+</table></div>
+
+<p>The normal distribution is described by its mean and standard deviation. A <strong>z-score</strong> says how many standard deviations a value is from the mean: z = (x - mean) / std. About 68 percent of normal data lies within 1 standard deviation of the mean, 95 percent within 2, and 99.7 percent within 3.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">ad</span> <span class="o">=</span> <span class="n">pen</span><span class="p">[(</span><span class="n">pen</span><span class="p">[</span><span class="s2">"species"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"Adelie"</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">pen</span><span class="p">[</span><span class="s2">"sex"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"FEMALE"</span><span class="p">)][</span><span class="s2">"body_mass_g"</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+<span class="n">mu</span><span class="p">,</span> <span class="n">sd</span> <span class="o">=</span> <span class="n">ad</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">ad</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+<span class="n">z</span> <span class="o">=</span> <span class="p">(</span><span class="mi">3900</span> <span class="o">-</span> <span class="n">mu</span><span class="p">)</span> <span class="o">/</span> <span class="n">sd</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Adelie females: mean"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">mu</span><span class="p">),</span> <span class="s2">"std"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">sd</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"z-score of a 3900 g bird:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"share of females lighter than 3900 g (normal model):"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">z</span><span class="p">),</span> <span class="mi">3</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"actual share lighter:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">((</span><span class="n">ad</span> <span class="o">&lt;</span> <span class="mi">3900</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="mi">3</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"within 2 std:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">),</span> <span class="mi">3</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">Adelie females: mean 3369 std 269
+z-score of a 3900 g bird: 1.97
+share of females lighter than 3900 g (normal model): 0.976
+actual share lighter: 0.986
+within 2 std: 0.954</pre></div></div>
+<p><code>cdf</code> (cumulative distribution function) gives the probability of being at or below a value. The normal model gives a share close to the real one, so the bell curve is a good description here.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="nb">print</span><span class="p">(</span><span class="s2">"Binomial: P(exactly 3 repay of 10, p=0.8):"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">stats</span><span class="o">.</span><span class="n">binom</span><span class="o">.</span><span class="n">pmf</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">),</span> <span class="mi">4</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Binomial: P(8 or more repay of 10):"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">stats</span><span class="o">.</span><span class="n">binom</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">),</span> <span class="mi">3</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Poisson: P(0 customers in an hour, mean 4):"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">stats</span><span class="o">.</span><span class="n">poisson</span><span class="o">.</span><span class="n">pmf</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="mi">4</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Poisson: P(7 or more in an hour):"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">stats</span><span class="o">.</span><span class="n">poisson</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="mi">3</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Uniform(0,1): P(x &lt; 0.25):"</span><span class="p">,</span> <span class="n">stats</span><span class="o">.</span><span class="n">uniform</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="mf">0.25</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">Binomial: P(exactly 3 repay of 10, p=0.8): 0.0008
+Binomial: P(8 or more repay of 10): 0.678
+Poisson: P(0 customers in an hour, mean 4): 0.0183
+Poisson: P(7 or more in an hour): 0.111
+Uniform(0,1): P(x &lt; 0.25): 0.25</pre></div></div>
+<div class="callout mistake"><p><strong>Common mistake.</strong> <code>pmf</code> is for counts (probability of exactly k). <code>pdf</code> is for continuous values (a density, not a probability). Use <code>cdf</code> to get probabilities of ranges.</p>
+</div>
+<h2 id="8-4-sampling-bias-and-the-central-limit-theorem"><a class="anchor" href="#8-4-sampling-bias-and-the-central-limit-theorem" aria-label="Link to this section">#</a>8.4 Sampling, bias and the central limit theorem</h2>
+
+<p>A good sample looks like the population. A <strong>random sample</strong> gives every member an equal chance and is unbiased. <strong>Sampling bias</strong> appears when some members are more likely to be picked, for example surveying only people who answer an app notification. Bias does not shrink when you collect more data.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+<span class="n">pop</span> <span class="o">=</span> <span class="n">pen</span><span class="p">[</span><span class="s2">"body_mass_g"</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+<span class="n">random_s</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">pop</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">biased_s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">pop</span><span class="p">)[</span><span class="o">-</span><span class="mi">100</span><span class="p">:][</span><span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">)]</span>   <span class="c1"># only the heaviest birds</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"population mean:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">pop</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="mi">1</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"random sample mean:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">random_s</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="mi">1</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"biased sample mean (heaviest only):"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">biased_s</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="mi">1</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">population mean: 4201.8
+random sample mean: 4295.6
+biased sample mean (heaviest only): 5237.5</pre></div></div>
+<p>Different random samples give different means. The <strong>sampling distribution</strong> is the spread of a statistic (here the mean) over many repeated samples. Its standard deviation is the <strong>standard error</strong> (SE): SE = std / sqrt(n). A bigger sample gives a smaller SE, so a more precise estimate.</p>
+
+<p>The <strong>central limit theorem</strong> says that the sample mean is close to normally distributed once n is moderately large, even when the data itself is skewed. We test it on the skewed inflation values of every country and year (World Bank; values above 50 percent dropped to remove hyperinflation outliers).</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">allinf</span> <span class="o">=</span> <span class="n">infl</span><span class="p">[</span><span class="s2">"Inflation"</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+<span class="n">allinf</span> <span class="o">=</span> <span class="n">allinf</span><span class="p">[</span><span class="n">allinf</span><span class="o">.</span><span class="n">between</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">50</span><span class="p">)]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"population size:"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">allinf</span><span class="p">),</span> <span class="s2">"| skew:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">stats</span><span class="o">.</span><span class="n">skew</span><span class="p">(</span><span class="n">allinf</span><span class="p">),</span> <span class="mi">2</span><span class="p">))</span>
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">50</span><span class="p">]:</span>
+    <span class="n">means</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">allinf</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3000</span><span class="p">)])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"n=</span><span class="si">{</span><span class="n">n</span><span class="si">:</span><span class="s2">&gt;2</span><span class="si">}</span><span class="s2">: skew of sample means </span><span class="si">{</span><span class="n">stats</span><span class="o">.</span><span class="n">skew</span><span class="p">(</span><span class="n">means</span><span class="p">)</span><span class="si">:</span><span class="s2">5.2f</span><span class="si">}</span><span class="s2"> | SE observed </span><span class="si">{</span><span class="n">means</span><span class="o">.</span><span class="n">std</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">"</span>
+          <span class="sa">f</span><span class="s2">" | SE formula </span><span class="si">{</span><span class="n">allinf</span><span class="o">.</span><span class="n">std</span><span class="p">()</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">population size: 13025 | skew: 2.07
+n= 2: skew of sample means  1.41 | SE observed 5.379 | SE formula 5.619
+n=10: skew of sample means  0.74 | SE observed 2.541 | SE formula 2.513
+n=50: skew of sample means  0.30 | SE observed 1.130 | SE formula 1.124</pre></div></div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">3.6</span><span class="p">))</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">allinf</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">GREY</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Population: country-year inflation"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"Inflation (percent)"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Country-years"</span><span class="p">)</span>
+<span class="n">means</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">allinf</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3000</span><span class="p">)])</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">means</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">BLUE</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">allinf</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">color</span><span class="o">=</span><span class="n">AMBER</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"population mean"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Means of samples of 50: bell-shaped"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"Sample mean (percent)"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Samples"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">"p08_clt.png"</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">130</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">();</span> <span class="nb">print</span><span class="p">(</span><span class="s2">"saved p08_clt.png"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">saved p08_clt.png</pre></div></div>
+<div class="cell only-out"><div class="cell-out"><figure class="fig"><img src="img/part-08-021.png" alt="Chart output" loading="lazy"></figure></div></div>
+<p>The raw data is lopsided, but the sample means form a neat bell around the true mean. This is why so many tests can use the normal or t distribution even for non-normal data, as long as the sample is not tiny.</p>
+
+<h2 id="8-5-confidence-intervals"><a class="anchor" href="#8-5-confidence-intervals" aria-label="Link to this section">#</a>8.5 Confidence intervals</h2>
+
+<p>A sample mean is a single guess. A <strong>confidence interval</strong> (CI) gives a range of plausible values for the true mean: estimate +/- critical value x SE. A <strong>95 percent CI</strong> is built so that 95 percent of intervals made this way would contain the true value. It does not mean there is a 95 percent chance the true value is in this one interval.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">x</span> <span class="o">=</span> <span class="n">pen</span><span class="p">[</span><span class="n">pen</span><span class="p">[</span><span class="s2">"species"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"Gentoo"</span><span class="p">][</span><span class="s2">"body_mass_g"</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+<span class="n">n</span><span class="p">,</span> <span class="n">mean</span><span class="p">,</span> <span class="n">se</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">x</span><span class="o">.</span><span class="n">std</span><span class="p">()</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<span class="n">tcrit</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mf">0.975</span><span class="p">,</span> <span class="n">df</span><span class="o">=</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"n:"</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="s2">"| mean:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">mean</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="s2">"| SE:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">se</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="s2">"| t critical:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">tcrit</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"95% CI by hand:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">mean</span> <span class="o">-</span> <span class="n">tcrit</span> <span class="o">*</span> <span class="n">se</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="s2">"to"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">mean</span> <span class="o">+</span> <span class="n">tcrit</span> <span class="o">*</span> <span class="n">se</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"95% CI scipy  :"</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">stats</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">interval</span><span class="p">(</span><span class="mf">0.95</span><span class="p">,</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">mean</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">se</span><span class="p">),</span> <span class="mi">1</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">n: 123 | mean: 5076.0 | SE: 45.5 | t critical: 1.98
+95% CI by hand: 4986.0 to 5166.0
+95% CI scipy  : [4986. 5166.]</pre></div></div>
+<p>We use the <strong>t distribution</strong> instead of the normal because we estimated the standard deviation from the sample. It has slightly fatter tails, which matters most for small n. Now check what '95 percent' means by simulation: draw many samples, build an interval each time, and count how often it captures the true mean.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">true_mean</span> <span class="o">=</span> <span class="n">pop</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">hit</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2000</span><span class="p">):</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">pop</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+    <span class="n">lo</span><span class="p">,</span> <span class="n">hi</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">interval</span><span class="p">(</span><span class="mf">0.95</span><span class="p">,</span> <span class="mi">29</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">s</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">scale</span><span class="o">=</span><span class="n">stats</span><span class="o">.</span><span class="n">sem</span><span class="p">(</span><span class="n">s</span><span class="p">))</span>
+    <span class="n">hit</span> <span class="o">+=</span> <span class="n">lo</span> <span class="o">&lt;=</span> <span class="n">true_mean</span> <span class="o">&lt;=</span> <span class="n">hi</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"share of intervals containing the true mean:"</span><span class="p">,</span> <span class="n">hit</span> <span class="o">/</span> <span class="mi">2000</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">share of intervals containing the true mean: 0.9545</pre></div></div>
+<p>Close to 0.95, as promised. Wider intervals come from more spread, a smaller sample or a higher confidence level (99 percent is wider than 95 percent).</p>
+
+<div class="callout tip"><p><strong>Good habit.</strong> Reporting an estimate without any interval hides how uncertain it is. Say 'about 5,076 g (95 percent CI 4,986 to 5,166)', not just 'about 5,076 g'.</p>
+</div>
+<h2 id="8-6-the-logic-of-hypothesis-testing"><a class="anchor" href="#8-6-the-logic-of-hypothesis-testing" aria-label="Link to this section">#</a>8.6 The logic of hypothesis testing</h2>
+
+<p>A <strong>hypothesis test</strong> asks whether a pattern in a sample could just be chance. The steps are always the same.</p>
+
+<ul>
+<li>State the <strong>null hypothesis</strong> (H0): there is no effect or no difference. State the <strong>alternative</strong> (H1): there is.</li>
+<li>Choose a <strong>significance level</strong> alpha before looking, usually 0.05.</li>
+<li>Compute a <strong>test statistic</strong> and its <strong>p-value</strong>: the probability of seeing a result at least this extreme if H0 were true.</li>
+<li>If p is below alpha, <strong>reject H0</strong>; otherwise <strong>fail to reject</strong> it (this is not proof that H0 is true).</li>
+</ul>
+
+<p>Two mistakes are possible. A <strong>Type I error</strong> is a false alarm: rejecting H0 when it is true; its rate is alpha. A <strong>Type II error</strong> is a miss: failing to reject H0 when there really is an effect. <strong>Power</strong> = 1 - P(Type II) is the chance of detecting a real effect. Power grows with sample size and effect size.</p>
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th>H0 is true</th>
+<th>H0 is false</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Reject H0</td>
+<td>Type I error (false alarm)</td>
+<td>Correct (power)</td>
+</tr>
+<tr>
+<td>Do not reject H0</td>
+<td>Correct</td>
+<td>Type II error (miss)</td>
+</tr>
+</tbody>
+</table></div>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">rate</span><span class="p">(</span><span class="n">diff</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">reps</span><span class="o">=</span><span class="mi">3000</span><span class="p">):</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">stats</span><span class="o">.</span><span class="n">ttest_ind</span><span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">diff</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">))</span><span class="o">.</span><span class="n">pvalue</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">reps</span><span class="p">)])</span>
+    <span class="k">return</span> <span class="n">p</span>
+<span class="n">p_null</span><span class="p">,</span> <span class="n">p_real</span> <span class="o">=</span> <span class="n">rate</span><span class="p">(</span><span class="mf">0.0</span><span class="p">),</span> <span class="n">rate</span><span class="p">(</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"No true difference: share with p &lt; 0.05 (Type I rate):"</span><span class="p">,</span> <span class="nb">round</span><span class="p">((</span><span class="n">p_null</span> <span class="o">&lt;</span> <span class="mf">0.05</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="mi">3</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"True difference of 0.8 std: share with p &lt; 0.05 (power):"</span><span class="p">,</span> <span class="nb">round</span><span class="p">((</span><span class="n">p_real</span> <span class="o">&lt;</span> <span class="mf">0.05</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="mi">3</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">No true difference: share with p &lt; 0.05 (Type I rate): 0.045
+True difference of 0.8 std: share with p &lt; 0.05 (power): 0.869</pre></div></div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">3.4</span><span class="p">),</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">p_null</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">GREY</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"No real effect: p-values are uniform"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">p_real</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">BLUE</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Real effect: p-values pile up near 0"</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">ax</span><span class="p">:</span> <span class="n">a</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"p-value"</span><span class="p">);</span> <span class="n">a</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">AMBER</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Simulated experiments"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">"p08_pvals.png"</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">130</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">();</span> <span class="nb">print</span><span class="p">(</span><span class="s2">"saved p08_pvals.png"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">saved p08_pvals.png</pre></div></div>
+<div class="cell only-out"><div class="cell-out"><figure class="fig"><img src="img/part-08-022.png" alt="Chart output" loading="lazy"></figure></div></div>
+<p>When nothing is going on, about 5 percent of tests still come out 'significant' (amber line): that is alpha at work. With a real effect, most p-values are small. You can also plan the sample size needed for a given power.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">from</span><span class="w"> </span><span class="nn">statsmodels.stats.power</span><span class="w"> </span><span class="kn">import</span> <span class="n">TTestIndPower</span>
+<span class="n">need</span> <span class="o">=</span> <span class="n">TTestIndPower</span><span class="p">()</span><span class="o">.</span><span class="n">solve_power</span><span class="p">(</span><span class="n">effect_size</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">power</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"per-group n to detect a medium effect (d=0.5) with 80% power:"</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">need</span><span class="p">)))</span>
+</code></pre></div><div class="cell-out"><pre class="out">per-group n to detect a medium effect (d=0.5) with 80% power: 64</pre></div></div>
+<div class="callout mistake"><p><strong>Common mistake.</strong> A p-value is NOT the probability that H0 is true, and NOT the size of an effect. It only says how surprising the data would be if H0 were true.</p>
+</div>
+<h2 id="8-7-common-tests-t-tests-proportions-chi-square-anova-and-ra"><a class="anchor" href="#8-7-common-tests-t-tests-proportions-chi-square-anova-and-ra" aria-label="Link to this section">#</a>8.7 Common tests: t-tests, proportions, chi-square, ANOVA and rank tests</h2>
+
+<p>Every test in this section follows the four steps of Section 8.6. What changes is the question and the kind of data. All use <code>scipy.stats</code>. The penguin data (rows with missing values dropped) is our main example.</p>
+
+<h3 id="one-sample-t-test-is-the-mean-different-from-a-given-value"><a class="anchor" href="#one-sample-t-test-is-the-mean-different-from-a-given-value" aria-label="Link to this section">#</a>One-sample t-test: is the mean different from a given value?</h3>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">import</span><span class="w"> </span><span class="nn">os</span><span class="o">,</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span><span class="o">,</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">stats</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span><span class="o">,</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="n">PUB</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">"GUIDE_ROOT"</span><span class="p">])</span> <span class="o">/</span> <span class="s2">"datasets"</span> <span class="o">/</span> <span class="s2">"public"</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">load_public</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">PUB</span> <span class="o">/</span> <span class="n">name</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">p</span> <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span> <span class="k">else</span> <span class="n">url</span><span class="p">)</span>
+<span class="n">BLUE</span><span class="p">,</span> <span class="n">GREEN</span><span class="p">,</span> <span class="n">GREY</span><span class="p">,</span> <span class="n">DARK</span><span class="p">,</span> <span class="n">AMBER</span> <span class="o">=</span> <span class="s2">"#1F5FD6"</span><span class="p">,</span> <span class="s2">"#2BB38A"</span><span class="p">,</span> <span class="s2">"#9CA3AF"</span><span class="p">,</span> <span class="s2">"#0B2A4A"</span><span class="p">,</span> <span class="s2">"#B45309"</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_theme</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">"whitegrid"</span><span class="p">)</span>
+<span class="n">pen</span> <span class="o">=</span> <span class="n">load_public</span><span class="p">(</span><span class="s2">"penguins.csv"</span><span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+
+<span class="n">adelie</span> <span class="o">=</span> <span class="n">pen</span><span class="p">[</span><span class="n">pen</span><span class="p">[</span><span class="s2">"species"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"Adelie"</span><span class="p">]</span>
+<span class="n">t</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">ttest_1samp</span><span class="p">(</span><span class="n">adelie</span><span class="p">[</span><span class="s2">"body_mass_g"</span><span class="p">],</span> <span class="n">popmean</span><span class="o">=</span><span class="mi">3700</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Adelie mean mass:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">adelie</span><span class="p">[</span><span class="s2">"body_mass_g"</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="mi">1</span><span class="p">),</span> <span class="s2">"| t:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="s2">"| p:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">Adelie mean mass: 3706.2 | t: 0.16 | p: 0.8712</pre></div></div>
+<p>H0: the true mean is 3,700 g (an arbitrary reference value). The sample mean is almost exactly 3,700 g and p is large, so we fail to reject H0: the data is consistent with 3,700 g.</p>
+
+<h3 id="two-sample-t-test-welch-do-two-groups-differ"><a class="anchor" href="#two-sample-t-test-welch-do-two-groups-differ" aria-label="Link to this section">#</a>Two-sample t-test (Welch): do two groups differ?</h3>
+
+<p><strong>Welch's t-test</strong> compares the means of two independent groups and does not assume equal spread, so it is the safe default (<code>equal_var=False</code>).</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">f</span> <span class="o">=</span> <span class="n">adelie</span><span class="p">[</span><span class="n">adelie</span><span class="p">[</span><span class="s2">"sex"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"FEMALE"</span><span class="p">][</span><span class="s2">"body_mass_g"</span><span class="p">]</span>
+<span class="n">mm</span> <span class="o">=</span> <span class="n">adelie</span><span class="p">[</span><span class="n">adelie</span><span class="p">[</span><span class="s2">"sex"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"MALE"</span><span class="p">][</span><span class="s2">"body_mass_g"</span><span class="p">]</span>
+<span class="n">t</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">ttest_ind</span><span class="p">(</span><span class="n">mm</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">equal_var</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"male mean:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">mm</span><span class="o">.</span><span class="n">mean</span><span class="p">()),</span> <span class="s2">"| female mean:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">mean</span><span class="p">()),</span> <span class="s2">"| t:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="s2">"| p:"</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">male mean: 4043 | female mean: 3369 | t: 13.13 | p: 6.402319748031804e-26</pre></div></div>
+<h3 id="paired-t-test-the-same-unit-measured-twice"><a class="anchor" href="#paired-t-test-the-same-unit-measured-twice" aria-label="Link to this section">#</a>Paired t-test: the same unit measured twice</h3>
+
+<p>When each row is measured twice (before and after, or two years for the same country), test the <strong>differences</strong>. Here: inflation in 2021 versus 2022 for the same countries (World Bank data, rows with both years).</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">inf</span> <span class="o">=</span> <span class="n">load_public</span><span class="p">(</span><span class="s2">"inflation_consumer.csv"</span><span class="p">)</span>
+<span class="n">w</span> <span class="o">=</span> <span class="n">inf</span><span class="p">[</span><span class="n">inf</span><span class="p">[</span><span class="s2">"Year"</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="mi">2021</span><span class="p">,</span> <span class="mi">2022</span><span class="p">])]</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s2">"Country"</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s2">"Year"</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s2">"Inflation"</span><span class="p">)</span>
+<span class="n">w</span> <span class="o">=</span> <span class="n">w</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+<span class="n">w</span> <span class="o">=</span> <span class="n">w</span><span class="p">[(</span><span class="n">w</span> <span class="o">&lt;</span> <span class="mi">60</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)]</span>
+<span class="n">t</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">ttest_rel</span><span class="p">(</span><span class="n">w</span><span class="p">[</span><span class="mi">2022</span><span class="p">],</span> <span class="n">w</span><span class="p">[</span><span class="mi">2021</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"countries:"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">w</span><span class="p">),</span> <span class="s2">"| mean 2021:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">w</span><span class="p">[</span><span class="mi">2021</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="mi">2</span><span class="p">),</span> <span class="s2">"| mean 2022:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">w</span><span class="p">[</span><span class="mi">2022</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="mi">2</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"paired t:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="s2">"| p:"</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">countries: 245 | mean 2021: 6.88 | mean 2022: 9.16
+paired t: 5.27 | p: 3.0724500822227304e-07</pre></div></div>
+<p>Between 2021 and 2022 the average inflation rose and the p-value is tiny, so the rise is unlikely to be chance. (Countries share global shocks, so treat this as a teaching example, not a full economic analysis.)</p>
+
+<h3 id="proportion-z-test-and-chi-square-test"><a class="anchor" href="#proportion-z-test-and-chi-square-test" aria-label="Link to this section">#</a>Proportion z-test and chi-square test</h3>
+
+<p>For yes/no outcomes, compare a proportion with a target using a <strong>z-test</strong>. For two categorical columns, the <strong>chi-square test of independence</strong> asks whether they are related by comparing observed counts with the counts expected if they were independent.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">from</span><span class="w"> </span><span class="nn">statsmodels.stats.proportion</span><span class="w"> </span><span class="kn">import</span> <span class="n">proportions_ztest</span>
+<span class="n">males</span> <span class="o">=</span> <span class="p">(</span><span class="n">adelie</span><span class="p">[</span><span class="s2">"sex"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"MALE"</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="n">z</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">proportions_ztest</span><span class="p">(</span><span class="n">males</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">adelie</span><span class="p">),</span> <span class="n">value</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"male share among Adelie:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">males</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">adelie</span><span class="p">),</span> <span class="mi">3</span><span class="p">),</span> <span class="s2">"| z:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="s2">"| p:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">tab</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">crosstab</span><span class="p">(</span><span class="n">pen</span><span class="p">[</span><span class="s2">"species"</span><span class="p">],</span> <span class="n">pen</span><span class="p">[</span><span class="s2">"island"</span><span class="p">])</span>
+<span class="n">chi2</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">dof</span><span class="p">,</span> <span class="n">expected</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">chi2_contingency</span><span class="p">(</span><span class="n">tab</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">tab</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"chi2:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">chi2</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="s2">"| dof:"</span><span class="p">,</span> <span class="n">dof</span><span class="p">,</span> <span class="s2">"| p:"</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">male share among Adelie: 0.5 | z: 0.0 | p: 1.0
+island     Biscoe  Dream  Torgersen
+species                            
+Adelie         44     55         47
+Chinstrap       0     68          0
+Gentoo        119      0          0
+chi2: 284.6 | dof: 4 | p: 2.2818915409873682e-60</pre></div></div>
+<p>The male share is exactly one half and p is 1, so there is no evidence of an unbalanced sex ratio. Species and island are strongly related: the p-value is essentially zero. Chi-square needs counts, not percentages.</p>
+
+<h3 id="one-way-anova-three-or-more-group-means"><a class="anchor" href="#one-way-anova-three-or-more-group-means" aria-label="Link to this section">#</a>One-way ANOVA: three or more group means</h3>
+
+<p>Running many t-tests inflates false alarms (Section 8.11). <strong>One-way ANOVA</strong> tests all group means at once. H0: all group means are equal. A small p says at least one group differs; <strong>Tukey's test</strong> shows which.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">groups</span> <span class="o">=</span> <span class="p">[</span><span class="n">g</span><span class="p">[</span><span class="s2">"body_mass_g"</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span> <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">pen</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"species"</span><span class="p">)]</span>
+<span class="n">F</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">f_oneway</span><span class="p">(</span><span class="o">*</span><span class="n">groups</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"F:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">F</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="s2">"| p:"</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">statsmodels.stats.multicomp</span><span class="w"> </span><span class="kn">import</span> <span class="n">pairwise_tukeyhsd</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pairwise_tukeyhsd</span><span class="p">(</span><span class="n">pen</span><span class="p">[</span><span class="s2">"body_mass_g"</span><span class="p">],</span> <span class="n">pen</span><span class="p">[</span><span class="s2">"species"</span><span class="p">])</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
+</code></pre></div><div class="cell-out"><pre class="out">F: 341.9 | p: 3.74450512630046e-81
+      Multiple Comparison of Means - Tukey HSD, FWER=0.05      
+===============================================================
+  group1    group2   meandiff p-adj    lower     upper   reject
+---------------------------------------------------------------
+   Adelie Chinstrap   26.9239 0.9164 -132.3528  186.2005  False
+   Adelie    Gentoo 1386.2726    0.0 1252.2897 1520.2554   True
+Chinstrap    Gentoo 1359.3487    0.0 1194.4304 1524.2671   True
+---------------------------------------------------------------</pre></div></div>
+<h3 id="non-parametric-rank-tests"><a class="anchor" href="#non-parametric-rank-tests" aria-label="Link to this section">#</a>Non-parametric (rank) tests</h3>
+
+<p><strong>Non-parametric tests</strong> work on ranks, so they do not need normal data and are safer for skewed values or small samples. <strong>Mann-Whitney U</strong> replaces the two-sample t-test, <strong>Wilcoxon signed-rank</strong> replaces the paired t-test, and <strong>Kruskal-Wallis</strong> replaces one-way ANOVA. We use the disease-progression score from the scikit-learn diabetes data (442 patients, BSD licence), which is skewed.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_diabetes</span>
+<span class="n">db</span> <span class="o">=</span> <span class="n">load_diabetes</span><span class="p">(</span><span class="n">as_frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">frame</span>
+<span class="n">db</span><span class="p">[</span><span class="s2">"bmi_group"</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">qcut</span><span class="p">(</span><span class="n">db</span><span class="p">[</span><span class="s2">"bmi"</span><span class="p">],</span> <span class="mi">4</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s2">"Q1"</span><span class="p">,</span> <span class="s2">"Q2"</span><span class="p">,</span> <span class="s2">"Q3"</span><span class="p">,</span> <span class="s2">"Q4"</span><span class="p">])</span>
+<span class="n">lo</span><span class="p">,</span> <span class="n">hi</span> <span class="o">=</span> <span class="n">db</span><span class="p">[</span><span class="n">db</span><span class="p">[</span><span class="s2">"bmi_group"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"Q1"</span><span class="p">][</span><span class="s2">"target"</span><span class="p">],</span> <span class="n">db</span><span class="p">[</span><span class="n">db</span><span class="p">[</span><span class="s2">"bmi_group"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"Q4"</span><span class="p">][</span><span class="s2">"target"</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"skew of target:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">db</span><span class="p">[</span><span class="s2">"target"</span><span class="p">]</span><span class="o">.</span><span class="n">skew</span><span class="p">(),</span> <span class="mi">2</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Mann-Whitney Q1 vs Q4: p ="</span><span class="p">,</span> <span class="n">stats</span><span class="o">.</span><span class="n">mannwhitneyu</span><span class="p">(</span><span class="n">lo</span><span class="p">,</span> <span class="n">hi</span><span class="p">)</span><span class="o">.</span><span class="n">pvalue</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Wilcoxon 2022 vs 2021 inflation: p ="</span><span class="p">,</span> <span class="n">stats</span><span class="o">.</span><span class="n">wilcoxon</span><span class="p">(</span><span class="n">w</span><span class="p">[</span><span class="mi">2022</span><span class="p">],</span> <span class="n">w</span><span class="p">[</span><span class="mi">2021</span><span class="p">])</span><span class="o">.</span><span class="n">pvalue</span><span class="p">)</span>
+<span class="n">parts</span> <span class="o">=</span> <span class="p">[</span><span class="n">g</span><span class="p">[</span><span class="s2">"target"</span><span class="p">]</span> <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">db</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"bmi_group"</span><span class="p">,</span> <span class="n">observed</span><span class="o">=</span><span class="kc">True</span><span class="p">)]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Kruskal-Wallis over 4 groups: p ="</span><span class="p">,</span> <span class="n">stats</span><span class="o">.</span><span class="n">kruskal</span><span class="p">(</span><span class="o">*</span><span class="n">parts</span><span class="p">)</span><span class="o">.</span><span class="n">pvalue</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">skew of target: 0.44
+Mann-Whitney Q1 vs Q4: p = 6.027712687449665e-22
+Wilcoxon 2022 vs 2021 inflation: p = 2.2315425418271153e-17
+Kruskal-Wallis over 4 groups: p = 1.0045117013579968e-26</pre></div></div>
+<div class="callout mistake"><p><strong>Common mistake.</strong> A p-value only answers 'is there an effect?'. It does not say whether the effect is big enough to matter. That comes next. Also, a non-significant result does not prove there is no difference.</p>
+</div>
+<h2 id="8-8-effect-size-correlation-and-causation"><a class="anchor" href="#8-8-effect-size-correlation-and-causation" aria-label="Link to this section">#</a>8.8 Effect size, correlation and causation</h2>
+
+<p>With enough data, even a tiny difference gives a small p-value. <strong>Effect size</strong> measures how big the difference is. <strong>Cohen's d</strong> is the difference in means divided by the pooled standard deviation. Rough guide: 0.2 small, 0.5 medium, 0.8 large.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="k">def</span><span class="w"> </span><span class="nf">cohens_d</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+    <span class="n">sp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(((</span><span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">a</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">b</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">-</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">-</span> <span class="n">b</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="o">/</span> <span class="n">sp</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Adelie male vs female mass, d ="</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">cohens_d</span><span class="p">(</span><span class="n">mm</span><span class="p">,</span> <span class="n">f</span><span class="p">),</span> <span class="mi">2</span><span class="p">))</span>
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">200000</span><span class="p">),</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mf">100.5</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">200000</span><span class="p">)</span>   <span class="c1"># synthetic: a tiny real gap</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"huge sample, tiny gap: p ="</span><span class="p">,</span> <span class="n">stats</span><span class="o">.</span><span class="n">ttest_ind</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span><span class="o">.</span><span class="n">pvalue</span><span class="p">,</span> <span class="s2">"| d ="</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">cohens_d</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="p">),</span> <span class="mi">3</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">Adelie male vs female mass, d = 2.17
+huge sample, tiny gap: p = 9.675237198299387e-29 | d = 0.035</pre></div></div>
+<p>The second pair is <strong>statistically significant</strong> but practically trivial: the groups differ by half a point on a scale where people vary by 15 (d is about 0.03). Always report the size and a confidence interval, not only the p-value.</p>
+
+<p><strong>Correlation</strong> measures how two numeric columns move together, from -1 to +1. <strong>Pearson's r</strong> measures straight-line relationships; <strong>Spearman's rho</strong> uses ranks, so it also captures steady curved relationships and resists outliers.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">r</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">pearsonr</span><span class="p">(</span><span class="n">pen</span><span class="p">[</span><span class="s2">"flipper_length_mm"</span><span class="p">],</span> <span class="n">pen</span><span class="p">[</span><span class="s2">"body_mass_g"</span><span class="p">])</span>
+<span class="n">rho</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">spearmanr</span><span class="p">(</span><span class="n">pen</span><span class="p">[</span><span class="s2">"flipper_length_mm"</span><span class="p">],</span> <span class="n">pen</span><span class="p">[</span><span class="s2">"body_mass_g"</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"flipper vs mass: Pearson r ="</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="s2">"| Spearman rho ="</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">);</span> <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">x</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>          <span class="c1"># steady but curved</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"curved but steady: Pearson"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">stats</span><span class="o">.</span><span class="n">pearsonr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">3</span><span class="p">),</span> <span class="s2">"| Spearman"</span><span class="p">,</span> <span class="n">stats</span><span class="o">.</span><span class="n">spearmanr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+</code></pre></div><div class="cell-out"><pre class="out">flipper vs mass: Pearson r = 0.873 | Spearman rho = 0.84
+curved but steady: Pearson 0.865 | Spearman 0.9999999999999999</pre></div></div>
+<p><strong>Correlation is not causation.</strong> A third variable (a <strong>confounder</strong>) can create or even reverse a pattern. Across all penguins, longer bills go with <em>shallower</em> bills. Inside each species the link flips.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="nb">print</span><span class="p">(</span><span class="s2">"all penguins: r ="</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">pen</span><span class="p">[</span><span class="s2">"bill_length_mm"</span><span class="p">]</span><span class="o">.</span><span class="n">corr</span><span class="p">(</span><span class="n">pen</span><span class="p">[</span><span class="s2">"bill_depth_mm"</span><span class="p">]),</span> <span class="mi">2</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pen</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"species"</span><span class="p">)[[</span><span class="s2">"bill_length_mm"</span><span class="p">,</span> <span class="s2">"bill_depth_mm"</span><span class="p">]]</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span><span class="o">.</span><span class="n">xs</span><span class="p">(</span><span class="s2">"bill_length_mm"</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+      <span class="p">[</span><span class="s2">"bill_depth_mm"</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+</code></pre></div><div class="cell-out"><pre class="out">all penguins: r = -0.23
+species
+Adelie       0.39
+Chinstrap    0.65
+Gentoo       0.65</pre></div></div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">sp</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">([</span><span class="s2">"Adelie"</span><span class="p">,</span> <span class="s2">"Chinstrap"</span><span class="p">,</span> <span class="s2">"Gentoo"</span><span class="p">],</span> <span class="p">[</span><span class="n">BLUE</span><span class="p">,</span> <span class="n">GREEN</span><span class="p">,</span> <span class="n">AMBER</span><span class="p">]):</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">pen</span><span class="p">[</span><span class="n">pen</span><span class="p">[</span><span class="s2">"species"</span><span class="p">]</span> <span class="o">==</span> <span class="n">sp</span><span class="p">]</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s2">"bill_length_mm"</span><span class="p">],</span> <span class="n">d</span><span class="p">[</span><span class="s2">"bill_depth_mm"</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">c</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">sp</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Bill length vs depth: the trend reverses within each species"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"Bill length (mm)"</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Bill depth (mm)"</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">"p08_simpson.png"</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">130</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">();</span> <span class="nb">print</span><span class="p">(</span><span class="s2">"saved p08_simpson.png"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">saved p08_simpson.png</pre></div></div>
+<div class="cell only-out"><div class="cell-out"><figure class="fig"><img src="img/part-08-023.png" alt="Chart output" loading="lazy"></figure></div></div>
+<p>Each species forms its own upward-sloping cloud, but the clouds are stacked in a downward staircase. Species is the confounder. This is <strong>Simpson's paradox</strong>. Only a randomised experiment (Section 8.9) can establish cause and effect reliably.</p>
+
+<h2 id="8-9-a-b-testing-end-to-end-with-bootstrap-and-permutation-te"><a class="anchor" href="#8-9-a-b-testing-end-to-end-with-bootstrap-and-permutation-te" aria-label="Link to this section">#</a>8.9 A/B testing end to end, with bootstrap and permutation tests</h2>
+
+<p>An <strong>A/B test</strong> is a randomised experiment: users are randomly assigned to version A (control) or B (new), and you compare an outcome. Randomisation removes confounders. Scenario (all data below is synthetic): a lending app tests a new 'Apply now' screen. The outcome is whether the user completes an application.</p>
+
+<h3 id="step-1-plan-the-sample-size"><a class="anchor" href="#step-1-plan-the-sample-size" aria-label="Link to this section">#</a>Step 1: plan the sample size</h3>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">from</span><span class="w"> </span><span class="nn">statsmodels.stats.power</span><span class="w"> </span><span class="kn">import</span> <span class="n">NormalIndPower</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">statsmodels.stats.proportion</span><span class="w"> </span><span class="kn">import</span> <span class="n">proportion_effectsize</span>
+<span class="n">es</span> <span class="o">=</span> <span class="n">proportion_effectsize</span><span class="p">(</span><span class="mf">0.12</span><span class="p">,</span> <span class="mf">0.14</span><span class="p">)</span>            <span class="c1"># baseline 12 percent, hoping for 14 percent</span>
+<span class="n">n</span> <span class="o">=</span> <span class="n">NormalIndPower</span><span class="p">()</span><span class="o">.</span><span class="n">solve_power</span><span class="p">(</span><span class="n">es</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">power</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"users needed per group:"</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">n</span><span class="p">)))</span>
+</code></pre></div><div class="cell-out"><pre class="out">users needed per group: 4433</pre></div></div>
+<h3 id="step-2-run-the-test-and-analyse"><a class="anchor" href="#step-2-run-the-test-and-analyse" aria-label="Link to this section">#</a>Step 2: run the test and analyse</h3>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">from</span><span class="w"> </span><span class="nn">statsmodels.stats.proportion</span><span class="w"> </span><span class="kn">import</span> <span class="n">proportions_ztest</span><span class="p">,</span> <span class="n">confint_proportions_2indep</span>
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">21</span><span class="p">)</span>
+<span class="n">nA</span> <span class="o">=</span> <span class="n">nB</span> <span class="o">=</span> <span class="mi">4500</span>
+<span class="n">convA</span><span class="p">,</span> <span class="n">convB</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">binomial</span><span class="p">(</span><span class="n">nA</span><span class="p">,</span> <span class="mf">0.12</span><span class="p">),</span> <span class="n">rng</span><span class="o">.</span><span class="n">binomial</span><span class="p">(</span><span class="n">nB</span><span class="p">,</span> <span class="mf">0.14</span><span class="p">)</span>     <span class="c1"># synthetic outcomes</span>
+<span class="n">z</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">proportions_ztest</span><span class="p">([</span><span class="n">convB</span><span class="p">,</span> <span class="n">convA</span><span class="p">],</span> <span class="p">[</span><span class="n">nB</span><span class="p">,</span> <span class="n">nA</span><span class="p">])</span>
+<span class="n">lo</span><span class="p">,</span> <span class="n">hi</span> <span class="o">=</span> <span class="n">confint_proportions_2indep</span><span class="p">(</span><span class="n">convB</span><span class="p">,</span> <span class="n">nB</span><span class="p">,</span> <span class="n">convA</span><span class="p">,</span> <span class="n">nA</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"A: </span><span class="si">{</span><span class="n">convA</span><span class="o">/</span><span class="n">nA</span><span class="si">:</span><span class="s2">.3%</span><span class="si">}</span><span class="s2"> | B: </span><span class="si">{</span><span class="n">convB</span><span class="o">/</span><span class="n">nB</span><span class="si">:</span><span class="s2">.3%</span><span class="si">}</span><span class="s2"> | lift: </span><span class="si">{</span><span class="p">(</span><span class="n">convB</span><span class="o">/</span><span class="n">nB</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">convA</span><span class="o">/</span><span class="n">nA</span><span class="p">)</span><span class="si">:</span><span class="s2">.3%</span><span class="si">}</span><span class="s2"> points"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"z = </span><span class="si">{</span><span class="n">z</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> | p = </span><span class="si">{</span><span class="n">p</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> | 95% CI of difference: </span><span class="si">{</span><span class="n">lo</span><span class="si">:</span><span class="s2">.3%</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">hi</span><span class="si">:</span><span class="s2">.3%</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">A: 11.689% | B: 12.956% | lift: 1.267% points
+z = 1.83 | p = 0.0676 | 95% CI of difference: -0.092% to 2.626%</pre></div></div>
+<p>Here B converts a little better, but p is above 0.05 and the interval includes zero, so this test has not proven a lift. Decide with three things together: is p below alpha, is the interval away from zero, and is the lift big enough to be worth the cost of shipping? Do not stop the test early when the p-value first dips below 0.05: that 'peeking' raises the false alarm rate. Fix the sample size in advance.</p>
+
+<h3 id="bootstrap-and-permutation-tests"><a class="anchor" href="#bootstrap-and-permutation-tests" aria-label="Link to this section">#</a>Bootstrap and permutation tests</h3>
+
+<p>Sometimes the usual formulas do not fit, for example for the mean of skewed revenue per user. Two simulation tricks need almost no assumptions. The <strong>bootstrap</strong> resamples your data <em>with replacement</em> many times to see how a statistic varies, which gives a confidence interval. A <strong>permutation test</strong> shuffles the group labels to see what differences arise by chance when labels mean nothing.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">revA</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">lognormal</span><span class="p">(</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mi">400</span><span class="p">)</span>        <span class="c1"># synthetic revenue per user (Ksh), skewed</span>
+<span class="n">revB</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">lognormal</span><span class="p">(</span><span class="mf">3.15</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mi">400</span><span class="p">)</span>
+<span class="n">obs</span> <span class="o">=</span> <span class="n">revB</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">-</span> <span class="n">revA</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">boot</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">revB</span><span class="p">,</span> <span class="mi">400</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">-</span> <span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">revA</span><span class="p">,</span> <span class="mi">400</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5000</span><span class="p">)])</span>
+<span class="n">allv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">revA</span><span class="p">,</span> <span class="n">revB</span><span class="p">])</span>
+<span class="n">perm</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5000</span><span class="p">):</span>
+    <span class="n">rng</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">allv</span><span class="p">)</span>
+    <span class="n">perm</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">allv</span><span class="p">[</span><span class="mi">400</span><span class="p">:]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">-</span> <span class="n">allv</span><span class="p">[:</span><span class="mi">400</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+<span class="n">perm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">perm</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"observed difference (Ksh):"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">obs</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"bootstrap 95% CI:"</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">boot</span><span class="p">,</span> <span class="p">[</span><span class="mf">2.5</span><span class="p">,</span> <span class="mf">97.5</span><span class="p">]),</span> <span class="mi">1</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"permutation p-value:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">perm</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">obs</span><span class="p">))</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="mi">4</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">observed difference (Ksh): 6.2
+bootstrap 95% CI: [-0.5 13.4]
+permutation p-value: 0.0778</pre></div></div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">3.6</span><span class="p">))</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">boot</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">BLUE</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">AMBER</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Bootstrap: difference in mean revenue"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"B minus A (Ksh)"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Resamples"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">perm</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">GREY</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">obs</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">AMBER</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"observed"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Permutation: differences by chance alone"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"B minus A (Ksh)"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Shuffles"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">"p08_boot.png"</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">130</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">();</span> <span class="nb">print</span><span class="p">(</span><span class="s2">"saved p08_boot.png"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">saved p08_boot.png</pre></div></div>
+<div class="cell only-out"><div class="cell-out"><figure class="fig"><img src="img/part-08-024.png" alt="Chart output" loading="lazy"></figure></div></div>
+<p>The bootstrap histogram shows plausible values of the true difference; the permutation histogram shows what chance alone produces. The observed value (amber) is compared with that chance distribution to give the p-value. Here the bootstrap interval includes zero and the permutation p is above 0.05, so the data does not show a clear revenue gain.</p>
+
+<h2 id="8-10-advanced-regression-inference-with-statsmodels"><a class="anchor" href="#8-10-advanced-regression-inference-with-statsmodels" aria-label="Link to this section">#</a>8.10 (Advanced) Regression inference with statsmodels</h2>
+
+<p><strong>Linear regression</strong> models an outcome as a straight-line function of one or more predictors. In statistics we care not only about predictions but about inference: how large is each <strong>coefficient</strong>, how uncertain is it (<strong>standard error</strong>), and could it be zero (<strong>p-value</strong>)? <strong>R-squared</strong> is the share of variation explained. Data: scikit-learn diabetes (442 patients; features are already centred and scaled; target is disease progression after one year). Model building for prediction is in Part 10.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">import</span><span class="w"> </span><span class="nn">statsmodels.api</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sm</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_diabetes</span>
+<span class="n">db</span> <span class="o">=</span> <span class="n">load_diabetes</span><span class="p">(</span><span class="n">as_frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">frame</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">db</span><span class="p">[[</span><span class="s2">"bmi"</span><span class="p">]])</span>
+<span class="n">m1</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">OLS</span><span class="p">(</span><span class="n">db</span><span class="p">[</span><span class="s2">"target"</span><span class="p">],</span> <span class="n">X</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">m1</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(),</span> <span class="s2">"| R2:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">m1</span><span class="o">.</span><span class="n">rsquared</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"bmi: SE"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">m1</span><span class="o">.</span><span class="n">bse</span><span class="p">[</span><span class="s2">"bmi"</span><span class="p">],</span> <span class="mi">1</span><span class="p">),</span> <span class="s2">"| p"</span><span class="p">,</span> <span class="n">m1</span><span class="o">.</span><span class="n">pvalues</span><span class="p">[</span><span class="s2">"bmi"</span><span class="p">])</span>
+</code></pre></div><div class="cell-out"><pre class="out">{&#x27;const&#x27;: 152.1, &#x27;bmi&#x27;: 949.4} | R2: 0.344
+bmi: SE 62.5 | p 3.466006445167444e-42</pre></div></div>
+<p>The bmi coefficient says how much the progression score changes for a one-unit change in the scaled bmi, with the other variables not considered. Now add more predictors: blood pressure (<code>bp</code>) and a serum measure (<code>s5</code>).</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">X2</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">db</span><span class="p">[[</span><span class="s2">"bmi"</span><span class="p">,</span> <span class="s2">"bp"</span><span class="p">,</span> <span class="s2">"s5"</span><span class="p">]])</span>
+<span class="n">m2</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">OLS</span><span class="p">(</span><span class="n">db</span><span class="p">[</span><span class="s2">"target"</span><span class="p">],</span> <span class="n">X2</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="n">out</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">m2</span><span class="o">.</span><span class="n">params</span><span class="p">,</span> <span class="n">m2</span><span class="o">.</span><span class="n">bse</span><span class="p">,</span> <span class="n">m2</span><span class="o">.</span><span class="n">pvalues</span><span class="p">,</span> <span class="n">m2</span><span class="o">.</span><span class="n">conf_int</span><span class="p">()],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">out</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"coef"</span><span class="p">,</span> <span class="s2">"std err"</span><span class="p">,</span> <span class="s2">"p-value"</span><span class="p">,</span> <span class="s2">"ci low"</span><span class="p">,</span> <span class="s2">"ci high"</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">out</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"R2:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">m2</span><span class="o">.</span><span class="n">rsquared</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="s2">"| adjusted R2:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">m2</span><span class="o">.</span><span class="n">rsquared_adj</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="s2">"| n:"</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">m2</span><span class="o">.</span><span class="n">nobs</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">          coef  std err  p-value   ci low  ci high
+const  152.133    2.653      0.0  146.919  157.348
+bmi    603.078   64.677      0.0  475.962  730.194
+bp     262.272   62.962      0.0  138.527  386.017
+s5     543.871   64.619      0.0  416.870  670.873
+R2: 0.48 | adjusted R2: 0.477 | n: 442</pre></div></div>
+<p>Read each row as: 'holding the other predictors fixed, a one-unit rise in this variable goes with a change of <code>coef</code> in the target, 95 percent CI from <code>ci low</code> to <code>ci high</code>.' A p-value shown as 0.0 means below 0.0005. Adjusted R-squared penalises useless predictors. This describes association, not cause.</p>
+
+<p>The p-values are only trustworthy if the model's assumptions hold: a straight-line relationship, residuals (errors) with a constant spread and roughly normal shape, and independent observations. Check the residuals.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">from</span><span class="w"> </span><span class="nn">statsmodels.stats.diagnostic</span><span class="w"> </span><span class="kn">import</span> <span class="n">het_breuschpagan</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">3.6</span><span class="p">))</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">m2</span><span class="o">.</span><span class="n">fittedvalues</span><span class="p">,</span> <span class="n">m2</span><span class="o">.</span><span class="n">resid</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">BLUE</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">AMBER</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Residuals vs fitted values"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"Fitted progression score"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Residual"</span><span class="p">)</span>
+<span class="n">sm</span><span class="o">.</span><span class="n">qqplot</span><span class="p">(</span><span class="n">m2</span><span class="o">.</span><span class="n">resid</span><span class="p">,</span> <span class="n">line</span><span class="o">=</span><span class="s2">"s"</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">markerfacecolor</span><span class="o">=</span><span class="n">BLUE</span><span class="p">,</span> <span class="n">markeredgecolor</span><span class="o">=</span><span class="n">BLUE</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Normal Q-Q plot of residuals"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"Theoretical quantiles"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Sample quantiles"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">"p08_resid.png"</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">130</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">();</span> <span class="nb">print</span><span class="p">(</span><span class="s2">"saved p08_resid.png"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Breusch-Pagan p (small = unequal spread):"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">het_breuschpagan</span><span class="p">(</span><span class="n">m2</span><span class="o">.</span><span class="n">resid</span><span class="p">,</span> <span class="n">X2</span><span class="p">)[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">3</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">saved p08_resid.png
+Breusch-Pagan p (small = unequal spread): 0.059</pre></div></div>
+<div class="cell only-out"><div class="cell-out"><figure class="fig"><img src="img/part-08-025.png" alt="Chart output" loading="lazy"></figure></div></div>
+<p>Residuals should look like a shapeless cloud around zero, and the Q-Q points should hug the line. Curves, funnels or heavy tails mean the standard errors may be off; consider a transformation or a different model.</p>
+
+<div class="callout mistake"><p><strong>Common mistake.</strong> A high R-squared does not mean the model is correct, and a tiny coefficient p-value does not mean the variable causes the outcome. Also watch for predictors that are strongly correlated with each other: their individual coefficients become unstable.</p>
+</div>
+<h2 id="8-11-advanced-bayesian-thinking-and-the-multiple-testing-tra"><a class="anchor" href="#8-11-advanced-bayesian-thinking-and-the-multiple-testing-tra" aria-label="Link to this section">#</a>8.11 (Advanced) Bayesian thinking and the multiple testing trap</h2>
+
+<p><strong>Bayesian statistics</strong> treats the unknown quantity (such as a conversion rate) as having a probability distribution that you update as data arrives: <strong>prior</strong> belief + data = <strong>posterior</strong> belief. For a success rate the <strong>Beta distribution</strong> works neatly: start with Beta(a, b), observe s successes and f failures, and the posterior is Beta(a + s, b + f). Using the A/B counts from Section 8.9:</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">postA</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">beta</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">convA</span><span class="p">,</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">nA</span> <span class="o">-</span> <span class="n">convA</span><span class="p">)</span>       <span class="c1"># Beta(1,1) = flat prior</span>
+<span class="n">postB</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">beta</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">convB</span><span class="p">,</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">nB</span> <span class="o">-</span> <span class="n">convB</span><span class="p">)</span>
+<span class="n">sa</span><span class="p">,</span> <span class="n">sb</span> <span class="o">=</span> <span class="n">postA</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="mi">100000</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">rng</span><span class="p">),</span> <span class="n">postB</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="mi">100000</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">rng</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"posterior mean A:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">postA</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="mi">4</span><span class="p">),</span> <span class="s2">"| B:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">postB</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="mi">4</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"95</span><span class="si">% c</span><span class="s2">redible interval for B:"</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">postB</span><span class="o">.</span><span class="n">interval</span><span class="p">(</span><span class="mf">0.95</span><span class="p">),</span> <span class="mi">4</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"probability B is truly better than A:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">((</span><span class="n">sb</span> <span class="o">&gt;</span> <span class="n">sa</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="mi">3</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">posterior mean A: 0.1171 | B: 0.1297
+95% credible interval for B: [0.1201 0.1397]
+probability B is truly better than A: 0.967</pre></div></div>
+<p>Where the z-test said 'not proven', the Bayesian view says B is probably better, but with real uncertainty about how much. The two views answer different questions. The last line is a direct, plain answer ('how likely is B better?') that a p-value cannot give. A <strong>credible interval</strong> is read the way people wrongly read a confidence interval: the parameter lies inside it with 95 percent probability, given the model and prior.</p>
+
+<h3 id="the-multiple-testing-trap"><a class="anchor" href="#the-multiple-testing-trap" aria-label="Link to this section">#</a>The multiple testing trap</h3>
+
+<p>Each test at alpha = 0.05 has a 5 percent false alarm chance. Run 20 tests on pure noise and you expect about one 'discovery'. Corrections raise the bar. <strong>Bonferroni</strong> is simple and strict; <strong>Benjamini-Hochberg</strong> controls the share of false discoveries and is more powerful.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">from</span><span class="w"> </span><span class="nn">statsmodels.stats.multitest</span><span class="w"> </span><span class="kn">import</span> <span class="n">multipletests</span>
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">99</span><span class="p">)</span>
+<span class="n">pvals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">stats</span><span class="o">.</span><span class="n">ttest_ind</span><span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">40</span><span class="p">),</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">40</span><span class="p">))</span><span class="o">.</span><span class="n">pvalue</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">40</span><span class="p">)])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"tests on pure noise:"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">pvals</span><span class="p">),</span> <span class="s2">"| 'significant' at 0.05:"</span><span class="p">,</span> <span class="nb">int</span><span class="p">((</span><span class="n">pvals</span> <span class="o">&lt;</span> <span class="mf">0.05</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()))</span>
+<span class="k">for</span> <span class="n">method</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"bonferroni"</span><span class="p">,</span> <span class="s2">"fdr_bh"</span><span class="p">]:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="s2">"-&gt;"</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">multipletests</span><span class="p">(</span><span class="n">pvals</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()),</span> <span class="s2">"significant"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">tests on pure noise: 40 | &#x27;significant&#x27; at 0.05: 5
+bonferroni -&gt; 0 significant
+fdr_bh -&gt; 0 significant</pre></div></div>
+<div class="callout mistake"><p><strong>Common mistake.</strong> Testing many metrics, segments or variables and reporting only the 'significant' ones is called p-hacking. Decide your questions before you look, and correct for the number of tests you ran.</p>
+</div>
+<h2 id="8-12-which-test-should-i-use"><a class="anchor" href="#8-12-which-test-should-i-use" aria-label="Link to this section">#</a>8.12 Which test should I use?</h2>
+
+<p>Ask three questions: what is the outcome type, how many groups, and are the groups independent or paired? If the numeric data is very skewed or the sample small, use the rank-based alternative.</p>
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Question</th>
+<th>Data</th>
+<th>Standard test</th>
+<th>Rank-based alternative</th>
+<th>scipy function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>One mean vs a value</td>
+<td>numeric</td>
+<td>one-sample t</td>
+<td>Wilcoxon signed-rank</td>
+<td>ttest_1samp</td>
+</tr>
+<tr>
+<td>Two independent groups</td>
+<td>numeric</td>
+<td>Welch two-sample t</td>
+<td>Mann-Whitney U</td>
+<td>ttest_ind, mannwhitneyu</td>
+</tr>
+<tr>
+<td>Same units twice</td>
+<td>numeric</td>
+<td>paired t</td>
+<td>Wilcoxon signed-rank</td>
+<td>ttest_rel, wilcoxon</td>
+</tr>
+<tr>
+<td>Three or more groups</td>
+<td>numeric</td>
+<td>one-way ANOVA</td>
+<td>Kruskal-Wallis</td>
+<td>f_oneway, kruskal</td>
+</tr>
+<tr>
+<td>One proportion vs a target</td>
+<td>yes/no</td>
+<td>proportion z-test</td>
+<td>exact binomial test</td>
+<td>proportions_ztest</td>
+</tr>
+<tr>
+<td>Two proportions (A/B)</td>
+<td>yes/no</td>
+<td>two-proportion z-test</td>
+<td>Fisher exact</td>
+<td>proportions_ztest</td>
+</tr>
+<tr>
+<td>Two categorical columns</td>
+<td>counts</td>
+<td>chi-square independence</td>
+<td>Fisher exact (small counts)</td>
+<td>chi2_contingency</td>
+</tr>
+<tr>
+<td>Two numeric columns related</td>
+<td>numeric</td>
+<td>Pearson correlation</td>
+<td>Spearman</td>
+<td>pearsonr, spearmanr</td>
+</tr>
+<tr>
+<td>Anything awkward</td>
+<td>any</td>
+<td>bootstrap / permutation</td>
+<td>-</td>
+<td>numpy resampling</td>
+</tr>
+</tbody>
+</table></div>
+
+<div class="callout tip"><p><strong>Checklist.</strong> Before any test: look at the data (Part 5, Part 7), check for outliers and missing values, state H0 and alpha first, report the effect size with a confidence interval, and remember that statistics shows association unless the data came from a randomised experiment.</p>
+</div>
+<div class="callout takeaways"><div class="c-label">Key takeaways</div><ul>
+<li>Choose summaries by data type; for skewed data report the median beside the mean.</li>
+<li>The standard error shrinks with sqrt(n); the central limit theorem makes sample means roughly normal.</li>
+<li>A confidence interval shows the plausible range of the truth; a p-value only measures surprise under H0.</li>
+<li>Report effect size and intervals, not just 'significant'; a tiny effect can be significant in big data.</li>
+<li>Correlation is not causation: confounders can reverse a trend; randomised A/B tests remove them.</li>
+<li>Fix sample size before an A/B test, do not peek, and correct for many tests (Bonferroni, BH).</li>
+</ul>
+</div></div><nav class="pager" aria-label="Previous and next"><a class="prev" href="part-07.html"><small>Previous</small><span>Part 7: Exploratory Data Analysis</span></a><a class="next" href="part-09.html"><small>Next</small><span>Part 9: Machine Learning Foundations</span></a></nav>
+<footer class="foot"><p>Data Science from Zero to Advanced &middot; written by Benson M. Merita &middot; &copy; 2026 MeritaAnalytics. Public datasets keep their own licences, listed in <a href="appendix-b.html">Appendix B</a>.</p></footer>
+</main>
+</div>
+<script src="search-index.js"></script>
+<script src="site.js"></script>
+</body>
+</html>

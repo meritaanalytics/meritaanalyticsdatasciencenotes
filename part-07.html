@@ -1,0 +1,827 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>Part 7: Exploratory Data Analysis | MeritaAnalytics</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to the notes</a>
+<header class="top"><button class="menu" id="menu" aria-controls="side" aria-expanded="false">Contents</button><span class="top-title">Part 7: Exploratory Data Analysis</span></header>
+<div class="shell">
+<nav class="side" id="side" aria-label="Handbook contents">
+<a class="brand" href="index.html"><span class="mark" aria-hidden="true">MA</span><span><b>MeritaAnalytics</b><small>Data Science Notes</small></span></a>
+<label class="search"><span class="sr">Search the notes</span><input id="q" type="search" placeholder="Search topics, e.g. groupby" autocomplete="off"></label>
+<div id="results" class="results" hidden></div>
+<ol class="nav">
+<li class="lvl0"><a href="index.html" class="">Start here</a></li>
+<li class="lvl"><div class="lvl-name"><span>Level 1</span>Foundations</div><ol>
+<li data-slug="part-01"><a href="part-01.html" class=""><span class="pn">1</span><span class="pt">What Is Data Science?</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-02"><a href="part-02.html" class=""><span class="pn">2</span><span class="pt">Python Basics</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-03"><a href="part-03.html" class=""><span class="pn">3</span><span class="pt">NumPy: Fast Numbers</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 2</span>Data Analysis</div><ol>
+<li data-slug="part-04"><a href="part-04.html" class=""><span class="pn">4</span><span class="pt">Pandas: Working with Tables</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-05"><a href="part-05.html" class=""><span class="pn">5</span><span class="pt">Data Visualisation</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-06"><a href="part-06.html" class=""><span class="pn">6</span><span class="pt">SQL for Data Analysts</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-07"><a href="part-07.html" class="on"><span class="pn">7</span><span class="pt">Exploratory Data Analysis</span><span class="done-dot" aria-hidden="true"></span></a>
+<ol class="sub"><li><a href="#7-1-what-eda-is-and-the-recipe-we-follow">7.1 What EDA is and the recipe we follow</a></li><li><a href="#7-2-structure-grain-keys-types-and-size">7.2 Structure: grain, keys, types and size</a></li><li><a href="#7-3-data-quality-missing-duplicate-impossible-and-censored">7.3 Data quality: missing, duplicate, impossible and censored</a></li><li><a href="#7-4-univariate-analysis-one-column-at-a-time">7.4 Univariate analysis: one column at a time</a></li><li><a href="#7-5-bivariate-analysis-two-columns-at-a-time">7.5 Bivariate analysis: two columns at a time</a></li><li><a href="#7-6-segment-comparison-rates-denominators-and-sample-size">7.6 Segment comparison: rates, denominators and sample size</a></li><li><a href="#7-7-outliers-find-them-understand-them-then-decide">7.7 Outliers: find them, understand them, then decide</a></li><li><a href="#7-8-time-trends-level-seasonality-and-rates">7.8 Time trends: level, seasonality and rates</a></li><li><a href="#7-9-from-patterns-to-hypotheses-is-it-real-or-noise-advanced">7.9 From patterns to hypotheses: is it real or noise? (Advanced)</a></li><li><a href="#7-10-a-reusable-eda-report-function">7.10 A reusable eda_report() function</a></li><li><a href="#7-11-what-to-write-in-the-findings-a-template">7.11 What to write in the findings: a template</a></li></ol>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 3</span>Statistics</div><ol>
+<li data-slug="part-08"><a href="part-08.html" class=""><span class="pn">8</span><span class="pt">Statistics for Data Science</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 4</span>Machine Learning</div><ol>
+<li data-slug="part-09"><a href="part-09.html" class=""><span class="pn">9</span><span class="pt">Machine Learning Foundations</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-10"><a href="part-10.html" class=""><span class="pn">10</span><span class="pt">Regression</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-11"><a href="part-11.html" class=""><span class="pn">11</span><span class="pt">Classification</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-12"><a href="part-12.html" class=""><span class="pn">12</span><span class="pt">Ensembles, Tuning and Feature Engineering</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-13"><a href="part-13.html" class=""><span class="pn">13</span><span class="pt">Unsupervised Learning</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 5</span>Deep Learning and Modern AI</div><ol>
+<li data-slug="part-14"><a href="part-14.html" class=""><span class="pn">14</span><span class="pt">Neural Networks and Deep Learning</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-15"><a href="part-15.html" class=""><span class="pn">15</span><span class="pt">Reinforcement Learning</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-16"><a href="part-16.html" class=""><span class="pn">16</span><span class="pt">Generative AI and Large Language Models</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 6</span>The Real World</div><ol>
+<li data-slug="part-17"><a href="part-17.html" class=""><span class="pn">17</span><span class="pt">Business Metrics, Excel and Power BI</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-18"><a href="part-18.html" class=""><span class="pn">18</span><span class="pt">Automation, Git, Deployment and Responsible AI</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-19"><a href="part-19.html" class=""><span class="pn">19</span><span class="pt">End-to-End Projects</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 7</span>Career and Reference</div><ol>
+<li data-slug="part-20"><a href="part-20.html" class=""><span class="pn">20</span><span class="pt">Practice Exercises and Answer Key</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-21"><a href="part-21.html" class=""><span class="pn">21</span><span class="pt">Interview Preparation</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-22"><a href="part-22.html" class=""><span class="pn">22</span><span class="pt">Roadmap, Cheat Sheets and Glossary</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Appendix</span>Reference</div><ol>
+<li><a href="appendix-a.html" class=""><span class="pn">A</span><span class="pt">Sources and Next Steps</span></a></li>
+<li><a href="appendix-b.html" class=""><span class="pn">B</span><span class="pt">Data Catalogue</span></a></li>
+</ol></li></ol>
+<p class="side-foot">By Benson M. Merita &middot; &copy; 2026 MeritaAnalytics</p></nav>
+<main id="main" class="main"><header class="part-head"><span class="lv">Level 2 &middot; Data Analysis</span><p class="part-no">Part 7</p><h1>Exploratory Data Analysis</h1><p class="lede">EDA is the habit of looking at data carefully before you model it or report it. This Part gives you a repeatable recipe: ask the question first, check structure and quality, describe one column, then pairs of columns, then segments, outliers and time. You apply it to real penguin measurements and to a synthetic lender database, wrap it in a reusable `eda_report()` function and finish with a template for writing findings.</p><button class="mark-done" id="done" data-slug="part-07" aria-pressed="false">Mark this part as done</button></header><div class="prose"><div class="callout learn"><div class="c-label">In this part</div><ul>
+<li>Follow a ten-step EDA recipe from question to findings</li>
+<li>Check a table's structure and quality before trusting any number</li>
+<li>Describe single columns, pairs of columns and segments, with group sizes</li>
+<li>Find, investigate and decide about outliers and time patterns</li>
+<li>Turn patterns into hypotheses and write findings with numbers</li>
+</ul>
+<div class="meta"><span><b>You need first</b> Part 4 and Part 5</span><span><b>Time</b> 4 to 5 hours</span></div></div>
+<h2 id="7-1-what-eda-is-and-the-recipe-we-follow"><a class="anchor" href="#7-1-what-eda-is-and-the-recipe-we-follow" aria-label="Link to this section">#</a>7.1 What EDA is and the recipe we follow</h2>
+
+<p><strong>Exploratory Data Analysis (EDA)</strong> is a structured first look at a dataset: what does it contain, can you trust it, and which patterns deserve a closer test? It proves nothing. It produces <em>questions you can defend</em> and <em>problems you must fix</em> before any model or dashboard. Most wrong analyses are not wrong maths; they are a misread column, a hidden duplicate, or groups that were never comparable.</p>
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Question it answers</th>
+<th>Typical tools</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Question</td>
+<td>What decision is this for?</td>
+<td>one written sentence</td>
+</tr>
+<tr>
+<td>2. Structure</td>
+<td>What is one row? Which columns and types?</td>
+<td><code>shape</code>, <code>dtypes</code>, <code>head</code></td>
+</tr>
+<tr>
+<td>3. Quality</td>
+<td>Missing, duplicate, impossible, censored?</td>
+<td><code>isna</code>, <code>duplicated</code>, range checks</td>
+</tr>
+<tr>
+<td>4. Univariate</td>
+<td>How is each column distributed?</td>
+<td><code>describe</code>, <code>value_counts</code>, histogram</td>
+</tr>
+<tr>
+<td>5. Bivariate</td>
+<td>How do two columns relate?</td>
+<td><code>corr</code>, <code>groupby</code>, <code>crosstab</code>, scatter</td>
+</tr>
+<tr>
+<td>6. Segments</td>
+<td>Do groups differ, and are they big enough?</td>
+<td><code>groupby</code> with counts and rates</td>
+</tr>
+<tr>
+<td>7. Outliers</td>
+<td>Which values are extreme, and why?</td>
+<td>IQR fence, z-score</td>
+</tr>
+<tr>
+<td>8. Time</td>
+<td>What trends and seasons exist?</td>
+<td><code>resample</code>, same-month comparison</td>
+</tr>
+<tr>
+<td>9. Hypotheses</td>
+<td>What do we believe, and how sure are we?</td>
+<td>chi-square, rank tests</td>
+</tr>
+<tr>
+<td>10. Findings</td>
+<td>What do we tell the reader?</td>
+<td>a findings template (7.11)</td>
+</tr>
+</tbody>
+</table></div>
+
+<div class="callout tip"><p><strong>Rule.</strong> Write the question <strong>before</strong> you open the data. 'Explore the table' is a task. 'Which loan products and borrower profiles go bad most often, so we can tighten approval rules?' is a question: it tells you which columns matter and when to stop.</p>
+</div>
+<p>We use two datasets. The first is the <strong>Palmer penguins</strong> table (real, CC0 licence): 344 penguins of three species measured on three islands. The second is a <strong>synthetic lender database</strong> (1,000 customers, 20,000 transactions, a few hundred loans), which gives us credit-risk questions that public data cannot. Our running questions: <em>how do the penguin species differ?</em> and <em>where is the credit risk in the lender's loans?</em></p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">import</span><span class="w"> </span><span class="nn">os</span><span class="o">,</span><span class="w"> </span><span class="nn">sqlite3</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span><span class="o">,</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fintech_db</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_fintech_db</span>
+
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s2">"display.width"</span><span class="p">,</span> <span class="mi">100</span><span class="p">);</span> <span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s2">"display.max_columns"</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_theme</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">"whitegrid"</span><span class="p">,</span> <span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s2">"axes.titleweight"</span><span class="p">:</span> <span class="s2">"bold"</span><span class="p">,</span> <span class="s2">"axes.titlesize"</span><span class="p">:</span> <span class="mi">11</span><span class="p">})</span>
+<span class="n">BLUE</span><span class="p">,</span> <span class="n">GREEN</span><span class="p">,</span> <span class="n">GREY</span><span class="p">,</span> <span class="n">DARK</span><span class="p">,</span> <span class="n">AMBER</span> <span class="o">=</span> <span class="s2">"#1F5FD6"</span><span class="p">,</span> <span class="s2">"#2BB38A"</span><span class="p">,</span> <span class="s2">"#9CA3AF"</span><span class="p">,</span> <span class="s2">"#0B2A4A"</span><span class="p">,</span> <span class="s2">"#B45309"</span>
+<span class="n">PUB</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">"GUIDE_ROOT"</span><span class="p">])</span> <span class="o">/</span> <span class="s2">"datasets"</span> <span class="o">/</span> <span class="s2">"public"</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">load_public</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">PUB</span> <span class="o">/</span> <span class="n">name</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">p</span> <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span> <span class="k">else</span> <span class="n">url</span><span class="p">)</span>
+
+<span class="n">peng</span> <span class="o">=</span> <span class="n">load_public</span><span class="p">(</span><span class="s2">"penguins.csv"</span><span class="p">,</span> <span class="s2">"https://raw.githubusercontent.com/mwaskom/seaborn-data/master/penguins.csv"</span><span class="p">)</span>
+<span class="n">con</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">build_fintech_db</span><span class="p">(</span><span class="s2">"p07_fintech.db"</span><span class="p">))</span>          <span class="c1"># synthetic lender database</span>
+<span class="n">customers</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="s2">"SELECT * FROM customers"</span><span class="p">,</span> <span class="n">con</span><span class="p">)</span>
+<span class="n">loans</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="s2">"SELECT * FROM loans"</span><span class="p">,</span> <span class="n">con</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="s2">"disbursement_date"</span><span class="p">])</span>
+<span class="n">txns</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="s2">"SELECT * FROM transactions"</span><span class="p">,</span> <span class="n">con</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="s2">"txn_date"</span><span class="p">])</span>
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">df</span> <span class="ow">in</span> <span class="p">[(</span><span class="s2">"penguins"</span><span class="p">,</span> <span class="n">peng</span><span class="p">),</span> <span class="p">(</span><span class="s2">"customers"</span><span class="p">,</span> <span class="n">customers</span><span class="p">),</span> <span class="p">(</span><span class="s2">"loans"</span><span class="p">,</span> <span class="n">loans</span><span class="p">),</span> <span class="p">(</span><span class="s2">"transactions"</span><span class="p">,</span> <span class="n">txns</span><span class="p">)]:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">name</span><span class="si">:</span><span class="s2">13s</span><span class="si">}</span><span class="s2"> rows=</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="si">:</span><span class="s2">6,d</span><span class="si">}</span><span class="s2"> columns=</span><span class="si">{</span><span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">penguins      rows=   344 columns=7
+customers     rows= 1,000 columns=9
+loans         rows=   560 columns=10
+transactions  rows=20,000 columns=7</pre></div></div>
+<p>Penguins are real public data. The lender tables are synthetic: findings about them describe this data only.</p>
+
+<div class="callout practice"><div class="c-label">Practice</div><p>Rewrite the vague request 'look at the transactions' as an EDA question with a decision attached.</p>
+</div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="nb">print</span><span class="p">(</span><span class="s2">"Which channels and months have the highest failure rate, so operations can fix reliability where it hurts most?"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">Which channels and months have the highest failure rate, so operations can fix reliability where it hurts most?</pre></div></div>
+<p><strong>One possible answer.</strong> A good question names a measure, the groups to compare and the action it supports.</p>
+
+<h2 id="7-2-structure-grain-keys-types-and-size"><a class="anchor" href="#7-2-structure-grain-keys-types-and-size" aria-label="Link to this section">#</a>7.2 Structure: grain, keys, types and size</h2>
+
+<p>Before any statistic, ask three structural questions. <strong>What is one row?</strong> (the <em>grain</em>: one penguin, one loan, one transaction). <strong>Which column identifies it?</strong> (the key). <strong>What type is each column really?</strong> Dates stored as text or numbers stored as text silently break sorting and averages.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="nb">print</span><span class="p">(</span><span class="n">peng</span><span class="o">.</span><span class="n">dtypes</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"rows:"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">peng</span><span class="p">),</span> <span class="s2">"| duplicate rows:"</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">peng</span><span class="o">.</span><span class="n">duplicated</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">peng</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">species                  str
+island                   str
+bill_length_mm       float64
+bill_depth_mm        float64
+flipper_length_mm    float64
+body_mass_g          float64
+sex                      str
+
+rows: 344 | duplicate rows: 0
+species island  bill_length_mm  bill_depth_mm  flipper_length_mm  body_mass_g    sex
+ Gentoo Biscoe            43.4           14.4              218.0       4600.0 FEMALE
+ Gentoo Biscoe            50.4           15.7              222.0       5750.0   MALE
+ Gentoo Biscoe            46.4           15.6              221.0       5000.0   MALE
+ Adelie Biscoe            37.7           16.0              183.0       3075.0 FEMALE</pre></div></div>
+<p>Each row is one penguin, and there is no id column, so we cannot prove the rows are different animals; we can only check that none is an exact copy. The lender's <code>loans</code> table has an id and a link to customers, so we also check how the tables connect.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="nb">print</span><span class="p">(</span><span class="s2">"loan_id unique:"</span><span class="p">,</span> <span class="n">loans</span><span class="p">[</span><span class="s2">"loan_id"</span><span class="p">]</span><span class="o">.</span><span class="n">is_unique</span><span class="p">,</span> <span class="s2">"| loans:"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">loans</span><span class="p">),</span>
+      <span class="s2">"| customers with a loan:"</span><span class="p">,</span> <span class="n">loans</span><span class="p">[</span><span class="s2">"customer_id"</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"loans with no matching customer:"</span><span class="p">,</span> <span class="nb">int</span><span class="p">((</span><span class="o">~</span><span class="n">loans</span><span class="p">[</span><span class="s2">"customer_id"</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">customers</span><span class="p">[</span><span class="s2">"customer_id"</span><span class="p">]))</span><span class="o">.</span><span class="n">sum</span><span class="p">()))</span>
+<span class="n">per_cust</span> <span class="o">=</span> <span class="n">loans</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"customer_id"</span><span class="p">)</span><span class="o">.</span><span class="n">size</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"customers with 2+ loans:"</span><span class="p">,</span> <span class="nb">int</span><span class="p">((</span><span class="n">per_cust</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()))</span>
+</code></pre></div><div class="cell-out"><pre class="out">loan_id unique: True | loans: 560 | customers with a loan: 442
+loans with no matching customer: 0
+customers with 2+ loans: 103</pre></div></div>
+<div class="callout tip"><p><strong>Rule.</strong> Always write down the grain. A default rate per <em>loan</em> and a default rate per <em>customer</em> are different numbers, and mixing them is a classic reporting error. If you count customers, use <code>nunique</code>, not <code>len</code>.</p>
+</div>
+<h2 id="7-3-data-quality-missing-duplicate-impossible-and-censored"><a class="anchor" href="#7-3-data-quality-missing-duplicate-impossible-and-censored" aria-label="Link to this section">#</a>7.3 Data quality: missing, duplicate, impossible and censored</h2>
+
+<p>A quality check is a list of <em>tests that can fail</em>: <strong>completeness</strong> (missing values), <strong>uniqueness</strong> (duplicates), <strong>validity</strong> (values in allowed ranges), <strong>consistency</strong> (two columns that must agree) and <strong>timeliness</strong> (does the data cover the period you think). Part 4 taught the cleaning verbs; here we <em>measure</em> the problems.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="k">def</span><span class="w"> </span><span class="nf">quality_table</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">'''One row per column: dtype, missing count, missing percent, distinct values.'''</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">"dtype"</span><span class="p">:</span> <span class="n">df</span><span class="o">.</span><span class="n">dtypes</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">),</span> <span class="s2">"missing"</span><span class="p">:</span> <span class="n">df</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span>
+                         <span class="s2">"missing_pct"</span><span class="p">:</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="s2">"distinct"</span><span class="p">:</span> <span class="n">df</span><span class="o">.</span><span class="n">nunique</span><span class="p">()})</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">quality_table</span><span class="p">(</span><span class="n">peng</span><span class="p">)</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+<span class="n">rows_missing</span> <span class="o">=</span> <span class="n">peng</span><span class="p">[</span><span class="n">peng</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"rows with any missing value:"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">rows_missing</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"rows with no body measurements at all:"</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">peng</span><span class="p">[[</span><span class="s2">"bill_length_mm"</span><span class="p">,</span> <span class="s2">"body_mass_g"</span><span class="p">]]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()))</span>
+</code></pre></div><div class="cell-out"><pre class="out">                     dtype  missing  missing_pct  distinct
+species                str        0          0.0         3
+island                 str        0          0.0         3
+bill_length_mm     float64        2          0.6       164
+bill_depth_mm      float64        2          0.6        80
+flipper_length_mm  float64        2          0.6        55
+body_mass_g        float64        2          0.6        94
+sex                    str       11          3.2         2
+rows with any missing value: 11
+rows with no body measurements at all: 2</pre></div></div>
+<p>Most of the missing cells sit in <code>sex</code>. Before dropping those rows, ask where the gaps are: if they cluster in one species or island, removing them would change the picture.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="nb">print</span><span class="p">(</span><span class="n">rows_missing</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"species"</span><span class="p">)</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">peng</span><span class="p">[</span><span class="s2">"sex"</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="n">dropna</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">to_dict</span><span class="p">())</span>
+</code></pre></div><div class="cell-out"><pre class="out">species
+Adelie    6
+Gentoo    5
+{&#x27;MALE&#x27;: 168, &#x27;FEMALE&#x27;: 165, nan: 11}</pre></div></div>
+<p>Next, <strong>validity</strong> and <strong>consistency</strong>: express each business rule as a boolean and count violations. Zero is a result worth reporting. Here we run the rules on the synthetic lender database.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">rules</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"customer age outside 18-100"</span><span class="p">:</span> <span class="o">~</span><span class="n">customers</span><span class="p">[</span><span class="s2">"age"</span><span class="p">]</span><span class="o">.</span><span class="n">between</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span>
+    <span class="s2">"income &lt;= 0"</span><span class="p">:</span> <span class="n">customers</span><span class="p">[</span><span class="s2">"monthly_income_ksh"</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="s2">"principal &lt;= 0"</span><span class="p">:</span> <span class="n">loans</span><span class="p">[</span><span class="s2">"principal_ksh"</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="s2">"credit score outside 300-850"</span><span class="p">:</span> <span class="o">~</span><span class="n">loans</span><span class="p">[</span><span class="s2">"credit_score"</span><span class="p">]</span><span class="o">.</span><span class="n">between</span><span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="mi">850</span><span class="p">),</span>
+    <span class="s2">"negative days past due"</span><span class="p">:</span> <span class="n">loans</span><span class="p">[</span><span class="s2">"days_past_due"</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="n">mask</span> <span class="ow">in</span> <span class="n">rules</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">label</span><span class="si">:</span><span class="s2">32s</span><span class="si">}</span><span class="s2"> violations: </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">mask</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="n">band</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span><span class="n">loans</span><span class="p">[</span><span class="s2">"days_past_due"</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">10_000</span><span class="p">],</span> <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s2">"0"</span><span class="p">,</span> <span class="s2">"1-30"</span><span class="p">,</span> <span class="s2">"31-90"</span><span class="p">,</span> <span class="s2">"90+"</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">crosstab</span><span class="p">(</span><span class="n">loans</span><span class="p">[</span><span class="s2">"status"</span><span class="p">],</span> <span class="n">band</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">customer age outside 18-100      violations: 0
+income &lt;= 0                      violations: 0
+principal &lt;= 0                   violations: 0
+credit score outside 300-850     violations: 0
+negative days past due           violations: 0
+days_past_due    0  1-30  31-90  90+
+status                              
+Active          69    10      7    0
+Closed         364     0      0    0
+Defaulted        0     0      0  110</pre></div></div>
+<p>The crosstab is a consistency test: a <code>Defaulted</code> loan should be well past due and a <code>Closed</code> loan should not be. Where status and days past due disagree, you have a question for the data owner, not a number to fix quietly.</p>
+
+<h3 id="censoring-a-quality-problem-hidden-in-a-good-column"><a class="anchor" href="#censoring-a-quality-problem-hidden-in-a-good-column" aria-label="Link to this section">#</a>Censoring: a quality problem hidden in a good column</h3>
+
+<p><strong>Right-censoring</strong> means the outcome has not had time to happen yet. A loan disbursed last month cannot have defaulted, so counting it as 'good' flatters the default rate. Look at how loan status differs by product.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="nb">print</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">crosstab</span><span class="p">(</span><span class="n">loans</span><span class="p">[</span><span class="s2">"product"</span><span class="p">],</span> <span class="n">loans</span><span class="p">[</span><span class="s2">"status"</span><span class="p">]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"latest disbursement:"</span><span class="p">,</span> <span class="n">loans</span><span class="p">[</span><span class="s2">"disbursement_date"</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">.</span><span class="n">date</span><span class="p">())</span>
+</code></pre></div><div class="cell-out"><pre class="out">status          Active  Closed  Defaulted
+product                                  
+Asset Finance       37       1         19
+Digital Loan         0     198         25
+SME Loan            49      39         28
+Salary Advance       0     126         38
+latest disbursement: 2025-09-30</pre></div></div>
+<p>Some products have many loans still <code>Active</code>, others have none. A raw 'defaulted divided by all loans' rate would compare products at different stages of life. In 7.6 we use a fairer denominator: loans whose outcome is known.</p>
+
+<p><strong>Common mistake.</strong> Dropping every row with a missing value 'to be safe'. If the missing rows differ from the rest you have removed exactly the cases you wanted to study.</p>
+
+<h2 id="7-4-univariate-analysis-one-column-at-a-time"><a class="anchor" href="#7-4-univariate-analysis-one-column-at-a-time" aria-label="Link to this section">#</a>7.4 Univariate analysis: one column at a time</h2>
+
+<p><strong>Univariate</strong> means one variable alone. For a numeric column ask: where is the centre, how wide is the spread, is it skewed, are there extremes? For a categorical column: how many levels, which are common, which are rare? The point is to learn what 'typical' looks like before comparing anything.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"bill_length_mm"</span><span class="p">,</span> <span class="s2">"flipper_length_mm"</span><span class="p">,</span> <span class="s2">"body_mass_g"</span><span class="p">]</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">peng</span><span class="p">[</span><span class="n">cols</span><span class="p">]</span><span class="o">.</span><span class="n">describe</span><span class="p">(</span><span class="n">percentiles</span><span class="o">=</span><span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">])</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">s</span><span class="p">[</span><span class="s2">"skew"</span><span class="p">]</span> <span class="o">=</span> <span class="n">peng</span><span class="p">[</span><span class="n">cols</span><span class="p">]</span><span class="o">.</span><span class="n">skew</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">peng</span><span class="p">[</span><span class="s2">"species"</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">mul</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">to_dict</span><span class="p">())</span>
+</code></pre></div><div class="cell-out"><pre class="out">                   count    mean    std     min     10%     50%     90%     max  skew
+bill_length_mm     342.0    43.9    5.5    32.1    36.6    44.4    50.8    59.6  0.05
+flipper_length_mm  342.0   200.9   14.1   172.0   185.0   197.0   220.9   231.0  0.35
+body_mass_g        342.0  4201.8  802.0  2700.0  3300.0  4050.0  5400.0  6300.0  0.47
+{&#x27;Adelie&#x27;: 44.2, &#x27;Gentoo&#x27;: 36.0, &#x27;Chinstrap&#x27;: 19.8}</pre></div></div>
+<p>Compare the mean with the median (<code>50%</code>). When the mean is far above the median and the skew is clearly positive, a few large values pull the average up. Money columns behave this way, as the lender's loan principal shows.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">p</span> <span class="o">=</span> <span class="n">loans</span><span class="p">[</span><span class="s2">"principal_ksh"</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"principal mean Ksh </span><span class="si">{</span><span class="n">p</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">,.0f</span><span class="si">}</span><span class="s2"> | median Ksh </span><span class="si">{</span><span class="n">p</span><span class="o">.</span><span class="n">median</span><span class="p">()</span><span class="si">:</span><span class="s2">,.0f</span><span class="si">}</span><span class="s2"> | skew </span><span class="si">{</span><span class="n">p</span><span class="o">.</span><span class="n">skew</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"share of loans with days_past_due == 0: </span><span class="si">{</span><span class="p">(</span><span class="n">loans</span><span class="p">[</span><span class="s1">'days_past_due'</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">3.4</span><span class="p">))</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">peng</span><span class="p">[</span><span class="s2">"body_mass_g"</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">(),</span> <span class="n">bins</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">BLUE</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Penguin body mass"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"Body mass (g)"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Number of penguins"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">p</span><span class="p">),</span> <span class="n">bins</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">GREEN</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Loan principal (synthetic)"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"log10 of principal (Ksh)"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Number of loans"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">loans</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">loans</span><span class="p">[</span><span class="s2">"days_past_due"</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"days_past_due"</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">AMBER</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Days past due, late loans"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"Days past due"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Number of loans"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">"p07_univariate.png"</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">130</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"saved p07_univariate.png"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">principal mean Ksh 148,954 | median Ksh 24,850 | skew 3.25
+share of loans with days_past_due == 0: 77.3%
+saved p07_univariate.png</pre></div></div>
+<div class="cell only-out"><div class="cell-out"><figure class="fig"><img src="img/part-07-016.png" alt="Chart output" loading="lazy"></figure></div></div>
+<p>Body mass is spread over a wide range, a hint that groups are mixed (the species, as 7.5 shows). Principal is bell-shaped only after taking logs, so ratios are the natural unit for loan size. Days past due is a third shape: a mass at zero that summary statistics hide, then a long run of late loans. For such a column, report the <em>share at zero</em> and describe the rest separately.</p>
+
+<p><strong>Common mistake.</strong> Describing a skewed money column with mean and standard deviation only. Add the median and a high quantile (such as the 90th percentile) so the reader can see the tail.</p>
+
+<h2 id="7-5-bivariate-analysis-two-columns-at-a-time"><a class="anchor" href="#7-5-bivariate-analysis-two-columns-at-a-time" aria-label="Link to this section">#</a>7.5 Bivariate analysis: two columns at a time</h2>
+
+<p><strong>Bivariate</strong> analysis asks whether two columns move together. The right tool depends on the types.</p>
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Pair</th>
+<th>Summary</th>
+<th>Chart</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>numeric and numeric</td>
+<td>correlation (<code>corr</code>)</td>
+<td>scatter, heatmap</td>
+</tr>
+<tr>
+<td>numeric and category</td>
+<td><code>groupby</code> median plus count</td>
+<td>box or violin plot</td>
+</tr>
+<tr>
+<td>category and category</td>
+<td><code>crosstab</code> with row percentages</td>
+<td>grouped or stacked bar</td>
+</tr>
+</tbody>
+</table></div>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">num</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"bill_length_mm"</span><span class="p">,</span> <span class="s2">"bill_depth_mm"</span><span class="p">,</span> <span class="s2">"flipper_length_mm"</span><span class="p">,</span> <span class="s2">"body_mass_g"</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">peng</span><span class="p">[</span><span class="n">num</span><span class="p">]</span><span class="o">.</span><span class="n">corr</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">"spearman"</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">crosstab</span><span class="p">(</span><span class="n">peng</span><span class="p">[</span><span class="s2">"island"</span><span class="p">],</span> <span class="n">peng</span><span class="p">[</span><span class="s2">"species"</span><span class="p">]))</span>
+</code></pre></div><div class="cell-out"><pre class="out">                   bill_length_mm  bill_depth_mm  flipper_length_mm  body_mass_g
+bill_length_mm               1.00          -0.22               0.67         0.58
+bill_depth_mm               -0.22           1.00              -0.52        -0.43
+flipper_length_mm            0.67          -0.52               1.00         0.84
+body_mass_g                  0.58          -0.43               0.84         1.00
+species    Adelie  Chinstrap  Gentoo
+island                              
+Biscoe         44          0     124
+Dream          56         68       0
+Torgersen      52          0       0</pre></div></div>
+<p>We used <strong>Spearman</strong> (rank) correlation, which asks whether larger goes with larger without being dragged by extreme values. Flipper length and body mass are strongly related. The crosstab shows that islands and species are tangled: one species lives on all three islands and the others on fewer, so island alone cannot explain a difference. Now plot the strongest pair, coloured by group.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">d</span> <span class="o">=</span> <span class="n">peng</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s2">"flipper_length_mm"</span><span class="p">,</span> <span class="s2">"body_mass_g"</span><span class="p">])</span>
+<span class="n">r_all</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="s2">"flipper_length_mm"</span><span class="p">]</span><span class="o">.</span><span class="n">corr</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s2">"body_mass_g"</span><span class="p">])</span>
+<span class="n">r_in</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"species"</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">g</span><span class="p">:</span> <span class="n">g</span><span class="p">[</span><span class="s2">"flipper_length_mm"</span><span class="p">]</span><span class="o">.</span><span class="n">corr</span><span class="p">(</span><span class="n">g</span><span class="p">[</span><span class="s2">"body_mass_g"</span><span class="p">]),</span> <span class="n">include_groups</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"all penguins r = </span><span class="si">{</span><span class="n">r_all</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> | inside each species:"</span><span class="p">,</span> <span class="n">r_in</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">to_dict</span><span class="p">())</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">3.4</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">d</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">"flipper_length_mm"</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">"body_mass_g"</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">"species"</span><span class="p">,</span>
+                <span class="n">palette</span><span class="o">=</span><span class="p">[</span><span class="n">BLUE</span><span class="p">,</span> <span class="n">AMBER</span><span class="p">,</span> <span class="n">GREEN</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Body mass against flipper length, by species"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"Flipper length (mm)"</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Body mass (g)"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">"p07_bivariate.png"</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">130</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"saved p07_bivariate.png"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">all penguins r = 0.87 | inside each species: {&#x27;Adelie&#x27;: 0.47, &#x27;Chinstrap&#x27;: 0.64, &#x27;Gentoo&#x27;: 0.7}
+saved p07_bivariate.png</pre></div></div>
+<div class="cell only-out"><div class="cell-out"><figure class="fig"><img src="img/part-07-017.png" alt="Chart output" loading="lazy"></figure></div></div>
+<p>The overall correlation is stronger than the one inside each species because part of it is simply Gentoo being bigger than the others. Always plot the pair and colour by group. Correlation is not cause.</p>
+
+<p><strong>Common mistake.</strong> Computing a correlation matrix on every column including ids and codes. Select the numeric measures you actually mean to compare.</p>
+
+<h2 id="7-6-segment-comparison-rates-denominators-and-sample-size"><a class="anchor" href="#7-6-segment-comparison-rates-denominators-and-sample-size" aria-label="Link to this section">#</a>7.6 Segment comparison: rates, denominators and sample size</h2>
+
+<p>Most business EDA ends up comparing <strong>segments</strong>: product, county, channel, species. Three rules keep it honest: (1) define the rate with a <strong>fair denominator</strong>, (2) show the <strong>group size</strong>, (3) give a rough <strong>uncertainty</strong> so a small group is not over-read. First the penguins: always keep the count beside the summary.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">seg</span> <span class="o">=</span> <span class="n">peng</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"species"</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="p">(</span><span class="s2">"species"</span><span class="p">,</span> <span class="s2">"size"</span><span class="p">),</span> <span class="n">median_mass</span><span class="o">=</span><span class="p">(</span><span class="s2">"body_mass_g"</span><span class="p">,</span> <span class="s2">"median"</span><span class="p">),</span>
+                                  <span class="n">median_flipper</span><span class="o">=</span><span class="p">(</span><span class="s2">"flipper_length_mm"</span><span class="p">,</span> <span class="s2">"median"</span><span class="p">))</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">seg</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+</code></pre></div><div class="cell-out"><pre class="out">             n  median_mass  median_flipper
+species                                    
+Adelie     152       3700.0           190.0
+Chinstrap   68       3700.0           196.0
+Gentoo     124       5000.0           216.0</pre></div></div>
+<p>Now a credit-risk rate. We use settled loans (<code>Closed</code> plus <code>Defaulted</code>) as the denominator, and a <strong>Wilson 95% interval</strong>, a standard range for a proportion, to show how much a small group can move.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="k">def</span><span class="w"> </span><span class="nf">wilson</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="mf">1.96</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">'''95% Wilson interval for k out of n; returns (low, high) as fractions.'''</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">k</span> <span class="o">/</span> <span class="n">n</span>
+    <span class="n">centre</span> <span class="o">=</span> <span class="p">(</span><span class="n">p</span> <span class="o">+</span> <span class="n">z</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">n</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">z</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="n">n</span><span class="p">)</span>
+    <span class="n">half</span> <span class="o">=</span> <span class="n">z</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">p</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">p</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span> <span class="o">+</span> <span class="n">z</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">n</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">z</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="n">n</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">centre</span> <span class="o">-</span> <span class="n">half</span><span class="p">,</span> <span class="n">centre</span> <span class="o">+</span> <span class="n">half</span><span class="p">)</span>
+
+<span class="n">settled</span> <span class="o">=</span> <span class="n">loans</span><span class="p">[</span><span class="n">loans</span><span class="p">[</span><span class="s2">"status"</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s2">"Closed"</span><span class="p">,</span> <span class="s2">"Defaulted"</span><span class="p">])]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">settled</span><span class="p">[</span><span class="s2">"defaulted"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">settled</span><span class="p">[</span><span class="s2">"status"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"Defaulted"</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="n">by_prod</span> <span class="o">=</span> <span class="n">settled</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"product"</span><span class="p">)[</span><span class="s2">"defaulted"</span><span class="p">]</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="s2">"count"</span><span class="p">,</span> <span class="n">defaults</span><span class="o">=</span><span class="s2">"sum"</span><span class="p">)</span>
+<span class="n">by_prod</span><span class="p">[</span><span class="s2">"rate_pct"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">by_prod</span><span class="p">[</span><span class="s2">"defaults"</span><span class="p">]</span> <span class="o">/</span> <span class="n">by_prod</span><span class="p">[</span><span class="s2">"n"</span><span class="p">]</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ci</span> <span class="o">=</span> <span class="p">[</span><span class="n">wilson</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">by_prod</span><span class="p">[</span><span class="s2">"defaults"</span><span class="p">],</span> <span class="n">by_prod</span><span class="p">[</span><span class="s2">"n"</span><span class="p">])]</span>
+<span class="n">by_prod</span><span class="p">[</span><span class="s2">"ci_low"</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">round</span><span class="p">(</span><span class="n">a</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">ci</span><span class="p">]</span>
+<span class="n">by_prod</span><span class="p">[</span><span class="s2">"ci_high"</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">round</span><span class="p">(</span><span class="n">b</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">ci</span><span class="p">]</span>
+<span class="n">naive</span> <span class="o">=</span> <span class="n">loans</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"product"</span><span class="p">)[</span><span class="s2">"status"</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="p">(</span><span class="n">s</span> <span class="o">==</span> <span class="s2">"Defaulted"</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">by_prod</span><span class="p">[</span><span class="s2">"naive_pct"</span><span class="p">]</span> <span class="o">=</span> <span class="n">naive</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">by_prod</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">"rate_pct"</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+</code></pre></div><div class="cell-out"><pre class="out">                  n  defaults  rate_pct  ci_low  ci_high  naive_pct
+product                                                            
+Asset Finance    20        19      95.0    76.4     99.1       33.3
+SME Loan         67        28      41.8    30.7     53.7       24.1
+Salary Advance  164        38      23.2    17.4     30.2       23.2
+Digital Loan    223        25      11.2     7.7     16.0       11.2</pre></div></div>
+<p>Where two products' intervals overlap heavily, the data cannot separate them yet. A very high rate that rests on few settled loans is a lead, not a conclusion. The <code>naive_pct</code> column divides by <em>all</em> loans including those still active, so it understates risk for products with many active loans. Settled-only rates can overstate risk for long products whose good loans have not finished; credit teams build <strong>vintage curves</strong> to remove this problem.</p>
+
+<p>A group difference can shrink once you split by a second variable. Credit score is the usual suspect: bin it and compare again.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">settled</span><span class="p">[</span><span class="s2">"score_band"</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span><span class="n">settled</span><span class="p">[</span><span class="s2">"credit_score"</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">550</span><span class="p">,</span> <span class="mi">600</span><span class="p">,</span> <span class="mi">650</span><span class="p">,</span> <span class="mi">900</span><span class="p">],</span>
+                               <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s2">"&lt;=550"</span><span class="p">,</span> <span class="s2">"551-600"</span><span class="p">,</span> <span class="s2">"601-650"</span><span class="p">,</span> <span class="s2">"650+"</span><span class="p">])</span>
+<span class="n">band</span> <span class="o">=</span> <span class="n">settled</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"score_band"</span><span class="p">,</span> <span class="n">observed</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="s2">"defaulted"</span><span class="p">]</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="s2">"count"</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="s2">"mean"</span><span class="p">)</span>
+<span class="n">band</span><span class="p">[</span><span class="s2">"rate_pct"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">band</span><span class="p">[</span><span class="s2">"rate"</span><span class="p">]</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">3.2</span><span class="p">))</span>
+<span class="n">bars</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">band</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">),</span> <span class="n">band</span><span class="p">[</span><span class="s2">"rate_pct"</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="n">AMBER</span><span class="p">,</span> <span class="n">GREEN</span><span class="p">,</span> <span class="n">GREEN</span><span class="p">,</span> <span class="n">GREEN</span><span class="p">])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">bar_label</span><span class="p">(</span><span class="n">bars</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s2">"</span><span class="si">%.1f%%</span><span class="s2">"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">band</span><span class="p">[</span><span class="s2">"rate_pct"</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">*</span> <span class="mf">1.15</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Default rate of settled loans by credit-score band (synthetic)"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"Credit score band"</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Defaulted share of settled loans (%)"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">"p07_segment.png"</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">130</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">band</span><span class="p">[[</span><span class="s2">"n"</span><span class="p">,</span> <span class="s2">"rate_pct"</span><span class="p">]]</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+</code></pre></div><div class="cell-out"><pre class="out">              n  rate_pct
+score_band               
+&lt;=550        94      46.8
+551-600     147      23.8
+601-650     147      15.6
+650+         86       9.3</pre></div></div>
+<div class="cell only-out"><div class="cell-out"><figure class="fig"><img src="img/part-07-018.png" alt="Chart output" loading="lazy"></figure></div></div>
+<p>The default rate falls steadily as the score rises, so the score carries real information in this data.</p>
+
+<p><strong>Common mistake.</strong> Ranking segments by a rate without looking at <code>n</code>. The 'worst' county of the month is often just the county with five customers.</p>
+
+<h2 id="7-7-outliers-find-them-understand-them-then-decide"><a class="anchor" href="#7-7-outliers-find-them-understand-them-then-decide" aria-label="Link to this section">#</a>7.7 Outliers: find them, understand them, then decide</h2>
+
+<p>An <strong>outlier</strong> is a value far from the rest. It may be a data error (an extra zero), a rare real event (a large SME loan) or the most interesting row in the table (fraud). The rule is <em>detect, investigate, decide</em>; never delete automatically. Two detectors: the <strong>IQR fence</strong> (Q1 minus 1.5 x IQR, Q3 plus 1.5 x IQR) and the <strong>z-score</strong> (how many standard deviations from the mean).</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="k">def</span><span class="w"> </span><span class="nf">iqr_fence</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mf">1.5</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">'''Return (low, high) fence values: Q1 - k*IQR and Q3 + k*IQR.'''</span>
+    <span class="n">q1</span><span class="p">,</span> <span class="n">q3</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">quantile</span><span class="p">([</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">])</span>
+    <span class="n">iqr</span> <span class="o">=</span> <span class="n">q3</span> <span class="o">-</span> <span class="n">q1</span>
+    <span class="k">return</span> <span class="n">q1</span> <span class="o">-</span> <span class="n">k</span> <span class="o">*</span> <span class="n">iqr</span><span class="p">,</span> <span class="n">q3</span> <span class="o">+</span> <span class="n">k</span> <span class="o">*</span> <span class="n">iqr</span>
+
+<span class="n">mass</span> <span class="o">=</span> <span class="n">peng</span><span class="p">[</span><span class="s2">"body_mass_g"</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+<span class="n">lo</span><span class="p">,</span> <span class="n">hi</span> <span class="o">=</span> <span class="n">iqr_fence</span><span class="p">(</span><span class="n">mass</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"penguin body mass fence: </span><span class="si">{</span><span class="n">lo</span><span class="si">:</span><span class="s2">,.0f</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">hi</span><span class="si">:</span><span class="s2">,.0f</span><span class="si">}</span><span class="s2"> g | flagged: </span><span class="si">{</span><span class="nb">int</span><span class="p">(((</span><span class="n">mass</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">lo</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="p">(</span><span class="n">mass</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">hi</span><span class="p">))</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="n">plo</span><span class="p">,</span> <span class="n">phi</span> <span class="o">=</span> <span class="n">iqr_fence</span><span class="p">(</span><span class="n">loans</span><span class="p">[</span><span class="s2">"principal_ksh"</span><span class="p">])</span>
+<span class="n">big</span> <span class="o">=</span> <span class="n">loans</span><span class="p">[</span><span class="n">loans</span><span class="p">[</span><span class="s2">"principal_ksh"</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">phi</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"loan principal fence high: Ksh </span><span class="si">{</span><span class="n">phi</span><span class="si">:</span><span class="s2">,.0f</span><span class="si">}</span><span class="s2"> | flagged: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">big</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">big</span><span class="p">[</span><span class="s2">"product"</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">to_dict</span><span class="p">())</span>
+</code></pre></div><div class="cell-out"><pre class="out">penguin body mass fence: 1,750 to 6,550 g | flagged: 0
+loan principal fence high: Ksh 445,350 | flagged: 59
+{&#x27;Asset Finance&#x27;: 41, &#x27;SME Loan&#x27;: 18}</pre></div></div>
+<p>No penguin is flagged, so there is nothing to investigate. The flagged loans all belong to the products with the largest tickets: they are large <em>for the whole table</em> but typical for their product. Outlier rules applied to a whole table often just rediscover that groups differ, so apply the fence <strong>within each group</strong>.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">ok</span> <span class="o">=</span> <span class="n">txns</span><span class="p">[</span><span class="n">txns</span><span class="p">[</span><span class="s2">"status"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"Success"</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">_</span><span class="p">,</span> <span class="n">hi_all</span> <span class="o">=</span> <span class="n">iqr_fence</span><span class="p">(</span><span class="n">ok</span><span class="p">[</span><span class="s2">"amount_ksh"</span><span class="p">])</span>
+<span class="n">ok</span><span class="p">[</span><span class="s2">"high_overall"</span><span class="p">]</span> <span class="o">=</span> <span class="n">ok</span><span class="p">[</span><span class="s2">"amount_ksh"</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">hi_all</span>
+<span class="n">ok</span><span class="p">[</span><span class="s2">"high_in_type"</span><span class="p">]</span> <span class="o">=</span> <span class="n">ok</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"txn_type"</span><span class="p">)[</span><span class="s2">"amount_ksh"</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="k">lambda</span> <span class="n">g</span><span class="p">:</span> <span class="n">g</span> <span class="o">&gt;</span> <span class="n">iqr_fence</span><span class="p">(</span><span class="n">g</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"flagged by one overall fence:"</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">ok</span><span class="p">[</span><span class="s2">"high_overall"</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()),</span>
+      <span class="s2">"| flagged within each transaction type:"</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">ok</span><span class="p">[</span><span class="s2">"high_in_type"</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ok</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"txn_type"</span><span class="p">)[[</span><span class="s2">"high_overall"</span><span class="p">,</span> <span class="s2">"high_in_type"</span><span class="p">]]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+</code></pre></div><div class="cell-out"><pre class="out">flagged by one overall fence: 1300 | flagged within each transaction type: 1124
+                high_overall  high_in_type
+txn_type                                  
+Airtime                    0           130
+Bill Payment              31           169
+Deposit                  644           168
+Loan Repayment           220           126
+Send Money               133           326
+Withdrawal               272           205</pre></div></div>
+<p>Now bring in outside information. The <code>fraud_flags</code> table lists transactions that rules flagged. If statistical outliers overlap with those flags, outlier detection is a useful screen.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">ff</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="s2">"SELECT txn_id FROM fraud_flags"</span><span class="p">,</span> <span class="n">con</span><span class="p">)</span>
+<span class="n">ok</span><span class="p">[</span><span class="s2">"flagged_fraud"</span><span class="p">]</span> <span class="o">=</span> <span class="n">ok</span><span class="p">[</span><span class="s2">"txn_id"</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">ff</span><span class="p">[</span><span class="s2">"txn_id"</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ok</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"high_in_type"</span><span class="p">)[</span><span class="s2">"flagged_fraud"</span><span class="p">]</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="s2">"size"</span><span class="p">,</span> <span class="n">flagged</span><span class="o">=</span><span class="s2">"sum"</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="s2">"mean"</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+</code></pre></div><div class="cell-out"><pre class="out">                  n  flagged    rate
+high_in_type                        
+False         18006       39  0.0022
+True           1124      118  0.1050</pre></div></div>
+<p>In this synthetic data, fraud flags are far more likely on within-type outliers, though most outliers carry no flag. The data was built so that large amounts attract flags; in real life you would test this, not assume it.</p>
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Decision</th>
+<th>When it is right</th>
+<th>Record in your notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Keep</td>
+<td>genuine, rare, real values</td>
+<td>the reason; report medians too</td>
+</tr>
+<tr>
+<td>Correct</td>
+<td>obvious entry error with a known fix</td>
+<td>old value, new value, who confirmed</td>
+</tr>
+<tr>
+<td>Cap</td>
+<td>extremes would dominate a model but should stay</td>
+<td>the cap and how many were capped</td>
+</tr>
+<tr>
+<td>Remove</td>
+<td>impossible values with no fix</td>
+<td>count removed and the rule</td>
+</tr>
+</tbody>
+</table></div>
+
+<p><strong>Common mistake.</strong> Removing outliers until the chart looks nice. If a decision depends on the removal, say so and show the result both ways.</p>
+
+<h2 id="7-8-time-trends-level-seasonality-and-rates"><a class="anchor" href="#7-8-time-trends-level-seasonality-and-rates" aria-label="Link to this section">#</a>7.8 Time trends: level, seasonality and rates</h2>
+
+<p>Time adds three questions: is there a <strong>trend</strong> (slow rise or fall), <strong>seasonality</strong> (a repeating pattern by month or weekday), and <strong>breaks</strong> (a sudden jump)? Make sure the date column is a real date, aggregate to a regular period with <code>resample</code>, and plot <em>rates</em> as well as counts, because counts rise whenever the business grows.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">t</span> <span class="o">=</span> <span class="n">txns</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">"txn_date"</span><span class="p">)</span>
+<span class="n">monthly</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">"txns"</span><span class="p">:</span> <span class="n">t</span><span class="p">[</span><span class="s2">"txn_id"</span><span class="p">]</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s2">"MS"</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">(),</span>
+                        <span class="s2">"failed_pct"</span><span class="p">:</span> <span class="n">t</span><span class="p">[</span><span class="s2">"status"</span><span class="p">]</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="s2">"Failed"</span><span class="p">)</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s2">"MS"</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">*</span> <span class="mi">100</span><span class="p">})</span>
+<span class="n">by</span> <span class="o">=</span> <span class="n">monthly</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">year</span><span class="o">=</span><span class="n">monthly</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="n">monthly</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">month</span><span class="p">)</span>
+<span class="n">pv</span> <span class="o">=</span> <span class="n">by</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s2">"month"</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s2">"year"</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s2">"txns"</span><span class="p">)</span>
+<span class="n">pv</span><span class="p">[</span><span class="s2">"change_pct"</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="n">pv</span><span class="p">[</span><span class="mi">2025</span><span class="p">]</span> <span class="o">/</span> <span class="n">pv</span><span class="p">[</span><span class="mi">2024</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pv</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"busiest month:"</span><span class="p">,</span> <span class="n">monthly</span><span class="p">[</span><span class="s2">"txns"</span><span class="p">]</span><span class="o">.</span><span class="n">idxmax</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">"%Y-%m"</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">year   2024  2025  change_pct
+month                        
+1       728   779         7.0
+2       711   748         5.2
+3       833   850         2.0
+4       778   793         1.9
+5       876   912         4.1
+6       824   802        -2.7
+7       822   810        -1.5
+8       833   871         4.6
+9       810   819         1.1
+10      794   810         2.0
+11      838   793        -5.4
+12     1045  1121         7.3
+busiest month: 2025-12</pre></div></div>
+<p>Comparing the <em>same calendar month</em> across the two years separates seasonality from growth. Now draw the monthly level, the weekday pattern and the failure rate.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">order</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"Monday"</span><span class="p">,</span> <span class="s2">"Tuesday"</span><span class="p">,</span> <span class="s2">"Wednesday"</span><span class="p">,</span> <span class="s2">"Thursday"</span><span class="p">,</span> <span class="s2">"Friday"</span><span class="p">,</span> <span class="s2">"Saturday"</span><span class="p">,</span> <span class="s2">"Sunday"</span><span class="p">]</span>
+<span class="n">dow</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">day_name</span><span class="p">())[</span><span class="s2">"txn_id"</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">()</span><span class="o">.</span><span class="n">reindex</span><span class="p">(</span><span class="n">order</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">3.4</span><span class="p">))</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">monthly</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">monthly</span><span class="p">[</span><span class="s2">"txns"</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">BLUE</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">"o"</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">dec</span> <span class="o">=</span> <span class="n">monthly</span><span class="p">[</span><span class="n">monthly</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">month</span> <span class="o">==</span> <span class="mi">12</span><span class="p">]</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">dec</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">dec</span><span class="p">[</span><span class="s2">"txns"</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">AMBER</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Transactions per month"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"Month"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Transactions"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">"x"</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">bar</span><span class="p">([</span><span class="n">d</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">order</span><span class="p">],</span> <span class="n">dow</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">GREEN</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"By day of week"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"Day"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Transactions"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">monthly</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">monthly</span><span class="p">[</span><span class="s2">"failed_pct"</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">GREY</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">"o"</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Failure rate per month"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"Month"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Failed (%)"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">"x"</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">"p07_time.png"</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">130</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"busiest weekday:"</span><span class="p">,</span> <span class="n">dow</span><span class="o">.</span><span class="n">idxmax</span><span class="p">(),</span> <span class="s2">"| failure rate range:"</span><span class="p">,</span>
+      <span class="nb">round</span><span class="p">(</span><span class="n">monthly</span><span class="p">[</span><span class="s2">"failed_pct"</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="mi">2</span><span class="p">),</span> <span class="s2">"to"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">monthly</span><span class="p">[</span><span class="s2">"failed_pct"</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="mi">2</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">busiest weekday: Sunday | failure rate range: 1.95 to 4.44</pre></div></div>
+<div class="cell only-out"><div class="cell-out"><figure class="fig"><img src="img/part-07-019.png" alt="Chart output" loading="lazy"></figure></div></div>
+<p>December (amber) stands out in both years and some weekdays are busier than others. These are seasonal patterns, so a December jump is not 'growth'. The failure rate wanders in a narrow band: with only about 800 transactions a month, swings of a point or so are what chance alone produces. Reporting 'no pattern found, here is how hard we looked' is a legitimate EDA finding.</p>
+
+<div class="callout tip"><p><strong>Rule.</strong> Compare like with like: the same month in another year, rates rather than counts, and complete periods (a half-finished month always looks like a collapse).</p>
+</div>
+<h2 id="7-9-from-patterns-to-hypotheses-is-it-real-or-noise-advanced"><a class="anchor" href="#7-9-from-patterns-to-hypotheses-is-it-real-or-noise-advanced" aria-label="Link to this section">#</a>7.9 From patterns to hypotheses: is it real or noise? (Advanced)</h2>
+
+<p>An EDA pattern is a <strong>hypothesis</strong>, not a result. 'Mass-segment customers default more often' is a claim you can state, test and disprove. A screening test asks: if the groups were really the same, how often would chance alone produce a gap this large? That probability is the <strong>p-value</strong> (Part 8 explains it properly). For two categorical columns the usual screen is the <strong>chi-square test of independence</strong>.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">stats</span>
+
+<span class="n">sg</span> <span class="o">=</span> <span class="n">loans</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">customers</span><span class="p">[[</span><span class="s2">"customer_id"</span><span class="p">,</span> <span class="s2">"segment"</span><span class="p">]],</span> <span class="n">on</span><span class="o">=</span><span class="s2">"customer_id"</span><span class="p">)</span>
+<span class="n">sg</span> <span class="o">=</span> <span class="n">sg</span><span class="p">[</span><span class="n">sg</span><span class="p">[</span><span class="s2">"status"</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s2">"Closed"</span><span class="p">,</span> <span class="s2">"Defaulted"</span><span class="p">])]</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">crosstab</span><span class="p">(</span><span class="n">sg</span><span class="p">[</span><span class="s2">"segment"</span><span class="p">],</span> <span class="n">sg</span><span class="p">[</span><span class="s2">"status"</span><span class="p">])</span>
+<span class="n">chi2</span><span class="p">,</span> <span class="n">p_val</span><span class="p">,</span> <span class="n">dof</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">chi2_contingency</span><span class="p">(</span><span class="n">table</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"chi-square = </span><span class="si">{</span><span class="n">chi2</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">, degrees of freedom = </span><span class="si">{</span><span class="n">dof</span><span class="si">}</span><span class="s2">, p-value = </span><span class="si">{</span><span class="n">p_val</span><span class="si">:</span><span class="s2">.2g</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">status    Closed  Defaulted
+segment                    
+Affluent      81          9
+Mass          49         48
+Mid          234         53
+chi-square = 50.0, degrees of freedom = 2, p-value = 1.4e-11</pre></div></div>
+<p>A very small p-value says the gap between segments is unlikely to be chance. It does <strong>not</strong> say income <em>causes</em> default: the segment may also differ in product mix or credit score. For a numeric column against a yes or no outcome, use a rank test, which does not assume a bell shape.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">d</span> <span class="o">=</span> <span class="n">settled</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"defaulted"</span><span class="p">)[</span><span class="s2">"credit_score"</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">agg</span><span class="p">([</span><span class="s2">"count"</span><span class="p">,</span> <span class="s2">"median"</span><span class="p">])</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+<span class="n">u</span><span class="p">,</span> <span class="n">p_u</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">mannwhitneyu</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">get_group</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">d</span><span class="o">.</span><span class="n">get_group</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Mann-Whitney U = </span><span class="si">{</span><span class="n">u</span><span class="si">:</span><span class="s2">,.0f</span><span class="si">}</span><span class="s2">, p-value = </span><span class="si">{</span><span class="n">p_u</span><span class="si">:</span><span class="s2">.2g</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">           count  median
+defaulted               
+0            364   610.0
+1            110   559.0
+Mann-Whitney U = 11,902, p-value = 1.1e-10</pre></div></div>
+<p><strong>Common mistake.</strong> Testing dozens of pairs and reporting the one with p below 0.05. With 20 comparisons you expect one 'significant' result by luck. Decide the few comparisons that matter <em>before</em> looking, or say how many you tried.</p>
+
+<h2 id="7-10-a-reusable-eda-report-function"><a class="anchor" href="#7-10-a-reusable-eda-report-function" aria-label="Link to this section">#</a>7.10 A reusable eda_report() function</h2>
+
+<p>Once the routine is stable, wrap it in a function. A good <code>eda_report</code> does not replace thinking; it makes sure you never skip the first look. This version returns a dictionary of small tables (structure, numeric summary, categorical summary, strongest pairs, outlier counts, dates) and prints a short summary.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="k">def</span><span class="w"> </span><span class="nf">eda_report</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">date_col</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">id_cols</span><span class="o">=</span><span class="p">(),</span> <span class="n">max_levels</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">'''First-look EDA. Returns a dict of tables; prints a compact summary when verbose.'''</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">out</span><span class="p">[</span><span class="s2">"structure"</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">"dtype"</span><span class="p">:</span> <span class="n">df</span><span class="o">.</span><span class="n">dtypes</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">),</span> <span class="s2">"missing"</span><span class="p">:</span> <span class="n">df</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span>
+                                     <span class="s2">"missing_pct"</span><span class="p">:</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span>
+                                     <span class="s2">"distinct"</span><span class="p">:</span> <span class="n">df</span><span class="o">.</span><span class="n">nunique</span><span class="p">()})</span>
+    <span class="n">num</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="s2">"number"</span><span class="p">)</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">c</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">id_cols</span><span class="p">]</span>
+    <span class="n">cat</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">c</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">num</span> <span class="ow">and</span> <span class="n">c</span> <span class="o">!=</span> <span class="n">date_col</span> <span class="ow">and</span> <span class="n">c</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">id_cols</span>
+           <span class="ow">and</span> <span class="n">df</span><span class="p">[</span><span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span> <span class="o">&lt;=</span> <span class="n">max_levels</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">num</span><span class="p">:</span>
+        <span class="n">desc</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">num</span><span class="p">]</span><span class="o">.</span><span class="n">describe</span><span class="p">(</span><span class="n">percentiles</span><span class="o">=</span><span class="p">[</span><span class="mf">0.5</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+        <span class="n">desc</span><span class="p">[</span><span class="s2">"skew"</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">num</span><span class="p">]</span><span class="o">.</span><span class="n">skew</span><span class="p">()</span>
+        <span class="n">q1</span><span class="p">,</span> <span class="n">q3</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">num</span><span class="p">]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.25</span><span class="p">),</span> <span class="n">df</span><span class="p">[</span><span class="n">num</span><span class="p">]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.75</span><span class="p">)</span>
+        <span class="n">desc</span><span class="p">[</span><span class="s2">"above_fence"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">num</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">q3</span> <span class="o">+</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">q3</span> <span class="o">-</span> <span class="n">q1</span><span class="p">))</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+        <span class="n">out</span><span class="p">[</span><span class="s2">"numeric"</span><span class="p">]</span> <span class="o">=</span> <span class="n">desc</span><span class="p">[[</span><span class="s2">"count"</span><span class="p">,</span> <span class="s2">"mean"</span><span class="p">,</span> <span class="s2">"50%"</span><span class="p">,</span> <span class="s2">"std"</span><span class="p">,</span> <span class="s2">"min"</span><span class="p">,</span> <span class="s2">"max"</span><span class="p">,</span> <span class="s2">"skew"</span><span class="p">,</span> <span class="s2">"above_fence"</span><span class="p">]]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">out</span><span class="p">[</span><span class="s2">"categorical"</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">c</span><span class="p">:</span> <span class="n">df</span><span class="p">[</span><span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="n">dropna</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">max_levels</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">cat</span><span class="p">}</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">num</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">cm</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">num</span><span class="p">]</span><span class="o">.</span><span class="n">corr</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">"spearman"</span><span class="p">)</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span>
+        <span class="n">pairs</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">triu</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">cm</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">),</span> <span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">stack</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">out</span><span class="p">[</span><span class="s2">"top_pairs"</span><span class="p">]</span> <span class="o">=</span> <span class="n">pairs</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">target</span> <span class="ow">in</span> <span class="n">num</span><span class="p">:</span>
+        <span class="n">out</span><span class="p">[</span><span class="s2">"target_by_cat"</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">c</span><span class="p">:</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">observed</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="n">target</span><span class="p">]</span><span class="o">.</span><span class="n">agg</span><span class="p">([</span><span class="s2">"count"</span><span class="p">,</span> <span class="s2">"mean"</span><span class="p">])</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">cat</span><span class="p">}</span>
+    <span class="k">if</span> <span class="n">date_col</span><span class="p">:</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">date_col</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s2">"coerce"</span><span class="p">)</span>
+        <span class="n">out</span><span class="p">[</span><span class="s2">"dates"</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"min"</span><span class="p">:</span> <span class="n">d</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="s2">"max"</span><span class="p">:</span> <span class="n">d</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="s2">"unparseable"</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">())}</span>
+    <span class="n">out</span><span class="p">[</span><span class="s2">"duplicates"</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">duplicated</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+    <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"rows=</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> columns=</span><span class="si">{</span><span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2"> duplicates=</span><span class="si">{</span><span class="n">out</span><span class="p">[</span><span class="s1">'duplicates'</span><span class="p">]</span><span class="si">}</span><span class="s2"> "</span>
+              <span class="sa">f</span><span class="s2">"cells missing=</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"numeric:"</span><span class="p">,</span> <span class="n">num</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">categorical:"</span><span class="p">,</span> <span class="n">cat</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">out</span>
+</code></pre></div></div>
+<p>Run it on the penguins first, then on the settled loans with a 0/1 <code>defaulted</code> target.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">rep1</span> <span class="o">=</span> <span class="n">eda_report</span><span class="p">(</span><span class="n">peng</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">rep1</span><span class="p">[</span><span class="s2">"numeric"</span><span class="p">]</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">rep1</span><span class="p">[</span><span class="s2">"top_pairs"</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+</code></pre></div><div class="cell-out"><pre class="out">rows=344 columns=7 duplicates=0 cells missing=19
+numeric: [&#x27;bill_length_mm&#x27;, &#x27;bill_depth_mm&#x27;, &#x27;flipper_length_mm&#x27;, &#x27;body_mass_g&#x27;] 
+categorical: [&#x27;species&#x27;, &#x27;island&#x27;, &#x27;sex&#x27;]
+                   count     mean      50%     std     min     max  skew  above_fence
+bill_length_mm     342.0    43.92    44.45    5.46    32.1    59.6  0.05            0
+bill_depth_mm      342.0    17.15    17.30    1.97    13.1    21.5 -0.14            0
+flipper_length_mm  342.0   200.92   197.00   14.06   172.0   231.0  0.35            0
+body_mass_g        342.0  4201.75  4050.00  801.95  2700.0  6300.0  0.47            0
+flipper_length_mm  body_mass_g          0.84
+bill_length_mm     flipper_length_mm    0.67
+                   body_mass_g          0.58</pre></div></div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">use</span> <span class="o">=</span> <span class="n">settled</span><span class="p">[[</span><span class="s2">"product"</span><span class="p">,</span> <span class="s2">"principal_ksh"</span><span class="p">,</span> <span class="s2">"interest_rate_pct"</span><span class="p">,</span> <span class="s2">"term_months"</span><span class="p">,</span> <span class="s2">"credit_score"</span><span class="p">,</span>
+               <span class="s2">"defaulted"</span><span class="p">,</span> <span class="s2">"disbursement_date"</span><span class="p">]]</span>
+<span class="n">rep2</span> <span class="o">=</span> <span class="n">eda_report</span><span class="p">(</span><span class="n">use</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s2">"defaulted"</span><span class="p">,</span> <span class="n">date_col</span><span class="o">=</span><span class="s2">"disbursement_date"</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">rep2</span><span class="p">[</span><span class="s2">"target_by_cat"</span><span class="p">][</span><span class="s2">"product"</span><span class="p">]</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">rep2</span><span class="p">[</span><span class="s2">"dates"</span><span class="p">])</span>
+</code></pre></div><div class="cell-out"><pre class="out">                count   mean
+product                     
+Asset Finance      20  0.950
+Digital Loan      223  0.112
+SME Loan           67  0.418
+Salary Advance    164  0.232
+{&#x27;min&#x27;: Timestamp(&#x27;2024-01-01 00:00:00&#x27;), &#x27;max&#x27;: Timestamp(&#x27;2025-09-30 00:00:00&#x27;), &#x27;unparseable&#x27;: 0}</pre></div></div>
+<p>The function found the strongest relationships and the columns with values above their fence without us choosing them. It cannot tell you which matter; that stays your job, guided by the question from 7.1.</p>
+
+<div class="callout real"><p><strong>Reuse.</strong> Keep a function like this in a module (<code>eda_tools.py</code>) and import it in every project, so a colleague runs the same checks you do (see Part 18 on Git).</p>
+</div>
+<div class="callout practice"><div class="c-label">Practice</div><p>Extend <code>eda_report</code> so it also reports the three columns with the most missing values. Hint: <code>df.isna().sum().sort_values(ascending=False).head(3)</code> added to <code>out</code>.</p>
+</div>
+<h2 id="7-11-what-to-write-in-the-findings-a-template"><a class="anchor" href="#7-11-what-to-write-in-the-findings-a-template" aria-label="Link to this section">#</a>7.11 What to write in the findings: a template</h2>
+
+<p>Analysis that stays in your notebook helps nobody. The findings section turns EDA into something a manager can act on. Use the same structure every time so readers know where to look.</p>
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Block</th>
+<th>What goes in it</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Question</td>
+<td>the decision the analysis supports</td>
+<td>Where is credit risk concentrated?</td>
+</tr>
+<tr>
+<td>Data</td>
+<td>source, grain, period, rows</td>
+<td>synthetic loans, one row per loan</td>
+</tr>
+<tr>
+<td>Quality</td>
+<td>what you checked, found, did</td>
+<td>no invalid values; some loans still Active</td>
+</tr>
+<tr>
+<td>Key findings</td>
+<td>3 to 5 sentences, each with a number and a denominator</td>
+<td>default rate by score band</td>
+</tr>
+<tr>
+<td>Evidence</td>
+<td>a table or chart per finding</td>
+<td>band table, segment chart</td>
+</tr>
+<tr>
+<td>Limits</td>
+<td>censoring, small groups, correlation not cause</td>
+<td>synthetic data</td>
+</tr>
+<tr>
+<td>Recommendations</td>
+<td>action, owner, how to measure it</td>
+<td>review approval at low scores</td>
+</tr>
+<tr>
+<td>Next steps</td>
+<td>tests or data you would add</td>
+<td>vintage curves, a scorecard model</td>
+</tr>
+</tbody>
+</table></div>
+
+<p>A good finding follows <strong>claim, number, comparison, so-what</strong>. 'Low scores default more' is a topic; a finding says how much more, on how many loans, and what to do. Fill the template from code so numbers cannot drift from the data.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">low</span><span class="p">,</span> <span class="n">high</span> <span class="o">=</span> <span class="n">band</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">band</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">top</span> <span class="o">=</span> <span class="n">by_prod</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">"rate_pct"</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">findings</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="sa">f</span><span class="s2">"1. Credit score separates risk: settled loans scoring 550 or below defaulted at </span><span class="si">{</span><span class="n">low</span><span class="p">[</span><span class="s1">'rate'</span><span class="p">]</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2"> "</span>
+    <span class="sa">f</span><span class="s2">"(n=</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">low</span><span class="p">[</span><span class="s1">'n'</span><span class="p">])</span><span class="si">}</span><span class="s2">) against </span><span class="si">{</span><span class="n">high</span><span class="p">[</span><span class="s1">'rate'</span><span class="p">]</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2"> (n=</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">high</span><span class="p">[</span><span class="s1">'n'</span><span class="p">])</span><span class="si">}</span><span class="s2">) above 650."</span><span class="p">,</span>
+    <span class="sa">f</span><span class="s2">"2. </span><span class="si">{</span><span class="n">top</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> has the highest settled default rate (</span><span class="si">{</span><span class="n">top</span><span class="p">[</span><span class="s1">'rate_pct'</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">%) on only "</span>
+    <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">top</span><span class="p">[</span><span class="s1">'n'</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="si">}</span><span class="s2"> settled loans, so treat it as a lead, not a conclusion."</span><span class="p">,</span>
+    <span class="sa">f</span><span class="s2">"3. Within-type outlier transactions carry fraud flags </span><span class="si">{</span><span class="n">ok</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">'high_in_type'</span><span class="p">)[</span><span class="s1">'flagged_fraud'</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()[</span><span class="kc">True</span><span class="p">]</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2"> "</span>
+    <span class="sa">f</span><span class="s2">"of the time, against </span><span class="si">{</span><span class="n">ok</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">'high_in_type'</span><span class="p">)[</span><span class="s1">'flagged_fraud'</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()[</span><span class="kc">False</span><span class="p">]</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2"> otherwise."</span><span class="p">,</span>
+<span class="p">]</span>
+<span class="n">limits</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"All lender data is synthetic; findings describe this data only."</span><span class="p">,</span>
+          <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="nb">int</span><span class="p">((</span><span class="n">loans</span><span class="p">[</span><span class="s1">'status'</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s1">'Active'</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span><span class="si">}</span><span class="s2"> of </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">loans</span><span class="p">)</span><span class="si">}</span><span class="s2"> loans are still Active, so rates use settled loans."</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">findings</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"LIMITS"</span><span class="p">);</span> <span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">"- "</span> <span class="o">+</span> <span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">limits</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">1. Credit score separates risk: settled loans scoring 550 or below defaulted at 46.8% (n=94) against 9.3% (n=86) above 650.
+2. Asset Finance has the highest settled default rate (95.0%) on only 20 settled loans, so treat it as a lead, not a conclusion.
+3. Within-type outlier transactions carry fraud flags 10.5% of the time, against 0.2% otherwise.
+LIMITS
+- All lender data is synthetic; findings describe this data only.
+- 86 of 560 loans are still Active, so rates use settled loans.</pre></div></div>
+<p>The sentences contain the number, the group size and a warning where the group is small. They never use 'significant' unless a test supports it.</p>
+
+<div class="callout tip"><p><strong>Checklist.</strong> Before you share any EDA: (1) the question is written; (2) grain and period are stated; (3) quality checks and counts are shown; (4) every rate has a denominator; (5) outliers were investigated, not silently removed; (6) seasonality was considered; (7) claims say 'in this data'; (8) there is a limits line and a next step.</p>
+</div>
+<p><strong>Final practice.</strong> Pick one question of your own on <code>fact_transactions</code>, for example 'Which counties have the lowest share of Success transactions?'. Write the question, one quality check, one table with counts and one finding sentence generated by code.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">fact</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="s2">"SELECT county, status FROM fact_transactions"</span><span class="p">,</span> <span class="n">con</span><span class="p">)</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">fact</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"county"</span><span class="p">)[</span><span class="s2">"status"</span><span class="p">]</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="s2">"count"</span><span class="p">,</span> <span class="n">ok</span><span class="o">=</span><span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="p">(</span><span class="n">s</span> <span class="o">==</span> <span class="s2">"Success"</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+<span class="n">g</span><span class="p">[</span><span class="s2">"success_pct"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">g</span><span class="p">[</span><span class="s2">"ok"</span><span class="p">]</span> <span class="o">/</span> <span class="n">g</span><span class="p">[</span><span class="s2">"n"</span><span class="p">]</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">low_c</span> <span class="o">=</span> <span class="n">g</span><span class="p">[</span><span class="s2">"success_pct"</span><span class="p">]</span><span class="o">.</span><span class="n">idxmin</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"missing county:"</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">fact</span><span class="p">[</span><span class="s2">"county"</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">"success_pct"</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Lowest success rate: </span><span class="si">{</span><span class="n">low_c</span><span class="si">}</span><span class="s2"> at </span><span class="si">{</span><span class="n">g</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">low_c</span><span class="p">,</span><span class="w"> </span><span class="s1">'success_pct'</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">% of </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">low_c</span><span class="p">,</span><span class="w"> </span><span class="s1">'n'</span><span class="p">])</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> "</span>
+      <span class="sa">f</span><span class="s2">"transactions, against </span><span class="si">{</span><span class="n">fact</span><span class="p">[</span><span class="s1">'status'</span><span class="p">]</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="s1">'Success'</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">100</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">% overall."</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">missing county: 0
+            n    ok  success_pct
+county                          
+Kisii     874   829        94.85
+Eldoret  1221  1160        95.00
+Nairobi  7023  6714        95.60
+Lowest success rate: Kisii at 94.85% of 874 transactions, against 95.65% overall.</pre></div></div>
+<p>Check the gap against the group size before acting: a small county can move by a point from chance alone.</p>
+
+<div class="callout takeaways"><div class="c-label">Key takeaways</div><ul>
+<li>Write the question first; EDA without a question produces dozens of charts and no point.</li>
+<li>State the grain of the table, then measure quality: missing, duplicates, validity, consistency, censoring.</li>
+<li>Describe one column, then pairs, then segments, always showing the group size next to every rate.</li>
+<li>Detect, investigate, then decide about outliers; never delete them just to tidy a chart.</li>
+<li>Compare like with like over time, and treat every pattern as a hypothesis, not a result.</li>
+<li>Write findings as claim, number, comparison, so-what, and list the limits of the data.</li>
+</ul>
+</div></div><nav class="pager" aria-label="Previous and next"><a class="prev" href="part-06.html"><small>Previous</small><span>Part 6: SQL for Data Analysts</span></a><a class="next" href="part-08.html"><small>Next</small><span>Part 8: Statistics for Data Science</span></a></nav>
+<footer class="foot"><p>Data Science from Zero to Advanced &middot; written by Benson M. Merita &middot; &copy; 2026 MeritaAnalytics. Public datasets keep their own licences, listed in <a href="appendix-b.html">Appendix B</a>.</p></footer>
+</main>
+</div>
+<script src="search-index.js"></script>
+<script src="site.js"></script>
+</body>
+</html>

@@ -1,0 +1,732 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>Part 11: Classification | MeritaAnalytics</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to the notes</a>
+<header class="top"><button class="menu" id="menu" aria-controls="side" aria-expanded="false">Contents</button><span class="top-title">Part 11: Classification</span></header>
+<div class="shell">
+<nav class="side" id="side" aria-label="Handbook contents">
+<a class="brand" href="index.html"><span class="mark" aria-hidden="true">MA</span><span><b>MeritaAnalytics</b><small>Data Science Notes</small></span></a>
+<label class="search"><span class="sr">Search the notes</span><input id="q" type="search" placeholder="Search topics, e.g. groupby" autocomplete="off"></label>
+<div id="results" class="results" hidden></div>
+<ol class="nav">
+<li class="lvl0"><a href="index.html" class="">Start here</a></li>
+<li class="lvl"><div class="lvl-name"><span>Level 1</span>Foundations</div><ol>
+<li data-slug="part-01"><a href="part-01.html" class=""><span class="pn">1</span><span class="pt">What Is Data Science?</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-02"><a href="part-02.html" class=""><span class="pn">2</span><span class="pt">Python Basics</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-03"><a href="part-03.html" class=""><span class="pn">3</span><span class="pt">NumPy: Fast Numbers</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 2</span>Data Analysis</div><ol>
+<li data-slug="part-04"><a href="part-04.html" class=""><span class="pn">4</span><span class="pt">Pandas: Working with Tables</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-05"><a href="part-05.html" class=""><span class="pn">5</span><span class="pt">Data Visualisation</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-06"><a href="part-06.html" class=""><span class="pn">6</span><span class="pt">SQL for Data Analysts</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-07"><a href="part-07.html" class=""><span class="pn">7</span><span class="pt">Exploratory Data Analysis</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 3</span>Statistics</div><ol>
+<li data-slug="part-08"><a href="part-08.html" class=""><span class="pn">8</span><span class="pt">Statistics for Data Science</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 4</span>Machine Learning</div><ol>
+<li data-slug="part-09"><a href="part-09.html" class=""><span class="pn">9</span><span class="pt">Machine Learning Foundations</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-10"><a href="part-10.html" class=""><span class="pn">10</span><span class="pt">Regression</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-11"><a href="part-11.html" class="on"><span class="pn">11</span><span class="pt">Classification</span><span class="done-dot" aria-hidden="true"></span></a>
+<ol class="sub"><li><a href="#11-1-what-classification-is">11.1 What Classification Is</a></li><li><a href="#11-2-logistic-regression">11.2 Logistic Regression</a></li><li><a href="#11-3-reading-the-mistakes-confusion-matrix-precision-recall-">11.3 Reading the Mistakes: Confusion Matrix, Precision, Recall, F1</a></li><li><a href="#11-4-k-nearest-neighbours">11.4 k-Nearest Neighbours</a></li><li><a href="#11-5-naive-bayes">11.5 Naive Bayes</a></li><li><a href="#11-6-decision-trees">11.6 Decision Trees</a></li><li><a href="#11-7-support-vector-machines">11.7 Support Vector Machines</a></li><li><a href="#11-8-roc-curve-auc-and-the-precision-recall-curve">11.8 ROC Curve, AUC and the Precision-Recall Curve</a></li><li><a href="#11-9-many-classes-wine-iris-and-penguins">11.9 Many Classes: Wine, Iris and Penguins</a></li><li><a href="#11-10-choosing-the-threshold-with-costs">11.10 Choosing the Threshold with Costs</a></li><li><a href="#11-11-imbalanced-classes-and-calibrated-probabilities-advanc">11.11 Imbalanced Classes and Calibrated Probabilities (Advanced)</a></li><li><a href="#11-12-choosing-a-classifier-and-using-it-in-the-real-world">11.12 Choosing a Classifier, and Using It in the Real World</a></li></ol>
+</li>
+<li data-slug="part-12"><a href="part-12.html" class=""><span class="pn">12</span><span class="pt">Ensembles, Tuning and Feature Engineering</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-13"><a href="part-13.html" class=""><span class="pn">13</span><span class="pt">Unsupervised Learning</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 5</span>Deep Learning and Modern AI</div><ol>
+<li data-slug="part-14"><a href="part-14.html" class=""><span class="pn">14</span><span class="pt">Neural Networks and Deep Learning</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-15"><a href="part-15.html" class=""><span class="pn">15</span><span class="pt">Reinforcement Learning</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-16"><a href="part-16.html" class=""><span class="pn">16</span><span class="pt">Generative AI and Large Language Models</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 6</span>The Real World</div><ol>
+<li data-slug="part-17"><a href="part-17.html" class=""><span class="pn">17</span><span class="pt">Business Metrics, Excel and Power BI</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-18"><a href="part-18.html" class=""><span class="pn">18</span><span class="pt">Automation, Git, Deployment and Responsible AI</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-19"><a href="part-19.html" class=""><span class="pn">19</span><span class="pt">End-to-End Projects</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 7</span>Career and Reference</div><ol>
+<li data-slug="part-20"><a href="part-20.html" class=""><span class="pn">20</span><span class="pt">Practice Exercises and Answer Key</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-21"><a href="part-21.html" class=""><span class="pn">21</span><span class="pt">Interview Preparation</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-22"><a href="part-22.html" class=""><span class="pn">22</span><span class="pt">Roadmap, Cheat Sheets and Glossary</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Appendix</span>Reference</div><ol>
+<li><a href="appendix-a.html" class=""><span class="pn">A</span><span class="pt">Sources and Next Steps</span></a></li>
+<li><a href="appendix-b.html" class=""><span class="pn">B</span><span class="pt">Data Catalogue</span></a></li>
+</ol></li></ol>
+<p class="side-foot">By Benson M. Merita &middot; &copy; 2026 MeritaAnalytics</p></nav>
+<main id="main" class="main"><header class="part-head"><span class="lv">Level 4 &middot; Machine Learning</span><p class="part-no">Part 11</p><h1>Classification</h1><p class="lede">Teach a model to choose between classes: yes or no, and one of many. You learn five classic algorithms, how to judge them honestly, and how to turn probabilities into business decisions.</p><button class="mark-done" id="done" data-slug="part-11" aria-pressed="false">Mark this part as done</button></header><div class="prose"><div class="callout learn"><div class="c-label">In this part</div><ul>
+<li>Explain what classification is and how a probability becomes a decision</li>
+<li>Fit logistic regression, k-nearest neighbours, naive Bayes, a decision tree and an SVM</li>
+<li>Read a confusion matrix and compute precision, recall, F1, ROC AUC and PR curves</li>
+<li>Choose a decision threshold using the cost of each kind of mistake</li>
+<li>Handle multi-class problems, imbalanced classes and uncalibrated probabilities</li>
+</ul>
+<div class="meta"><span><b>You need first</b> Part 9 and Part 10</span><span><b>Time</b> 5 to 7 hours</span></div></div>
+<h2 id="11-1-what-classification-is"><a class="anchor" href="#11-1-what-classification-is" aria-label="Link to this section">#</a>11.1 What Classification Is</h2>
+
+<p><strong>Classification</strong> predicts a category. Will this loan default (yes or no)? Is this M-Pesa transaction fraud? Which of three species is this penguin? When there are two categories it is <strong>binary</strong> classification. With three or more it is <strong>multi-class</strong>.</p>
+
+<p>Most classifiers do not jump straight to a label. They first give a <strong>probability</strong> for each class, then a <strong>threshold</strong> turns the probability into a decision (for example, 'flag if the probability is above 0.5'). Keeping these two steps apart is the key idea of this Part.</p>
+
+<p>We start with the Wisconsin breast-cancer measurements that ship with scikit-learn (BSD licence). Each row is a tumour sample with 30 numeric measurements. We label <strong>malignant = 1</strong>, because that is the case we most want to catch.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span><span class="o">,</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_breast_cancer</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.dummy</span><span class="w"> </span><span class="kn">import</span> <span class="n">DummyClassifier</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">load_breast_cancer</span><span class="p">(</span><span class="n">as_frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">data</span>
+<span class="n">y</span> <span class="o">=</span> <span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">target</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>          <span class="c1"># 1 = malignant, 0 = benign</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"rows, columns:"</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"share malignant:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="mi">3</span><span class="p">))</span>
+
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+    <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">base</span> <span class="o">=</span> <span class="n">DummyClassifier</span><span class="p">(</span><span class="n">strategy</span><span class="o">=</span><span class="s2">"most_frequent"</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"baseline accuracy (always say benign):"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">base</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">),</span> <span class="mi">3</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">rows, columns: (569, 30)
+share malignant: 0.373
+baseline accuracy (always say benign): 0.629</pre></div></div>
+<p>The <code>stratify=y</code> option keeps the malignant share the same in train and test. The baseline model ignores every measurement and always predicts the majority class. Any real model must beat it, otherwise it has learned nothing.</p>
+
+<div class="callout mistake"><p><strong>Common mistake.</strong> A model that is 'accurate' can still be useless. If only 5 in 100 customers default, a model that approves everybody is 95 percent accurate and catches no defaulters. Always compare with the baseline and look beyond accuracy (section 11.3).</p>
+</div>
+<h2 id="11-2-logistic-regression"><a class="anchor" href="#11-2-logistic-regression" aria-label="Link to this section">#</a>11.2 Logistic Regression</h2>
+
+<p><strong>What it does.</strong> Despite the name, logistic regression is a classifier. It gives the probability that a row belongs to class 1.</p>
+
+<p><strong>How it works.</strong> It adds up the features with weights, like linear regression (score = w1<em>x1 + w2</em>x2 + ... + b), then squeezes the score into the range 0 to 1 with the S-shaped <strong>sigmoid</strong> curve. Large positive scores become probabilities near 1, large negative scores near 0. Training finds the weights that make the observed labels most likely.</p>
+
+<ul>
+<li><strong>Works best when</strong> the classes are roughly separable by a straight boundary, you want probabilities, and you need to explain each feature's effect.</li>
+<li><strong>Struggles when</strong> the true boundary is curved or has feature interactions, unless you add those features yourself.</li>
+<li><strong>Key settings:</strong> <code>C</code> (inverse regularisation strength: smaller C means a simpler model), <code>penalty</code> (l2 by default), <code>class_weight</code>, and <code>max_iter</code>.</li>
+</ul>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.pipeline</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_pipeline</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">accuracy_score</span>
+
+<span class="n">logit</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">StandardScaler</span><span class="p">(),</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">))</span>
+<span class="n">logit</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">pred</span> <span class="o">=</span> <span class="n">logit</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"test accuracy:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">pred</span><span class="p">),</span> <span class="mi">3</span><span class="p">))</span>
+
+<span class="n">proba</span> <span class="o">=</span> <span class="n">logit</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"first 5 probabilities:"</span><span class="p">,</span> <span class="n">proba</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"first 5 labels      :"</span><span class="p">,</span> <span class="n">pred</span><span class="p">[:</span><span class="mi">5</span><span class="p">])</span>
+</code></pre></div><div class="cell-out"><pre class="out">test accuracy: 0.965
+first 5 probabilities: [0.999 0.004 1.    0.    0.035]
+first 5 labels      : [1 0 1 0 0]</pre></div></div>
+<p>Scaling matters here because the penalty on the weights treats all features alike. The pipeline scales inside the model so the test data is scaled with training statistics only (see Part 9 on leakage). Which features push the probability up?</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">coef</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">logit</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">coef_</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">index</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">coef</span><span class="o">.</span><span class="n">sort_values</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]])</span>
+</code></pre></div><div class="cell-out"><pre class="out">compactness error         -0.93
+fractal dimension error   -0.60
+mean compactness          -0.47
+worst symmetry             1.04
+radius error               1.27
+worst texture              1.37
+dtype: float64</pre></div></div>
+<p>Positive weights raise the chance of malignant, negative weights lower it. Because the features were standardised, the weights are comparable in size.</p>
+
+<div class="callout tip"><p><strong>Rule of thumb.</strong> Logistic regression is where to start. It is fast, hard to overfit, gives probabilities, and its weights can be explained to a credit committee. Beat it before you reach for something fancier.</p>
+</div>
+<h2 id="11-3-reading-the-mistakes-confusion-matrix-precision-recall-"><a class="anchor" href="#11-3-reading-the-mistakes-confusion-matrix-precision-recall-" aria-label="Link to this section">#</a>11.3 Reading the Mistakes: Confusion Matrix, Precision, Recall, F1</h2>
+
+<p>Accuracy counts all correct answers equally. But the two kinds of mistake rarely cost the same. A <strong>confusion matrix</strong> counts all four outcomes, where 'positive' means class 1 (malignant here).</p>
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th>Predicted 0</th>
+<th>Predicted 1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Actually 0</strong></td>
+<td>True negative (TN)</td>
+<td>False positive (FP): false alarm</td>
+</tr>
+<tr>
+<td><strong>Actually 1</strong></td>
+<td>False negative (FN): missed case</td>
+<td>True positive (TP)</td>
+</tr>
+</tbody>
+</table></div>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">confusion_matrix</span><span class="p">,</span> <span class="n">precision_score</span><span class="p">,</span> <span class="n">recall_score</span><span class="p">,</span> <span class="n">f1_score</span>
+
+<span class="n">tn</span><span class="p">,</span> <span class="n">fp</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="n">tp</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">pred</span><span class="p">)</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"TN"</span><span class="p">,</span> <span class="n">tn</span><span class="p">,</span> <span class="s2">"| FP"</span><span class="p">,</span> <span class="n">fp</span><span class="p">,</span> <span class="s2">"| FN"</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="s2">"| TP"</span><span class="p">,</span> <span class="n">tp</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"accuracy :"</span><span class="p">,</span> <span class="nb">round</span><span class="p">((</span><span class="n">tp</span> <span class="o">+</span> <span class="n">tn</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">tp</span> <span class="o">+</span> <span class="n">tn</span> <span class="o">+</span> <span class="n">fp</span> <span class="o">+</span> <span class="n">fn</span><span class="p">),</span> <span class="mi">3</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"precision:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">precision_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">pred</span><span class="p">),</span> <span class="mi">3</span><span class="p">),</span> <span class="s2">"= TP / (TP + FP)"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"recall   :"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">recall_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">pred</span><span class="p">),</span> <span class="mi">3</span><span class="p">),</span> <span class="s2">"= TP / (TP + FN)"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"F1       :"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">f1_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">pred</span><span class="p">),</span> <span class="mi">3</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">TN 89 | FP 1 | FN 4 | TP 49
+accuracy : 0.965
+precision: 0.98 = TP / (TP + FP)
+recall   : 0.925 = TP / (TP + FN)
+F1       : 0.951</pre></div></div>
+<ul>
+<li><strong>Precision</strong>: of the cases we flagged, how many were really positive? High precision means few false alarms.</li>
+<li><strong>Recall</strong> (also called sensitivity): of all real positives, how many did we catch? High recall means few misses.</li>
+<li><strong>F1</strong> is the harmonic mean of precision and recall. It is high only when both are high, so one good number cannot hide a bad one.</li>
+<li><strong>Specificity</strong>: of all real negatives, how many did we clear? It is recall for class 0.</li>
+</ul>
+
+<p>Use recall when a miss is expensive (cancer screening, fraud). Use precision when a false alarm is expensive (freezing a good customer's account). The picture below shows the same matrix as a heatmap.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">ConfusionMatrixDisplay</span>
+<span class="n">BLUE</span><span class="p">,</span> <span class="n">GREEN</span><span class="p">,</span> <span class="n">GREY</span><span class="p">,</span> <span class="n">DARK</span><span class="p">,</span> <span class="n">AMBER</span> <span class="o">=</span> <span class="s2">"#1F5FD6"</span><span class="p">,</span> <span class="s2">"#2BB38A"</span><span class="p">,</span> <span class="s2">"#9CA3AF"</span><span class="p">,</span> <span class="s2">"#0B2A4A"</span><span class="p">,</span> <span class="s2">"#B45309"</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">4.6</span><span class="p">,</span> <span class="mf">3.8</span><span class="p">))</span>
+<span class="n">ConfusionMatrixDisplay</span><span class="o">.</span><span class="n">from_predictions</span><span class="p">(</span>
+    <span class="n">y_test</span><span class="p">,</span> <span class="n">pred</span><span class="p">,</span> <span class="n">display_labels</span><span class="o">=</span><span class="p">[</span><span class="s2">"benign"</span><span class="p">,</span> <span class="s2">"malignant"</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">"Blues"</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">colorbar</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Logistic regression: confusion matrix on the test set"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"Predicted class"</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Actual class"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">"p11_confusion.png"</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">130</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"saved p11_confusion.png"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">saved p11_confusion.png</pre></div></div>
+<div class="cell only-out"><div class="cell-out"><figure class="fig"><img src="img/part-11-031.png" alt="Chart output" loading="lazy"></figure></div></div>
+<p>The off-diagonal cells are the mistakes. Read the bottom-left cell as cancers we missed.</p>
+
+<div class="callout practice"><p><strong>Practice and solution.</strong> Practice: a fraud model flags 50 transactions and 40 are truly fraud. There were 80 fraud transactions in total. Precision = 40/50 = 0.80 and recall = 40/80 = 0.50. The model is right when it speaks, but misses half of the fraud.</p>
+</div>
+<h2 id="11-4-k-nearest-neighbours"><a class="anchor" href="#11-4-k-nearest-neighbours" aria-label="Link to this section">#</a>11.4 k-Nearest Neighbours</h2>
+
+<p><strong>What it does.</strong> It classifies a new row by looking at the <code>k</code> most similar rows in the training data and taking a vote.</p>
+
+<p><strong>How it works.</strong> There is no real training: the model just stores the data. To predict, it measures the distance from the new row to every stored row, picks the <code>k</code> closest and returns the majority class. The share of votes is the probability.</p>
+
+<ul>
+<li><strong>Works best when</strong> the data has few features, similar scales, and local patterns.</li>
+<li><strong>Struggles when</strong> features have different scales, there are many irrelevant features, or the data is huge (every prediction searches the whole training set).</li>
+<li><strong>Key settings:</strong> <code>n_neighbors</code> (k), <code>weights</code> ('uniform' or 'distance'), <code>metric</code>.</li>
+</ul>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.neighbors</span><span class="w"> </span><span class="kn">import</span> <span class="n">KNeighborsClassifier</span>
+
+<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">45</span><span class="p">]:</span>
+    <span class="n">knn</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">StandardScaler</span><span class="p">(),</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="n">k</span><span class="p">))</span>
+    <span class="n">knn</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"k=</span><span class="si">{</span><span class="n">k</span><span class="si">:</span><span class="s2">&gt;2</span><span class="si">}</span><span class="s2">  train acc=</span><span class="si">{</span><span class="n">knn</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span><span class="w"> </span><span class="n">y_train</span><span class="p">)</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">  "</span>
+          <span class="sa">f</span><span class="s2">"test acc=</span><span class="si">{</span><span class="n">knn</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span><span class="w"> </span><span class="n">y_test</span><span class="p">)</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">k= 1  train acc=1.000  test acc=0.937
+k= 5  train acc=0.977  test acc=0.958
+k=15  train acc=0.962  test acc=0.965
+k=45  train acc=0.951  test acc=0.951</pre></div></div>
+<p>A tiny <code>k</code> follows every wiggle of the training data (it memorises: train accuracy is perfect at k=1). A huge <code>k</code> smooths too much. This is the bias-variance trade-off from Part 9 in one setting.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">raw</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">scaled</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">StandardScaler</span><span class="p">(),</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">5</span><span class="p">))</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"without scaling:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">raw</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">),</span> <span class="mi">3</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"with scaling   :"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">scaled</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">),</span> <span class="mi">3</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">without scaling: 0.923
+with scaling   : 0.958</pre></div></div>
+<div class="callout mistake"><p><strong>Common mistake.</strong> Distance-based models (k-NN, SVM) need scaled features. Otherwise a column measured in thousands, such as area, drowns out a column measured in decimals.</p>
+</div>
+<h2 id="11-5-naive-bayes"><a class="anchor" href="#11-5-naive-bayes" aria-label="Link to this section">#</a>11.5 Naive Bayes</h2>
+
+<p><strong>What it does.</strong> It computes the probability of each class from how typical the feature values are for that class.</p>
+
+<p><strong>How it works.</strong> It uses Bayes' rule: the chance of a class given the evidence is proportional to the class's overall frequency times how likely the evidence is within that class. It is called <strong>naive</strong> because it assumes the features are independent given the class. That is rarely true, yet the model often ranks cases well anyway. Training is just counting means and spreads, so it is extremely fast.</p>
+
+<ul>
+<li><strong>Works best when</strong> you have little data, many features, or text (word counts).</li>
+<li><strong>Struggles when</strong> features are strongly correlated; its probabilities are often overconfident (see calibration in 11.11).</li>
+<li><strong>Key settings:</strong> <code>GaussianNB</code> for numeric features (<code>var_smoothing</code>), <code>MultinomialNB</code> for counts (<code>alpha</code>).</li>
+</ul>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.naive_bayes</span><span class="w"> </span><span class="kn">import</span> <span class="n">GaussianNB</span>
+
+<span class="n">nb</span> <span class="o">=</span> <span class="n">GaussianNB</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"test accuracy:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">nb</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">),</span> <span class="mi">3</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"class priors (benign, malignant):"</span><span class="p">,</span> <span class="n">nb</span><span class="o">.</span><span class="n">class_prior_</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">test accuracy: 0.944
+class priors (benign, malignant): [0.627 0.373]</pre></div></div>
+<p>Naive Bayes shines on text. Here is a tiny, made-up set of SMS-style messages to flag scam texts. The model counts words per class.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.feature_extraction.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">CountVectorizer</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.naive_bayes</span><span class="w"> </span><span class="kn">import</span> <span class="n">MultinomialNB</span>
+
+<span class="n">texts</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"win free airtime now"</span><span class="p">,</span> <span class="s2">"send pin to claim prize"</span><span class="p">,</span> <span class="s2">"free prize claim now"</span><span class="p">,</span>
+         <span class="s2">"meeting at the shop at 5"</span><span class="p">,</span> <span class="s2">"your M-Pesa balance is low"</span><span class="p">,</span> <span class="s2">"see you at church sunday"</span><span class="p">,</span>
+         <span class="s2">"claim your free loan now"</span><span class="p">,</span> <span class="s2">"lunch at 1 pm tomorrow"</span><span class="p">,</span> <span class="s2">"confirm pin to win cash"</span><span class="p">,</span>
+         <span class="s2">"fare to town is 100 shillings"</span><span class="p">]</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>            <span class="c1"># 1 = scam (synthetic examples)</span>
+<span class="n">spam</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">CountVectorizer</span><span class="p">(),</span> <span class="n">MultinomialNB</span><span class="p">())</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">texts</span><span class="p">,</span> <span class="n">labels</span><span class="p">)</span>
+<span class="n">new</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"free cash prize now"</span><span class="p">,</span> <span class="s2">"see you at the shop"</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">new</span><span class="p">,</span> <span class="n">spam</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">new</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">())))</span>
+</code></pre></div><div class="cell-out"><pre class="out">{&#x27;free cash prize now&#x27;: 0.99, &#x27;see you at the shop&#x27;: 0.01}</pre></div></div>
+<h2 id="11-6-decision-trees"><a class="anchor" href="#11-6-decision-trees" aria-label="Link to this section">#</a>11.6 Decision Trees</h2>
+
+<p><strong>What it does.</strong> It asks a chain of yes/no questions about the features and ends in a class, like a flowchart.</p>
+
+<p><strong>How it works.</strong> At each step the tree picks the feature and cut-off that best separates the classes, measured by how much <strong>impurity</strong> (mixing of classes, e.g. Gini) drops. It repeats on each side until a stopping rule is hit. A leaf's class proportions give the probability.</p>
+
+<ul>
+<li><strong>Works best when</strong> you need readable rules, the data mixes numeric and categorical features, and the relationships are non-linear. No scaling needed.</li>
+<li><strong>Struggles when</strong> it grows deep: a full tree memorises the training data and is unstable (small data changes give a very different tree).</li>
+<li><strong>Key settings:</strong> <code>max_depth</code>, <code>min_samples_leaf</code>, <code>criterion</code>, <code>class_weight</code>.</li>
+</ul>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.tree</span><span class="w"> </span><span class="kn">import</span> <span class="n">DecisionTreeClassifier</span><span class="p">,</span> <span class="n">export_text</span>
+
+<span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="n">d</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"max_depth=</span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">d</span><span class="p">)</span><span class="si">:</span><span class="s2">&gt;4</span><span class="si">}</span><span class="s2">  train=</span><span class="si">{</span><span class="n">t</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span><span class="w"> </span><span class="n">y_train</span><span class="p">)</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">  "</span>
+          <span class="sa">f</span><span class="s2">"test=</span><span class="si">{</span><span class="n">t</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span><span class="w"> </span><span class="n">y_test</span><span class="p">)</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">max_depth=   1  train=0.930  test=0.888
+max_depth=   2  train=0.955  test=0.895
+max_depth=   4  train=0.979  test=0.895
+max_depth=   8  train=1.000  test=0.958
+max_depth=None  train=1.000  test=0.958</pre></div></div>
+<p>A tree with no depth limit scores 1.000 on training data: it memorised it. Deeper trees fit the training data better, but test scores bounce around because one test set is small and the tree is unstable. Here are the rules of a depth-2 tree.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">tree2</span> <span class="o">=</span> <span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">export_text</span><span class="p">(</span><span class="n">tree2</span><span class="p">,</span> <span class="n">feature_names</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="p">)))</span>
+</code></pre></div><div class="cell-out"><pre class="out">|--- worst perimeter &lt;= 112.80
+|   |--- worst concave points &lt;= 0.18
+|   |   |--- class: 0
+|   |--- worst concave points &gt;  0.18
+|   |   |--- class: 1
+|--- worst perimeter &gt;  112.80
+|   |--- mean texture &lt;= 14.95
+|   |   |--- class: 0
+|   |--- mean texture &gt;  14.95
+|   |   |--- class: 1</pre></div></div>
+<p>A credit officer can read these rules line by line, which is why single trees remain popular for scorecard-style decisions. Part 12 combines many trees into forests for accuracy.</p>
+
+<h2 id="11-7-support-vector-machines"><a class="anchor" href="#11-7-support-vector-machines" aria-label="Link to this section">#</a>11.7 Support Vector Machines</h2>
+
+<p><strong>What it does.</strong> It finds the boundary that separates the classes with the widest possible street (<strong>margin</strong>) between them.</p>
+
+<p><strong>How it works.</strong> Only the points nearest the boundary, the <strong>support vectors</strong>, matter. A <strong>linear</strong> SVM draws a straight boundary. The <strong>RBF</strong> kernel lets the boundary bend by measuring similarity between points, so each point has a zone of influence. Two settings control the shape: <code>C</code> (how hard to punish training mistakes) and <code>gamma</code> (how small each point's zone of influence is).</p>
+
+<ul>
+<li><strong>Works best when</strong> you have a medium number of rows (up to tens of thousands), many features, and clear margins between classes.</li>
+<li><strong>Struggles when</strong> the data is huge (training is slow), or you need probabilities (they are bolted on and slow).</li>
+<li><strong>Key settings:</strong> <code>kernel</code>, <code>C</code>, <code>gamma</code> ('scale' is a good start), <code>class_weight</code>.</li>
+</ul>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.svm</span><span class="w"> </span><span class="kn">import</span> <span class="n">SVC</span>
+
+<span class="k">for</span> <span class="n">kern</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"linear"</span><span class="p">,</span> <span class="s2">"rbf"</span><span class="p">]:</span>
+    <span class="n">svm</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">StandardScaler</span><span class="p">(),</span> <span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="n">kern</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="mf">1.0</span><span class="p">))</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+    <span class="n">n_sv</span> <span class="o">=</span> <span class="n">svm</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">n_support_</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">kern</span><span class="si">:</span><span class="s2">&gt;6</span><span class="si">}</span><span class="s2">: test acc=</span><span class="si">{</span><span class="n">svm</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span><span class="w"> </span><span class="n">y_test</span><span class="p">)</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">  support vectors=</span><span class="si">{</span><span class="n">n_sv</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">linear: test acc=0.958  support vectors=36
+   rbf: test acc=0.972  support vectors=103</pre></div></div>
+<p>SVMs give a signed distance from the boundary with <code>decision_function</code>. It works as a ranking score, which is all that ROC curves need.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">svm</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">StandardScaler</span><span class="p">(),</span> <span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s2">"rbf"</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="mf">1.0</span><span class="p">))</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"decision scores:"</span><span class="p">,</span> <span class="n">svm</span><span class="o">.</span><span class="n">decision_function</span><span class="p">(</span><span class="n">X_test</span><span class="p">)[:</span><span class="mi">5</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"their labels   :"</span><span class="p">,</span> <span class="n">svm</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)[:</span><span class="mi">5</span><span class="p">])</span>
+</code></pre></div><div class="cell-out"><pre class="out">decision scores: [ 0.38 -1.61  1.63 -0.37 -0.89]
+their labels   : [1 0 1 0 0]</pre></div></div>
+<div class="callout practice"><p><strong>Practice and solution.</strong> Practice: why must you scale features before an RBF SVM? Because the kernel uses distances. A feature with large numbers would dominate every distance and the other features would barely count.</p>
+</div>
+<h2 id="11-8-roc-curve-auc-and-the-precision-recall-curve"><a class="anchor" href="#11-8-roc-curve-auc-and-the-precision-recall-curve" aria-label="Link to this section">#</a>11.8 ROC Curve, AUC and the Precision-Recall Curve</h2>
+
+<p>A threshold of 0.5 is only one choice. Moving it trades false alarms for misses. The <strong>ROC curve</strong> shows every trade-off at once: for each threshold it plots the <strong>true positive rate</strong> (recall) against the <strong>false positive rate</strong> (false alarms among real negatives). The <strong>AUC</strong> (area under the curve) summarises it: 1.0 is perfect ranking and 0.5 is no better than a coin flip. AUC is the chance that a random positive gets a higher score than a random negative.</p>
+
+<p>First, compare all five models fairly with 5-fold cross-validation on the training set, scoring by AUC.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">cross_val_score</span><span class="p">,</span> <span class="n">StratifiedKFold</span>
+
+<span class="n">models</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"logistic"</span><span class="p">:</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">StandardScaler</span><span class="p">(),</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">)),</span>
+    <span class="s2">"k-NN"</span><span class="p">:</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">StandardScaler</span><span class="p">(),</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">15</span><span class="p">)),</span>
+    <span class="s2">"naive Bayes"</span><span class="p">:</span> <span class="n">GaussianNB</span><span class="p">(),</span>
+    <span class="s2">"tree (depth 4)"</span><span class="p">:</span> <span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">),</span>
+    <span class="s2">"SVM (RBF)"</span><span class="p">:</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">StandardScaler</span><span class="p">(),</span> <span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s2">"rbf"</span><span class="p">)),</span>
+<span class="p">}</span>
+<span class="n">cv</span> <span class="o">=</span> <span class="n">StratifiedKFold</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">rows</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">models</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">cv</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="s2">"roc_auc"</span><span class="p">)</span>
+    <span class="n">rows</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="n">s</span><span class="o">.</span><span class="n">std</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s2">"mean AUC"</span><span class="p">,</span> <span class="s2">"std"</span><span class="p">])</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">                mean AUC    std
+logistic           0.991  0.009
+k-NN               0.987  0.005
+naive Bayes        0.986  0.006
+tree (depth 4)     0.916  0.031
+SVM (RBF)          0.994  0.004</pre></div></div>
+<p>Now draw the ROC and precision-recall curves on the held-out test set. The <strong>precision-recall curve</strong> plots precision against recall as the threshold moves. It is the better picture when positives are rare, because ROC can look rosy when negatives are plentiful.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">roc_curve</span><span class="p">,</span> <span class="n">precision_recall_curve</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">roc_auc_score</span><span class="p">,</span> <span class="n">average_precision_score</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">score</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">Xs</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">decision_function</span><span class="p">(</span><span class="n">Xs</span><span class="p">)</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="s2">"decision_function"</span><span class="p">)</span> <span class="k">else</span> <span class="n">m</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">Xs</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">a1</span><span class="p">,</span> <span class="n">a2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">3.8</span><span class="p">))</span>
+<span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">BLUE</span><span class="p">,</span> <span class="n">GREEN</span><span class="p">,</span> <span class="n">GREY</span><span class="p">,</span> <span class="n">AMBER</span><span class="p">,</span> <span class="n">DARK</span><span class="p">]</span>
+<span class="k">for</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">m</span><span class="p">),</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">cols</span><span class="p">):</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">score</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">),</span> <span class="n">X_test</span><span class="p">)</span>
+    <span class="n">fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">roc_curve</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
+    <span class="n">pr</span><span class="p">,</span> <span class="n">rc</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">precision_recall_curve</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
+    <span class="n">a1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">c</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">)</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">)"</span><span class="p">)</span>
+    <span class="n">a2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">rc</span><span class="p">,</span> <span class="n">pr</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">c</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">average_precision_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">)</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">)"</span><span class="p">)</span>
+<span class="n">a1</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="s2">"--"</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">GREY</span><span class="p">)</span>
+<span class="n">a1</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">"ROC curve (AUC in brackets)"</span><span class="p">,</span> <span class="n">xlabel</span><span class="o">=</span><span class="s2">"False positive rate"</span><span class="p">,</span>
+       <span class="n">ylabel</span><span class="o">=</span><span class="s2">"True positive rate"</span><span class="p">)</span>
+<span class="n">a2</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">"Precision-recall curve (AP in brackets)"</span><span class="p">,</span> <span class="n">xlabel</span><span class="o">=</span><span class="s2">"Recall"</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">"Precision"</span><span class="p">)</span>
+<span class="n">a1</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s2">"lower right"</span><span class="p">);</span> <span class="n">a2</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s2">"lower left"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">"p11_roc_pr.png"</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">130</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"saved p11_roc_pr.png"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">saved p11_roc_pr.png</pre></div></div>
+<div class="cell only-out"><div class="cell-out"><figure class="fig"><img src="img/part-11-032.png" alt="Chart output" loading="lazy"></figure></div></div>
+<p>Curves that hug the top-left corner (ROC) or top-right corner (precision-recall) are better. When several curves overlap, the models are practically tied and you should pick the simpler or faster one.</p>
+
+<div class="callout mistake"><p><strong>Common mistake.</strong> Plot ROC and precision-recall from test-set scores, and never choose a threshold on the test set you also use for the final report. Use validation data or cross-validation for tuning and keep the test set for one final check.</p>
+</div>
+<h2 id="11-9-many-classes-wine-iris-and-penguins"><a class="anchor" href="#11-9-many-classes-wine-iris-and-penguins" aria-label="Link to this section">#</a>11.9 Many Classes: Wine, Iris and Penguins</h2>
+
+<p>With more than two classes, the same algorithms work. Logistic regression uses the <strong>softmax</strong> function (one probability per class, summing to 1); trees, k-NN and naive Bayes handle multi-class natively; SVMs split the problem into several binary ones internally. Metrics are computed per class and then averaged:</p>
+
+<ul>
+<li><strong>macro</strong> average: treat every class equally (good when small classes matter)</li>
+<li><strong>weighted</strong> average: weight each class by its size</li>
+<li><strong>micro</strong> average: pool all decisions first (for single-label problems this equals accuracy)</li>
+</ul>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_wine</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">classification_report</span>
+
+<span class="n">wine</span> <span class="o">=</span> <span class="n">load_wine</span><span class="p">(</span><span class="n">as_frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">Xw_tr</span><span class="p">,</span> <span class="n">Xw_te</span><span class="p">,</span> <span class="n">yw_tr</span><span class="p">,</span> <span class="n">yw_te</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+    <span class="n">wine</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">wine</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><span class="n">wine</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">wmodel</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">StandardScaler</span><span class="p">(),</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">))</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Xw_tr</span><span class="p">,</span> <span class="n">yw_tr</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">yw_te</span><span class="p">,</span> <span class="n">wmodel</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">Xw_te</span><span class="p">),</span> <span class="n">target_names</span><span class="o">=</span><span class="n">wine</span><span class="o">.</span><span class="n">target_names</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">              precision    recall  f1-score   support
+
+     class_0       0.95      1.00      0.97        18
+     class_1       1.00      0.95      0.98        21
+     class_2       1.00      1.00      1.00        15
+
+    accuracy                           0.98        54
+   macro avg       0.98      0.98      0.98        54
+weighted avg       0.98      0.98      0.98        54</pre></div></div>
+<p>The wine data has 178 wines from three cultivars with 13 chemical measurements. Penguins is real public data too (Palmer Station, CC0). Let us compare algorithms on it with cross-validated accuracy.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="n">PUB</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">"GUIDE_ROOT"</span><span class="p">])</span> <span class="o">/</span> <span class="s2">"datasets"</span> <span class="o">/</span> <span class="s2">"public"</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s2">"https://raw.githubusercontent.com/mwaskom/seaborn-data/master/penguins.csv"</span>
+<span class="n">peng</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">PUB</span> <span class="o">/</span> <span class="s2">"penguins.csv"</span> <span class="k">if</span> <span class="p">(</span><span class="n">PUB</span> <span class="o">/</span> <span class="s2">"penguins.csv"</span><span class="p">)</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span> <span class="k">else</span> <span class="n">url</span><span class="p">)</span>
+<span class="n">num</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"bill_length_mm"</span><span class="p">,</span> <span class="s2">"bill_depth_mm"</span><span class="p">,</span> <span class="s2">"flipper_length_mm"</span><span class="p">,</span> <span class="s2">"body_mass_g"</span><span class="p">]</span>
+<span class="n">peng</span> <span class="o">=</span> <span class="n">peng</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="n">num</span> <span class="o">+</span> <span class="p">[</span><span class="s2">"species"</span><span class="p">])</span>          <span class="c1"># dropped rows with missing measurements</span>
+<span class="n">Xp</span><span class="p">,</span> <span class="n">yp</span> <span class="o">=</span> <span class="n">peng</span><span class="p">[</span><span class="n">num</span><span class="p">],</span> <span class="n">peng</span><span class="p">[</span><span class="s2">"species"</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">peng</span><span class="p">),</span> <span class="s2">"penguins;"</span><span class="p">,</span> <span class="n">yp</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">to_dict</span><span class="p">())</span>
+
+<span class="n">pmodels</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"logistic"</span><span class="p">:</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">StandardScaler</span><span class="p">(),</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">)),</span>
+           <span class="s2">"k-NN"</span><span class="p">:</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">StandardScaler</span><span class="p">(),</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="mi">15</span><span class="p">)),</span>
+           <span class="s2">"naive Bayes"</span><span class="p">:</span> <span class="n">GaussianNB</span><span class="p">(),</span>
+           <span class="s2">"tree"</span><span class="p">:</span> <span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">),</span>
+           <span class="s2">"SVM"</span><span class="p">:</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">StandardScaler</span><span class="p">(),</span> <span class="n">SVC</span><span class="p">())}</span>
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">pmodels</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">Xp</span><span class="p">,</span> <span class="n">yp</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">StratifiedKFold</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">name</span><span class="si">:</span><span class="s2">&gt;12</span><span class="si">}</span><span class="s2">: accuracy </span><span class="si">{</span><span class="n">s</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">342 penguins; {&#x27;Adelie&#x27;: 151, &#x27;Gentoo&#x27;: 123, &#x27;Chinstrap&#x27;: 68}
+    logistic: accuracy 0.988
+        k-NN: accuracy 0.980
+ naive Bayes: accuracy 0.971
+        tree: accuracy 0.956
+         SVM: accuracy 0.980</pre></div></div>
+<p>Penguins are easy: all five models do well. To see how the algorithms differ in <em>shape</em>, we draw their decision regions on the classic iris flowers, using just two features so we can plot them.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_iris</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.colors</span><span class="w"> </span><span class="kn">import</span> <span class="n">ListedColormap</span>
+
+<span class="n">iris</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">(</span><span class="n">as_frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">Xi</span> <span class="o">=</span> <span class="n">iris</span><span class="o">.</span><span class="n">data</span><span class="p">[[</span><span class="s2">"petal length (cm)"</span><span class="p">,</span> <span class="s2">"petal width (cm)"</span><span class="p">]]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+<span class="n">yi</span> <span class="o">=</span> <span class="n">iris</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+<span class="n">gx</span><span class="p">,</span> <span class="n">gy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">7.2</span><span class="p">,</span> <span class="mi">200</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">2.8</span><span class="p">,</span> <span class="mi">200</span><span class="p">))</span>
+<span class="n">grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">gx</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">gy</span><span class="o">.</span><span class="n">ravel</span><span class="p">()]</span>
+<span class="n">cmap_bg</span> <span class="o">=</span> <span class="n">ListedColormap</span><span class="p">([</span><span class="s2">"#CFE0FA"</span><span class="p">,</span> <span class="s2">"#C8EFE2"</span><span class="p">,</span> <span class="s2">"#F4DDBB"</span><span class="p">])</span>
+<span class="n">cmap_pt</span> <span class="o">=</span> <span class="n">ListedColormap</span><span class="p">([</span><span class="n">BLUE</span><span class="p">,</span> <span class="n">GREEN</span><span class="p">,</span> <span class="n">AMBER</span><span class="p">])</span>
+<span class="n">shapes</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"Tree (depth 3)"</span><span class="p">:</span> <span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">),</span>
+          <span class="s2">"k-NN (k=15)"</span><span class="p">:</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="mi">15</span><span class="p">),</span>
+          <span class="s2">"SVM (RBF)"</span><span class="p">:</span> <span class="n">SVC</span><span class="p">(</span><span class="n">gamma</span><span class="o">=</span><span class="s2">"scale"</span><span class="p">)}</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">3.6</span><span class="p">),</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axs</span><span class="p">,</span> <span class="n">shapes</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Xi</span><span class="p">,</span> <span class="n">yi</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">gx</span><span class="p">,</span> <span class="n">gy</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">grid</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">gx</span><span class="o">.</span><span class="n">shape</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap_bg</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">Xi</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">Xi</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">yi</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap_pt</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">"white"</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">xlabel</span><span class="o">=</span><span class="s2">"Petal length (cm)"</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Petal width (cm)"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">"p11_regions.png"</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">130</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"saved p11_regions.png"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">saved p11_regions.png</pre></div></div>
+<div class="cell only-out"><div class="cell-out"><figure class="fig"><img src="img/part-11-033.png" alt="Chart output" loading="lazy"></figure></div></div>
+<p>The tree cuts the plane with straight, axis-aligned lines (boxes). k-NN follows the local crowd and gives a jagged border. The RBF SVM draws a smooth curve. Same data, three different ideas about what a boundary looks like.</p>
+
+<h2 id="11-10-choosing-the-threshold-with-costs"><a class="anchor" href="#11-10-choosing-the-threshold-with-costs" aria-label="Link to this section">#</a>11.10 Choosing the Threshold with Costs</h2>
+
+<p>A lender cares about money, not F1. Let us build a <strong>synthetic</strong> credit-default table (made-up borrowers, generated with a fixed seed; it describes no real lender) and choose the threshold that minimises cost.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">5000</span>
+<span class="n">credit</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">"income_ksh"</span><span class="p">:</span> <span class="n">rng</span><span class="o">.</span><span class="n">lognormal</span><span class="p">(</span><span class="mf">10.9</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">),</span>
+    <span class="s2">"debt_ratio"</span><span class="p">:</span> <span class="n">rng</span><span class="o">.</span><span class="n">beta</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span>
+    <span class="s2">"late_payments"</span><span class="p">:</span> <span class="n">rng</span><span class="o">.</span><span class="n">poisson</span><span class="p">(</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span>
+    <span class="s2">"age"</span><span class="p">:</span> <span class="n">rng</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">21</span><span class="p">,</span> <span class="mi">65</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span>
+    <span class="s2">"loan_ksh"</span><span class="p">:</span> <span class="n">rng</span><span class="o">.</span><span class="n">lognormal</span><span class="p">(</span><span class="mf">10.0</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">)})</span>
+<span class="n">z</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mf">4.6</span> <span class="o">+</span> <span class="mf">5.0</span> <span class="o">*</span> <span class="n">credit</span><span class="o">.</span><span class="n">debt_ratio</span> <span class="o">+</span> <span class="mf">0.7</span> <span class="o">*</span> <span class="n">credit</span><span class="o">.</span><span class="n">late_payments</span>
+     <span class="o">-</span> <span class="mf">0.8</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">credit</span><span class="o">.</span><span class="n">income_ksh</span><span class="p">)</span> <span class="o">-</span> <span class="mf">10.9</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.4</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">credit</span><span class="o">.</span><span class="n">loan_ksh</span><span class="p">)</span> <span class="o">-</span> <span class="mf">10.0</span><span class="p">)</span>
+     <span class="o">-</span> <span class="mf">0.02</span> <span class="o">*</span> <span class="p">(</span><span class="n">credit</span><span class="o">.</span><span class="n">age</span> <span class="o">-</span> <span class="mi">40</span><span class="p">))</span>
+<span class="n">credit</span><span class="p">[</span><span class="s2">"default"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">z</span><span class="p">)))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"synthetic data; default rate:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">credit</span><span class="p">[</span><span class="s2">"default"</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="mi">3</span><span class="p">))</span>
+
+<span class="n">Xc</span> <span class="o">=</span> <span class="n">credit</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="s2">"default"</span><span class="p">);</span> <span class="n">yc</span> <span class="o">=</span> <span class="n">credit</span><span class="p">[</span><span class="s2">"default"</span><span class="p">]</span>
+<span class="n">Xc_tr</span><span class="p">,</span> <span class="n">Xc_te</span><span class="p">,</span> <span class="n">yc_tr</span><span class="p">,</span> <span class="n">yc_te</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">Xc</span><span class="p">,</span> <span class="n">yc</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><span class="n">yc</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">credit_lr</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">StandardScaler</span><span class="p">(),</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">))</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Xc_tr</span><span class="p">,</span> <span class="n">yc_tr</span><span class="p">)</span>
+<span class="n">pc</span> <span class="o">=</span> <span class="n">credit_lr</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">Xc_te</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"test AUC:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">roc_auc_score</span><span class="p">(</span><span class="n">yc_te</span><span class="p">,</span> <span class="n">pc</span><span class="p">),</span> <span class="mi">3</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">synthetic data; default rate: 0.099
+test AUC: 0.822</pre></div></div>
+<p>Suppose approving a borrower who then defaults loses Ksh 40,000 on average (a false negative), while rejecting a good borrower loses Ksh 4,000 of interest income (a false positive). These costs are assumptions for the demo. We sweep the threshold and add up the cost at each.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">COST_FN</span><span class="p">,</span> <span class="n">COST_FP</span> <span class="o">=</span> <span class="mi">40_000</span><span class="p">,</span> <span class="mi">4_000</span>
+<span class="n">ths</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.80</span><span class="p">,</span> <span class="mi">80</span><span class="p">)</span>
+<span class="n">costs</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">ths</span><span class="p">:</span>
+    <span class="n">flag</span> <span class="o">=</span> <span class="n">pc</span> <span class="o">&gt;=</span> <span class="n">t</span>                                  <span class="c1"># flag = reject the application</span>
+    <span class="n">fn</span> <span class="o">=</span> <span class="p">((</span><span class="o">~</span><span class="n">flag</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">yc_te</span> <span class="o">==</span> <span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="n">fp</span> <span class="o">=</span> <span class="p">(</span><span class="n">flag</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">yc_te</span> <span class="o">==</span> <span class="mi">0</span><span class="p">))</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="n">costs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fn</span> <span class="o">*</span> <span class="n">COST_FN</span> <span class="o">+</span> <span class="n">fp</span> <span class="o">*</span> <span class="n">COST_FP</span><span class="p">)</span>
+<span class="n">costs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">costs</span><span class="p">)</span>
+<span class="n">best</span> <span class="o">=</span> <span class="n">ths</span><span class="p">[</span><span class="n">costs</span><span class="o">.</span><span class="n">argmin</span><span class="p">()]</span>
+<span class="n">cost_at_half</span> <span class="o">=</span> <span class="p">(((</span><span class="n">pc</span> <span class="o">&lt;</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">yc_te</span> <span class="o">==</span> <span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">*</span> <span class="n">COST_FN</span>
+                <span class="o">+</span> <span class="p">((</span><span class="n">pc</span> <span class="o">&gt;=</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">yc_te</span> <span class="o">==</span> <span class="mi">0</span><span class="p">))</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">*</span> <span class="n">COST_FP</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"best threshold:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">best</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="s2">"| cost Ksh"</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">costs</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">:</span><span class="s2">,.0f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"cost at 0.50  : Ksh"</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">cost_at_half</span><span class="si">:</span><span class="s2">,.0f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"theory, FP/(FP+FN):"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">COST_FP</span> <span class="o">/</span> <span class="p">(</span><span class="n">COST_FP</span> <span class="o">+</span> <span class="n">COST_FN</span><span class="p">),</span> <span class="mi">3</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">best threshold: 0.1 | cost Ksh 2,856,000
+cost at 0.50  : Ksh 5,768,000
+theory, FP/(FP+FN): 0.091</pre></div></div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">3.6</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ths</span><span class="p">,</span> <span class="n">costs</span> <span class="o">/</span> <span class="mf">1e6</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">BLUE</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">GREY</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">"--"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"default 0.50"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">([</span><span class="n">best</span><span class="p">],</span> <span class="p">[</span><span class="n">costs</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">/</span> <span class="mf">1e6</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">AMBER</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">"best </span><span class="si">{</span><span class="n">best</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">"Total cost of mistakes by decision threshold (synthetic data)"</span><span class="p">,</span>
+       <span class="n">xlabel</span><span class="o">=</span><span class="s2">"Threshold (reject if probability is at least this)"</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">"Cost (Ksh million)"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">"p11_cost.png"</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">130</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"saved p11_cost.png"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">saved p11_cost.png</pre></div></div>
+<div class="cell only-out"><div class="cell-out"><figure class="fig"><img src="img/part-11-034.png" alt="Chart output" loading="lazy"></figure></div></div>
+<p>When a miss costs ten times a false alarm, the cheapest threshold is far below 0.5: it pays to be suspicious. The theoretical rule (reject when the probability exceeds cost_FP / (cost_FP + cost_FN)) lands close to the empirical best, as long as the probabilities are well calibrated (section 11.11).</p>
+
+<div class="callout practice"><p><strong>Variation.</strong> Business teams often need a <strong>capacity</strong> limit instead (for example, analysts can review only 100 transactions a day). Then rank by probability and take the top 100: the threshold is whatever probability the 100th case has.</p>
+</div>
+<h2 id="11-11-imbalanced-classes-and-calibrated-probabilities-advanc"><a class="anchor" href="#11-11-imbalanced-classes-and-calibrated-probabilities-advanc" aria-label="Link to this section">#</a>11.11 Imbalanced Classes and Calibrated Probabilities (Advanced)</h2>
+
+<p>Defaults, fraud and churn are usually <strong>imbalanced</strong>: the positive class is rare. Models trained to maximise accuracy may then ignore it. Three remedies exist, all applied to the <strong>training set only</strong>:</p>
+
+<ul>
+<li><strong>Class weights</strong>: make mistakes on the rare class count more (<code>class_weight=&quot;balanced&quot;</code>).</li>
+<li><strong>Oversampling</strong>: repeat (or synthesise) rare-class rows.</li>
+<li><strong>Undersampling</strong>: drop some common-class rows.</li>
+</ul>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="k">def</span><span class="w"> </span><span class="nf">report</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">Xa</span><span class="p">,</span> <span class="n">ya</span><span class="p">,</span> <span class="n">Xb</span><span class="p">,</span> <span class="n">yb</span><span class="p">):</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Xa</span><span class="p">,</span> <span class="n">ya</span><span class="p">)</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">Xb</span><span class="p">)</span>
+    <span class="n">auc</span> <span class="o">=</span> <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">yb</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">Xb</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">])</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">name</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">precision_score</span><span class="p">(</span><span class="n">yb</span><span class="p">,</span> <span class="n">p</span><span class="p">),</span> <span class="mi">3</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="n">recall_score</span><span class="p">(</span><span class="n">yb</span><span class="p">,</span> <span class="n">p</span><span class="p">),</span> <span class="mi">3</span><span class="p">),</span>
+            <span class="nb">round</span><span class="p">(</span><span class="n">f1_score</span><span class="p">(</span><span class="n">yb</span><span class="p">,</span> <span class="n">p</span><span class="p">),</span> <span class="mi">3</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="n">auc</span><span class="p">,</span> <span class="mi">3</span><span class="p">)]</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">lr</span><span class="p">(</span><span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">StandardScaler</span><span class="p">(),</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">))</span>
+
+<span class="c1"># by hand: oversample the training defaulters until both classes are the same size</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">flatnonzero</span><span class="p">(</span><span class="n">yc_tr</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span><span class="p">);</span> <span class="n">neg</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">flatnonzero</span><span class="p">(</span><span class="n">yc_tr</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="n">neg</span><span class="p">,</span> <span class="n">r</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">neg</span><span class="p">),</span> <span class="n">replace</span><span class="o">=</span><span class="kc">True</span><span class="p">)]</span>
+<span class="n">neg_keep</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">neg</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">pos</span><span class="p">),</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>         <span class="c1"># undersample the majority</span>
+<span class="n">idx_under</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="n">neg_keep</span><span class="p">,</span> <span class="n">pos</span><span class="p">]</span>
+
+<span class="n">rows</span> <span class="o">=</span> <span class="p">[</span><span class="n">report</span><span class="p">(</span><span class="s2">"plain"</span><span class="p">,</span> <span class="n">lr</span><span class="p">(),</span> <span class="n">Xc_tr</span><span class="p">,</span> <span class="n">yc_tr</span><span class="p">,</span> <span class="n">Xc_te</span><span class="p">,</span> <span class="n">yc_te</span><span class="p">),</span>
+        <span class="n">report</span><span class="p">(</span><span class="s2">"class_weight"</span><span class="p">,</span> <span class="n">lr</span><span class="p">(</span><span class="n">class_weight</span><span class="o">=</span><span class="s2">"balanced"</span><span class="p">),</span> <span class="n">Xc_tr</span><span class="p">,</span> <span class="n">yc_tr</span><span class="p">,</span> <span class="n">Xc_te</span><span class="p">,</span> <span class="n">yc_te</span><span class="p">),</span>
+        <span class="n">report</span><span class="p">(</span><span class="s2">"oversample"</span><span class="p">,</span> <span class="n">lr</span><span class="p">(),</span> <span class="n">Xc_tr</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="n">yc_tr</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="n">Xc_te</span><span class="p">,</span> <span class="n">yc_te</span><span class="p">),</span>
+        <span class="n">report</span><span class="p">(</span><span class="s2">"undersample"</span><span class="p">,</span> <span class="n">lr</span><span class="p">(),</span> <span class="n">Xc_tr</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">idx_under</span><span class="p">],</span> <span class="n">yc_tr</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">idx_under</span><span class="p">],</span> <span class="n">Xc_te</span><span class="p">,</span> <span class="n">yc_te</span><span class="p">)]</span>
+<span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"method"</span><span class="p">,</span> <span class="s2">"precision"</span><span class="p">,</span> <span class="s2">"recall"</span><span class="p">,</span> <span class="s2">"F1"</span><span class="p">,</span> <span class="s2">"AUC"</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">cols</span><span class="p">)</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">      method  precision  recall    F1   AUC
+       plain      0.714   0.034 0.064 0.822
+class_weight      0.233   0.765 0.357 0.822
+  oversample      0.231   0.779 0.356 0.822
+ undersample      0.222   0.772 0.344 0.818</pre></div></div>
+<p>At the default 0.5 threshold, all three remedies raise recall and lower precision. The AUC barely changes, because the <em>ranking</em> of customers is almost the same: resampling mostly moves the best threshold, which you can also do directly (section 11.10). So reweighting is often just an expensive way to change the threshold, but it can help models that otherwise ignore the rare class during training, such as trees.</p>
+
+<p><strong>SMOTE</strong> (Synthetic Minority Over-sampling Technique) builds new rare-class rows by interpolating between a rare row and its neighbours. It needs the <code>imbalanced-learn</code> package, which is not installed in this build, so the code is shown but not run. Use the imbalanced-learn pipeline so that resampling happens only inside each training fold.</p>
+
+<pre class="code"><code><span class="c1"># pip install imbalanced-learn</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">imblearn.pipeline</span><span class="w"> </span><span class="kn">import</span> <span class="n">Pipeline</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">imblearn.over_sampling</span><span class="w"> </span><span class="kn">import</span> <span class="n">SMOTE</span>
+
+<span class="n">smote_model</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([(</span><span class="s2">"scale"</span><span class="p">,</span> <span class="n">StandardScaler</span><span class="p">()),</span>
+                        <span class="p">(</span><span class="s2">"smote"</span><span class="p">,</span> <span class="n">SMOTE</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)),</span>
+                        <span class="p">(</span><span class="s2">"clf"</span><span class="p">,</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">))])</span>
+<span class="n">smote_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Xc_tr</span><span class="p">,</span> <span class="n">yc_tr</span><span class="p">)</span>
+</code></pre>
+<p><em>Not executed in this notebook (needs a service or setting you must provide yourself).</em></p>
+
+<div class="callout mistake"><p><strong>Common mistake.</strong> Resampling before the train/test split puts copies of the same row in both sets, so the test score looks wonderful and means nothing. Split first, resample only the training part.</p>
+</div>
+<h3 id="calibration-do-the-probabilities-mean-what-they-say"><a class="anchor" href="#calibration-do-the-probabilities-mean-what-they-say" aria-label="Link to this section">#</a>Calibration: do the probabilities mean what they say?</h3>
+
+<p>A model is <strong>calibrated</strong> if, among cases it scores at 0.2, about 20 percent are truly positive. Reweighting breaks this (the model thinks positives are common), and so do naive Bayes and SVMs. Fix it by fitting a small mapping on held-out data with <code>CalibratedClassifierCV</code> (<code>sigmoid</code> or <code>isotonic</code>). The <strong>Brier score</strong> (mean squared error of the probabilities; lower is better) measures calibration.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.calibration</span><span class="w"> </span><span class="kn">import</span> <span class="n">CalibratedClassifierCV</span><span class="p">,</span> <span class="n">calibration_curve</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">brier_score_loss</span>
+
+<span class="n">raw</span> <span class="o">=</span> <span class="n">lr</span><span class="p">(</span><span class="n">class_weight</span><span class="o">=</span><span class="s2">"balanced"</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Xc_tr</span><span class="p">,</span> <span class="n">yc_tr</span><span class="p">)</span>
+<span class="n">cal</span> <span class="o">=</span> <span class="n">CalibratedClassifierCV</span><span class="p">(</span><span class="n">lr</span><span class="p">(</span><span class="n">class_weight</span><span class="o">=</span><span class="s2">"balanced"</span><span class="p">),</span> <span class="n">method</span><span class="o">=</span><span class="s2">"sigmoid"</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Xc_tr</span><span class="p">,</span> <span class="n">yc_tr</span><span class="p">)</span>
+<span class="n">p_raw</span> <span class="o">=</span> <span class="n">raw</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">Xc_te</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">p_cal</span> <span class="o">=</span> <span class="n">cal</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">Xc_te</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"mean predicted default rate, raw       :"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">p_raw</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="mi">3</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"mean predicted default rate, calibrated:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">p_cal</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="mi">3</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"actual default rate                    :"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">yc_te</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="mi">3</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Brier raw:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">brier_score_loss</span><span class="p">(</span><span class="n">yc_te</span><span class="p">,</span> <span class="n">p_raw</span><span class="p">),</span> <span class="mi">4</span><span class="p">),</span>
+      <span class="s2">"| Brier calibrated:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">brier_score_loss</span><span class="p">(</span><span class="n">yc_te</span><span class="p">,</span> <span class="n">p_cal</span><span class="p">),</span> <span class="mi">4</span><span class="p">))</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">5.2</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">p</span><span class="p">,</span> <span class="n">lab</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="p">[(</span><span class="n">p_raw</span><span class="p">,</span> <span class="s2">"class_weight=balanced"</span><span class="p">,</span> <span class="n">AMBER</span><span class="p">),</span> <span class="p">(</span><span class="n">p_cal</span><span class="p">,</span> <span class="s2">"after calibration"</span><span class="p">,</span> <span class="n">BLUE</span><span class="p">)]:</span>
+    <span class="n">frac</span><span class="p">,</span> <span class="n">mean_p</span> <span class="o">=</span> <span class="n">calibration_curve</span><span class="p">(</span><span class="n">yc_te</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">strategy</span><span class="o">=</span><span class="s2">"quantile"</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">mean_p</span><span class="p">,</span> <span class="n">frac</span><span class="p">,</span> <span class="s2">"o-"</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">c</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">lab</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="s2">"--"</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">GREY</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"perfect"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">"Reliability diagram (synthetic credit data)"</span><span class="p">,</span>
+       <span class="n">xlabel</span><span class="o">=</span><span class="s2">"Predicted probability"</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">"Observed default rate"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">"p11_calibration.png"</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">130</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</code></pre></div><div class="cell-out"><pre class="out">mean predicted default rate, raw       : 0.416
+mean predicted default rate, calibrated: 0.097
+actual default rate                    : 0.099
+Brier raw: 0.1857 | Brier calibrated: 0.0754</pre></div></div>
+<div class="cell only-out"><div class="cell-out"><figure class="fig"><img src="img/part-11-035.png" alt="Chart output" loading="lazy"></figure></div></div>
+<p>Points on the dashed diagonal mean honest probabilities. The reweighted model sits above it: it over-predicts risk. After calibration the points follow the diagonal. This matters whenever the probability itself is used, for example to price a loan or to compute expected loss.</p>
+
+<h2 id="11-12-choosing-a-classifier-and-using-it-in-the-real-world"><a class="anchor" href="#11-12-choosing-a-classifier-and-using-it-in-the-real-world" aria-label="Link to this section">#</a>11.12 Choosing a Classifier, and Using It in the Real World</h2>
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Algorithm</th>
+<th>Good first choice for</th>
+<th>Needs scaling</th>
+<th>Curved boundary</th>
+<th>Probabilities</th>
+<th>Explainable</th>
+<th>Main risk</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Logistic regression</td>
+<td>Baseline, scorecards</td>
+<td>Yes</td>
+<td>No (add features)</td>
+<td>Good</td>
+<td>Very</td>
+<td>Misses interactions</td>
+</tr>
+<tr>
+<td>k-NN</td>
+<td>Small, low-dimensional data</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Rough</td>
+<td>Medium</td>
+<td>Slow on big data</td>
+</tr>
+<tr>
+<td>Naive Bayes</td>
+<td>Text, tiny data</td>
+<td>No</td>
+<td>Limited</td>
+<td>Overconfident</td>
+<td>Medium</td>
+<td>Correlated features</td>
+</tr>
+<tr>
+<td>Decision tree</td>
+<td>Readable rules</td>
+<td>No</td>
+<td>Yes (boxes)</td>
+<td>Coarse</td>
+<td>Very</td>
+<td>Overfits when deep</td>
+</tr>
+<tr>
+<td>SVM (RBF)</td>
+<td>Medium data, many features</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Needs calibration</td>
+<td>Low</td>
+<td>Slow to train on big data</td>
+</tr>
+</tbody>
+</table></div>
+
+<p>A practical order of work: baseline, then logistic regression, then a tree-based ensemble (Part 12), judged on the same cross-validation folds with the metric that fits the business. Simplicity wins ties.</p>
+
+<div class="callout real"><p><strong>Using it in the real world.</strong> <strong>Credit scoring.</strong> Data: past loans with a clear definition of default (for example 90 days past due) and application features known at decision time. Validate on later months than you trained on, not a random split, and report AUC plus the cost at the chosen threshold. It fails when the lender changes policy (the past no longer resembles the future) and when rejected applicants have no outcome (selection bias). Monitor the share of applicants in each score band and the realised default rate per band every month. Keep a logistic model as the explainable benchmark.</p>
+<p><strong>Fraud screening.</strong> Fraud is rare, so use precision-recall curves, set the threshold from the number of cases analysts can review, and retrain often because fraudsters adapt. <strong>Churn.</strong> For a SACCO or telco, score members monthly, contact the top slice, and measure the real saving with a small control group that is not contacted.</p>
+</div>
+<div class="callout takeaways"><div class="c-label">Key takeaways</div><ul>
+<li>Classification outputs probabilities; a threshold turns them into decisions.</li>
+<li>Always beat a baseline, and look past accuracy to the confusion matrix, precision, recall and F1.</li>
+<li>Logistic regression is the explainable starting point; k-NN and SVM need scaling; trees need no scaling but overfit when deep; naive Bayes is fast and good with text.</li>
+<li>ROC AUC measures ranking; the precision-recall curve is better for rare positives.</li>
+<li>Choose the threshold from the cost of each mistake, not from habit.</li>
+<li>Resample only the training data, and calibrate probabilities before using them as risk.</li>
+</ul>
+</div></div><nav class="pager" aria-label="Previous and next"><a class="prev" href="part-10.html"><small>Previous</small><span>Part 10: Regression</span></a><a class="next" href="part-12.html"><small>Next</small><span>Part 12: Ensembles, Tuning and Feature Engineering</span></a></nav>
+<footer class="foot"><p>Data Science from Zero to Advanced &middot; written by Benson M. Merita &middot; &copy; 2026 MeritaAnalytics. Public datasets keep their own licences, listed in <a href="appendix-b.html">Appendix B</a>.</p></footer>
+</main>
+</div>
+<script src="search-index.js"></script>
+<script src="site.js"></script>
+</body>
+</html>

@@ -1,0 +1,987 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>Part 13: Unsupervised Learning | MeritaAnalytics</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to the notes</a>
+<header class="top"><button class="menu" id="menu" aria-controls="side" aria-expanded="false">Contents</button><span class="top-title">Part 13: Unsupervised Learning</span></header>
+<div class="shell">
+<nav class="side" id="side" aria-label="Handbook contents">
+<a class="brand" href="index.html"><span class="mark" aria-hidden="true">MA</span><span><b>MeritaAnalytics</b><small>Data Science Notes</small></span></a>
+<label class="search"><span class="sr">Search the notes</span><input id="q" type="search" placeholder="Search topics, e.g. groupby" autocomplete="off"></label>
+<div id="results" class="results" hidden></div>
+<ol class="nav">
+<li class="lvl0"><a href="index.html" class="">Start here</a></li>
+<li class="lvl"><div class="lvl-name"><span>Level 1</span>Foundations</div><ol>
+<li data-slug="part-01"><a href="part-01.html" class=""><span class="pn">1</span><span class="pt">What Is Data Science?</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-02"><a href="part-02.html" class=""><span class="pn">2</span><span class="pt">Python Basics</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-03"><a href="part-03.html" class=""><span class="pn">3</span><span class="pt">NumPy: Fast Numbers</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 2</span>Data Analysis</div><ol>
+<li data-slug="part-04"><a href="part-04.html" class=""><span class="pn">4</span><span class="pt">Pandas: Working with Tables</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-05"><a href="part-05.html" class=""><span class="pn">5</span><span class="pt">Data Visualisation</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-06"><a href="part-06.html" class=""><span class="pn">6</span><span class="pt">SQL for Data Analysts</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-07"><a href="part-07.html" class=""><span class="pn">7</span><span class="pt">Exploratory Data Analysis</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 3</span>Statistics</div><ol>
+<li data-slug="part-08"><a href="part-08.html" class=""><span class="pn">8</span><span class="pt">Statistics for Data Science</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 4</span>Machine Learning</div><ol>
+<li data-slug="part-09"><a href="part-09.html" class=""><span class="pn">9</span><span class="pt">Machine Learning Foundations</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-10"><a href="part-10.html" class=""><span class="pn">10</span><span class="pt">Regression</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-11"><a href="part-11.html" class=""><span class="pn">11</span><span class="pt">Classification</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-12"><a href="part-12.html" class=""><span class="pn">12</span><span class="pt">Ensembles, Tuning and Feature Engineering</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-13"><a href="part-13.html" class="on"><span class="pn">13</span><span class="pt">Unsupervised Learning</span><span class="done-dot" aria-hidden="true"></span></a>
+<ol class="sub"><li><a href="#13-1-what-unsupervised-learning-is-and-why-scaling-matters">13.1 What unsupervised learning is, and why scaling matters</a></li><li><a href="#13-2-k-means-clustering-and-choosing-k">13.2 K-means clustering, and choosing k</a></li><li><a href="#13-3-worked-example-segmenting-sacco-customers">13.3 Worked example: segmenting SACCO customers</a></li><li><a href="#13-4-hierarchical-clustering">13.4 Hierarchical clustering</a></li><li><a href="#13-5-dbscan-clusters-of-any-shape-and-noise">13.5 DBSCAN: clusters of any shape, and noise</a></li><li><a href="#13-6-gaussian-mixture-models">13.6 Gaussian mixture models</a></li><li><a href="#13-7-pca-fewer-columns-same-story">13.7 PCA: fewer columns, same story</a></li><li><a href="#13-8-t-sne-for-pictures-and-a-note-on-umap-and-lda">13.8 t-SNE for pictures, and a note on UMAP and LDA</a></li><li><a href="#13-9-anomaly-detection">13.9 Anomaly detection</a></li><li><a href="#13-10-association-rules-and-a-tiny-recommender">13.10 Association rules and a tiny recommender</a></li><li><a href="#13-11-advanced-svd-intuition-and-semi-supervised-learning">13.11 (Advanced) SVD intuition and semi-supervised learning</a></li><li><a href="#13-12-algorithm-chooser-and-using-it-in-practice">13.12 Algorithm chooser and using it in practice</a></li></ol>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 5</span>Deep Learning and Modern AI</div><ol>
+<li data-slug="part-14"><a href="part-14.html" class=""><span class="pn">14</span><span class="pt">Neural Networks and Deep Learning</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-15"><a href="part-15.html" class=""><span class="pn">15</span><span class="pt">Reinforcement Learning</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-16"><a href="part-16.html" class=""><span class="pn">16</span><span class="pt">Generative AI and Large Language Models</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 6</span>The Real World</div><ol>
+<li data-slug="part-17"><a href="part-17.html" class=""><span class="pn">17</span><span class="pt">Business Metrics, Excel and Power BI</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-18"><a href="part-18.html" class=""><span class="pn">18</span><span class="pt">Automation, Git, Deployment and Responsible AI</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-19"><a href="part-19.html" class=""><span class="pn">19</span><span class="pt">End-to-End Projects</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 7</span>Career and Reference</div><ol>
+<li data-slug="part-20"><a href="part-20.html" class=""><span class="pn">20</span><span class="pt">Practice Exercises and Answer Key</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-21"><a href="part-21.html" class=""><span class="pn">21</span><span class="pt">Interview Preparation</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-22"><a href="part-22.html" class=""><span class="pn">22</span><span class="pt">Roadmap, Cheat Sheets and Glossary</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Appendix</span>Reference</div><ol>
+<li><a href="appendix-a.html" class=""><span class="pn">A</span><span class="pt">Sources and Next Steps</span></a></li>
+<li><a href="appendix-b.html" class=""><span class="pn">B</span><span class="pt">Data Catalogue</span></a></li>
+</ol></li></ol>
+<p class="side-foot">By Benson M. Merita &middot; &copy; 2026 MeritaAnalytics</p></nav>
+<main id="main" class="main"><header class="part-head"><span class="lv">Level 4 &middot; Machine Learning</span><p class="part-no">Part 13</p><h1>Unsupervised Learning</h1><p class="lede">Find groups, simplify wide tables, spot oddities and discover patterns when there is no answer column to learn from.</p><button class="mark-done" id="done" data-slug="part-13" aria-pressed="false">Mark this part as done</button></header><div class="prose"><div class="callout learn"><div class="c-label">In this part</div><ul>
+<li>Explain the difference between supervised and unsupervised learning, and why scaling comes first.</li>
+<li>Group rows with k-means, hierarchical clustering, DBSCAN and Gaussian mixtures, and judge the groups without labels.</li>
+<li>Shrink many columns into a few with PCA, and draw high-dimensional data with t-SNE.</li>
+<li>Flag unusual rows with simple rules, Isolation Forest, Local Outlier Factor and one-class SVM.</li>
+<li>Find items bought together (association rules) and build a tiny recommender.</li>
+</ul>
+<div class="meta"><span><b>You need first</b> Parts 9-12</span><span><b>Time</b> 5 to 7 hours</span></div></div>
+<h2 id="13-1-what-unsupervised-learning-is-and-why-scaling-matters"><a class="anchor" href="#13-1-what-unsupervised-learning-is-and-why-scaling-matters" aria-label="Link to this section">#</a>13.1 What unsupervised learning is, and why scaling matters</h2>
+
+<p>In <strong>supervised learning</strong> (Parts 10-12) every row has an answer column, such as loan default or house price, and the model learns to predict it. In <strong>unsupervised learning</strong> there is no answer column. You give the algorithm only the features and ask: what structure is in here? The main jobs are <strong>clustering</strong> (group similar rows), <strong>dimensionality reduction</strong> (describe many columns with a few), <strong>anomaly detection</strong> (find rows that do not fit) and <strong>association mining</strong> (find things that happen together).</p>
+
+<p>Because there are no labels, there is no accuracy score. You judge the result by whether it is stable, makes sense to a person who knows the business, and helps a later decision.</p>
+
+<p>Most of these methods work with <strong>distance</strong>. If one column is in thousands (income in Ksh) and another is small (age in years), the big column wins every distance comparison. <strong>Scaling</strong> puts columns on a comparable footing. The usual choice is the <strong>z-score</strong>: subtract the mean and divide by the standard deviation.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span><span class="o">,</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span>
+
+<span class="c1"># three synthetic customers: age (years), monthly income (Ksh)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">25</span><span class="p">,</span> <span class="mf">30000.0</span><span class="p">],</span> <span class="p">[</span><span class="mi">26</span><span class="p">,</span> <span class="mf">90000.0</span><span class="p">],</span> <span class="p">[</span><span class="mi">60</span><span class="p">,</span> <span class="mf">30500.0</span><span class="p">]])</span>
+<span class="n">d</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(((</span><span class="n">a</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"raw distance 0-1 (same age, income differs):"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">d</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="mi">1</span><span class="p">])))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"raw distance 0-2 (35 years apart, same income):"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">d</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="mi">2</span><span class="p">])))</span>
+<span class="n">Z</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"scaled distance 0-1:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">d</span><span class="p">(</span><span class="n">Z</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">Z</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="mi">2</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"scaled distance 0-2:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">d</span><span class="p">(</span><span class="n">Z</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">Z</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span> <span class="mi">2</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">raw distance 0-1 (same age, income differs): 60000
+raw distance 0-2 (35 years apart, same income): 501
+scaled distance 0-1: 2.13
+scaled distance 0-2: 2.15</pre></div></div>
+<p>Before scaling, a 35-year age gap looks tiny next to a 60,000 Ksh income gap. After scaling, both columns count fairly. Rule: <strong>scale numeric features before any distance-based method</strong> (k-means, hierarchical, DBSCAN, LOF, PCA, t-SNE). Fit the scaler on training data only when the result feeds a later supervised model (Part 9).</p>
+
+<div class="callout mistake"><p><strong>Common mistake.</strong> Forgetting to scale is the most common unsupervised mistake: the clusters then just split the biggest column and look 'successful' while ignoring everything else.</p>
+</div>
+<h2 id="13-2-k-means-clustering-and-choosing-k"><a class="anchor" href="#13-2-k-means-clustering-and-choosing-k" aria-label="Link to this section">#</a>13.2 K-means clustering, and choosing k</h2>
+
+<p><strong>What it does:</strong> splits rows into k groups, each described by a centre point (a <strong>centroid</strong>).</p>
+
+<p><strong>How it works:</strong> (1) pick k starting centres; (2) assign every row to its nearest centre; (3) move each centre to the mean of its rows; (4) repeat steps 2-3 until nothing changes. <strong>k-means++</strong> is the smart way to pick the starting centres: they are chosen far apart, which avoids poor starts. It is the default in scikit-learn.</p>
+
+<p><strong>Works best when</strong> groups are roughly round and similar in size. <strong>Struggles when</strong> groups are long, curved or very different in size, when there are outliers, or when features are not scaled. <strong>Key settings:</strong> <code>n_clusters</code> (k), <code>init</code> (k-means++), <code>n_init</code> (number of restarts), <code>random_state</code>.</p>
+
+<p>Our running example is the public penguins data (Palmer Station, CC0 licence). We keep four body measurements, drop rows with missing values (a small number), and ignore the species column while clustering.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">import</span><span class="w"> </span><span class="nn">os</span><span class="o">,</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span><span class="o">,</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="n">PUB</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">"GUIDE_ROOT"</span><span class="p">])</span> <span class="o">/</span> <span class="s2">"datasets"</span> <span class="o">/</span> <span class="s2">"public"</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">load_public</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">PUB</span> <span class="o">/</span> <span class="n">name</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">p</span> <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span> <span class="k">else</span> <span class="n">url</span><span class="p">)</span>
+
+<span class="n">pen</span> <span class="o">=</span> <span class="n">load_public</span><span class="p">(</span><span class="s2">"penguins.csv"</span><span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"bill_length_mm"</span><span class="p">,</span> <span class="s2">"bill_depth_mm"</span><span class="p">,</span> <span class="s2">"flipper_length_mm"</span><span class="p">,</span> <span class="s2">"body_mass_g"</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pen</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="s2">"rows after dropping missing values"</span><span class="p">)</span>
+<span class="n">pen</span><span class="p">[</span><span class="n">cols</span><span class="p">]</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span><span class="o">.</span><span class="n">loc</span><span class="p">[[</span><span class="s2">"mean"</span><span class="p">,</span> <span class="s2">"std"</span><span class="p">]]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">(333, 7) rows after dropping missing values</pre><div class="table-wrap df"><div>
+
+<table class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th>bill_length_mm</th>
+      <th>bill_depth_mm</th>
+      <th>flipper_length_mm</th>
+      <th>body_mass_g</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>mean</th>
+      <td>44.0</td>
+      <td>17.2</td>
+      <td>201.0</td>
+      <td>4207.1</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>5.5</td>
+      <td>2.0</td>
+      <td>14.0</td>
+      <td>805.2</td>
+    </tr>
+  </tbody>
+</table></div>
+</div></div></div></div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.cluster</span><span class="w"> </span><span class="kn">import</span> <span class="n">KMeans</span>
+
+<span class="n">Xp</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">pen</span><span class="p">[</span><span class="n">cols</span><span class="p">])</span>
+<span class="n">km</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">init</span><span class="o">=</span><span class="s2">"k-means++"</span><span class="p">,</span> <span class="n">n_init</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Xp</span><span class="p">)</span>
+<span class="n">pen</span><span class="p">[</span><span class="s2">"cluster"</span><span class="p">]</span> <span class="o">=</span> <span class="n">km</span><span class="o">.</span><span class="n">labels_</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"cluster sizes:"</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">bincount</span><span class="p">(</span><span class="n">km</span><span class="o">.</span><span class="n">labels_</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pen</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"cluster"</span><span class="p">)[</span><span class="n">cols</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">cluster sizes: [129 119  85]
+         bill_length_mm  bill_depth_mm  flipper_length_mm  body_mass_g
+cluster                                                               
+0                  38.3           18.1              188.6       3593.8
+1                  47.6           15.0              217.2       5092.4
+2                  47.7           18.7              196.9       3898.2</pre></div></div>
+<p>Each row is one cluster's average measurements. To read a cluster, describe it in plain words (for example 'heavy birds with long flippers'). That naming step is where clustering becomes useful.</p>
+
+<h3 id="choosing-k-elbow-and-silhouette"><a class="anchor" href="#choosing-k-elbow-and-silhouette" aria-label="Link to this section">#</a>Choosing k: elbow and silhouette</h3>
+
+<p>You must choose k yourself. Two simple tools help. <strong>Inertia</strong> is the total squared distance from each row to its centre; it always falls as k grows, so you look for the <strong>elbow</strong> where the drop slows. The <strong>silhouette score</strong> compares, for each row, how close it is to its own cluster against the nearest other cluster. It runs from -1 to 1; higher means tighter and better separated groups.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span><span class="o">,</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">silhouette_score</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_theme</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">"whitegrid"</span><span class="p">)</span>
+<span class="n">BLUE</span><span class="p">,</span> <span class="n">GREEN</span><span class="p">,</span> <span class="n">GREY</span><span class="p">,</span> <span class="n">DARK</span><span class="p">,</span> <span class="n">AMBER</span> <span class="o">=</span> <span class="s2">"#1F5FD6"</span><span class="p">,</span> <span class="s2">"#2BB38A"</span><span class="p">,</span> <span class="s2">"#9CA3AF"</span><span class="p">,</span> <span class="s2">"#0B2A4A"</span><span class="p">,</span> <span class="s2">"#B45309"</span>
+
+<span class="n">ks</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>
+<span class="n">inertia</span><span class="p">,</span> <span class="n">sil</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">ks</span><span class="p">:</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="n">k</span><span class="p">,</span> <span class="n">n_init</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Xp</span><span class="p">)</span>
+    <span class="n">inertia</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">inertia_</span><span class="p">)</span>
+    <span class="n">sil</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">silhouette_score</span><span class="p">(</span><span class="n">Xp</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">labels_</span><span class="p">))</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">3.6</span><span class="p">))</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">ks</span><span class="p">),</span> <span class="n">inertia</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">"o"</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">BLUE</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Elbow: inertia falls as k grows"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"k (number of clusters)"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Inertia (squared distance)"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">ks</span><span class="p">),</span> <span class="n">sil</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">"o"</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">GREEN</span><span class="p">)</span>
+<span class="n">best</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">ks</span><span class="p">)[</span><span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">sil</span><span class="p">))]</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">best</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">AMBER</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">"--"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Silhouette: higher is better"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"k (number of clusters)"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Mean silhouette score"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">"p13_fig1.png"</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">130</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">();</span> <span class="nb">print</span><span class="p">(</span><span class="s2">"saved p13_fig1.png"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"k with best silhouette:"</span><span class="p">,</span> <span class="n">best</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">saved p13_fig1.png
+k with best silhouette: 2</pre></div></div>
+<div class="cell only-out"><div class="cell-out"><figure class="fig"><img src="img/part-13-040.png" alt="Chart output" loading="lazy"></figure></div></div>
+<p>Elbow and silhouette for k-means on scaled penguin measurements.</p>
+
+<p>The left plot shows the elbow, and the dashed amber line on the right marks the k with the best silhouette. The two tools do not always agree; treat them as hints and let the business meaning make the final call.</p>
+
+<h3 id="checking-clusters-when-you-do-have-a-hidden-label"><a class="anchor" href="#checking-clusters-when-you-do-have-a-hidden-label" aria-label="Link to this section">#</a>Checking clusters when you do have a hidden label</h3>
+
+<p>Penguins do have a species column, so we can use it as a sanity check. The <strong>adjusted Rand index (ARI)</strong> measures how well clusters match known labels: 1 is a perfect match, about 0 is random. In real projects you usually do not have the labels, which is why silhouette and stability matter more.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">adjusted_rand_score</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"silhouette (k=3):"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">silhouette_score</span><span class="p">(</span><span class="n">Xp</span><span class="p">,</span> <span class="n">km</span><span class="o">.</span><span class="n">labels_</span><span class="p">),</span> <span class="mi">3</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"ARI vs species  :"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">adjusted_rand_score</span><span class="p">(</span><span class="n">pen</span><span class="p">[</span><span class="s2">"species"</span><span class="p">],</span> <span class="n">km</span><span class="o">.</span><span class="n">labels_</span><span class="p">),</span> <span class="mi">3</span><span class="p">))</span>
+<span class="c1"># stability: do different random starts give the same grouping?</span>
+<span class="n">km2</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">n_init</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Xp</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"ARI between two seeds:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">adjusted_rand_score</span><span class="p">(</span><span class="n">km</span><span class="o">.</span><span class="n">labels_</span><span class="p">,</span> <span class="n">km2</span><span class="o">.</span><span class="n">labels_</span><span class="p">),</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">crosstab</span><span class="p">(</span><span class="n">pen</span><span class="p">[</span><span class="s2">"species"</span><span class="p">],</span> <span class="n">pen</span><span class="p">[</span><span class="s2">"cluster"</span><span class="p">])</span>
+</code></pre></div><div class="cell-out"><pre class="out">silhouette (k=3): 0.446
+ARI vs species  : 0.799
+ARI between two seeds: 1.0</pre><div class="table-wrap df"><div>
+
+<table class="dataframe">
+  <thead>
+    <tr>
+      <th>cluster</th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+    </tr>
+    <tr>
+      <th>species</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Adelie</th>
+      <td>124</td>
+      <td>0</td>
+      <td>22</td>
+    </tr>
+    <tr>
+      <th>Chinstrap</th>
+      <td>5</td>
+      <td>0</td>
+      <td>63</td>
+    </tr>
+    <tr>
+      <th>Gentoo</th>
+      <td>0</td>
+      <td>119</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table></div>
+</div></div></div></div>
+<p>A high ARI between seeds means the clusters are <strong>stable</strong>. A crosstab like the one above shows which species land in which cluster, and where the algorithm mixes them.</p>
+
+<div class="callout note"><p><strong>How to judge clusters without labels.</strong> Run k-means with more than one seed and compare. Check cluster sizes (a cluster with 2 rows is rarely a real segment). Always name the clusters in words and ask whether a business person would act differently on each.</p>
+</div>
+<h2 id="13-3-worked-example-segmenting-sacco-customers"><a class="anchor" href="#13-3-worked-example-segmenting-sacco-customers" aria-label="Link to this section">#</a>13.3 Worked example: segmenting SACCO customers</h2>
+
+<p>A SACCO or lender often wants to treat customers differently: save-focused members, heavy borrowers, and low-activity members. We build a small <strong>synthetic</strong> table of 300 customers with three hidden behaviour types, so we can check how well the clustering recovers them. (The 'true_type' column is for checking only; the model never sees it.)</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">types</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"Saver"</span><span class="p">,</span> <span class="s2">"Borrower"</span><span class="p">,</span> <span class="s2">"Low-activity"</span><span class="p">]</span>
+<span class="n">spec</span> <span class="o">=</span> <span class="p">{</span>  <span class="c1"># mean monthly deposits (Ksh), loans taken per year, M-Pesa transactions per month</span>
+    <span class="s2">"Saver"</span><span class="p">:</span> <span class="p">(</span><span class="mi">18000</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">35</span><span class="p">),</span> <span class="s2">"Borrower"</span><span class="p">:</span> <span class="p">(</span><span class="mi">9000</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">,</span> <span class="mi">55</span><span class="p">),</span> <span class="s2">"Low-activity"</span><span class="p">:</span> <span class="p">(</span><span class="mi">2500</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mi">8</span><span class="p">)}</span>
+<span class="n">rows</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">types</span><span class="p">:</span>
+    <span class="n">dep</span><span class="p">,</span> <span class="n">loans</span><span class="p">,</span> <span class="n">tx</span> <span class="o">=</span> <span class="n">spec</span><span class="p">[</span><span class="n">t</span><span class="p">]</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="mi">100</span>
+    <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+        <span class="s2">"true_type"</span><span class="p">:</span> <span class="n">t</span><span class="p">,</span>
+        <span class="s2">"deposits_ksh"</span><span class="p">:</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">dep</span><span class="p">,</span> <span class="n">dep</span> <span class="o">*</span> <span class="mf">0.25</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="mi">500</span><span class="p">),</span>
+        <span class="s2">"loans_per_year"</span><span class="p">:</span> <span class="n">rng</span><span class="o">.</span><span class="n">poisson</span><span class="p">(</span><span class="n">loans</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span>
+        <span class="s2">"mpesa_txns"</span><span class="p">:</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">tx</span><span class="p">,</span> <span class="n">tx</span> <span class="o">*</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">()}))</span>
+<span class="n">cust</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">feat</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"deposits_ksh"</span><span class="p">,</span> <span class="s2">"loans_per_year"</span><span class="p">,</span> <span class="s2">"mpesa_txns"</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"synthetic customer table:"</span><span class="p">,</span> <span class="n">cust</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">cust</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"true_type"</span><span class="p">)[</span><span class="n">feat</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">synthetic customer table: (300, 4)</pre><div class="table-wrap df"><div>
+
+<table class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th>deposits_ksh</th>
+      <th>loans_per_year</th>
+      <th>mpesa_txns</th>
+    </tr>
+    <tr>
+      <th>true_type</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Borrower</th>
+      <td>8887.0</td>
+      <td>3.4</td>
+      <td>54.0</td>
+    </tr>
+    <tr>
+      <th>Low-activity</th>
+      <td>2534.1</td>
+      <td>0.3</td>
+      <td>7.9</td>
+    </tr>
+    <tr>
+      <th>Saver</th>
+      <td>17773.8</td>
+      <td>0.5</td>
+      <td>35.4</td>
+    </tr>
+  </tbody>
+</table></div>
+</div></div></div></div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.pipeline</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_pipeline</span>
+<span class="n">pipe</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">StandardScaler</span><span class="p">(),</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">n_init</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">))</span>
+<span class="n">cust</span><span class="p">[</span><span class="s2">"segment"</span><span class="p">]</span> <span class="o">=</span> <span class="n">pipe</span><span class="o">.</span><span class="n">fit_predict</span><span class="p">(</span><span class="n">cust</span><span class="p">[</span><span class="n">feat</span><span class="p">])</span>
+<span class="n">Zc</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">cust</span><span class="p">[</span><span class="n">feat</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"silhouette:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">silhouette_score</span><span class="p">(</span><span class="n">Zc</span><span class="p">,</span> <span class="n">cust</span><span class="p">[</span><span class="s2">"segment"</span><span class="p">]),</span> <span class="mi">3</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"ARI vs hidden type:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">adjusted_rand_score</span><span class="p">(</span><span class="n">cust</span><span class="p">[</span><span class="s2">"true_type"</span><span class="p">],</span> <span class="n">cust</span><span class="p">[</span><span class="s2">"segment"</span><span class="p">]),</span> <span class="mi">3</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">cust</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"segment"</span><span class="p">)[</span><span class="n">feat</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">crosstab</span><span class="p">(</span><span class="n">cust</span><span class="p">[</span><span class="s2">"true_type"</span><span class="p">],</span> <span class="n">cust</span><span class="p">[</span><span class="s2">"segment"</span><span class="p">])</span>
+</code></pre></div><div class="cell-out"><pre class="out">silhouette: 0.611
+ARI vs hidden type: 0.913
+         deposits_ksh  loans_per_year  mpesa_txns
+segment                                          
+0              8694.6             3.6        54.8
+1              2650.0             0.3         8.1
+2             17446.1             0.5        36.4</pre><div class="table-wrap df"><div>
+
+<table class="dataframe">
+  <thead>
+    <tr>
+      <th>segment</th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+    </tr>
+    <tr>
+      <th>true_type</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Borrower</th>
+      <td>92</td>
+      <td>1</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <th>Low-activity</th>
+      <td>0</td>
+      <td>100</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>Saver</th>
+      <td>0</td>
+      <td>1</td>
+      <td>99</td>
+    </tr>
+  </tbody>
+</table></div>
+</div></div></div></div>
+<p>The segment profile table (cluster means) is the deliverable: a marketing or credit team reads it and names each segment. Because this data is synthetic and well separated, the recovery is good; real customers overlap far more.</p>
+
+<div class="callout real"><p><strong>Using it in the real world: customer segmentation for a SACCO or lender.</strong> Data needed: one row per customer with behaviour summaries (deposits, borrowing, M-Pesa activity), built over a fixed window such as 6 months. Validate: scale first, compare seeds, profile each segment in words, and check that segments differ on something that matters (for example default rate or profit) that you did not cluster on. How it fails: customers drift between segments over time, and segments built on one county may not transfer to another. Monitor: re-run quarterly, track segment sizes and the share of customers who change segment. Never use a segment as a fixed 'label' on a person without a human review, and avoid features that proxy for protected traits.</p>
+</div>
+<h2 id="13-4-hierarchical-clustering"><a class="anchor" href="#13-4-hierarchical-clustering" aria-label="Link to this section">#</a>13.4 Hierarchical clustering</h2>
+
+<p><strong>What it does:</strong> builds a tree of clusters, so you see groups at every level of detail and do not have to pick k first.</p>
+
+<p><strong>How it works (agglomerative):</strong> start with every row as its own cluster, then repeatedly merge the two closest clusters until one is left. 'Closest' depends on the <strong>linkage</strong>: <code>single</code> (nearest members), <code>complete</code> (farthest members), <code>average</code>, or <code>ward</code> (merge the pair that increases the within-cluster variance least; the usual best default). The tree is drawn as a <strong>dendrogram</strong>; cutting it at a height gives clusters.</p>
+
+<p><strong>Works best when</strong> the data set is small (hundreds of rows) and you want to see the structure. <strong>Struggles when</strong> the data is large (it needs a table of all pairwise distances) or has noise. <strong>Key settings:</strong> linkage method, distance metric, and the cut height or number of clusters.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">from</span><span class="w"> </span><span class="nn">scipy.cluster.hierarchy</span><span class="w"> </span><span class="kn">import</span> <span class="n">linkage</span><span class="p">,</span> <span class="n">dendrogram</span><span class="p">,</span> <span class="n">fcluster</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_iris</span>
+
+<span class="n">iris</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">(</span><span class="n">as_frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">sub</span> <span class="o">=</span> <span class="n">iris</span><span class="o">.</span><span class="n">frame</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>   <span class="c1"># small set: readable tree</span>
+<span class="n">Xi</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">sub</span><span class="p">[</span><span class="n">iris</span><span class="o">.</span><span class="n">feature_names</span><span class="p">])</span>
+<span class="n">Z</span> <span class="o">=</span> <span class="n">linkage</span><span class="p">(</span><span class="n">Xi</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">"ward"</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">3.6</span><span class="p">))</span>
+<span class="n">dendrogram</span><span class="p">(</span><span class="n">Z</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color_threshold</span><span class="o">=</span><span class="n">Z</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">above_threshold_color</span><span class="o">=</span><span class="n">GREY</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Dendrogram of 30 iris flowers (ward linkage)"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"Flower (row number)"</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Merge distance"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">"p13_fig2.png"</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">130</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">();</span> <span class="nb">print</span><span class="p">(</span><span class="s2">"saved p13_fig2.png"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">saved p13_fig2.png</pre></div></div>
+<div class="cell only-out"><div class="cell-out"><figure class="fig"><img src="img/part-13-041.png" alt="Chart output" loading="lazy"></figure></div></div>
+<p>Tall vertical lines mean two very different groups were merged.</p>
+
+<p>Reading the plot: cut the tree with a horizontal line; every vertical line it crosses is one cluster. A long gap before a big merge suggests a natural number of groups.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">labels</span> <span class="o">=</span> <span class="n">fcluster</span><span class="p">(</span><span class="n">Z</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">criterion</span><span class="o">=</span><span class="s2">"maxclust"</span><span class="p">)</span>        <span class="c1"># cut the tree into 3 clusters</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"cluster sizes:"</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">bincount</span><span class="p">(</span><span class="n">labels</span><span class="p">)[</span><span class="mi">1</span><span class="p">:])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">crosstab</span><span class="p">(</span><span class="n">sub</span><span class="p">[</span><span class="s2">"target"</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="nb">enumerate</span><span class="p">(</span><span class="n">iris</span><span class="o">.</span><span class="n">target_names</span><span class="p">))),</span> <span class="n">labels</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">cluster sizes: [11 10  9]
+col_0        1  2  3
+target              
+setosa      11  0  0
+versicolor   0  9  4
+virginica    0  1  5</pre></div></div>
+<h2 id="13-5-dbscan-clusters-of-any-shape-and-noise"><a class="anchor" href="#13-5-dbscan-clusters-of-any-shape-and-noise" aria-label="Link to this section">#</a>13.5 DBSCAN: clusters of any shape, and noise</h2>
+
+<p><strong>What it does:</strong> finds dense regions and calls everything else <strong>noise</strong> (label -1). You do not give k.</p>
+
+<p><strong>How it works:</strong> a point is a <strong>core point</strong> if at least <code>min_samples</code> points (itself included) lie within distance <code>eps</code>. Core points that are close are chained into one cluster, and nearby non-core points join as edges. Points reachable from no core point are noise.</p>
+
+<p><strong>Works best when</strong> clusters have odd shapes and you expect some noise. <strong>Struggles when</strong> densities differ a lot between groups, or when there are very many columns. <strong>Key settings:</strong> <code>eps</code> (neighbourhood radius, the hard one; scale the data first) and <code>min_samples</code>.</p>
+
+<p>We use the classic synthetic 'two moons' shape, where k-means is known to fail.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_moons</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.cluster</span><span class="w"> </span><span class="kn">import</span> <span class="n">DBSCAN</span>
+
+<span class="n">Xm</span><span class="p">,</span> <span class="n">ym</span> <span class="o">=</span> <span class="n">make_moons</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="mf">0.07</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>    <span class="c1"># synthetic</span>
+<span class="n">km_m</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">n_init</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span><span class="o">.</span><span class="n">fit_predict</span><span class="p">(</span><span class="n">Xm</span><span class="p">)</span>
+<span class="n">db</span> <span class="o">=</span> <span class="n">DBSCAN</span><span class="p">(</span><span class="n">eps</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">min_samples</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">fit_predict</span><span class="p">(</span><span class="n">Xm</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"ARI k-means:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">adjusted_rand_score</span><span class="p">(</span><span class="n">ym</span><span class="p">,</span> <span class="n">km_m</span><span class="p">),</span> <span class="mi">3</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"ARI DBSCAN :"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">adjusted_rand_score</span><span class="p">(</span><span class="n">ym</span><span class="p">,</span> <span class="n">db</span><span class="p">),</span> <span class="mi">3</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"DBSCAN noise points:"</span><span class="p">,</span> <span class="nb">int</span><span class="p">((</span><span class="n">db</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()))</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">3.6</span><span class="p">))</span>
+<span class="n">plots</span> <span class="o">=</span> <span class="p">[(</span><span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">km_m</span><span class="p">,</span> <span class="s2">"k-means cuts the moons in half"</span><span class="p">),</span> <span class="p">(</span><span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">db</span><span class="p">,</span> <span class="s2">"DBSCAN follows the shapes"</span><span class="p">)]</span>
+<span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">lab</span><span class="p">,</span> <span class="n">ttl</span> <span class="ow">in</span> <span class="n">plots</span><span class="p">:</span>
+    <span class="n">a</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">Xm</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">Xm</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">lab</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">lab</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">"winter"</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+    <span class="n">a</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">ttl</span><span class="p">);</span> <span class="n">a</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"Feature 1"</span><span class="p">);</span> <span class="n">a</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Feature 2"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">"p13_fig3.png"</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">130</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">();</span> <span class="nb">print</span><span class="p">(</span><span class="s2">"saved p13_fig3.png"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">ARI k-means: 0.254
+ARI DBSCAN : 1.0
+DBSCAN noise points: 0
+saved p13_fig3.png</pre></div></div>
+<div class="cell only-out"><div class="cell-out"><figure class="fig"><img src="img/part-13-042.png" alt="Chart output" loading="lazy"></figure></div></div>
+<p>Same data, two algorithms: shape matters.</p>
+
+<p>K-means draws a straight boundary because it thinks in round blobs; DBSCAN follows the curved shapes. To pick <code>eps</code>, a common trick is to plot each point's distance to its k-th nearest neighbour, sorted, and choose <code>eps</code> near the bend in that curve.</p>
+
+<h2 id="13-6-gaussian-mixture-models"><a class="anchor" href="#13-6-gaussian-mixture-models" aria-label="Link to this section">#</a>13.6 Gaussian mixture models</h2>
+
+<p><strong>What it does:</strong> treats the data as a blend of several bell-shaped (Gaussian) groups and gives each row a <strong>probability</strong> of belonging to each group, instead of one hard label. This is called <strong>soft clustering</strong>.</p>
+
+<p><strong>How it works:</strong> it alternates two steps (the EM algorithm): guess how much each group is responsible for each row, then re-fit each group's mean and spread from those weighted rows. Unlike k-means, groups can be stretched ellipses of different sizes.</p>
+
+<p><strong>Works best when</strong> groups are oval and overlapping, and you want probabilities. <strong>Struggles when</strong> shapes are far from bell-shaped, or with many columns and few rows. <strong>Key settings:</strong> <code>n_components</code>, <code>covariance_type</code> (full, tied, diag, spherical). You can pick <code>n_components</code> with the <strong>BIC</strong> score (lower is better).</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.mixture</span><span class="w"> </span><span class="kn">import</span> <span class="n">GaussianMixture</span>
+<span class="n">Xg</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">iris</span><span class="o">.</span><span class="n">frame</span><span class="p">[</span><span class="n">iris</span><span class="o">.</span><span class="n">feature_names</span><span class="p">])</span>
+<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">):</span>
+    <span class="n">g</span> <span class="o">=</span> <span class="n">GaussianMixture</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="n">k</span><span class="p">,</span> <span class="n">covariance_type</span><span class="o">=</span><span class="s2">"full"</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Xg</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"components"</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="s2">" BIC"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">bic</span><span class="p">(</span><span class="n">Xg</span><span class="p">),</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">gm</span> <span class="o">=</span> <span class="n">GaussianMixture</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">covariance_type</span><span class="o">=</span><span class="s2">"full"</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Xg</span><span class="p">)</span>
+<span class="n">proba</span> <span class="o">=</span> <span class="n">gm</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">Xg</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"ARI vs species:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">adjusted_rand_score</span><span class="p">(</span><span class="n">iris</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">gm</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">Xg</span><span class="p">)),</span> <span class="mi">3</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"rows where the top probability is below 0.9:"</span><span class="p">,</span> <span class="nb">int</span><span class="p">((</span><span class="n">proba</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">0.9</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()))</span>
+</code></pre></div><div class="cell-out"><pre class="out">components 1  BIC 1050.7
+components 2  BIC 794.7
+components 3  BIC 841.2
+components 4  BIC 849.3
+components 5  BIC 901.5
+ARI vs species: 0.516
+rows where the top probability is below 0.9: 1</pre></div></div>
+<p>BIC is lowest at 2 components because two of the three iris species overlap, so the statistics prefer fewer groups than the biologists do: another reminder that the score is a hint. The few rows with a top probability below 0.9 sit where groups overlap. For a lender, a customer who is 55 percent 'borrower' and 45 percent 'saver' should probably be treated gently rather than forced into one box.</p>
+
+<h2 id="13-7-pca-fewer-columns-same-story"><a class="anchor" href="#13-7-pca-fewer-columns-same-story" aria-label="Link to this section">#</a>13.7 PCA: fewer columns, same story</h2>
+
+<p><strong>What it does:</strong> <strong>Principal Component Analysis</strong> replaces many correlated columns with a few new columns, called <strong>principal components</strong>, that keep as much of the variation as possible. It is useful for plotting, removing redundancy, and speeding up or stabilising a later model.</p>
+
+<p><strong>How it works:</strong> PC1 is the direction in which the data varies most. PC2 is the next direction that is perpendicular (uncorrelated) to PC1, and so on. Each component is a weighted mix of the original columns; those weights are the <strong>loadings</strong>. The share of total variation each component keeps is its <strong>explained variance ratio</strong>.</p>
+
+<p><strong>Works best when</strong> columns are correlated and numeric. <strong>Struggles when</strong> the important structure is non-linear, or when you need components a person can explain easily. <strong>Key settings:</strong> <code>n_components</code> (an integer, or a fraction such as 0.95 to keep 95 percent of the variance). Always scale first.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_wine</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.decomposition</span><span class="w"> </span><span class="kn">import</span> <span class="n">PCA</span>
+
+<span class="n">wine</span> <span class="o">=</span> <span class="n">load_wine</span><span class="p">(</span><span class="n">as_frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">Xw</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">wine</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+<span class="n">pca</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Xw</span><span class="p">)</span>
+<span class="n">evr</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">explained_variance_ratio_</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"features:"</span><span class="p">,</span> <span class="n">Xw</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"variance kept by PC1..PC4:"</span><span class="p">,</span> <span class="n">evr</span><span class="p">[:</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"cumulative for PC1..PC4  :"</span><span class="p">,</span> <span class="n">evr</span><span class="o">.</span><span class="n">cumsum</span><span class="p">()[:</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"components needed for 90 percent:"</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">evr</span><span class="o">.</span><span class="n">cumsum</span><span class="p">()</span> <span class="o">&gt;=</span> <span class="mf">0.90</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">features: 13
+variance kept by PC1..PC4: [0.362 0.192 0.111 0.071]
+cumulative for PC1..PC4  : [0.362 0.554 0.665 0.736]
+components needed for 90 percent: 8</pre></div></div>
+<p>A <strong>scree plot</strong> shows the variance of each component; look for where the bars level off. Next to it we draw the wine samples on PC1 and PC2, coloured by their (known) cultivar to see whether the first two components keep the group structure.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">pcs</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">Xw</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">3.6</span><span class="p">))</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">evr</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">evr</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">BLUE</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">evr</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">evr</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(),</span> <span class="n">marker</span><span class="o">=</span><span class="s2">"o"</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">AMBER</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Scree plot: bars = each PC, line = cumulative"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"Principal component"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Share of variance"</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">c</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="n">BLUE</span><span class="p">,</span> <span class="n">GREEN</span><span class="p">,</span> <span class="n">AMBER</span><span class="p">]):</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="p">(</span><span class="n">wine</span><span class="o">.</span><span class="n">target</span> <span class="o">==</span> <span class="n">c</span><span class="p">)</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">pcs</span><span class="p">[</span><span class="n">m</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">pcs</span><span class="p">[</span><span class="n">m</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">col</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"cultivar "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">c</span><span class="p">))</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Wine samples on the first two components"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"PC1"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"PC2"</span><span class="p">);</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">"p13_fig4.png"</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">130</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">();</span> <span class="nb">print</span><span class="p">(</span><span class="s2">"saved p13_fig4.png"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">saved p13_fig4.png</pre></div></div>
+<div class="cell only-out"><div class="cell-out"><figure class="fig"><img src="img/part-13-043.png" alt="Chart output" loading="lazy"></figure></div></div>
+<p>Two components already separate the three cultivars well.</p>
+
+<p>The first few components carry most of the variation, and the cultivars form visible groups on PC1 and PC2 even though PCA never saw the labels. Now the loadings: which original columns build PC1?</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">load</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">pca</span><span class="o">.</span><span class="n">components_</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">wine</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">"PC1"</span><span class="p">,</span> <span class="s2">"PC2"</span><span class="p">])</span>
+<span class="n">load</span><span class="o">.</span><span class="n">reindex</span><span class="p">(</span><span class="n">load</span><span class="p">[</span><span class="s2">"PC1"</span><span class="p">]</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><div class="table-wrap df"><div>
+
+<table class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th>PC1</th>
+      <th>PC2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>flavanoids</th>
+      <td>0.42</td>
+      <td>-0.00</td>
+    </tr>
+    <tr>
+      <th>total_phenols</th>
+      <td>0.39</td>
+      <td>0.07</td>
+    </tr>
+    <tr>
+      <th>od280/od315_of_diluted_wines</th>
+      <td>0.38</td>
+      <td>-0.16</td>
+    </tr>
+    <tr>
+      <th>proanthocyanins</th>
+      <td>0.31</td>
+      <td>0.04</td>
+    </tr>
+    <tr>
+      <th>nonflavanoid_phenols</th>
+      <td>-0.30</td>
+      <td>0.03</td>
+    </tr>
+    <tr>
+      <th>hue</th>
+      <td>0.30</td>
+      <td>-0.28</td>
+    </tr>
+  </tbody>
+</table></div>
+</div></div></div></div>
+<p>Large positive or negative loadings (far from 0) show the columns that drive that component. The sign only says which way the axis points; it carries no meaning on its own.</p>
+
+<h3 id="using-pca-before-modelling"><a class="anchor" href="#using-pca-before-modelling" aria-label="Link to this section">#</a>Using PCA before modelling</h3>
+
+<p>PCA can feed a supervised model. Put it inside a <strong>pipeline</strong> so the scaler and PCA are learned on training data only (no leakage, see Part 9).</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">cross_val_score</span>
+
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">steps</span> <span class="ow">in</span> <span class="p">[(</span><span class="s2">"all 13 columns"</span><span class="p">,</span> <span class="p">[</span><span class="n">StandardScaler</span><span class="p">(),</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">2000</span><span class="p">)]),</span>
+                    <span class="p">(</span><span class="s2">"PCA keeping 90% variance"</span><span class="p">,</span> <span class="p">[</span><span class="n">StandardScaler</span><span class="p">(),</span> <span class="n">PCA</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mf">0.90</span><span class="p">),</span>
+                                                   <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">2000</span><span class="p">)])]:</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">make_pipeline</span><span class="p">(</span><span class="o">*</span><span class="n">steps</span><span class="p">),</span> <span class="n">wine</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">wine</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">name</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="mi">26</span><span class="p">),</span> <span class="s2">"mean accuracy:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="mi">3</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">all 13 columns             mean accuracy: 0.983
+PCA keeping 90% variance   mean accuracy: 0.978</pre></div></div>
+<p>Accuracy stays close while the model uses fewer inputs. The price is interpretability: coefficients now refer to components, not to named columns. Use PCA when columns are many and correlated; skip it when you must explain each feature to a regulator.</p>
+
+<h2 id="13-8-t-sne-for-pictures-and-a-note-on-umap-and-lda"><a class="anchor" href="#13-8-t-sne-for-pictures-and-a-note-on-umap-and-lda" aria-label="Link to this section">#</a>13.8 t-SNE for pictures, and a note on UMAP and LDA</h2>
+
+<p><strong>What it does:</strong> <strong>t-SNE</strong> squeezes high-dimensional data into 2 dimensions for plotting, keeping points that are close together in the original space close on the map. We use the 8x8 pixel handwritten digits (64 columns, BSD licence, bundled with scikit-learn).</p>
+
+<p><strong>How it works:</strong> it turns distances into neighbour probabilities in the original space, then arranges 2-D points so their neighbour probabilities match. <strong>Key setting:</strong> <code>perplexity</code> (roughly how many neighbours each point considers; 5 to 50).</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_digits</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.manifold</span><span class="w"> </span><span class="kn">import</span> <span class="n">TSNE</span>
+
+<span class="n">dg</span> <span class="o">=</span> <span class="n">load_digits</span><span class="p">()</span>
+<span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">dg</span><span class="o">.</span><span class="n">data</span><span class="p">),</span> <span class="mi">700</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">Xd</span><span class="p">,</span> <span class="n">yd</span> <span class="o">=</span> <span class="n">dg</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="n">dg</span><span class="o">.</span><span class="n">target</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+<span class="n">emb</span> <span class="o">=</span> <span class="n">TSNE</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">perplexity</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">init</span><span class="o">=</span><span class="s2">"pca"</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">Xd</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">3.6</span><span class="p">))</span>
+<span class="n">sc</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">emb</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">emb</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">yd</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">"tab10"</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"t-SNE map of 700 handwritten digits (colour = true digit)"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"t-SNE dimension 1 (no units)"</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"t-SNE dimension 2 (no units)"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">sc</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Digit"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">"p13_fig5.png"</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">130</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">();</span> <span class="nb">print</span><span class="p">(</span><span class="s2">"saved p13_fig5.png"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">saved p13_fig5.png</pre></div></div>
+<div class="cell only-out"><div class="cell-out"><figure class="fig"><img src="img/part-13-044.png" alt="Chart output" loading="lazy"></figure></div></div>
+<p>Each digit forms its own island, although the model never saw the digit labels.</p>
+
+<div class="callout note"><p><strong>Warning.</strong> Use t-SNE for <strong>visualisation only</strong>. Distances between islands and the size of islands are not meaningful, the picture changes with the seed and perplexity, and you cannot transform new rows with a fitted t-SNE. Do not cluster or model on t-SNE coordinates.</p>
+</div>
+<p><strong>UMAP</strong> is a newer method with a similar purpose that is faster, tends to keep more global structure and can transform new rows. It is not installed here, so the code below is shown but not run.</p>
+
+<pre class="code"><code><span class="c1"># pip install umap-learn</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">umap</span>
+<span class="n">reducer</span> <span class="o">=</span> <span class="n">umap</span><span class="o">.</span><span class="n">UMAP</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">min_dist</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">embedding</span> <span class="o">=</span> <span class="n">reducer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_scaled</span><span class="p">)</span>      <span class="c1"># X_scaled: your scaled numeric table</span>
+<span class="n">new_points</span> <span class="o">=</span> <span class="n">reducer</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_new_scaled</span><span class="p">)</span>     <span class="c1"># unlike t-SNE, new rows can be projected</span>
+</code></pre>
+<p><em>Not executed in this notebook (needs a service or setting you must provide yourself).</em></p>
+
+<p><strong>LDA (Linear Discriminant Analysis)</strong> is the supervised cousin of PCA: it also finds a few new axes, but it picks the ones that best separate known classes, so it needs labels. Use PCA to describe variation and LDA when you want the best class-separating projection (<code>sklearn.discriminant_analysis</code>).</p>
+
+<h2 id="13-9-anomaly-detection"><a class="anchor" href="#13-9-anomaly-detection" aria-label="Link to this section">#</a>13.9 Anomaly detection</h2>
+
+<p>An <strong>anomaly</strong> (outlier) is a row that does not look like the rest. Examples: a sudden huge M-Pesa transfer, a meter reading far off the pattern, a card used in two towns within minutes. Anomalies are rare, so labels are rare too, which is why unsupervised methods are popular here.</p>
+
+<p>We build a synthetic table of 1,000 ordinary transactions plus 15 injected unusual ones (large amount at an odd hour), so we can count how many each method catches. Real fraud data is far messier.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">normal</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">"amount_ksh"</span><span class="p">:</span> <span class="n">rng</span><span class="o">.</span><span class="n">lognormal</span><span class="p">(</span><span class="mf">7.5</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(),</span>
+                       <span class="s2">"hour"</span><span class="p">:</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">23</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">()})</span>
+<span class="n">odd</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">"amount_ksh"</span><span class="p">:</span> <span class="n">rng</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">60000</span><span class="p">,</span> <span class="mi">150000</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(),</span>
+                    <span class="s2">"hour"</span><span class="p">:</span> <span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="mi">15</span><span class="p">)})</span>
+<span class="n">tx</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">normal</span><span class="p">,</span> <span class="n">odd</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">tx</span><span class="p">[</span><span class="s2">"is_odd"</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mi">1000</span> <span class="o">+</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mi">15</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">tx</span><span class="p">[[</span><span class="s2">"amount_ksh"</span><span class="p">,</span> <span class="s2">"hour"</span><span class="p">]]</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">loc</span><span class="p">[[</span><span class="s2">"mean"</span><span class="p">,</span> <span class="s2">"50%"</span><span class="p">,</span> <span class="s2">"max"</span><span class="p">]])</span>
+</code></pre></div><div class="cell-out"><pre class="out">      amount_ksh  hour
+mean      3656.0  14.0
+50%       1836.0  14.0
+max     148888.0  23.0</pre></div></div>
+<h3 id="simple-rules-first-z-score-and-iqr"><a class="anchor" href="#simple-rules-first-z-score-and-iqr" aria-label="Link to this section">#</a>Simple rules first: z-score and IQR</h3>
+
+<p>The <strong>z-score</strong> rule flags values more than about 3 standard deviations from the mean. The <strong>IQR rule</strong> flags values beyond 1.5 times the interquartile range outside the quartiles (the same rule behind a boxplot, Part 5). They look at one column at a time, which is simple and often enough.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">a</span> <span class="o">=</span> <span class="n">tx</span><span class="p">[</span><span class="s2">"amount_ksh"</span><span class="p">]</span>
+<span class="n">z</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span> <span class="o">-</span> <span class="n">a</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="o">/</span> <span class="n">a</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+<span class="n">q1</span><span class="p">,</span> <span class="n">q3</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">quantile</span><span class="p">([</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">])</span>
+<span class="n">iqr_flag</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span> <span class="o">&lt;</span> <span class="n">q1</span> <span class="o">-</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">q3</span> <span class="o">-</span> <span class="n">q1</span><span class="p">))</span> <span class="o">|</span> <span class="p">(</span><span class="n">a</span> <span class="o">&gt;</span> <span class="n">q3</span> <span class="o">+</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">q3</span> <span class="o">-</span> <span class="n">q1</span><span class="p">))</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">report</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">flag</span><span class="p">):</span>
+    <span class="n">flag</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">flag</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">bool</span><span class="p">)</span>
+    <span class="n">hit</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="n">flag</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">tx</span><span class="o">.</span><span class="n">is_odd</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">())</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">name</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="mi">18</span><span class="p">),</span> <span class="s2">"flagged:"</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">flag</span><span class="o">.</span><span class="n">sum</span><span class="p">()),</span> <span class="s2">" injected caught:"</span><span class="p">,</span> <span class="n">hit</span><span class="p">,</span> <span class="s2">"of 15"</span><span class="p">)</span>
+<span class="n">report</span><span class="p">(</span><span class="s2">"z-score &gt; 3"</span><span class="p">,</span> <span class="n">z</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">report</span><span class="p">(</span><span class="s2">"IQR rule"</span><span class="p">,</span> <span class="n">iqr_flag</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">z-score &gt; 3        flagged: 15  injected caught: 15 of 15
+IQR rule           flagged: 75  injected caught: 15 of 15</pre></div></div>
+<p>Both rules catch every injected amount here, but the IQR rule also flags many ordinary large amounts (amounts are skewed, see Part 8), so it raises more false alarms. Single-column rules can miss a row that is unusual only in combination, for example a normal amount at 3 a.m. (think of the hour column here). Multi-column methods look at the whole row.</p>
+
+<h3 id="isolation-forest-local-outlier-factor-one-class-svm"><a class="anchor" href="#isolation-forest-local-outlier-factor-one-class-svm" aria-label="Link to this section">#</a>Isolation Forest, Local Outlier Factor, one-class SVM</h3>
+
+<p><strong>Isolation Forest</strong> builds many random trees that split the data at random. Anomalies are few and different, so they are isolated in fewer splits. Key setting: <code>contamination</code> (expected share of anomalies).</p>
+
+<p><strong>Local Outlier Factor (LOF)</strong> compares how crowded each point's neighbourhood is with the crowding of its neighbours, so it finds points that are sparse relative to their surroundings. Key setting: <code>n_neighbors</code>.</p>
+
+<p><strong>One-class SVM</strong> learns a boundary around 'normal' data and flags what falls outside. It is sensitive to scaling and to its <code>nu</code> setting (roughly the allowed share of outliers), and is slower on large data.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.ensemble</span><span class="w"> </span><span class="kn">import</span> <span class="n">IsolationForest</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.neighbors</span><span class="w"> </span><span class="kn">import</span> <span class="n">LocalOutlierFactor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.svm</span><span class="w"> </span><span class="kn">import</span> <span class="n">OneClassSVM</span>
+
+<span class="n">Xa</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">tx</span><span class="p">[[</span><span class="s2">"amount_ksh"</span><span class="p">,</span> <span class="s2">"hour"</span><span class="p">]])</span>
+<span class="n">frac</span> <span class="o">=</span> <span class="mi">15</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">tx</span><span class="p">)</span>
+<span class="n">isof</span> <span class="o">=</span> <span class="n">IsolationForest</span><span class="p">(</span><span class="n">contamination</span><span class="o">=</span><span class="n">frac</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">report</span><span class="p">(</span><span class="s2">"Isolation Forest"</span><span class="p">,</span> <span class="n">isof</span><span class="o">.</span><span class="n">fit_predict</span><span class="p">(</span><span class="n">Xa</span><span class="p">)</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">report</span><span class="p">(</span><span class="s2">"LOF"</span><span class="p">,</span> <span class="n">LocalOutlierFactor</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">contamination</span><span class="o">=</span><span class="n">frac</span><span class="p">)</span><span class="o">.</span><span class="n">fit_predict</span><span class="p">(</span><span class="n">Xa</span><span class="p">)</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">report</span><span class="p">(</span><span class="s2">"One-class SVM"</span><span class="p">,</span> <span class="n">OneClassSVM</span><span class="p">(</span><span class="n">nu</span><span class="o">=</span><span class="n">frac</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="s2">"scale"</span><span class="p">)</span><span class="o">.</span><span class="n">fit_predict</span><span class="p">(</span><span class="n">Xa</span><span class="p">)</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">Isolation Forest   flagged: 15  injected caught: 15 of 15
+LOF                flagged: 15  injected caught: 15 of 15
+One-class SVM      flagged: 14  injected caught: 9 of 15</pre></div></div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">iso</span> <span class="o">=</span> <span class="n">IsolationForest</span><span class="p">(</span><span class="n">contamination</span><span class="o">=</span><span class="n">frac</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Xa</span><span class="p">)</span>
+<span class="n">tx</span><span class="p">[</span><span class="s2">"score"</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">iso</span><span class="o">.</span><span class="n">score_samples</span><span class="p">(</span><span class="n">Xa</span><span class="p">)</span>          <span class="c1"># higher = more unusual</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">3.6</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">tx</span><span class="p">[</span><span class="s2">"hour"</span><span class="p">],</span> <span class="n">tx</span><span class="p">[</span><span class="s2">"amount_ksh"</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">tx</span><span class="p">[</span><span class="s2">"score"</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">"Blues"</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">top</span> <span class="o">=</span> <span class="n">tx</span><span class="o">.</span><span class="n">nlargest</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="s2">"score"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">top</span><span class="p">[</span><span class="s2">"hour"</span><span class="p">],</span> <span class="n">top</span><span class="p">[</span><span class="s2">"amount_ksh"</span><span class="p">],</span> <span class="n">facecolors</span><span class="o">=</span><span class="s2">"none"</span><span class="p">,</span> <span class="n">edgecolors</span><span class="o">=</span><span class="n">AMBER</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span>
+           <span class="n">label</span><span class="o">=</span><span class="s2">"15 highest scores"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Isolation Forest scores on synthetic transactions (darker = more unusual)"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"Hour of day"</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Amount (Ksh)"</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">"p13_fig6.png"</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">130</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">();</span> <span class="nb">print</span><span class="p">(</span><span class="s2">"saved p13_fig6.png"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">saved p13_fig6.png</pre></div></div>
+<div class="cell only-out"><div class="cell-out"><figure class="fig"><img src="img/part-13-045.png" alt="Chart output" loading="lazy"></figure></div></div>
+<p>The injected unusual transactions sit far from the crowd in amount and hour.</p>
+
+<div class="callout real"><p><strong>Using it in the real world: fraud screening.</strong> Data needed: a history of normal activity per account or merchant (not just overall averages). Validate: have an analyst review the top flagged rows and record how many were really suspicious, which gives you precision on the alerts. Measure how many alerts the team can actually review per day and set the threshold to that capacity. How it fails: customers change behaviour legitimately (salary day, festive season), fraudsters adapt, and flagged items are not proven fraud. Monitor: alert volume and the reviewed hit rate each week, and retrain on recent data. Treat the score as a ranking to prioritise human review, never as a final verdict on a customer.</p>
+</div>
+<h2 id="13-10-association-rules-and-a-tiny-recommender"><a class="anchor" href="#13-10-association-rules-and-a-tiny-recommender" aria-label="Link to this section">#</a>13.10 Association rules and a tiny recommender</h2>
+
+<p><strong>Association rule mining</strong> finds items that are bought together, such as the 'basket analysis' a supermarket does. It uses three measures for a rule 'if A then B':</p>
+
+<ul>
+<li><strong>Support</strong> = share of all baskets that contain both A and B (how common).</li>
+<li><strong>Confidence</strong> = of the baskets with A, the share that also contain B (how reliable).</li>
+<li><strong>Lift</strong> = confidence divided by the share of baskets that contain B. Above 1 means A and B appear together more than chance; about 1 means no link.</li>
+</ul>
+
+<p>The table below is a small <strong>synthetic</strong> shop-basket table (12 baskets, invented for teaching). We compute the measures by hand with pandas.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">baskets</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">"bread"</span><span class="p">:</span>   <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span>
+    <span class="s2">"milk"</span><span class="p">:</span>    <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span>
+    <span class="s2">"sugar"</span><span class="p">:</span>   <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span>
+    <span class="s2">"tea"</span><span class="p">:</span>     <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span>
+    <span class="s2">"airtime"</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]})</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">bool</span><span class="p">)</span>
+<span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">baskets</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">rule</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+    <span class="n">both</span> <span class="o">=</span> <span class="p">(</span><span class="n">baskets</span><span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">baskets</span><span class="p">[</span><span class="n">b</span><span class="p">])</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="n">conf</span> <span class="o">=</span> <span class="n">both</span> <span class="o">/</span> <span class="n">baskets</span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="n">lift</span> <span class="o">=</span> <span class="n">conf</span> <span class="o">/</span> <span class="n">baskets</span><span class="p">[</span><span class="n">b</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">"rule"</span><span class="p">:</span> <span class="n">a</span> <span class="o">+</span> <span class="s2">" -&gt; "</span> <span class="o">+</span> <span class="n">b</span><span class="p">,</span> <span class="s2">"support"</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">both</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+            <span class="s2">"confidence"</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">conf</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="s2">"lift"</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">lift</span><span class="p">,</span> <span class="mi">2</span><span class="p">)}</span>
+<span class="n">pairs</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">"bread"</span><span class="p">,</span> <span class="s2">"milk"</span><span class="p">),</span> <span class="p">(</span><span class="s2">"milk"</span><span class="p">,</span> <span class="s2">"bread"</span><span class="p">),</span> <span class="p">(</span><span class="s2">"sugar"</span><span class="p">,</span> <span class="s2">"tea"</span><span class="p">),</span> <span class="p">(</span><span class="s2">"tea"</span><span class="p">,</span> <span class="s2">"sugar"</span><span class="p">),</span>
+         <span class="p">(</span><span class="s2">"bread"</span><span class="p">,</span> <span class="s2">"tea"</span><span class="p">),</span> <span class="p">(</span><span class="s2">"airtime"</span><span class="p">,</span> <span class="s2">"milk"</span><span class="p">)]</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="n">rule</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">pairs</span><span class="p">])</span>
+</code></pre></div><div class="cell-out"><div class="table-wrap df"><div>
+
+<table class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th>rule</th>
+      <th>support</th>
+      <th>confidence</th>
+      <th>lift</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>bread -&gt; milk</td>
+      <td>0.58</td>
+      <td>0.88</td>
+      <td>1.31</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>milk -&gt; bread</td>
+      <td>0.58</td>
+      <td>0.88</td>
+      <td>1.31</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>sugar -&gt; tea</td>
+      <td>0.58</td>
+      <td>1.00</td>
+      <td>1.71</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>tea -&gt; sugar</td>
+      <td>0.58</td>
+      <td>1.00</td>
+      <td>1.71</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>bread -&gt; tea</td>
+      <td>0.25</td>
+      <td>0.38</td>
+      <td>0.64</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>airtime -&gt; milk</td>
+      <td>0.17</td>
+      <td>0.67</td>
+      <td>1.00</td>
+    </tr>
+  </tbody>
+</table></div>
+</div></div></div></div>
+<p>A rule with high lift (sugar -&gt; tea) is a candidate for shelf placement, a bundle price or a 'customers also bought' prompt. Rules with a very small support are unreliable: always require enough baskets. Association is not causation; people buy tea and sugar together because both are part of the same habit.</p>
+
+<div class="callout mistake"><p><strong>Common mistake.</strong> Low-support rules look impressive (lift of 3) but come from two or three baskets. Set a minimum support first, then sort by lift.</p>
+</div>
+<h3 id="a-recommender-with-item-item-similarity"><a class="anchor" href="#a-recommender-with-item-item-similarity" aria-label="Link to this section">#</a>A recommender with item-item similarity</h3>
+
+<p>A <strong>recommender</strong> suggests items a user may like. A simple version uses a user x item table of ratings and <strong>cosine similarity</strong> between item columns: items rated alike by the same users are similar. Cosine similarity is the cosine of the angle between two vectors (1 = same direction, 0 = unrelated).</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">items</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"Ugali flour"</span><span class="p">,</span> <span class="s2">"Sukuma seeds"</span><span class="p">,</span> <span class="s2">"Cooking oil"</span><span class="p">,</span> <span class="s2">"Airtime"</span><span class="p">,</span> <span class="s2">"Data bundle"</span><span class="p">]</span>
+<span class="n">R</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>      <span class="c1"># 0 = not bought / not rated; synthetic ratings 1-5</span>
+              <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+              <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+              <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
+              <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
+              <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+<span class="n">norms</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">S</span> <span class="o">=</span> <span class="p">(</span><span class="n">R</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">R</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">outer</span><span class="p">(</span><span class="n">norms</span><span class="p">,</span> <span class="n">norms</span><span class="p">)</span>          <span class="c1"># item-item cosine similarity</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">S</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">items</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">items</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">              Ugali flour  Sukuma seeds  Cooking oil  Airtime  Data bundle
+Ugali flour          1.00          0.75         0.98     0.08         0.12
+Sukuma seeds         0.75          1.00         0.81     0.08         0.19
+Cooking oil          0.98          0.81         1.00     0.08         0.14
+Airtime              0.08          0.08         0.08     1.00         0.98
+Data bundle          0.12          0.19         0.14     0.98         1.00</pre></div></div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">user</span> <span class="o">=</span> <span class="mi">2</span>                                           <span class="c1"># recommend for user 2 (index 2)</span>
+<span class="n">scores</span> <span class="o">=</span> <span class="n">R</span><span class="p">[</span><span class="n">user</span><span class="p">]</span> <span class="o">@</span> <span class="n">S</span>                               <span class="c1"># weight similar items by user ratings</span>
+<span class="n">scores</span><span class="p">[</span><span class="n">R</span><span class="p">[</span><span class="n">user</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>                           <span class="c1"># do not re-recommend items already rated</span>
+<span class="n">best</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">scores</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"user 2 already rated:"</span><span class="p">,</span> <span class="p">[</span><span class="n">items</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">R</span><span class="p">[</span><span class="n">user</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"recommend:"</span><span class="p">,</span> <span class="n">items</span><span class="p">[</span><span class="n">best</span><span class="p">])</span>
+</code></pre></div><div class="cell-out"><pre class="out">user 2 already rated: [&#x27;Ugali flour&#x27;, &#x27;Cooking oil&#x27;]
+recommend: Sukuma seeds</pre></div></div>
+<p>The shopper of staples is pointed to another staple, because those columns are similar. Real systems handle millions of users, and face the <strong>cold start</strong> problem: a new user or item has no ratings yet.</p>
+
+<h2 id="13-11-advanced-svd-intuition-and-semi-supervised-learning"><a class="anchor" href="#13-11-advanced-svd-intuition-and-semi-supervised-learning" aria-label="Link to this section">#</a>13.11 (Advanced) SVD intuition and semi-supervised learning</h2>
+
+<p><strong>Singular value decomposition (SVD)</strong> writes any table X as a product of three simple pieces: X = U * S * Vt, where S holds non-negative <strong>singular values</strong> in falling order that say how important each 'direction' is. Keeping only the top few pieces gives the best low-rank approximation of the table. PCA is SVD applied to centred data, and the same idea powers recommenders and text methods such as LSA.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">60</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span> <span class="o">@</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span> <span class="o">+</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="p">(</span><span class="mi">60</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>  <span class="c1"># ~rank 2</span>
+<span class="n">U</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">Vt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">full_matrices</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"singular values:"</span><span class="p">,</span> <span class="n">s</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">):</span>
+    <span class="n">Ar</span> <span class="o">=</span> <span class="n">U</span><span class="p">[:,</span> <span class="p">:</span><span class="n">r</span><span class="p">]</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">s</span><span class="p">[:</span><span class="n">r</span><span class="p">])</span> <span class="o">@</span> <span class="n">Vt</span><span class="p">[:</span><span class="n">r</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"rank"</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="s2">"reconstruction error:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">A</span> <span class="o">-</span> <span class="n">Ar</span><span class="p">),</span> <span class="mi">2</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">singular values: [17.02 14.48  0.48  0.46  0.4   0.38  0.35  0.3 ]
+rank 1 reconstruction error: 14.51
+rank 2 reconstruction error: 0.98
+rank 3 reconstruction error: 0.85</pre></div></div>
+<p>The table is built from two hidden factors plus a little noise, so two singular values are large and the rest are small, and keeping rank 2 recovers almost everything. That is exactly why compressing, denoising and recommending with SVD works.</p>
+
+<p><strong>Semi-supervised learning</strong> is used when you have a few labelled rows and many unlabelled ones, which is common when labelling is costly (confirming fraud, tagging documents). A simple method is <strong>self-training</strong>: fit a model on the labelled rows, label the unlabelled rows it is very sure about, and refit. Another is <strong>label spreading</strong>, where labels flow along the similarity graph. Below we hide 90 percent of the digit labels.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.semi_supervised</span><span class="w"> </span><span class="kn">import</span> <span class="n">LabelSpreading</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">accuracy_score</span>
+
+<span class="n">Xtr</span><span class="p">,</span> <span class="n">Xte</span><span class="p">,</span> <span class="n">ytr</span><span class="p">,</span> <span class="n">yte</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">dg</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">dg</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span>
+                                      <span class="n">stratify</span><span class="o">=</span><span class="n">dg</span><span class="o">.</span><span class="n">target</span><span class="p">)</span>
+<span class="n">hidden</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ytr</span><span class="p">))</span> <span class="o">&lt;</span> <span class="mf">0.90</span>
+<span class="n">y_part</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">hidden</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">ytr</span><span class="p">)</span>                          <span class="c1"># -1 means unlabelled</span>
+<span class="n">sup</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">3000</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Xtr</span><span class="p">[</span><span class="o">~</span><span class="n">hidden</span><span class="p">],</span> <span class="n">ytr</span><span class="p">[</span><span class="o">~</span><span class="n">hidden</span><span class="p">])</span>
+<span class="n">ls</span> <span class="o">=</span> <span class="n">LabelSpreading</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s2">"knn"</span><span class="p">,</span> <span class="n">n_neighbors</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Xtr</span><span class="p">,</span> <span class="n">y_part</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"labelled rows used:"</span><span class="p">,</span> <span class="nb">int</span><span class="p">((</span><span class="o">~</span><span class="n">hidden</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()),</span> <span class="s2">"of"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">ytr</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"supervised on labelled only:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">yte</span><span class="p">,</span> <span class="n">sup</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">Xte</span><span class="p">)),</span> <span class="mi">3</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"label spreading            :"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">yte</span><span class="p">,</span> <span class="n">ls</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">Xte</span><span class="p">)),</span> <span class="mi">3</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">labelled rows used: 120 of 1257
+supervised on labelled only: 0.82
+label spreading            : 0.948</pre></div></div>
+<p>Using the structure of the unlabelled rows can help when labels are scarce; the gain depends on how well the classes form clusters. Always test on rows whose true labels you held back.</p>
+
+<h2 id="13-12-algorithm-chooser-and-using-it-in-practice"><a class="anchor" href="#13-12-algorithm-chooser-and-using-it-in-practice" aria-label="Link to this section">#</a>13.12 Algorithm chooser and using it in practice</h2>
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Goal</th>
+<th>Method</th>
+<th>Needs k?</th>
+<th>Handles odd shapes?</th>
+<th>Gives noise or outliers?</th>
+<th>Use it when</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Group rows</td>
+<td>K-means</td>
+<td>Yes</td>
+<td>No (round blobs)</td>
+<td>No</td>
+<td>Fast first look, large tables</td>
+</tr>
+<tr>
+<td>Group rows</td>
+<td>Hierarchical (ward)</td>
+<td>No (cut tree)</td>
+<td>Some</td>
+<td>No</td>
+<td>Small data, want a tree</td>
+</tr>
+<tr>
+<td>Group rows</td>
+<td>DBSCAN</td>
+<td>No (eps)</td>
+<td>Yes</td>
+<td>Yes (label -1)</td>
+<td>Odd shapes, noise expected</td>
+</tr>
+<tr>
+<td>Group rows</td>
+<td>Gaussian mixture</td>
+<td>Yes</td>
+<td>Ovals</td>
+<td>No</td>
+<td>Overlap, want probabilities</td>
+</tr>
+<tr>
+<td>Reduce columns</td>
+<td>PCA</td>
+<td>n_components</td>
+<td>Linear only</td>
+<td>-</td>
+<td>Correlated numeric columns</td>
+</tr>
+<tr>
+<td>Draw a map</td>
+<td>t-SNE / UMAP</td>
+<td>-</td>
+<td>Non-linear</td>
+<td>-</td>
+<td>Pictures, not modelling</td>
+</tr>
+<tr>
+<td>Find unusual rows</td>
+<td>Z-score / IQR</td>
+<td>-</td>
+<td>One column</td>
+<td>Yes</td>
+<td>Quick baseline</td>
+</tr>
+<tr>
+<td>Find unusual rows</td>
+<td>Isolation Forest</td>
+<td>-</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Many columns, default pick</td>
+</tr>
+<tr>
+<td>Find unusual rows</td>
+<td>LOF / one-class SVM</td>
+<td>-</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Local density / smaller data</td>
+</tr>
+<tr>
+<td>Find patterns</td>
+<td>Association rules</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>Baskets, cross-selling</td>
+</tr>
+<tr>
+<td>Suggest items</td>
+<td>Item-item similarity</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>Ratings or purchases</td>
+</tr>
+</tbody>
+</table></div>
+
+<p>A good order of attack: scale the data, try k-means as a baseline, look at silhouette and the cluster profiles, then try one alternative (DBSCAN or a mixture) if the shapes look wrong. Use PCA to simplify or to draw a first picture.</p>
+
+<div class="callout real"><p><strong>Using it in the real world: document grouping.</strong> Document grouping works the same way: turn each document into numbers (word counts or embeddings, see Part 16), reduce with SVD or PCA, then cluster to find themes (for example complaint types in customer-service messages). Validate by reading a sample from each cluster; fails when messages are very short or mix several topics. A customer segmentation, a fraud-screening list and a document grouping all end the same way: a person checks a sample before anyone acts on the output.</p>
+</div>
+<div class="callout takeaways"><div class="c-label">Key takeaways</div><ul>
+<li>Unsupervised learning has no answer column; you judge results by stability, silhouette and business sense.</li>
+<li>Scale numeric features before any distance-based method.</li>
+<li>K-means is the fast baseline; DBSCAN handles odd shapes and noise; mixtures give probabilities.</li>
+<li>PCA keeps most variation in fewer columns; use t-SNE only for pictures.</li>
+<li>Anomaly scores rank rows for human review; they do not prove fraud.</li>
+<li>Association rules need minimum support; lift above 1 means a real link beyond chance.</li>
+</ul>
+</div></div><nav class="pager" aria-label="Previous and next"><a class="prev" href="part-12.html"><small>Previous</small><span>Part 12: Ensembles, Tuning and Feature Engineering</span></a><a class="next" href="part-14.html"><small>Next</small><span>Part 14: Neural Networks and Deep Learning</span></a></nav>
+<footer class="foot"><p>Data Science from Zero to Advanced &middot; written by Benson M. Merita &middot; &copy; 2026 MeritaAnalytics. Public datasets keep their own licences, listed in <a href="appendix-b.html">Appendix B</a>.</p></footer>
+</main>
+</div>
+<script src="search-index.js"></script>
+<script src="site.js"></script>
+</body>
+</html>

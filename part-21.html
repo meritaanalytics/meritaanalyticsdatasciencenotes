@@ -1,0 +1,762 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>Part 21: Interview Preparation | MeritaAnalytics</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to the notes</a>
+<header class="top"><button class="menu" id="menu" aria-controls="side" aria-expanded="false">Contents</button><span class="top-title">Part 21: Interview Preparation</span></header>
+<div class="shell">
+<nav class="side" id="side" aria-label="Handbook contents">
+<a class="brand" href="index.html"><span class="mark" aria-hidden="true">MA</span><span><b>MeritaAnalytics</b><small>Data Science Notes</small></span></a>
+<label class="search"><span class="sr">Search the notes</span><input id="q" type="search" placeholder="Search topics, e.g. groupby" autocomplete="off"></label>
+<div id="results" class="results" hidden></div>
+<ol class="nav">
+<li class="lvl0"><a href="index.html" class="">Start here</a></li>
+<li class="lvl"><div class="lvl-name"><span>Level 1</span>Foundations</div><ol>
+<li data-slug="part-01"><a href="part-01.html" class=""><span class="pn">1</span><span class="pt">What Is Data Science?</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-02"><a href="part-02.html" class=""><span class="pn">2</span><span class="pt">Python Basics</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-03"><a href="part-03.html" class=""><span class="pn">3</span><span class="pt">NumPy: Fast Numbers</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 2</span>Data Analysis</div><ol>
+<li data-slug="part-04"><a href="part-04.html" class=""><span class="pn">4</span><span class="pt">Pandas: Working with Tables</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-05"><a href="part-05.html" class=""><span class="pn">5</span><span class="pt">Data Visualisation</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-06"><a href="part-06.html" class=""><span class="pn">6</span><span class="pt">SQL for Data Analysts</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-07"><a href="part-07.html" class=""><span class="pn">7</span><span class="pt">Exploratory Data Analysis</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 3</span>Statistics</div><ol>
+<li data-slug="part-08"><a href="part-08.html" class=""><span class="pn">8</span><span class="pt">Statistics for Data Science</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 4</span>Machine Learning</div><ol>
+<li data-slug="part-09"><a href="part-09.html" class=""><span class="pn">9</span><span class="pt">Machine Learning Foundations</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-10"><a href="part-10.html" class=""><span class="pn">10</span><span class="pt">Regression</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-11"><a href="part-11.html" class=""><span class="pn">11</span><span class="pt">Classification</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-12"><a href="part-12.html" class=""><span class="pn">12</span><span class="pt">Ensembles, Tuning and Feature Engineering</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-13"><a href="part-13.html" class=""><span class="pn">13</span><span class="pt">Unsupervised Learning</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 5</span>Deep Learning and Modern AI</div><ol>
+<li data-slug="part-14"><a href="part-14.html" class=""><span class="pn">14</span><span class="pt">Neural Networks and Deep Learning</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-15"><a href="part-15.html" class=""><span class="pn">15</span><span class="pt">Reinforcement Learning</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-16"><a href="part-16.html" class=""><span class="pn">16</span><span class="pt">Generative AI and Large Language Models</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 6</span>The Real World</div><ol>
+<li data-slug="part-17"><a href="part-17.html" class=""><span class="pn">17</span><span class="pt">Business Metrics, Excel and Power BI</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-18"><a href="part-18.html" class=""><span class="pn">18</span><span class="pt">Automation, Git, Deployment and Responsible AI</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-19"><a href="part-19.html" class=""><span class="pn">19</span><span class="pt">End-to-End Projects</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 7</span>Career and Reference</div><ol>
+<li data-slug="part-20"><a href="part-20.html" class=""><span class="pn">20</span><span class="pt">Practice Exercises and Answer Key</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-21"><a href="part-21.html" class="on"><span class="pn">21</span><span class="pt">Interview Preparation</span><span class="done-dot" aria-hidden="true"></span></a>
+<ol class="sub"><li><a href="#21-1-how-to-use-this-question-bank">21.1 How to use this question bank</a></li><li><a href="#21-2-python-questions-part-2">21.2 Python questions (Part 2)</a></li><li><a href="#21-3-numpy-and-pandas-questions-parts-3-4">21.3 NumPy and pandas questions (Parts 3, 4)</a></li><li><a href="#21-4-sql-questions-part-6">21.4 SQL questions (Part 6)</a></li><li><a href="#21-5-statistics-questions-part-8">21.5 Statistics questions (Part 8)</a></li><li><a href="#21-6-machine-learning-questions-parts-9-to-13">21.6 Machine learning questions (Parts 9 to 13)</a></li><li><a href="#21-7-deep-learning-and-llm-basics-parts-14-16">21.7 Deep learning and LLM basics (Parts 14, 16)</a></li><li><a href="#21-8-scenario-questions-for-a-kenyan-lender-credit-risk-anal">21.8 Scenario questions for a Kenyan lender (credit-risk analyst)</a></li><li><a href="#21-9-behavioural-questions-and-the-star-method">21.9 Behavioural questions and the STAR method</a></li><li><a href="#21-10-interview-day-checklist">21.10 Interview day checklist</a></li></ol>
+</li>
+<li data-slug="part-22"><a href="part-22.html" class=""><span class="pn">22</span><span class="pt">Roadmap, Cheat Sheets and Glossary</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Appendix</span>Reference</div><ol>
+<li><a href="appendix-a.html" class=""><span class="pn">A</span><span class="pt">Sources and Next Steps</span></a></li>
+<li><a href="appendix-b.html" class=""><span class="pn">B</span><span class="pt">Data Catalogue</span></a></li>
+</ol></li></ol>
+<p class="side-foot">By Benson M. Merita &middot; &copy; 2026 MeritaAnalytics</p></nav>
+<main id="main" class="main"><header class="part-head"><span class="lv">Level 7 &middot; Career and Reference</span><p class="part-no">Part 21</p><h1>Interview Preparation</h1><p class="lede">The questions data and credit-risk analyst interviews really ask, with short model answers and tiny code you can run.</p><button class="mark-done" id="done" data-slug="part-21" aria-pressed="false">Mark this part as done</button></header><div class="prose"><div class="callout learn"><div class="c-label">In this part</div><ul>
+<li>Answer core Python, pandas and SQL questions in two or three clear sentences.</li>
+<li>Explain p-values, confidence intervals, overfitting, leakage and metrics in plain words.</li>
+<li>Handle machine learning, deep learning and LLM basics questions without jargon.</li>
+<li>Work through credit-risk scenarios for a Kenyan lender and compute the core metrics.</li>
+<li>Tell a behavioural story with the STAR method.</li>
+</ul>
+<div class="meta"><span><b>You need first</b> Parts 2 to 16 (read the Part behind any question you cannot answer)</span><span><b>Time</b> 4 to 6 hours</span></div></div>
+<h2 id="21-1-how-to-use-this-question-bank"><a class="anchor" href="#21-1-how-to-use-this-question-bank" aria-label="Link to this section">#</a>21.1 How to use this question bank</h2>
+
+<p>An interviewer wants to see three things: that you know the idea, that you can say it simply, and that you can show it in code or with a number. Practise out loud. A good answer is <strong>definition, example, caution</strong> in about thirty seconds.</p>
+
+<ul>
+<li>Cover the model answer, answer aloud, then compare.</li>
+<li>Where a question has a code cell, run it and change one thing to see what happens.</li>
+<li>If you cannot answer, the Part number in brackets tells you where to reread.</li>
+</ul>
+
+<div class="callout note"><p><strong>Style.</strong> Say 'I would check' and 'it depends on' with a reason. Honest uncertainty with a method beats a confident wrong answer. Thresholds quoted below are illustrative; always use your employer's policy.</p>
+</div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"ready"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">ready</pre></div></div>
+<h2 id="21-2-python-questions-part-2"><a class="anchor" href="#21-2-python-questions-part-2" aria-label="Link to this section">#</a>21.2 Python questions (Part 2)</h2>
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Question</th>
+<th>Model answer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>List versus tuple versus set versus dict?</td>
+<td>List: ordered, changeable. Tuple: ordered, fixed. Set: unique items, fast membership test. Dict: key to value lookup.</td>
+</tr>
+<tr>
+<td>What is a mutable object?</td>
+<td>One that can change in place (list, dict, set). Strings, tuples and numbers cannot, so <code>s.upper()</code> returns a new string.</td>
+</tr>
+<tr>
+<td><code>is</code> versus <code>==</code>?</td>
+<td><code>==</code> compares values; <code>is</code> asks if two names point to the same object.</td>
+</tr>
+<tr>
+<td>What is a list comprehension and when not to use one?</td>
+<td>A compact loop that builds a list. Avoid it when the logic needs several lines; a normal loop reads better.</td>
+</tr>
+<tr>
+<td><code>*args</code> and <code>**kwargs</code>?</td>
+<td>A function takes any number of positional (tuple) or keyword (dict) arguments.</td>
+</tr>
+<tr>
+<td>What does a generator do?</td>
+<td>Yields one item at a time using <code>yield</code>, so a huge file or range does not sit in memory.</td>
+</tr>
+<tr>
+<td>How do you handle errors?</td>
+<td><code>try / except</code> for the specific error you expect, <code>finally</code> for cleanup, and raise clear messages.</td>
+</tr>
+</tbody>
+</table></div>
+
+<p>Two questions that nearly always appear as code: the mutable default argument trap and a quick frequency count.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="k">def</span><span class="w"> </span><span class="nf">add_bad</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">bucket</span><span class="o">=</span><span class="p">[]):</span>          <span class="c1"># the list is created ONCE, then shared</span>
+    <span class="n">bucket</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">bucket</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">add_good</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">bucket</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">bucket</span> <span class="o">=</span> <span class="p">[]</span> <span class="k">if</span> <span class="n">bucket</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">bucket</span>
+    <span class="n">bucket</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">bucket</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">add_bad</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">add_bad</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>       <span class="c1"># surprise: the second call remembers the first</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">add_good</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">add_good</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">[1, 2] [1, 2]
+[1] [2]</pre></div></div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">Counter</span>
+<span class="n">sms</span> <span class="o">=</span> <span class="s2">"pay bill send money send airtime pay bill send"</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">Counter</span><span class="p">(</span><span class="n">sms</span><span class="p">)</span><span class="o">.</span><span class="n">most_common</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">({</span><span class="n">w</span><span class="p">:</span> <span class="n">sms</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">w</span><span class="p">)</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="nb">set</span><span class="p">(</span><span class="n">sms</span><span class="p">)}</span> <span class="o">==</span> <span class="nb">dict</span><span class="p">(</span><span class="n">Counter</span><span class="p">(</span><span class="n">sms</span><span class="p">)))</span>
+</code></pre></div><div class="cell-out"><pre class="out">[(&#x27;send&#x27;, 3), (&#x27;pay&#x27;, 2)]
+True</pre></div></div>
+<h2 id="21-3-numpy-and-pandas-questions-parts-3-4"><a class="anchor" href="#21-3-numpy-and-pandas-questions-parts-3-4" aria-label="Link to this section">#</a>21.3 NumPy and pandas questions (Parts 3, 4)</h2>
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Question</th>
+<th>Model answer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Why is NumPy faster than a list loop?</td>
+<td>Arrays hold one data type in one block of memory and loops run in compiled code (vectorisation).</td>
+</tr>
+<tr>
+<td>What is broadcasting?</td>
+<td>NumPy stretches a smaller array to match a larger one when the shapes are compatible.</td>
+</tr>
+<tr>
+<td>Series versus DataFrame?</td>
+<td>A Series is one labelled column; a DataFrame is a table of Series sharing an index.</td>
+</tr>
+<tr>
+<td><code>loc</code> versus <code>iloc</code>?</td>
+<td><code>loc</code> selects by label; <code>iloc</code> by integer position.</td>
+</tr>
+<tr>
+<td><code>merge</code> versus <code>concat</code>?</td>
+<td><code>merge</code> joins on keys like SQL; <code>concat</code> stacks frames along rows or columns.</td>
+</tr>
+<tr>
+<td>How do you find and treat missing data?</td>
+<td><code>isna().sum()</code>, ask why it is missing, then drop, fill (median, group median) or flag. Never fill blindly.</td>
+</tr>
+<tr>
+<td>What is the <code>SettingWithCopy</code> problem?</td>
+<td>Changing a slice may not change the original. In pandas 3 copy-on-write makes this safe: assign with <code>loc</code>.</td>
+</tr>
+</tbody>
+</table></div>
+
+<p>A classic live task: clean a column, then answer a business question in one chain.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">orders</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">"county"</span><span class="p">:</span> <span class="p">[</span><span class="s2">" nairobi"</span><span class="p">,</span> <span class="s2">"Kisumu "</span><span class="p">,</span> <span class="s2">"NAIROBI"</span><span class="p">,</span> <span class="s2">"kisumu"</span><span class="p">,</span> <span class="s2">"Nakuru"</span><span class="p">,</span> <span class="s2">"nairobi"</span><span class="p">],</span>
+    <span class="s2">"amount"</span><span class="p">:</span> <span class="p">[</span><span class="mi">1200</span><span class="p">,</span> <span class="mi">800</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="mi">950</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">1500</span><span class="p">],</span>
+<span class="p">})</span>
+<span class="n">orders</span><span class="p">[</span><span class="s2">"county"</span><span class="p">]</span> <span class="o">=</span> <span class="n">orders</span><span class="p">[</span><span class="s2">"county"</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">title</span><span class="p">()</span>
+<span class="n">orders</span><span class="p">[</span><span class="s2">"amount"</span><span class="p">]</span> <span class="o">=</span> <span class="n">orders</span><span class="p">[</span><span class="s2">"amount"</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">orders</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"county"</span><span class="p">)[</span><span class="s2">"amount"</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="s2">"median"</span><span class="p">))</span>
+<span class="n">orders</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"county"</span><span class="p">)[</span><span class="s2">"amount"</span><span class="p">]</span><span class="o">.</span><span class="n">agg</span><span class="p">([</span><span class="s2">"count"</span><span class="p">,</span> <span class="s2">"sum"</span><span class="p">])</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">"sum"</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><div class="table-wrap df"><div>
+
+<table class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th>count</th>
+      <th>sum</th>
+    </tr>
+    <tr>
+      <th>county</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Nairobi</th>
+      <td>3</td>
+      <td>4050.0</td>
+    </tr>
+    <tr>
+      <th>Kisumu</th>
+      <td>2</td>
+      <td>1750.0</td>
+    </tr>
+    <tr>
+      <th>Nakuru</th>
+      <td>1</td>
+      <td>400.0</td>
+    </tr>
+  </tbody>
+</table></div>
+</div></div></div></div>
+<p>Another favourite: a join that multiplies rows. Always check the row count after a merge.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">left</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">"cust"</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="s2">"limit"</span><span class="p">:</span> <span class="p">[</span><span class="mi">10000</span><span class="p">,</span> <span class="mi">5000</span><span class="p">]})</span>
+<span class="n">dup</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">"cust"</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="s2">"txn"</span><span class="p">:</span> <span class="p">[</span><span class="mi">300</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">50</span><span class="p">]})</span>
+<span class="n">merged</span> <span class="o">=</span> <span class="n">left</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">dup</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">"cust"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">left</span><span class="p">),</span> <span class="s2">"-&gt;"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">merged</span><span class="p">),</span> <span class="s2">"rows;  limit sum:"</span><span class="p">,</span> <span class="n">left</span><span class="p">[</span><span class="s2">"limit"</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span> <span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">merged</span><span class="p">[</span><span class="s2">"limit"</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+</code></pre></div><div class="cell-out"><pre class="out">2 -&gt; 3 rows;  limit sum: 15000 -&gt; 25000</pre></div></div>
+<h2 id="21-4-sql-questions-part-6"><a class="anchor" href="#21-4-sql-questions-part-6" aria-label="Link to this section">#</a>21.4 SQL questions (Part 6)</h2>
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Question</th>
+<th>Model answer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>WHERE</code> versus <code>HAVING</code>?</td>
+<td><code>WHERE</code> filters rows before grouping; <code>HAVING</code> filters groups after aggregation.</td>
+</tr>
+<tr>
+<td><code>INNER</code> versus <code>LEFT JOIN</code>?</td>
+<td>INNER keeps matches only. LEFT keeps every left row and fills NULL where nothing matches.</td>
+</tr>
+<tr>
+<td><code>COUNT(*)</code> versus <code>COUNT(col)</code>?</td>
+<td><code>COUNT(*)</code> counts rows; <code>COUNT(col)</code> skips NULLs.</td>
+</tr>
+<tr>
+<td>What is a window function?</td>
+<td>A calculation across related rows (rank, running total, previous value) that keeps every row.</td>
+</tr>
+<tr>
+<td>How do you remove duplicates?</td>
+<td><code>SELECT DISTINCT</code>, or <code>ROW_NUMBER()</code> per key and keep number 1.</td>
+</tr>
+<tr>
+<td>What is a CTE?</td>
+<td>A named temporary result set from <code>WITH</code>, which makes long queries readable.</td>
+</tr>
+</tbody>
+</table></div>
+
+<p>Run the three patterns that decide most SQL screens: top-N per group, an anti-join and a running total.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">import</span><span class="w"> </span><span class="nn">sqlite3</span>
+<span class="n">con</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">":memory:"</span><span class="p">)</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">"loan_id"</span><span class="p">:</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="s2">"county"</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="s2">"AABBBCC"</span><span class="p">),</span>
+              <span class="s2">"principal"</span><span class="p">:</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">25</span><span class="p">],</span>
+              <span class="s2">"paid"</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]})</span><span class="o">.</span><span class="n">to_sql</span><span class="p">(</span><span class="s2">"loans"</span><span class="p">,</span> <span class="n">con</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">top</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="s2">"""SELECT * FROM (SELECT loan_id, county, principal,</span>
+<span class="s2">         ROW_NUMBER() OVER (PARTITION BY county ORDER BY principal DESC) AS n FROM loans) WHERE n = 1"""</span><span class="p">,</span> <span class="n">con</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">top</span><span class="p">[[</span><span class="s2">"county"</span><span class="p">,</span> <span class="s2">"loan_id"</span><span class="p">]]</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+<span class="n">run</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="s2">"""SELECT loan_id, SUM(principal) OVER (ORDER BY loan_id) AS running FROM loans"""</span><span class="p">,</span> <span class="n">con</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">run</span><span class="p">[</span><span class="s2">"running"</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+</code></pre></div><div class="cell-out"><pre class="out">county  loan_id
+     A        2
+     B        4
+     C        7
+[10, 40, 60, 110, 150, 165, 190]</pre></div></div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">anti</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="s2">"""SELECT a.loan_id FROM loans a</span>
+<span class="s2">                      LEFT JOIN (SELECT * FROM loans WHERE paid = 1) b ON a.loan_id = b.loan_id</span>
+<span class="s2">                      WHERE b.loan_id IS NULL"""</span><span class="p">,</span> <span class="n">con</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"unpaid loan ids:"</span><span class="p">,</span> <span class="n">anti</span><span class="p">[</span><span class="s2">"loan_id"</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+</code></pre></div><div class="cell-out"><pre class="out">unpaid loan ids: [2, 5, 7]</pre></div></div>
+<div class="callout note"><p><strong>SQL or pandas?</strong> Say which tool fits: SQL to filter and aggregate large tables close to the data, pandas for cleaning and modelling, Power BI for sharing results. A strong answer names one query and one pandas line that give the same number, and says you would reconcile the two.</p>
+</div>
+<h2 id="21-5-statistics-questions-part-8"><a class="anchor" href="#21-5-statistics-questions-part-8" aria-label="Link to this section">#</a>21.5 Statistics questions (Part 8)</h2>
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Question</th>
+<th>Model answer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mean, median or mode?</td>
+<td>Mean for symmetric data; median when outliers or skew (incomes); mode for categories.</td>
+</tr>
+<tr>
+<td>What does standard deviation tell you?</td>
+<td>The typical distance of values from the mean, in the same units.</td>
+</tr>
+<tr>
+<td>What is a p-value?</td>
+<td>If there were truly no effect, the chance of seeing a result at least this extreme. It is not the chance that the hypothesis is true.</td>
+</tr>
+<tr>
+<td>What is a confidence interval?</td>
+<td>A range built so that, over many repeats, about 95 percent of such ranges contain the true value.</td>
+</tr>
+<tr>
+<td>Type I versus type II error?</td>
+<td>Type I: false alarm (reject a true null). Type II: miss (keep a false null). Power = 1 - type II rate.</td>
+</tr>
+<tr>
+<td>Correlation versus causation?</td>
+<td>Two things moving together does not mean one causes the other; a third factor or chance may explain it.</td>
+</tr>
+<tr>
+<td>Why does sample size matter?</td>
+<td>Larger samples give narrower intervals and more power; they do not fix bias.</td>
+</tr>
+</tbody>
+</table></div>
+
+<p>Show you can use the ideas: a confidence interval and a test on seeded synthetic data.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">stats</span>
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>          <span class="c1"># loan sizes, group A</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">108</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>          <span class="c1"># group B</span>
+<span class="n">lo</span><span class="p">,</span> <span class="n">hi</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">interval</span><span class="p">(</span><span class="mf">0.95</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">a</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">scale</span><span class="o">=</span><span class="n">stats</span><span class="o">.</span><span class="n">sem</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
+<span class="n">t</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">ttest_ind</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">equal_var</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"95% CI for A mean: </span><span class="si">{</span><span class="n">lo</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">hi</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"difference p-value: </span><span class="si">{</span><span class="n">p</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">  (below 0.05: </span><span class="si">{</span><span class="n">p</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mf">0.05</span><span class="si">}</span><span class="s2">)"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">95% CI for A mean: 95.9 to 101.1
+difference p-value: 0.0000  (below 0.05: True)</pre></div></div>
+<p>The <strong>base-rate</strong> question is a common trap: a fraud rule catches 90 percent of fraud and wrongly flags 5 percent of honest cases, and 1 percent of cases are fraud. What share of flags is real?</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">sens</span><span class="p">,</span> <span class="n">fpr</span><span class="p">,</span> <span class="n">prev</span> <span class="o">=</span> <span class="mf">0.90</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.01</span>
+<span class="n">ppv</span> <span class="o">=</span> <span class="n">sens</span> <span class="o">*</span> <span class="n">prev</span> <span class="o">/</span> <span class="p">(</span><span class="n">sens</span> <span class="o">*</span> <span class="n">prev</span> <span class="o">+</span> <span class="n">fpr</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">prev</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"share of flagged cases that are real fraud: </span><span class="si">{</span><span class="n">ppv</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">share of flagged cases that are real fraud: 15.4%</pre></div></div>
+<p>Say: even a good rule produces mostly false alarms when the event is rare, so I would pair it with review capacity and track precision and recall.</p>
+
+<h2 id="21-6-machine-learning-questions-parts-9-to-13"><a class="anchor" href="#21-6-machine-learning-questions-parts-9-to-13" aria-label="Link to this section">#</a>21.6 Machine learning questions (Parts 9 to 13)</h2>
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Question</th>
+<th>Model answer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Supervised versus unsupervised?</td>
+<td>Supervised learns from known answers (predict default). Unsupervised has none and finds structure (segments).</td>
+</tr>
+<tr>
+<td>What is overfitting and how do you fight it?</td>
+<td>The model memorises noise: great on training, poor on new data. Use more data, simpler models, regularisation, early stopping, cross-validation.</td>
+</tr>
+<tr>
+<td>Bias versus variance?</td>
+<td>Bias: too simple, misses the pattern. Variance: too flexible, chases noise. Tune complexity to balance them.</td>
+</tr>
+<tr>
+<td>What is data leakage?</td>
+<td>Information in training that would not exist at prediction time (future data, a post-outcome field, scaling before the split). It inflates scores.</td>
+</tr>
+<tr>
+<td>Accuracy, precision, recall, F1?</td>
+<td>Accuracy: share right. Precision: of predicted positives, share real. Recall: of real positives, share caught. F1: their balance.</td>
+</tr>
+<tr>
+<td>How do you handle imbalanced classes?</td>
+<td>Judge by recall, precision, PR-AUC; use class weights, resampling or a tuned threshold; keep test data untouched.</td>
+</tr>
+<tr>
+<td>What is regularisation?</td>
+<td>A penalty on large coefficients: L2 (Ridge) shrinks them, L1 (Lasso) can set some to zero.</td>
+</tr>
+<tr>
+<td>How do you choose an algorithm?</td>
+<td>Start with a simple baseline, then trees or boosting for tabular data. Weigh accuracy, speed, explainability and the cost of mistakes.</td>
+</tr>
+<tr>
+<td>Why use cross-validation?</td>
+<td>It uses every row for both training and testing, giving a steadier estimate.</td>
+</tr>
+<tr>
+<td>Random forest versus boosting?</td>
+<td>Forest: many independent deep trees averaged (stable). Boosting: shallow trees built one after another, each fixing the last (often more accurate, needs tuning).</td>
+</tr>
+</tbody>
+</table></div>
+
+<p>Make the answers concrete. This cell shows overfitting, a baseline and leakage in a few lines.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_breast_cancer</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.tree</span><span class="w"> </span><span class="kn">import</span> <span class="n">DecisionTreeClassifier</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.dummy</span><span class="w"> </span><span class="kn">import</span> <span class="n">DummyClassifier</span>
+
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">load_breast_cancer</span><span class="p">(</span><span class="n">return_X_y</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">X_tr</span><span class="p">,</span> <span class="n">X_te</span><span class="p">,</span> <span class="n">y_tr</span><span class="p">,</span> <span class="n">y_te</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">base</span> <span class="o">=</span> <span class="n">DummyClassifier</span><span class="p">(</span><span class="n">strategy</span><span class="o">=</span><span class="s2">"most_frequent"</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_tr</span><span class="p">,</span> <span class="n">y_tr</span><span class="p">)</span>
+<span class="n">tree</span> <span class="o">=</span> <span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_tr</span><span class="p">,</span> <span class="n">y_tr</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"baseline test accuracy :"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">base</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_te</span><span class="p">,</span> <span class="n">y_te</span><span class="p">),</span> <span class="mi">3</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"deep tree train / test :"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_tr</span><span class="p">,</span> <span class="n">y_tr</span><span class="p">),</span> <span class="mi">3</span><span class="p">),</span> <span class="s2">"/"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_te</span><span class="p">,</span> <span class="n">y_te</span><span class="p">),</span> <span class="mi">3</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">baseline test accuracy : 0.626
+deep tree train / test : 1.0 / 0.918</pre></div></div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.pipeline</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_pipeline</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">classification_report</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">StandardScaler</span><span class="p">(),</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">))</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_tr</span><span class="p">,</span> <span class="n">y_tr</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_te</span><span class="p">),</span> <span class="n">digits</span><span class="o">=</span><span class="mi">3</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">              precision    recall  f1-score   support
+
+           0      0.984     0.984     0.984        64
+           1      0.991     0.991     0.991       107
+
+    accuracy                          0.988       171
+   macro avg      0.988     0.988     0.988       171
+weighted avg      0.988     0.988     0.988       171</pre></div></div>
+<p>Read the report aloud in an interview: precision and recall per class, and what a mistake costs. For a lender, missing a defaulter (low recall) and rejecting a good customer (low precision) have different costs.</p>
+
+<div class="callout note"><p><strong>Leakage.</strong> Putting the scaler inside a <code>Pipeline</code> means it is fitted on training rows only. Scaling the whole dataset first lets test information leak into training. Interviewers often ask for this exact example.</p>
+</div>
+<h2 id="21-7-deep-learning-and-llm-basics-parts-14-16"><a class="anchor" href="#21-7-deep-learning-and-llm-basics-parts-14-16" aria-label="Link to this section">#</a>21.7 Deep learning and LLM basics (Parts 14, 16)</h2>
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Question</th>
+<th>Model answer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>What is a neural network?</td>
+<td>Layers of simple units; each takes weighted inputs, adds a bias and applies a non-linear activation.</td>
+</tr>
+<tr>
+<td>Why an activation function?</td>
+<td>Without it, stacked layers collapse into one linear model.</td>
+</tr>
+<tr>
+<td>What does training do?</td>
+<td>Predict, measure the loss, use backpropagation to get gradients, update weights with gradient descent; repeat.</td>
+</tr>
+<tr>
+<td>Epoch, batch, learning rate?</td>
+<td>Epoch: one pass over the data. Batch: rows per update. Learning rate: size of each weight step.</td>
+</tr>
+<tr>
+<td>How do you stop a network overfitting?</td>
+<td>Early stopping on a validation set, dropout, weight decay, more data, smaller network.</td>
+</tr>
+<tr>
+<td>When is deep learning not the answer?</td>
+<td>Small tabular data: boosted trees are usually as good, faster and easier to explain.</td>
+</tr>
+<tr>
+<td>What is an LLM?</td>
+<td>A very large neural network trained to predict the next token in text; with prompts it can answer, summarise and write code.</td>
+</tr>
+<tr>
+<td>What is a hallucination?</td>
+<td>A fluent answer that is wrong or invented. Check facts against trusted sources.</td>
+</tr>
+<tr>
+<td>What is retrieval-augmented generation (RAG)?</td>
+<td>Look up relevant documents first and put them in the prompt, so answers rest on your own data.</td>
+</tr>
+</tbody>
+</table></div>
+
+<p>A one-neuron computation you can explain on a whiteboard: weighted sum, bias, activation.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">])</span>           <span class="c1"># inputs</span>
+<span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.4</span><span class="p">])</span>          <span class="c1"># weights</span>
+<span class="n">b</span> <span class="o">=</span> <span class="mf">0.1</span>                            <span class="c1"># bias</span>
+<span class="n">z</span> <span class="o">=</span> <span class="n">x</span> <span class="o">@</span> <span class="n">w</span> <span class="o">+</span> <span class="n">b</span>
+<span class="n">relu</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+<span class="n">sigmoid</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">z</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"z ="</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="s2">"| relu ="</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">relu</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="s2">"| sigmoid ="</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">sigmoid</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">z = 0.05 | relu = 0.05 | sigmoid = 0.512</pre></div></div>
+<div class="callout note"><p><strong>Responsible use.</strong> When using an AI assistant for analysis, give it the schema and a sample, ask for code you can read, run it yourself, and never paste personal customer data into a public tool.</p>
+</div>
+<h2 id="21-8-scenario-questions-for-a-kenyan-lender-credit-risk-anal"><a class="anchor" href="#21-8-scenario-questions-for-a-kenyan-lender-credit-risk-anal" aria-label="Link to this section">#</a>21.8 Scenario questions for a Kenyan lender (credit-risk analyst)</h2>
+
+<p>Credit-risk roles at digital lenders, banks and SACCOs ask about the metrics and data problems of a loan book. Definitions and thresholds here are <strong>illustrative</strong>; use your employer's policy and the regulator's current rules.</p>
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Question</th>
+<th>Model answer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PD, LGD, EAD?</td>
+<td>Probability of default, loss given default (share lost after recoveries), exposure at default. Expected loss = PD x LGD x EAD.</td>
+</tr>
+<tr>
+<td>PAR30 and PAR90?</td>
+<td>Outstanding balance of loans over 30 (or 90) days past due, as a share of the total outstanding portfolio.</td>
+</tr>
+<tr>
+<td>Roll rate?</td>
+<td>Share of balances moving to the next worse delinquency bucket in a period.</td>
+</tr>
+<tr>
+<td>Vintage analysis?</td>
+<td>Default rate by disbursement month against loan age, so cohorts compare fairly.</td>
+</tr>
+<tr>
+<td>Right-censoring?</td>
+<td>Recent loans have had no time to default, so their rate looks low. Compare cohorts at the same age.</td>
+</tr>
+<tr>
+<td>Why not accuracy?</td>
+<td>Defaults are rare; predicting nobody defaults looks accurate. Use AUC, KS, recall.</td>
+</tr>
+<tr>
+<td>AUC, Gini, KS?</td>
+<td>AUC: chance a random bad scores worse than a random good. Gini = 2 x AUC - 1. KS: largest gap between the good and bad cumulative distributions.</td>
+</tr>
+<tr>
+<td>Missing income?</td>
+<td>Do not set it to zero. Flag it, study its link with default, impute with a reason.</td>
+</tr>
+<tr>
+<td>Explaining a rejection?</td>
+<td>Name the main drivers in plain language and check fairness across groups and counties.</td>
+</tr>
+</tbody>
+</table></div>
+
+<p>Compute the core metrics yourself on a small synthetic loan book.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">book</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">"outstanding"</span><span class="p">:</span> <span class="p">[</span><span class="mi">50_000</span><span class="p">,</span> <span class="mi">80_000</span><span class="p">,</span> <span class="mi">20_000</span><span class="p">,</span> <span class="mi">120_000</span><span class="p">,</span> <span class="mi">30_000</span><span class="p">,</span> <span class="mi">60_000</span><span class="p">,</span> <span class="mi">45_000</span><span class="p">,</span> <span class="mi">90_000</span><span class="p">,</span> <span class="mi">25_000</span><span class="p">,</span> <span class="mi">70_000</span><span class="p">],</span>
+    <span class="s2">"dpd"</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">35</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">95</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">62</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">120</span><span class="p">],</span>
+    <span class="s2">"pd"</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.02</span><span class="p">,</span> <span class="mf">0.03</span><span class="p">,</span> <span class="mf">0.35</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.08</span><span class="p">,</span> <span class="mf">0.03</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">,</span> <span class="mf">0.95</span><span class="p">],</span>
+<span class="p">})</span>
+<span class="n">lgd</span> <span class="o">=</span> <span class="mf">0.6</span>
+<span class="n">total</span> <span class="o">=</span> <span class="n">book</span><span class="p">[</span><span class="s2">"outstanding"</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="n">par30</span> <span class="o">=</span> <span class="n">book</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">book</span><span class="p">[</span><span class="s2">"dpd"</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">30</span><span class="p">,</span> <span class="s2">"outstanding"</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="n">total</span>
+<span class="n">par90</span> <span class="o">=</span> <span class="n">book</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">book</span><span class="p">[</span><span class="s2">"dpd"</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">90</span><span class="p">,</span> <span class="s2">"outstanding"</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="n">total</span>
+<span class="n">el</span> <span class="o">=</span> <span class="p">(</span><span class="n">book</span><span class="p">[</span><span class="s2">"pd"</span><span class="p">]</span> <span class="o">*</span> <span class="n">lgd</span> <span class="o">*</span> <span class="n">book</span><span class="p">[</span><span class="s2">"outstanding"</span><span class="p">])</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"PAR30 </span><span class="si">{</span><span class="n">par30</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2"> | PAR90 </span><span class="si">{</span><span class="n">par90</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2"> | expected loss Ksh </span><span class="si">{</span><span class="n">el</span><span class="si">:</span><span class="s2">,.0f</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">el</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">total</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2"> of book)"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">PAR30 35.6% | PAR90 16.9% | expected loss Ksh 94,770 (16.1% of book)</pre></div></div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">roc_auc_score</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">ks_2samp</span>
+
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">bad</span><span class="p">,</span> <span class="n">good</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mf">0.62</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">,</span> <span class="mi">300</span><span class="p">),</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mf">0.40</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">,</span> <span class="mi">1700</span><span class="p">)</span>
+<span class="n">yv</span><span class="p">,</span> <span class="n">score</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">300</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">1700</span><span class="p">)],</span> <span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="n">bad</span><span class="p">,</span> <span class="n">good</span><span class="p">]</span>
+<span class="n">auc</span> <span class="o">=</span> <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">yv</span><span class="p">,</span> <span class="n">score</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"AUC </span><span class="si">{</span><span class="n">auc</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> | Gini </span><span class="si">{</span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">auc</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> | KS </span><span class="si">{</span><span class="n">ks_2samp</span><span class="p">(</span><span class="n">bad</span><span class="p">,</span><span class="w"> </span><span class="n">good</span><span class="p">)</span><span class="o">.</span><span class="n">statistic</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"always-predict-good accuracy:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="mi">1700</span> <span class="o">/</span> <span class="mi">2000</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">AUC 0.872 | Gini 0.745 | KS 0.593
+always-predict-good accuracy: 0.85</pre></div></div>
+<h3 id="scenario-the-approval-rate-fell"><a class="anchor" href="#scenario-the-approval-rate-fell" aria-label="Link to this section">#</a>Scenario: the approval rate fell</h3>
+
+<p><strong>Question.</strong> Approvals dropped from one month to the next. What do you do? <strong>Model answer.</strong> First confirm the number (same definition, same period, no missing data). Then split it: by channel, county, product, new versus returning customers, and by score band. Check for a policy or model change, a data feed problem, or a shift in who applies. Report what you found, what you could not rule out, and propose one next check.</p>
+
+<h3 id="scenario-a-new-model-looks-too-good"><a class="anchor" href="#scenario-a-new-model-looks-too-good" aria-label="Link to this section">#</a>Scenario: a new model looks too good</h3>
+
+<p><strong>Question.</strong> A default model shows near-perfect AUC. <strong>Model answer.</strong> Suspect leakage first: a field recorded after disbursement (days past due, collections status), or random splitting of data from the same customer. Rebuild with only application-time fields, split by time, and expect a lower but honest score.</p>
+
+<h3 id="scenario-choose-a-cut-off"><a class="anchor" href="#scenario-choose-a-cut-off" aria-label="Link to this section">#</a>Scenario: choose a cut-off</h3>
+
+<p><strong>Question.</strong> How do you pick a score cut-off? <strong>Model answer.</strong> The cut-off trades approvals against losses. Estimate for each cut-off the expected profit: interest earned on good loans minus losses on bad ones. Choose where that is highest within risk appetite, then monitor stability monthly.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">2000</span>
+<span class="n">risk</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">beta</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>                          <span class="c1"># synthetic default probability</span>
+<span class="n">bad_flag</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">risk</span>
+<span class="n">principal</span><span class="p">,</span> <span class="n">margin</span><span class="p">,</span> <span class="n">lgd</span> <span class="o">=</span> <span class="mi">30_000</span><span class="p">,</span> <span class="mf">0.12</span><span class="p">,</span> <span class="mf">0.6</span>
+<span class="n">rows</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">cut</span> <span class="ow">in</span> <span class="p">[</span><span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.35</span><span class="p">,</span> <span class="mf">0.50</span><span class="p">,</span> <span class="mf">1.01</span><span class="p">]:</span>
+    <span class="n">take</span> <span class="o">=</span> <span class="n">risk</span> <span class="o">&lt;</span> <span class="n">cut</span>                              <span class="c1"># approve if risk below cut-off</span>
+    <span class="n">profit</span> <span class="o">=</span> <span class="p">(</span><span class="n">take</span> <span class="o">&amp;</span> <span class="o">~</span><span class="n">bad_flag</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">*</span> <span class="n">principal</span> <span class="o">*</span> <span class="n">margin</span> <span class="o">-</span> <span class="p">(</span><span class="n">take</span> <span class="o">&amp;</span> <span class="n">bad_flag</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">*</span> <span class="n">principal</span> <span class="o">*</span> <span class="n">lgd</span>
+    <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">cut</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">take</span><span class="o">.</span><span class="n">sum</span><span class="p">()),</span> <span class="nb">int</span><span class="p">(</span><span class="n">profit</span><span class="p">)))</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">"cutoff"</span><span class="p">,</span> <span class="s2">"approved"</span><span class="p">,</span> <span class="s2">"profit_ksh"</span><span class="p">])</span>
+</code></pre></div><div class="cell-out"><div class="table-wrap df"><div>
+
+<table class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th>cutoff</th>
+      <th>approved</th>
+      <th>profit_ksh</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.15</td>
+      <td>455</td>
+      <td>903600</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.25</td>
+      <td>949</td>
+      <td>500400</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.35</td>
+      <td>1392</td>
+      <td>-885600</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.50</td>
+      <td>1772</td>
+      <td>-3060000</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1.01</td>
+      <td>2000</td>
+      <td>-5090400</td>
+    </tr>
+  </tbody>
+</table></div>
+</div></div></div></div>
+<p>In this synthetic example, approving everyone loses money, and profit falls as you let in riskier applicants. The strictest cut-off earns most here, but it approves few people, so a real choice also weighs volume, growth and risk appetite.</p>
+
+<h2 id="21-9-behavioural-questions-and-the-star-method"><a class="anchor" href="#21-9-behavioural-questions-and-the-star-method" aria-label="Link to this section">#</a>21.9 Behavioural questions and the STAR method</h2>
+
+<p><strong>STAR</strong> = Situation, Task, Action, Result. Two sentences of context, then spend most of the time on <strong>your</strong> action, then a result with a number or a lesson. Only tell true stories from your own work, studies or portfolio projects; prepare four that you can adapt.</p>
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Question</th>
+<th>What they look for</th>
+<th>Prepare</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tell me about a project you are proud of.</td>
+<td>Ownership and impact</td>
+<td>A portfolio project with a clear finding</td>
+</tr>
+<tr>
+<td>Describe a time your data was wrong or messy.</td>
+<td>Care and method</td>
+<td>How you found it and fixed it</td>
+</tr>
+<tr>
+<td>Tell me about explaining numbers to a non-technical person.</td>
+<td>Communication</td>
+<td>A chart and a plain sentence</td>
+</tr>
+<tr>
+<td>When did you disagree with a colleague?</td>
+<td>Teamwork</td>
+<td>Facts first, a respectful outcome</td>
+</tr>
+<tr>
+<td>Describe a mistake you made.</td>
+<td>Honesty and learning</td>
+<td>What you changed afterwards</td>
+</tr>
+<tr>
+<td>How do you prioritise several urgent requests?</td>
+<td>Judgement</td>
+<td>Impact, deadline, ask the requester</td>
+</tr>
+</tbody>
+</table></div>
+
+<div class="callout note"><p><strong>STAR shape.</strong> <strong>S</strong>: Our weekly report showed a sudden jump in repayments. <strong>T</strong>: I had to confirm it before it reached management. <strong>A</strong>: I checked the join and found duplicate payment rows from a re-sent file, removed the duplicates, and added a row-count check. <strong>R</strong>: The corrected figure was lower, the report went out on time, and the check now runs every week. (Example shape only: replace it with your own true story.)</p>
+</div>
+<h3 id="questions-to-ask-them"><a class="anchor" href="#questions-to-ask-them" aria-label="Link to this section">#</a>Questions to ask them</h3>
+
+<ul>
+<li>Which data sources does the team use, and how clean are they?</li>
+<li>How are models or reports checked before people act on them?</li>
+<li>What would a strong first three months look like?</li>
+<li>How do analysts and the business teams work together?</li>
+</ul>
+
+<h2 id="21-10-interview-day-checklist"><a class="anchor" href="#21-10-interview-day-checklist" aria-label="Link to this section">#</a>21.10 Interview day checklist</h2>
+
+<ul>
+<li>Before: reread the job advert, list its tools (SQL, Power BI, Python), and match one project to each.</li>
+<li>Prepare a one-minute introduction: who you are, what you built, what you want next.</li>
+<li>Have your GitHub portfolio open and one finding you can explain in two minutes.</li>
+<li>In a coding test: restate the task, handle missing data, check row counts, and say what you would verify.</li>
+<li>If you are stuck: think aloud, solve a smaller version, and ask a clarifying question.</li>
+<li>After: send a short thank-you note and write down the questions you struggled with.</li>
+</ul>
+
+<div class="callout takeaways"><div class="c-label">Key takeaways</div><ul>
+<li>Answer with definition, example and caution; keep it to about thirty seconds.</li>
+<li>Know the traps: duplicated joins, leakage, base rates, accuracy on rare events.</li>
+<li>Show a number: small runnable code beats a long explanation.</li>
+<li>For credit risk, be fluent in PD, LGD, EAD, PAR, vintages and why accuracy misleads.</li>
+<li>Use STAR with true stories, and spend most of the time on your own action.</li>
+<li>Say 'I would check' and name the check.</li>
+</ul>
+</div></div><nav class="pager" aria-label="Previous and next"><a class="prev" href="part-20.html"><small>Previous</small><span>Part 20: Practice Exercises and Answer Key</span></a><a class="next" href="part-22.html"><small>Next</small><span>Part 22: Roadmap, Cheat Sheets and Glossary</span></a></nav>
+<footer class="foot"><p>Data Science from Zero to Advanced &middot; written by Benson M. Merita &middot; &copy; 2026 MeritaAnalytics. Public datasets keep their own licences, listed in <a href="appendix-b.html">Appendix B</a>.</p></footer>
+</main>
+</div>
+<script src="search-index.js"></script>
+<script src="site.js"></script>
+</body>
+</html>

@@ -1,0 +1,510 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>Part 15: Reinforcement Learning | MeritaAnalytics</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to the notes</a>
+<header class="top"><button class="menu" id="menu" aria-controls="side" aria-expanded="false">Contents</button><span class="top-title">Part 15: Reinforcement Learning</span></header>
+<div class="shell">
+<nav class="side" id="side" aria-label="Handbook contents">
+<a class="brand" href="index.html"><span class="mark" aria-hidden="true">MA</span><span><b>MeritaAnalytics</b><small>Data Science Notes</small></span></a>
+<label class="search"><span class="sr">Search the notes</span><input id="q" type="search" placeholder="Search topics, e.g. groupby" autocomplete="off"></label>
+<div id="results" class="results" hidden></div>
+<ol class="nav">
+<li class="lvl0"><a href="index.html" class="">Start here</a></li>
+<li class="lvl"><div class="lvl-name"><span>Level 1</span>Foundations</div><ol>
+<li data-slug="part-01"><a href="part-01.html" class=""><span class="pn">1</span><span class="pt">What Is Data Science?</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-02"><a href="part-02.html" class=""><span class="pn">2</span><span class="pt">Python Basics</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-03"><a href="part-03.html" class=""><span class="pn">3</span><span class="pt">NumPy: Fast Numbers</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 2</span>Data Analysis</div><ol>
+<li data-slug="part-04"><a href="part-04.html" class=""><span class="pn">4</span><span class="pt">Pandas: Working with Tables</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-05"><a href="part-05.html" class=""><span class="pn">5</span><span class="pt">Data Visualisation</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-06"><a href="part-06.html" class=""><span class="pn">6</span><span class="pt">SQL for Data Analysts</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-07"><a href="part-07.html" class=""><span class="pn">7</span><span class="pt">Exploratory Data Analysis</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 3</span>Statistics</div><ol>
+<li data-slug="part-08"><a href="part-08.html" class=""><span class="pn">8</span><span class="pt">Statistics for Data Science</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 4</span>Machine Learning</div><ol>
+<li data-slug="part-09"><a href="part-09.html" class=""><span class="pn">9</span><span class="pt">Machine Learning Foundations</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-10"><a href="part-10.html" class=""><span class="pn">10</span><span class="pt">Regression</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-11"><a href="part-11.html" class=""><span class="pn">11</span><span class="pt">Classification</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-12"><a href="part-12.html" class=""><span class="pn">12</span><span class="pt">Ensembles, Tuning and Feature Engineering</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-13"><a href="part-13.html" class=""><span class="pn">13</span><span class="pt">Unsupervised Learning</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 5</span>Deep Learning and Modern AI</div><ol>
+<li data-slug="part-14"><a href="part-14.html" class=""><span class="pn">14</span><span class="pt">Neural Networks and Deep Learning</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-15"><a href="part-15.html" class="on"><span class="pn">15</span><span class="pt">Reinforcement Learning</span><span class="done-dot" aria-hidden="true"></span></a>
+<ol class="sub"><li><a href="#15-1-learning-from-rewards">15.1 Learning from rewards</a></li><li><a href="#15-2-exploration-versus-exploitation">15.2 Exploration versus exploitation</a></li><li><a href="#15-3-multi-armed-bandits-epsilon-greedy-and-ucb">15.3 Multi-armed bandits: epsilon-greedy and UCB</a></li><li><a href="#15-4-markov-decision-processes-and-the-bellman-idea">15.4 Markov decision processes and the Bellman idea</a></li><li><a href="#15-5-q-learning-on-a-small-gridworld">15.5 Q-learning on a small gridworld</a></li><li><a href="#15-6-sarsa-versus-q-learning">15.6 SARSA versus Q-learning</a></li><li><a href="#15-7-a-kenyan-scenario-restocking-a-shop">15.7 A Kenyan scenario: restocking a shop</a></li><li><a href="#15-8-applications-of-reinforcement-learning">15.8 Applications of reinforcement learning</a></li><li><a href="#15-9-limits-and-safety">15.9 Limits and safety</a></li><li><a href="#15-10-deep-q-networks-and-policy-gradients-advanced">15.10 Deep Q-networks and policy gradients (Advanced)</a></li></ol>
+</li>
+<li data-slug="part-16"><a href="part-16.html" class=""><span class="pn">16</span><span class="pt">Generative AI and Large Language Models</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 6</span>The Real World</div><ol>
+<li data-slug="part-17"><a href="part-17.html" class=""><span class="pn">17</span><span class="pt">Business Metrics, Excel and Power BI</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-18"><a href="part-18.html" class=""><span class="pn">18</span><span class="pt">Automation, Git, Deployment and Responsible AI</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-19"><a href="part-19.html" class=""><span class="pn">19</span><span class="pt">End-to-End Projects</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 7</span>Career and Reference</div><ol>
+<li data-slug="part-20"><a href="part-20.html" class=""><span class="pn">20</span><span class="pt">Practice Exercises and Answer Key</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-21"><a href="part-21.html" class=""><span class="pn">21</span><span class="pt">Interview Preparation</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-22"><a href="part-22.html" class=""><span class="pn">22</span><span class="pt">Roadmap, Cheat Sheets and Glossary</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Appendix</span>Reference</div><ol>
+<li><a href="appendix-a.html" class=""><span class="pn">A</span><span class="pt">Sources and Next Steps</span></a></li>
+<li><a href="appendix-b.html" class=""><span class="pn">B</span><span class="pt">Data Catalogue</span></a></li>
+</ol></li></ol>
+<p class="side-foot">By Benson M. Merita &middot; &copy; 2026 MeritaAnalytics</p></nav>
+<main id="main" class="main"><header class="part-head"><span class="lv">Level 5 &middot; Deep Learning and Modern AI</span><p class="part-no">Part 15</p><h1>Reinforcement Learning</h1><p class="lede">How an agent learns by trial and error: bandits, Markov decision processes and Q-learning, built from scratch.</p><button class="mark-done" id="done" data-slug="part-15" aria-pressed="false">Mark this part as done</button></header><div class="prose"><div class="callout learn"><div class="c-label">In this part</div><ul>
+<li>Name the parts of a reinforcement learning problem: agent, environment, state, action, reward</li>
+<li>Explain exploration versus exploitation and test two ways to balance them</li>
+<li>Describe a Markov decision process, the discount factor and the Bellman idea in plain words</li>
+<li>Train a Q-learning agent in numpy and read its learned policy</li>
+<li>Know where reinforcement learning is used, and where it is risky</li>
+</ul>
+<div class="meta"><span><b>You need first</b> Part 3 and Part 9</span><span><b>Time</b> 4 to 6 hours</span></div></div>
+<h2 id="15-1-learning-from-rewards"><a class="anchor" href="#15-1-learning-from-rewards" aria-label="Link to this section">#</a>15.1 Learning from rewards</h2>
+
+<p>In <strong>supervised learning</strong> (Part 9) every example comes with the right answer. In <strong>reinforcement learning</strong> (RL) nobody gives the right answer. An <strong>agent</strong> tries actions, sees what happens, and gets a number called a <strong>reward</strong>. Good outcomes give high rewards. Over many tries the agent learns what to do.</p>
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Meaning</th>
+<th>Shop restocking example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Agent</td>
+<td>The decision maker</td>
+<td>The program that places orders</td>
+</tr>
+<tr>
+<td>Environment</td>
+<td>Everything the agent cannot control</td>
+<td>Customers, suppliers, the market</td>
+</tr>
+<tr>
+<td>State</td>
+<td>What the agent sees now</td>
+<td>Units of stock left on the shelf</td>
+</tr>
+<tr>
+<td>Action</td>
+<td>A choice the agent can make</td>
+<td>Order 0, 1, 2 or 3 units</td>
+</tr>
+<tr>
+<td>Reward</td>
+<td>Score for the last step</td>
+<td>Profit from sales minus costs</td>
+</tr>
+<tr>
+<td>Policy</td>
+<td>The rule: state -&gt; action</td>
+<td>If stock is 1, order 3</td>
+</tr>
+<tr>
+<td>Value</td>
+<td>Total reward expected from here on</td>
+<td>How good it is to hold 3 units today</td>
+</tr>
+</tbody>
+</table></div>
+
+<p>The loop is always the same: the agent sees a state, picks an action, the environment returns a reward and a new state, and the loop repeats. The goal is not the biggest reward now. It is the biggest total reward over time.</p>
+
+<div class="callout note"><p><strong>Key idea.</strong> Actions change the future. Selling more today may leave empty shelves tomorrow. This link between today's action and later rewards is what makes RL different from ordinary prediction.</p>
+</div>
+<h2 id="15-2-exploration-versus-exploitation"><a class="anchor" href="#15-2-exploration-versus-exploitation" aria-label="Link to this section">#</a>15.2 Exploration versus exploitation</h2>
+
+<p>Suppose you can send one of five promotional SMS messages to customers. You do not know which message gets the most replies. If you always send the best one so far, you may miss a better one (too much <strong>exploitation</strong>). If you keep trying new ones, you waste sends (too much <strong>exploration</strong>). Every RL agent must balance the two.</p>
+
+<p>This small problem is called a <strong>multi-armed bandit</strong>: several choices ('arms'), each with an unknown chance of reward, and no states at all. It is the simplest form of RL. The simulation below uses five messages with synthetic reply rates that the agent cannot see.</p>
+
+<h2 id="15-3-multi-armed-bandits-epsilon-greedy-and-ucb"><a class="anchor" href="#15-3-multi-armed-bandits-epsilon-greedy-and-ucb" aria-label="Link to this section">#</a>15.3 Multi-armed bandits: epsilon-greedy and UCB</h2>
+
+<p><strong>Epsilon-greedy</strong> picks a random arm with small probability epsilon, otherwise the arm with the best average so far. <strong>UCB</strong> (upper confidence bound) adds a bonus to arms that were tried few times, so uncertain arms get a fair chance and the bonus shrinks as evidence grows. <strong>Regret</strong> is the reward lost compared with always choosing the truly best arm.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="n">true_p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.08</span><span class="p">,</span> <span class="mf">0.12</span><span class="p">,</span> <span class="mf">0.10</span><span class="p">,</span> <span class="mf">0.06</span><span class="p">])</span>   <span class="c1"># synthetic reply rates, hidden from the agent</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="n">policy</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="mi">1500</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mf">0.3</span><span class="p">):</span>
+    <span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span> <span class="n">mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span> <span class="n">regret</span> <span class="o">=</span> <span class="p">[];</span> <span class="n">total</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">steps</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">n</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">a</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>                       <span class="c1"># try every arm once</span>
+        <span class="k">elif</span> <span class="n">policy</span> <span class="o">==</span> <span class="s2">"eps"</span><span class="p">:</span>
+            <span class="n">a</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span> <span class="k">if</span> <span class="n">rng</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">eps</span> <span class="k">else</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">mean</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">a</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">mean</span> <span class="o">+</span> <span class="n">c</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span><span class="p">)))</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">true_p</span><span class="p">[</span><span class="n">a</span><span class="p">])</span>
+        <span class="n">n</span><span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">mean</span><span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">+=</span> <span class="p">(</span><span class="n">r</span> <span class="o">-</span> <span class="n">mean</span><span class="p">[</span><span class="n">a</span><span class="p">])</span> <span class="o">/</span> <span class="n">n</span><span class="p">[</span><span class="n">a</span><span class="p">]</span>      <span class="c1"># running average</span>
+        <span class="n">total</span> <span class="o">+=</span> <span class="n">true_p</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="n">true_p</span><span class="p">[</span><span class="n">a</span><span class="p">];</span> <span class="n">regret</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">total</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">regret</span><span class="p">)</span>
+
+<span class="n">reg</span> <span class="o">=</span> <span class="p">{</span><span class="n">p</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">([</span><span class="n">run</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="n">s</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">40</span><span class="p">)],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"eps"</span><span class="p">,</span> <span class="s2">"ucb"</span><span class="p">]}</span>
+<span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">reg</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="s2">"average regret after 1500 sends:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">reg</span><span class="p">[</span><span class="n">p</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="mi">2</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">eps average regret after 1500 sends: 30.01
+ucb average regret after 1500 sends: 31.28</pre></div></div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="n">BLUE</span><span class="p">,</span> <span class="n">GREEN</span><span class="p">,</span> <span class="n">GREY</span><span class="p">,</span> <span class="n">DARK</span><span class="p">,</span> <span class="n">AMBER</span> <span class="o">=</span> <span class="s2">"#1F5FD6"</span><span class="p">,</span> <span class="s2">"#2BB38A"</span><span class="p">,</span> <span class="s2">"#9CA3AF"</span><span class="p">,</span> <span class="s2">"#0B2A4A"</span><span class="p">,</span> <span class="s2">"#B45309"</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">3.6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">reg</span><span class="p">[</span><span class="s2">"eps"</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">BLUE</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"epsilon-greedy (eps = 0.1)"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">reg</span><span class="p">[</span><span class="s2">"ucb"</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">GREEN</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"UCB"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">"Cumulative regret: reply rate lost versus always sending the best message"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">"Messages sent"</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">"Cumulative regret (replies lost)"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">"p15_bandit.png"</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">130</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"saved p15_bandit.png"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">saved p15_bandit.png</pre></div></div>
+<div class="cell only-out"><div class="cell-out"><figure class="fig"><img src="img/part-15-050.png" alt="Chart output" loading="lazy"></figure></div></div>
+<p>Regret grows fastest at the start, while the methods are still learning which message works.</p>
+
+<p>A flatter curve is better. Epsilon-greedy keeps exploring at rate epsilon forever, so its regret keeps growing at a steady slope; UCB explores less as it becomes sure. The result depends on settings: UCB has a bonus scale (c in the code), and a bonus that is too large wastes sends when arms differ only a little. Try c = 1.4 and eps = 0.05 and compare.</p>
+
+<div class="callout note"><p><strong>Use it.</strong> Bandits power real 'A/B/n' tests that shift traffic to winners while the test runs: message wording, app banners, loan offers. Common mistake: judging an arm from very few tries.</p>
+</div>
+<h2 id="15-4-markov-decision-processes-and-the-bellman-idea"><a class="anchor" href="#15-4-markov-decision-processes-and-the-bellman-idea" aria-label="Link to this section">#</a>15.4 Markov decision processes and the Bellman idea</h2>
+
+<p>Bandits have no states. Most real problems do: your action changes where you are next. A <strong>Markov decision process</strong> (MDP) describes this with four things: states, actions, rewards, and transition chances (what state you land in after an action). <strong>Markov</strong> means the current state holds everything needed to decide; the history does not matter further.</p>
+
+<p>A reward in the far future is worth less than one now (money later is uncertain). The <strong>discount factor</strong> gamma, a number between 0 and 1, expresses this. The total score is reward1 + gamma<em>reward2 + gamma^2</em>reward3 and so on. A gamma near 0 makes the agent short-sighted. A gamma near 1 makes it patient.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">rewards</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span>          <span class="c1"># four steps costing 1 each, then a goal worth 10</span>
+<span class="k">for</span> <span class="n">gamma</span> <span class="ow">in</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.99</span><span class="p">]:</span>
+    <span class="n">total</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">r</span> <span class="o">*</span> <span class="n">gamma</span> <span class="o">**</span> <span class="n">k</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">rewards</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"gamma = </span><span class="si">{</span><span class="n">gamma</span><span class="si">:</span><span class="s2">&lt;4</span><span class="si">}</span><span class="s2">  discounted return = </span><span class="si">{</span><span class="n">total</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">gamma = 0.0   discounted return = -1.00
+gamma = 0.5   discounted return = -1.25
+gamma = 0.9   discounted return = 3.12
+gamma = 0.99  discounted return = 5.67</pre></div></div>
+<p>The <strong>Bellman idea</strong> in plain words: the value of a situation equals the reward you get now plus the discounted value of the best situation you can reach next. It turns a long-term question ('what is the best plan?') into a one-step question ('what is best now, given what I know about what comes next?'). Q-learning, next, applies this idea again and again.</p>
+
+<h2 id="15-5-q-learning-on-a-small-gridworld"><a class="anchor" href="#15-5-q-learning-on-a-small-gridworld" aria-label="Link to this section">#</a>15.5 Q-learning on a small gridworld</h2>
+
+<p><strong>What it does.</strong> Q-learning learns a table Q(state, action): the expected total reward of taking that action in that state and then acting well. <strong>How it works.</strong> After each step the agent nudges its Q value toward (reward + gamma * best Q of the next state). The nudge size is the <strong>learning rate</strong> alpha. With enough episodes the table converges to good values and the best action in each state is the policy.</p>
+
+<p>Our world is a 4 x 4 grid. The agent starts top-left and wants the goal at bottom-right (reward +10). Each step costs 1, so short paths score better. One cell is a pit (reward -10, episode ends).</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="n">N</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span> <span class="n">GOAL</span> <span class="o">=</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span> <span class="n">PIT</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">MOVES</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mi">1</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mi">2</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="mi">3</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)}</span>      <span class="c1"># up, down, left, right</span>
+<span class="n">ARROW</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s2">"^"</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="s2">"v"</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="s2">"&lt;"</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="s2">"&gt;"</span><span class="p">}</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">step</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">a</span><span class="p">):</span>
+    <span class="n">r</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">MOVES</span><span class="p">[</span><span class="n">a</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">MOVES</span><span class="p">[</span><span class="n">a</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">r</span> <span class="o">&lt;</span> <span class="n">N</span> <span class="ow">and</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">c</span> <span class="o">&lt;</span> <span class="n">N</span><span class="p">):</span> <span class="n">r</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">s</span>                <span class="c1"># walls: stay put</span>
+    <span class="n">s2</span> <span class="o">=</span> <span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">s2</span> <span class="o">==</span> <span class="n">GOAL</span><span class="p">:</span> <span class="k">return</span> <span class="n">s2</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">,</span> <span class="kc">True</span>
+    <span class="k">if</span> <span class="n">s2</span> <span class="o">==</span> <span class="n">PIT</span><span class="p">:</span> <span class="k">return</span> <span class="n">s2</span><span class="p">,</span> <span class="o">-</span><span class="mf">10.0</span><span class="p">,</span> <span class="kc">True</span>
+    <span class="k">return</span> <span class="n">s2</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="kc">False</span>
+</code></pre></div></div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="k">def</span><span class="w"> </span><span class="nf">train</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">"q"</span><span class="p">,</span> <span class="n">episodes</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="mf">0.95</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+    <span class="n">Q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="mi">4</span><span class="p">));</span> <span class="n">history</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">pick</span><span class="p">(</span><span class="n">s</span><span class="p">):</span> <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span> <span class="k">if</span> <span class="n">rng</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">eps</span> <span class="k">else</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">Q</span><span class="p">[</span><span class="n">s</span><span class="p">]))</span>
+    <span class="k">for</span> <span class="n">ep</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">episodes</span><span class="p">):</span>
+        <span class="n">s</span><span class="p">,</span> <span class="n">done</span><span class="p">,</span> <span class="n">total</span><span class="p">,</span> <span class="n">a</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="kc">False</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="kc">None</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">pick</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">60</span><span class="p">):</span>
+            <span class="n">s2</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">done</span> <span class="o">=</span> <span class="n">step</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
+            <span class="n">a2</span> <span class="o">=</span> <span class="n">pick</span><span class="p">(</span><span class="n">s2</span><span class="p">)</span>
+            <span class="n">target</span> <span class="o">=</span> <span class="n">r</span> <span class="k">if</span> <span class="n">done</span> <span class="k">else</span> <span class="n">r</span> <span class="o">+</span> <span class="n">gamma</span> <span class="o">*</span> <span class="p">(</span><span class="n">Q</span><span class="p">[</span><span class="n">s2</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">"q"</span> <span class="k">else</span> <span class="n">Q</span><span class="p">[</span><span class="n">s2</span><span class="p">][</span><span class="n">a2</span><span class="p">])</span>
+            <span class="n">Q</span><span class="p">[</span><span class="n">s</span><span class="p">][</span><span class="n">a</span><span class="p">]</span> <span class="o">+=</span> <span class="n">alpha</span> <span class="o">*</span> <span class="p">(</span><span class="n">target</span> <span class="o">-</span> <span class="n">Q</span><span class="p">[</span><span class="n">s</span><span class="p">][</span><span class="n">a</span><span class="p">])</span>
+            <span class="n">s</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">total</span> <span class="o">=</span> <span class="n">s2</span><span class="p">,</span> <span class="n">a2</span><span class="p">,</span> <span class="n">total</span> <span class="o">+</span> <span class="n">r</span>
+            <span class="k">if</span> <span class="n">done</span><span class="p">:</span> <span class="k">break</span>
+        <span class="n">history</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">total</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">Q</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">history</span><span class="p">)</span>
+
+<span class="n">Q</span><span class="p">,</span> <span class="n">hist_q</span> <span class="o">=</span> <span class="n">train</span><span class="p">(</span><span class="s2">"q"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"mean reward, first 50 episodes:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">hist_q</span><span class="p">[:</span><span class="mi">50</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="mi">2</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"mean reward, last 50 episodes: "</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">hist_q</span><span class="p">[</span><span class="o">-</span><span class="mi">50</span><span class="p">:]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="mi">2</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">mean reward, first 50 episodes: -1.26
+mean reward, last 50 episodes:  3.98</pre></div></div>
+<p>The agent starts by wandering and ends by reaching the goal quickly, so the average reward rises. Now read the learned policy: for every cell, the action with the highest Q value.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="k">def</span><span class="w"> </span><span class="nf">show_policy</span><span class="p">(</span><span class="n">Q</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+        <span class="n">row</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span> <span class="o">==</span> <span class="n">GOAL</span><span class="p">:</span> <span class="n">row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"G"</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span> <span class="o">==</span> <span class="n">PIT</span><span class="p">:</span> <span class="n">row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"X"</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span> <span class="n">row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ARROW</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">Q</span><span class="p">[</span><span class="n">r</span><span class="p">,</span> <span class="n">c</span><span class="p">]))])</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"  "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">row</span><span class="p">))</span>
+<span class="n">show_policy</span><span class="p">(</span><span class="n">Q</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">v  v  &gt;  v
+&gt;  v  X  v
+&gt;  &gt;  v  v
+&gt;  &gt;  &gt;  G</pre></div></div>
+<p>G is the goal and X is the pit. Follow the arrows from the top-left corner: they lead to G while walking around X. Nobody told the agent the map; it learned it from rewards.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="n">BLUE</span><span class="p">,</span> <span class="n">GREEN</span><span class="p">,</span> <span class="n">GREY</span><span class="p">,</span> <span class="n">DARK</span><span class="p">,</span> <span class="n">AMBER</span> <span class="o">=</span> <span class="s2">"#1F5FD6"</span><span class="p">,</span> <span class="s2">"#2BB38A"</span><span class="p">,</span> <span class="s2">"#9CA3AF"</span><span class="p">,</span> <span class="s2">"#0B2A4A"</span><span class="p">,</span> <span class="s2">"#B45309"</span>
+<span class="n">smooth</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">convolve</span><span class="p">(</span><span class="n">hist_q</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">25</span><span class="p">)</span> <span class="o">/</span> <span class="mi">25</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">"valid"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">3.6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">hist_q</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">GREY</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"each episode"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">24</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">hist_q</span><span class="p">)),</span> <span class="n">smooth</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">BLUE</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"25-episode average"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">"Q-learning: total reward per episode on the gridworld"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">"Episode"</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">"Total reward"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">"p15_qlearning.png"</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">130</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"saved p15_qlearning.png"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">saved p15_qlearning.png</pre></div></div>
+<div class="cell only-out"><div class="cell-out"><figure class="fig"><img src="img/part-15-051.png" alt="Chart output" loading="lazy"></figure></div></div>
+<p>Reward per episode climbs and levels off as the policy settles.</p>
+
+<p>The occasional dips after learning come from exploration: with epsilon 0.1 the agent still takes a random step about one time in ten.</p>
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>What it controls</th>
+<th>Typical range</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>alpha (learning rate)</td>
+<td>How far each update moves Q</td>
+<td>0.05 to 0.5</td>
+</tr>
+<tr>
+<td>gamma (discount)</td>
+<td>How much the future counts</td>
+<td>0.9 to 0.99</td>
+</tr>
+<tr>
+<td>epsilon</td>
+<td>Share of random exploratory actions</td>
+<td>0.05 to 0.2, often decayed</td>
+</tr>
+<tr>
+<td>episodes</td>
+<td>How long the agent practises</td>
+<td>Hundreds to millions</td>
+</tr>
+</tbody>
+</table></div>
+
+<p><strong>Works best when</strong> states and actions are few enough to store in a table and you can simulate many tries. <strong>Struggles when</strong> the state space is huge (every pixel of a screen) or each try is costly.</p>
+
+<h2 id="15-6-sarsa-versus-q-learning"><a class="anchor" href="#15-6-sarsa-versus-q-learning" aria-label="Link to this section">#</a>15.6 SARSA versus Q-learning</h2>
+
+<p><strong>SARSA</strong> is a close cousin. Q-learning updates toward the BEST next action (<strong>off-policy</strong>: it learns about the greedy plan even while exploring). SARSA updates toward the action it ACTUALLY takes next, including random exploratory ones (<strong>on-policy</strong>). Because SARSA counts its own exploration mistakes, it tends to learn safer routes near hazards; Q-learning tends to learn bolder, shorter ones.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">Qs</span><span class="p">,</span> <span class="n">hist_s</span> <span class="o">=</span> <span class="n">train</span><span class="p">(</span><span class="s2">"sarsa"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Q-learning last 100 episodes mean reward:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">hist_q</span><span class="p">[</span><span class="o">-</span><span class="mi">100</span><span class="p">:]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="mi">2</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"SARSA      last 100 episodes mean reward:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">hist_s</span><span class="p">[</span><span class="o">-</span><span class="mi">100</span><span class="p">:]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="mi">2</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"SARSA policy:"</span><span class="p">)</span>
+<span class="n">show_policy</span><span class="p">(</span><span class="n">Qs</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">Q-learning last 100 episodes mean reward: 3.26
+SARSA      last 100 episodes mean reward: 3.89
+SARSA policy:
+v  v  &lt;  v
+v  v  X  v
+&gt;  v  &gt;  v
+&gt;  &gt;  &gt;  G</pre></div></div>
+<p>In a small world like this the two give similar policies. The difference matters in tasks with a steep cliff next to the shortest path, where exploration slips are expensive.</p>
+
+<h2 id="15-7-a-kenyan-scenario-restocking-a-shop"><a class="anchor" href="#15-7-a-kenyan-scenario-restocking-a-shop" aria-label="Link to this section">#</a>15.7 A Kenyan scenario: restocking a shop</h2>
+
+<p>A small shop sells a fast item, such as 1-litre cooking oil. Each morning the owner sees how many units are left (0 to 5) and orders 0 to 3 units, which arrive at once. Demand that day is random (synthetic). Selling a unit earns Ksh 30 profit, holding a unit costs Ksh 2 a day, and a customer turned away costs Ksh 15 in goodwill. This is a real MDP: stock is the state and orders are the action.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="n">CAP</span><span class="p">,</span> <span class="n">RNG_DEMAND</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">];</span> <span class="n">P_DEMAND</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.35</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">]</span>   <span class="c1"># synthetic demand</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">day</span><span class="p">(</span><span class="n">stock</span><span class="p">,</span> <span class="n">order</span><span class="p">,</span> <span class="n">rng</span><span class="p">):</span>
+    <span class="n">stock</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">CAP</span><span class="p">,</span> <span class="n">stock</span> <span class="o">+</span> <span class="n">order</span><span class="p">)</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">RNG_DEMAND</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">P_DEMAND</span><span class="p">))</span>
+    <span class="n">sold</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">stock</span><span class="p">,</span> <span class="n">d</span><span class="p">);</span> <span class="n">lost</span> <span class="o">=</span> <span class="n">d</span> <span class="o">-</span> <span class="n">sold</span>
+    <span class="n">left</span> <span class="o">=</span> <span class="n">stock</span> <span class="o">-</span> <span class="n">sold</span>
+    <span class="k">return</span> <span class="n">left</span><span class="p">,</span> <span class="mi">30</span> <span class="o">*</span> <span class="n">sold</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">left</span> <span class="o">-</span> <span class="mi">15</span> <span class="o">*</span> <span class="n">lost</span> <span class="o">-</span> <span class="mi">5</span> <span class="o">*</span> <span class="n">order</span>       <span class="c1"># Ksh 5 per unit ordered</span>
+
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+<span class="n">Qs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">CAP</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">));</span> <span class="n">stock</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">40000</span><span class="p">):</span>
+    <span class="n">eps</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mf">0.05</span><span class="p">,</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">t</span> <span class="o">/</span> <span class="mi">20000</span><span class="p">)</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span> <span class="k">if</span> <span class="n">rng</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">eps</span> <span class="k">else</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">Qs</span><span class="p">[</span><span class="n">stock</span><span class="p">]))</span>
+    <span class="n">s2</span><span class="p">,</span> <span class="n">r</span> <span class="o">=</span> <span class="n">day</span><span class="p">(</span><span class="n">stock</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">rng</span><span class="p">)</span>
+    <span class="n">Qs</span><span class="p">[</span><span class="n">stock</span><span class="p">,</span> <span class="n">a</span><span class="p">]</span> <span class="o">+=</span> <span class="mf">0.1</span> <span class="o">*</span> <span class="p">(</span><span class="n">r</span> <span class="o">+</span> <span class="mf">0.95</span> <span class="o">*</span> <span class="n">Qs</span><span class="p">[</span><span class="n">s2</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="n">Qs</span><span class="p">[</span><span class="n">stock</span><span class="p">,</span> <span class="n">a</span><span class="p">])</span>
+    <span class="n">stock</span> <span class="o">=</span> <span class="n">s2</span>
+<span class="n">policy</span> <span class="o">=</span> <span class="n">Qs</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">CAP</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span> <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"stock </span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2"> -&gt; order </span><span class="si">{</span><span class="n">policy</span><span class="p">[</span><span class="n">s</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">stock 0 -&gt; order 3
+stock 1 -&gt; order 2
+stock 2 -&gt; order 0
+stock 3 -&gt; order 0
+stock 4 -&gt; order 0
+stock 5 -&gt; order 0</pre></div></div>
+<p>Compare the learned rule with two simple rules by simulating the same 3,000 days for each.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="k">def</span><span class="w"> </span><span class="nf">evaluate</span><span class="p">(</span><span class="n">rule</span><span class="p">,</span> <span class="n">days</span><span class="o">=</span><span class="mi">3000</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">99</span><span class="p">):</span>
+    <span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="n">seed</span><span class="p">);</span> <span class="n">stock</span><span class="p">,</span> <span class="n">total</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="mf">0.0</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">days</span><span class="p">):</span>
+        <span class="n">stock</span><span class="p">,</span> <span class="n">r</span> <span class="o">=</span> <span class="n">day</span><span class="p">(</span><span class="n">stock</span><span class="p">,</span> <span class="n">rule</span><span class="p">(</span><span class="n">stock</span><span class="p">),</span> <span class="n">rng</span><span class="p">);</span> <span class="n">total</span> <span class="o">+=</span> <span class="n">r</span>
+    <span class="k">return</span> <span class="n">total</span> <span class="o">/</span> <span class="n">days</span>
+
+<span class="n">rules</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"learned policy"</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">policy</span><span class="p">[</span><span class="n">s</span><span class="p">]),</span> <span class="s2">"never order"</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+         <span class="s2">"always order 2"</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">rule</span> <span class="ow">in</span> <span class="n">rules</span><span class="o">.</span><span class="n">items</span><span class="p">():</span> <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">name</span><span class="si">:</span><span class="s2">&lt;15</span><span class="si">}</span><span class="s2"> average profit per day: Ksh </span><span class="si">{</span><span class="n">evaluate</span><span class="p">(</span><span class="n">rule</span><span class="p">)</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">learned policy  average profit per day: Ksh 31.0
+never order     average profit per day: Ksh -21.4
+always order 2  average profit per day: Ksh 26.3</pre></div></div>
+<p>The learned policy should beat both fixed rules because it reacts to stock: it orders more when shelves are low and stops when they are full. Check the printed profits above to see by how much.</p>
+
+<div class="callout real"><p><strong>Using it in the real world.</strong> <strong>Data you need:</strong> a simulator or at least a year of daily stock, sales and order records. <strong>Validate:</strong> test the policy on days it never trained on, and compare with the owner's current habit, not with doing nothing. <strong>How it fails:</strong> demand changes at month end, festivals or rain, or the supplier is late, and the model has never seen it. <strong>Monitor:</strong> track profit per day and stockouts against the old method, and keep a human able to override orders.</p>
+</div>
+<h2 id="15-8-applications-of-reinforcement-learning"><a class="anchor" href="#15-8-applications-of-reinforcement-learning" aria-label="Link to this section">#</a>15.8 Applications of reinforcement learning</h2>
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Area</th>
+<th>Agent decides</th>
+<th>Reward signal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Recommendations</td>
+<td>Which item or offer to show</td>
+<td>Click, purchase, watch time</td>
+</tr>
+<tr>
+<td>Pricing</td>
+<td>Price or discount today</td>
+<td>Profit over time</td>
+</tr>
+<tr>
+<td>Stock replenishment</td>
+<td>How much to order</td>
+<td>Profit minus holding and stockout cost</td>
+</tr>
+<tr>
+<td>Dispatch (e.g. boda-boda)</td>
+<td>Which rider takes which request</td>
+<td>Short waits, fuel saved</td>
+</tr>
+<tr>
+<td>Robotics</td>
+<td>Motor commands</td>
+<td>Reaching targets, staying upright</td>
+</tr>
+<tr>
+<td>Games</td>
+<td>Next move</td>
+<td>Win or lose</td>
+</tr>
+<tr>
+<td>Language models</td>
+<td>How to answer</td>
+<td>Human ratings (see RLHF in Part 16)</td>
+</tr>
+</tbody>
+</table></div>
+
+<p><strong>RLHF</strong> (reinforcement learning from human feedback) is how chat assistants are polished: people rank answers, a reward model learns those preferences, and RL nudges the language model toward answers people prefer. Part 16 explains it in plain words.</p>
+
+<h2 id="15-9-limits-and-safety"><a class="anchor" href="#15-9-limits-and-safety" aria-label="Link to this section">#</a>15.9 Limits and safety</h2>
+
+<ul>
+<li><strong>Data hungry:</strong> agents often need millions of tries, so most are trained in simulators, not on real customers.</li>
+<li><strong>Reward hacking:</strong> the agent maximises the number you wrote, not what you meant. A delivery agent rewarded for 'fast drop-offs' may drop parcels at the wrong gate.</li>
+<li><strong>Unsafe exploration:</strong> random actions are fine in a game, dangerous with real money, machines or people.</li>
+<li><strong>Hard to debug:</strong> results change a lot between random seeds; always test several.</li>
+<li><strong>Shifting worlds:</strong> a policy learned last year may fail when customers or prices change.</li>
+</ul>
+
+<div class="callout note"><p><strong>Safe practice.</strong> Design rewards carefully, add hard limits the agent cannot break (maximum order size, price floors), try it in simulation first, then in a small live pilot with human oversight.</p>
+</div>
+<h2 id="15-10-deep-q-networks-and-policy-gradients-advanced"><a class="anchor" href="#15-10-deep-q-networks-and-policy-gradients-advanced" aria-label="Link to this section">#</a>15.10 Deep Q-networks and policy gradients (Advanced)</h2>
+
+<p>A table cannot store a chess position or a screen image. A <strong>deep Q-network</strong> (DQN) replaces the table with a neural network (Part 14) that takes a state and outputs one Q value per action. Two tricks keep training stable: a <strong>replay buffer</strong> (learn from random old experiences, not only the latest) and a slowly updated <strong>target network</strong> (a frozen copy used to compute targets).</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span><span class="o">,</span><span class="w"> </span><span class="nn">torch.nn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nn</span>
+<span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span> <span class="n">torch</span><span class="o">.</span><span class="n">set_num_threads</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">q_net</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">32</span><span class="p">),</span> <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>   <span class="c1"># 4 state numbers -&gt; 2 actions</span>
+<span class="n">state</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">0.1</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">]])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Q values for each action:"</span><span class="p">,</span> <span class="n">q_net</span><span class="p">(</span><span class="n">state</span><span class="p">)</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+<span class="c1"># one learning step would use: loss = (q_net(s)[a] - (r + gamma * target_net(s2).max())) ** 2</span>
+</code></pre></div><div class="cell-out"><pre class="out">Q values for each action: [[-0.115 -0.072]]</pre></div></div>
+<p><strong>Policy gradient</strong> methods skip Q values and learn the policy itself: a network outputs the probability of each action, and actions that led to high total reward are made more likely. They handle continuous actions (a steering angle) better. Modern methods such as PPO, used in RLHF, are refined policy-gradient algorithms.</p>
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Learns</th>
+<th>Good for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tabular Q-learning</td>
+<td>A Q table</td>
+<td>Small, discrete problems</td>
+</tr>
+<tr>
+<td>DQN</td>
+<td>Q values with a neural network</td>
+<td>Large state spaces, few actions</td>
+</tr>
+<tr>
+<td>Policy gradient / PPO</td>
+<td>The policy directly</td>
+<td>Continuous actions, language model tuning</td>
+</tr>
+<tr>
+<td>Bandits</td>
+<td>Reward of each arm</td>
+<td>One-step choices, A/B/n tests</td>
+</tr>
+</tbody>
+</table></div>
+
+<div class="callout takeaways"><div class="c-label">Key takeaways</div><ul>
+<li>RL learns from rewards by trial and error: agent, environment, state, action, reward, policy.</li>
+<li>Balance exploration and exploitation: epsilon-greedy and UCB are simple, effective choices.</li>
+<li>An MDP plus a discount factor lets an agent value the future; the Bellman idea links now and later.</li>
+<li>Q-learning learns a table of action values; the best value per state is the policy.</li>
+<li>SARSA learns from the moves it really makes and is usually more cautious.</li>
+<li>Rewards define behaviour: guard against reward hacking and unsafe exploration.</li>
+</ul>
+</div></div><nav class="pager" aria-label="Previous and next"><a class="prev" href="part-14.html"><small>Previous</small><span>Part 14: Neural Networks and Deep Learning</span></a><a class="next" href="part-16.html"><small>Next</small><span>Part 16: Generative AI and Large Language Models</span></a></nav>
+<footer class="foot"><p>Data Science from Zero to Advanced &middot; written by Benson M. Merita &middot; &copy; 2026 MeritaAnalytics. Public datasets keep their own licences, listed in <a href="appendix-b.html">Appendix B</a>.</p></footer>
+</main>
+</div>
+<script src="search-index.js"></script>
+<script src="site.js"></script>
+</body>
+</html>

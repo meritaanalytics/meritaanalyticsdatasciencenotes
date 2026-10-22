@@ -1,0 +1,242 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>MeritaAnalytics Data Science Notes</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="style.css">
+<a class="skip" href="#main">Skip to the notes</a>
+<header class="top"><button class="menu" id="menu" aria-controls="side" aria-expanded="false">Contents</button><span class="top-title">Start here: Welcome: How to Use This Handbook</span></header>
+<div class="shell">
+<nav class="side" id="side" aria-label="Handbook contents">
+<a class="brand" href="index.html"><span class="mark" aria-hidden="true">MA</span><span><b>MeritaAnalytics</b><small>Data Science Notes</small></span></a>
+<label class="search"><span class="sr">Search the notes</span><input id="q" type="search" placeholder="Search topics, e.g. groupby" autocomplete="off"></label>
+<div id="results" class="results" hidden></div>
+<ol class="nav">
+<li class="lvl0"><a href="index.html" class="on">Start here</a></li>
+<li class="lvl"><div class="lvl-name"><span>Level 1</span>Foundations</div><ol>
+<li data-slug="part-01"><a href="part-01.html" class=""><span class="pn">1</span><span class="pt">What Is Data Science?</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-02"><a href="part-02.html" class=""><span class="pn">2</span><span class="pt">Python Basics</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-03"><a href="part-03.html" class=""><span class="pn">3</span><span class="pt">NumPy: Fast Numbers</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 2</span>Data Analysis</div><ol>
+<li data-slug="part-04"><a href="part-04.html" class=""><span class="pn">4</span><span class="pt">Pandas: Working with Tables</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-05"><a href="part-05.html" class=""><span class="pn">5</span><span class="pt">Data Visualisation</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-06"><a href="part-06.html" class=""><span class="pn">6</span><span class="pt">SQL for Data Analysts</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-07"><a href="part-07.html" class=""><span class="pn">7</span><span class="pt">Exploratory Data Analysis</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 3</span>Statistics</div><ol>
+<li data-slug="part-08"><a href="part-08.html" class=""><span class="pn">8</span><span class="pt">Statistics for Data Science</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 4</span>Machine Learning</div><ol>
+<li data-slug="part-09"><a href="part-09.html" class=""><span class="pn">9</span><span class="pt">Machine Learning Foundations</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-10"><a href="part-10.html" class=""><span class="pn">10</span><span class="pt">Regression</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-11"><a href="part-11.html" class=""><span class="pn">11</span><span class="pt">Classification</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-12"><a href="part-12.html" class=""><span class="pn">12</span><span class="pt">Ensembles, Tuning and Feature Engineering</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-13"><a href="part-13.html" class=""><span class="pn">13</span><span class="pt">Unsupervised Learning</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 5</span>Deep Learning and Modern AI</div><ol>
+<li data-slug="part-14"><a href="part-14.html" class=""><span class="pn">14</span><span class="pt">Neural Networks and Deep Learning</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-15"><a href="part-15.html" class=""><span class="pn">15</span><span class="pt">Reinforcement Learning</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-16"><a href="part-16.html" class=""><span class="pn">16</span><span class="pt">Generative AI and Large Language Models</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 6</span>The Real World</div><ol>
+<li data-slug="part-17"><a href="part-17.html" class=""><span class="pn">17</span><span class="pt">Business Metrics, Excel and Power BI</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-18"><a href="part-18.html" class=""><span class="pn">18</span><span class="pt">Automation, Git, Deployment and Responsible AI</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-19"><a href="part-19.html" class=""><span class="pn">19</span><span class="pt">End-to-End Projects</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 7</span>Career and Reference</div><ol>
+<li data-slug="part-20"><a href="part-20.html" class=""><span class="pn">20</span><span class="pt">Practice Exercises and Answer Key</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-21"><a href="part-21.html" class=""><span class="pn">21</span><span class="pt">Interview Preparation</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-22"><a href="part-22.html" class=""><span class="pn">22</span><span class="pt">Roadmap, Cheat Sheets and Glossary</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Appendix</span>Reference</div><ol>
+<li><a href="appendix-a.html" class=""><span class="pn">A</span><span class="pt">Sources and Next Steps</span></a></li>
+<li><a href="appendix-b.html" class=""><span class="pn">B</span><span class="pt">Data Catalogue</span></a></li>
+</ol></li></ol>
+<p class="side-foot">By Benson M. Merita &middot; &copy; 2026 MeritaAnalytics</p></nav>
+<main id="main" class="main"><section class="hero">
+<p class="eyebrow">A MeritaAnalytics handbook</p>
+<h1>Data Science from Zero to Advanced</h1>
+<p class="lede">Python, SQL, statistics, machine learning, deep learning, reinforcement learning and generative AI, with real-world projects. Every example runs, every output is shown, and the examples come from everyday Kenyan life: M-Pesa fees, matatu fares, shop stock and loan books.</p>
+<div class="hero-cta"><a class="btn" href="part-01.html">Start with Part 1</a><a class="btn ghost" href="#levels">See all 22 parts</a></div>
+<dl class="facts"><div><dt>Levels</dt><dd>7</dd></div><div><dt>Parts</dt><dd>22</dd></div><div><dt>Projects</dt><dd>9</dd></div><div><dt>Exercises</dt><dd>36</dd></div></dl>
+</section>
+<section id="levels" class="levels"><h2 class="sec-title">The path, level by level</h2><section class="level-row"><div class="level-head"><span class="lv">Level 1</span><h3>Foundations</h3><p>Start here: what data science is, then your first Python and NumPy.</p></div><ol class="level-parts"><li data-slug="part-01"><a href="part-01.html"><span class="pn">1</span><span>What Is Data Science?</span><span class="done-dot" aria-hidden="true"></span></a></li><li data-slug="part-02"><a href="part-02.html"><span class="pn">2</span><span>Python Basics</span><span class="done-dot" aria-hidden="true"></span></a></li><li data-slug="part-03"><a href="part-03.html"><span class="pn">3</span><span>NumPy: Fast Numbers</span><span class="done-dot" aria-hidden="true"></span></a></li></ol></section><section class="level-row"><div class="level-head"><span class="lv">Level 2</span><h3>Data Analysis</h3><p>You now work with real tables: loading and cleaning them, summarising them, drawing them, querying them with SQL and exploring them the way a working analyst does.</p></div><ol class="level-parts"><li data-slug="part-04"><a href="part-04.html"><span class="pn">4</span><span>Pandas: Working with Tables</span><span class="done-dot" aria-hidden="true"></span></a></li><li data-slug="part-05"><a href="part-05.html"><span class="pn">5</span><span>Data Visualisation</span><span class="done-dot" aria-hidden="true"></span></a></li><li data-slug="part-06"><a href="part-06.html"><span class="pn">6</span><span>SQL for Data Analysts</span><span class="done-dot" aria-hidden="true"></span></a></li><li data-slug="part-07"><a href="part-07.html"><span class="pn">7</span><span>Exploratory Data Analysis</span><span class="done-dot" aria-hidden="true"></span></a></li></ol></section><section class="level-row"><div class="level-head"><span class="lv">Level 3</span><h3>Statistics</h3><p>Learn to describe data, measure uncertainty and decide whether a pattern is real or just noise.</p></div><ol class="level-parts"><li data-slug="part-08"><a href="part-08.html"><span class="pn">8</span><span>Statistics for Data Science</span><span class="done-dot" aria-hidden="true"></span></a></li></ol></section><section class="level-row"><div class="level-head"><span class="lv">Level 4</span><h3>Machine Learning</h3><p>Teach a computer to find patterns in data and use them to predict, group and decide.</p></div><ol class="level-parts"><li data-slug="part-09"><a href="part-09.html"><span class="pn">9</span><span>Machine Learning Foundations</span><span class="done-dot" aria-hidden="true"></span></a></li><li data-slug="part-10"><a href="part-10.html"><span class="pn">10</span><span>Regression</span><span class="done-dot" aria-hidden="true"></span></a></li><li data-slug="part-11"><a href="part-11.html"><span class="pn">11</span><span>Classification</span><span class="done-dot" aria-hidden="true"></span></a></li><li data-slug="part-12"><a href="part-12.html"><span class="pn">12</span><span>Ensembles, Tuning and Feature Engineering</span><span class="done-dot" aria-hidden="true"></span></a></li><li data-slug="part-13"><a href="part-13.html"><span class="pn">13</span><span>Unsupervised Learning</span><span class="done-dot" aria-hidden="true"></span></a></li></ol></section><section class="level-row"><div class="level-head"><span class="lv">Level 5</span><h3>Deep Learning and Modern AI</h3><p>Models that learn their own features: neural networks, then reinforcement learning, then generative AI and large language models.</p></div><ol class="level-parts"><li data-slug="part-14"><a href="part-14.html"><span class="pn">14</span><span>Neural Networks and Deep Learning</span><span class="done-dot" aria-hidden="true"></span></a></li><li data-slug="part-15"><a href="part-15.html"><span class="pn">15</span><span>Reinforcement Learning</span><span class="done-dot" aria-hidden="true"></span></a></li><li data-slug="part-16"><a href="part-16.html"><span class="pn">16</span><span>Generative AI and Large Language Models</span><span class="done-dot" aria-hidden="true"></span></a></li></ol></section><section class="level-row"><div class="level-head"><span class="lv">Level 6</span><h3>The Real World</h3><p>Turn your skills into work an employer can use: business and credit metrics, the tools teams already run on, deployment, responsible AI and complete projects.</p></div><ol class="level-parts"><li data-slug="part-17"><a href="part-17.html"><span class="pn">17</span><span>Business Metrics, Excel and Power BI</span><span class="done-dot" aria-hidden="true"></span></a></li><li data-slug="part-18"><a href="part-18.html"><span class="pn">18</span><span>Automation, Git, Deployment and Responsible AI</span><span class="done-dot" aria-hidden="true"></span></a></li><li data-slug="part-19"><a href="part-19.html"><span class="pn">19</span><span>End-to-End Projects</span><span class="done-dot" aria-hidden="true"></span></a></li></ol></section><section class="level-row"><div class="level-head"><span class="lv">Level 7</span><h3>Career and Reference</h3><p>Practise what you learned, prepare for interviews, and keep a roadmap, cheat sheets and a glossary close by.</p></div><ol class="level-parts"><li data-slug="part-20"><a href="part-20.html"><span class="pn">20</span><span>Practice Exercises and Answer Key</span><span class="done-dot" aria-hidden="true"></span></a></li><li data-slug="part-21"><a href="part-21.html"><span class="pn">21</span><span>Interview Preparation</span><span class="done-dot" aria-hidden="true"></span></a></li><li data-slug="part-22"><a href="part-22.html"><span class="pn">22</span><span>Roadmap, Cheat Sheets and Glossary</span><span class="done-dot" aria-hidden="true"></span></a></li></ol></section></section>
+<section class="intro"><p>This handbook takes you from your first line of code to machine learning, deep learning and large language models. You do not need any programming or maths background beyond school level. Each part assumes only the parts before it, so you can read from the front and never meet a word that has not been explained.</p>
+
+<p><strong>MeritaAnalytics</strong> presents this handbook, written by <strong>Benson M. Merita</strong>, a data analyst based in Nairobi. Copyright (c) 2026 MeritaAnalytics. Public datasets keep their own licences, listed with links in Appendix B.</p>
+
+<h2 id="the-seven-levels"><a class="anchor" href="#the-seven-levels" aria-label="Link to this section">#</a>The seven levels</h2>
+
+<p>The handbook has 22 parts grouped into seven levels. Move up one level at a time.</p>
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Level</th>
+<th>Parts</th>
+<th>What you learn</th>
+<th>Difficulty</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1 Foundations</td>
+<td>1 to 3</td>
+<td>What data science is, Python basics, NumPy</td>
+<td>Beginner</td>
+</tr>
+<tr>
+<td>2 Data Analysis</td>
+<td>4 to 7</td>
+<td>Pandas tables, charts, SQL, exploratory analysis</td>
+<td>Beginner</td>
+</tr>
+<tr>
+<td>3 Statistics</td>
+<td>8</td>
+<td>Describing data, probability, sampling, confidence intervals, hypothesis tests</td>
+<td>Beginner to intermediate</td>
+</tr>
+<tr>
+<td>4 Machine Learning</td>
+<td>9 to 13</td>
+<td>Features, models, training, over- and underfitting; regression, classification, ensembles, clustering, dimensionality reduction</td>
+<td>Intermediate</td>
+</tr>
+<tr>
+<td>5 Deep Learning and Modern AI</td>
+<td>14 to 16</td>
+<td>Neural networks, reinforcement learning, generative AI and LLMs</td>
+<td>Intermediate to advanced</td>
+</tr>
+<tr>
+<td>6 The Real World</td>
+<td>17 to 19</td>
+<td>Business metrics and Power BI, automation, deployment, responsible AI, nine projects</td>
+<td>Intermediate to advanced</td>
+</tr>
+<tr>
+<td>7 Career and Reference</td>
+<td>20 to 22</td>
+<td>Exercises, interview preparation, cheat sheets and glossary</td>
+<td>All levels</td>
+</tr>
+</tbody>
+</table></div>
+
+<h2 id="how-to-study-with-it"><a class="anchor" href="#how-to-study-with-it" aria-label="Link to this section">#</a>How to study with it</h2>
+
+<ul>
+<li>Read a section, then run its code cell and change one thing. Learning happens when you edit.</li>
+<li>Do the practice question before you read its solution.</li>
+<li>Each part starts with what you will learn and ends with key takeaways. If you cannot say the takeaways in your own words, re-read.</li>
+<li>Sections marked (Advanced) can wait. Skip them on a first pass and return later.</li>
+<li>Plan about 8 to 10 hours a week. The suggested path in Part 1 takes 32 weeks.</li>
+</ul>
+
+<h2 id="about-the-data-in-this-handbook"><a class="anchor" href="#about-the-data-in-this-handbook" aria-label="Link to this section">#</a>About the data in this handbook</h2>
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Kind</th>
+<th>What it is</th>
+<th>Where to find it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Public data</td>
+<td>Real, openly licensed data: World Bank, Our World in Data, Palmer penguins, and the small datasets bundled with scikit-learn.</td>
+<td><code>datasets/public/</code> and Appendix B (source, licence, link)</td>
+</tr>
+<tr>
+<td>Synthetic data</td>
+<td>Data invented by code with fixed random seeds, used where real data is confidential, such as lending, M-Pesa and insurance records. It describes no real person or company.</td>
+<td>Generated by the notebook; copies in <code>datasets/synthetic/</code>; Appendix B</td>
+</tr>
+</tbody>
+</table></div>
+
+<ul>
+<li>Findings on synthetic data describe the synthetic data only.</li>
+<li>Tax, interest and risk figures are illustrative, not current KRA or CBK rules.</li>
+<li>Model scores can differ slightly on another computer or library version; the ideas stay the same.</li>
+</ul>
+
+<h2 id="set-up-your-computer-about-20-minutes"><a class="anchor" href="#set-up-your-computer-about-20-minutes" aria-label="Link to this section">#</a>Set up your computer (about 20 minutes)</h2>
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Step</th>
+<th>What to do</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Install Python 3.12 or newer from python.org and tick Add python.exe to PATH.</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Install VS Code with the Python and Jupyter extensions (or use JupyterLab).</td>
+</tr>
+<tr>
+<td>3</td>
+<td>In a project folder create an environment: <code>python -m venv .venv</code>, then activate it.</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Install the tools: <code>python -m pip install numpy pandas matplotlib seaborn scipy statsmodels scikit-learn xgboost lightgbm torch jupyterlab openpyxl</code>.</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Open the notebook. Use Kernel, Restart and Run All to confirm everything runs top to bottom.</td>
+</tr>
+</tbody>
+</table></div>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">import</span><span class="w"> </span><span class="nn">platform</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span><span class="o">,</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span><span class="o">,</span><span class="w"> </span><span class="nn">matplotlib</span><span class="o">,</span><span class="w"> </span><span class="nn">scipy</span><span class="o">,</span><span class="w"> </span><span class="nn">sklearn</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Python"</span><span class="p">,</span> <span class="n">platform</span><span class="o">.</span><span class="n">python_version</span><span class="p">())</span>
+<span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="p">(</span><span class="n">np</span><span class="p">,</span> <span class="n">pd</span><span class="p">,</span> <span class="n">matplotlib</span><span class="p">,</span> <span class="n">scipy</span><span class="p">,</span> <span class="n">sklearn</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">Python 3.13.16
+numpy 2.5.3
+pandas 3.0.5
+matplotlib 3.11.2
+scipy 1.18.1
+sklearn 1.9.1</pre></div></div>
+<div class="callout tip"><p><strong>Rule.</strong> Run cells from the top, in order. Running them out of order creates hidden state, the most common notebook mistake. The <code>datasets</code> folder must sit next to the notebook.</p>
+</div></section><nav class="pager" aria-label="Previous and next"><span></span><a class="next" href="part-01.html"><small>Next</small><span>Part 1: What Is Data Science?</span></a></nav>
+<footer class="foot"><p>Data Science from Zero to Advanced &middot; written by Benson M. Merita &middot; &copy; 2026 MeritaAnalytics. Public datasets keep their own licences, listed in <a href="appendix-b.html">Appendix B</a>.</p></footer>
+</main>
+</div>
+<script src="search-index.js"></script>
+<script src="site.js"></script>
+</body></html>

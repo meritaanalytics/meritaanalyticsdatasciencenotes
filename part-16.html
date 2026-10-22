@@ -1,0 +1,678 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>Part 16: Generative AI and Large Language Models | MeritaAnalytics</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to the notes</a>
+<header class="top"><button class="menu" id="menu" aria-controls="side" aria-expanded="false">Contents</button><span class="top-title">Part 16: Generative AI and Large Language Models</span></header>
+<div class="shell">
+<nav class="side" id="side" aria-label="Handbook contents">
+<a class="brand" href="index.html"><span class="mark" aria-hidden="true">MA</span><span><b>MeritaAnalytics</b><small>Data Science Notes</small></span></a>
+<label class="search"><span class="sr">Search the notes</span><input id="q" type="search" placeholder="Search topics, e.g. groupby" autocomplete="off"></label>
+<div id="results" class="results" hidden></div>
+<ol class="nav">
+<li class="lvl0"><a href="index.html" class="">Start here</a></li>
+<li class="lvl"><div class="lvl-name"><span>Level 1</span>Foundations</div><ol>
+<li data-slug="part-01"><a href="part-01.html" class=""><span class="pn">1</span><span class="pt">What Is Data Science?</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-02"><a href="part-02.html" class=""><span class="pn">2</span><span class="pt">Python Basics</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-03"><a href="part-03.html" class=""><span class="pn">3</span><span class="pt">NumPy: Fast Numbers</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 2</span>Data Analysis</div><ol>
+<li data-slug="part-04"><a href="part-04.html" class=""><span class="pn">4</span><span class="pt">Pandas: Working with Tables</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-05"><a href="part-05.html" class=""><span class="pn">5</span><span class="pt">Data Visualisation</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-06"><a href="part-06.html" class=""><span class="pn">6</span><span class="pt">SQL for Data Analysts</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-07"><a href="part-07.html" class=""><span class="pn">7</span><span class="pt">Exploratory Data Analysis</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 3</span>Statistics</div><ol>
+<li data-slug="part-08"><a href="part-08.html" class=""><span class="pn">8</span><span class="pt">Statistics for Data Science</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 4</span>Machine Learning</div><ol>
+<li data-slug="part-09"><a href="part-09.html" class=""><span class="pn">9</span><span class="pt">Machine Learning Foundations</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-10"><a href="part-10.html" class=""><span class="pn">10</span><span class="pt">Regression</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-11"><a href="part-11.html" class=""><span class="pn">11</span><span class="pt">Classification</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-12"><a href="part-12.html" class=""><span class="pn">12</span><span class="pt">Ensembles, Tuning and Feature Engineering</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-13"><a href="part-13.html" class=""><span class="pn">13</span><span class="pt">Unsupervised Learning</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 5</span>Deep Learning and Modern AI</div><ol>
+<li data-slug="part-14"><a href="part-14.html" class=""><span class="pn">14</span><span class="pt">Neural Networks and Deep Learning</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-15"><a href="part-15.html" class=""><span class="pn">15</span><span class="pt">Reinforcement Learning</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-16"><a href="part-16.html" class="on"><span class="pn">16</span><span class="pt">Generative AI and Large Language Models</span><span class="done-dot" aria-hidden="true"></span></a>
+<ol class="sub"><li><a href="#16-1-discriminative-versus-generative-models">16.1 Discriminative versus generative models</a></li><li><a href="#16-2-language-modelling-and-tokens">16.2 Language modelling and tokens</a></li><li><a href="#16-3-embeddings-words-as-vectors">16.3 Embeddings: words as vectors</a></li><li><a href="#16-4-how-llms-are-trained">16.4 How LLMs are trained</a></li><li><a href="#16-5-sampling-temperature-top-k-and-top-p">16.5 Sampling: temperature, top-k and top-p</a></li><li><a href="#16-6-prompting-techniques">16.6 Prompting techniques</a></li><li><a href="#16-7-retrieval-augmented-generation-rag">16.7 Retrieval-augmented generation (RAG)</a></li><li><a href="#16-8-evaluating-llm-outputs">16.8 Evaluating LLM outputs</a></li><li><a href="#16-9-hallucinations-bias-privacy-and-safe-use">16.9 Hallucinations, bias, privacy and safe use</a></li><li><a href="#16-10-calling-an-llm-from-python-and-an-ai-assisted-workflow">16.10 Calling an LLM from Python and an AI-assisted workflow</a></li><li><a href="#16-11-attention-and-the-transformer-advanced">16.11 Attention and the transformer (Advanced)</a></li><li><a href="#16-12-other-generative-models-and-choosing-llm-or-classical-">16.12 Other generative models and choosing LLM or classical ML (Advanced)</a></li></ol>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 6</span>The Real World</div><ol>
+<li data-slug="part-17"><a href="part-17.html" class=""><span class="pn">17</span><span class="pt">Business Metrics, Excel and Power BI</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-18"><a href="part-18.html" class=""><span class="pn">18</span><span class="pt">Automation, Git, Deployment and Responsible AI</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-19"><a href="part-19.html" class=""><span class="pn">19</span><span class="pt">End-to-End Projects</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 7</span>Career and Reference</div><ol>
+<li data-slug="part-20"><a href="part-20.html" class=""><span class="pn">20</span><span class="pt">Practice Exercises and Answer Key</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-21"><a href="part-21.html" class=""><span class="pn">21</span><span class="pt">Interview Preparation</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-22"><a href="part-22.html" class=""><span class="pn">22</span><span class="pt">Roadmap, Cheat Sheets and Glossary</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Appendix</span>Reference</div><ol>
+<li><a href="appendix-a.html" class=""><span class="pn">A</span><span class="pt">Sources and Next Steps</span></a></li>
+<li><a href="appendix-b.html" class=""><span class="pn">B</span><span class="pt">Data Catalogue</span></a></li>
+</ol></li></ol>
+<p class="side-foot">By Benson M. Merita &middot; &copy; 2026 MeritaAnalytics</p></nav>
+<main id="main" class="main"><header class="part-head"><span class="lv">Level 5 &middot; Deep Learning and Modern AI</span><p class="part-no">Part 16</p><h1>Generative AI and Large Language Models</h1><p class="lede">How text generators work, from a tiny word-counting model to attention, plus safe, checked use of AI at work.</p><button class="mark-done" id="done" data-slug="part-16" aria-pressed="false">Mark this part as done</button></header><div class="prose"><div class="callout learn"><div class="c-label">In this part</div><ul>
+<li>Explain the difference between discriminative and generative models</li>
+<li>Build a tiny text generator and see what a language model really does</li>
+<li>Turn words into vectors and compare them with cosine similarity</li>
+<li>Control a model with sampling settings and prompting techniques</li>
+<li>Build a small retrieval-augmented generation (RAG) pipeline and check AI output safely</li>
+</ul>
+<div class="meta"><span><b>You need first</b> Part 9 and Part 14</span><span><b>Time</b> 5 to 7 hours</span></div></div>
+<h2 id="16-1-discriminative-versus-generative-models"><a class="anchor" href="#16-1-discriminative-versus-generative-models" aria-label="Link to this section">#</a>16.1 Discriminative versus generative models</h2>
+
+<p>Most models in Parts 10 to 13 are <strong>discriminative</strong>: given inputs, they predict a label or a number (will this loan default? what is the price?). A <strong>generative</strong> model learns what the data itself looks like and can produce new examples: a sentence, an image, a table row. Chat assistants are generative models for text.</p>
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th>Discriminative</th>
+<th>Generative</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Question answered</td>
+<td>Given x, what is y?</td>
+<td>What do examples like x look like?</td>
+</tr>
+<tr>
+<td>Output</td>
+<td>A label or number</td>
+<td>New text, images, audio, data</td>
+</tr>
+<tr>
+<td>Example</td>
+<td>Credit default classifier</td>
+<td>A chat assistant, an image generator</td>
+</tr>
+<tr>
+<td>Judged by</td>
+<td>Accuracy, AUC, error</td>
+<td>Usefulness, correctness, safety (harder)</td>
+</tr>
+</tbody>
+</table></div>
+
+<p>A <strong>large language model</strong> (LLM) is a generative model trained on huge amounts of text to predict the next piece of text. Everything else, including answering questions, follows from doing that one job very well.</p>
+
+<h2 id="16-2-language-modelling-and-tokens"><a class="anchor" href="#16-2-language-modelling-and-tokens" aria-label="Link to this section">#</a>16.2 Language modelling and tokens</h2>
+
+<p>Models do not read letters or words directly. Text is cut into <strong>tokens</strong>: whole words, parts of words, or single characters. The model reads tokens and each token is a number in a fixed list (the vocabulary). Common words are one token; rare words split into pieces.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">text</span> <span class="o">=</span> <span class="s2">"mobile money agents helped customers withdraw cash"</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"word tokens:"</span><span class="p">,</span> <span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+<span class="n">vocab</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"mobile"</span><span class="p">,</span> <span class="s2">"money"</span><span class="p">,</span> <span class="s2">"agent"</span><span class="p">,</span> <span class="s2">"s"</span><span class="p">,</span> <span class="s2">"help"</span><span class="p">,</span> <span class="s2">"ed"</span><span class="p">,</span> <span class="s2">"customer"</span><span class="p">,</span> <span class="s2">"withdraw"</span><span class="p">,</span> <span class="s2">"cash"</span><span class="p">]</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">subword</span><span class="p">(</span><span class="n">word</span><span class="p">):</span>                       <span class="c1"># greedy longest-match, a toy version of real tokenizers</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">while</span> <span class="n">word</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">word</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">word</span><span class="p">[:</span><span class="n">k</span><span class="p">]</span> <span class="ow">in</span> <span class="n">vocab</span><span class="p">:</span> <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">word</span><span class="p">[:</span><span class="n">k</span><span class="p">]);</span> <span class="n">word</span> <span class="o">=</span> <span class="n">word</span><span class="p">[</span><span class="n">k</span><span class="p">:];</span> <span class="k">break</span>
+        <span class="k">else</span><span class="p">:</span> <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">word</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span> <span class="n">word</span> <span class="o">=</span> <span class="n">word</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+    <span class="k">return</span> <span class="n">out</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"subword tokens:"</span><span class="p">,</span> <span class="p">[</span><span class="n">t</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">()</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">subword</span><span class="p">(</span><span class="n">w</span><span class="p">)])</span>
+</code></pre></div><div class="cell-out"><pre class="out">word tokens: [&#x27;mobile&#x27;, &#x27;money&#x27;, &#x27;agents&#x27;, &#x27;helped&#x27;, &#x27;customers&#x27;, &#x27;withdraw&#x27;, &#x27;cash&#x27;]
+subword tokens: [&#x27;mobile&#x27;, &#x27;money&#x27;, &#x27;agent&#x27;, &#x27;s&#x27;, &#x27;help&#x27;, &#x27;ed&#x27;, &#x27;customer&#x27;, &#x27;s&#x27;, &#x27;withdraw&#x27;, &#x27;cash&#x27;]</pre></div></div>
+<p>A <strong>language model</strong> gives the probability of the next token given the previous ones. The smallest version just counts: after the words 'money', how often does each word follow? That is an <strong>n-gram</strong> model. Below we count word pairs in a short text we wrote ourselves, then generate new text by sampling.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">defaultdict</span>
+<span class="n">corpus</span> <span class="o">=</span> <span class="p">(</span><span class="s2">"the shop sells maize flour and the shop sells rice and beans . "</span>
+          <span class="s2">"the farmer sells maize and the farmer sells beans at the market . "</span>
+          <span class="s2">"the rider carries rice to the shop and the rider carries flour to the market . "</span>
+          <span class="s2">"the market sells rice and maize flour every morning ."</span><span class="p">)</span>
+<span class="n">words</span> <span class="o">=</span> <span class="n">corpus</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+<span class="n">follow</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">words</span><span class="p">,</span> <span class="n">words</span><span class="p">[</span><span class="mi">1</span><span class="p">:]):</span> <span class="n">follow</span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"words seen after 'sells':"</span><span class="p">,</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">follow</span><span class="p">[</span><span class="s2">"sells"</span><span class="p">])))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"count of each after 'the':"</span><span class="p">,</span> <span class="p">{</span><span class="n">w</span><span class="p">:</span> <span class="n">follow</span><span class="p">[</span><span class="s2">"the"</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">w</span><span class="p">)</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">follow</span><span class="p">[</span><span class="s2">"the"</span><span class="p">]))})</span>
+</code></pre></div><div class="cell-out"><pre class="out">words seen after &#x27;sells&#x27;: [&#x27;beans&#x27;, &#x27;maize&#x27;, &#x27;rice&#x27;]
+count of each after &#x27;the&#x27;: {&#x27;farmer&#x27;: 2, &#x27;market&#x27;: 3, &#x27;rider&#x27;: 2, &#x27;shop&#x27;: 3}</pre></div></div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="k">def</span><span class="w"> </span><span class="nf">generate</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+    <span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="n">seed</span><span class="p">);</span> <span class="n">out</span> <span class="o">=</span> <span class="p">[</span><span class="n">start</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">follow</span><span class="p">[</span><span class="n">out</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]])))</span>     <span class="c1"># sample next word by observed frequency</span>
+    <span class="k">return</span> <span class="s2">" "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]:</span> <span class="nb">print</span><span class="p">(</span><span class="n">generate</span><span class="p">(</span><span class="s2">"the"</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="n">s</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">the market . the farmer sells rice and the shop sells rice to the market
+the rider carries flour to the market sells maize and the farmer sells beans at
+the shop and the market . the shop sells rice and beans . the market</pre></div></div>
+<p>The sentences look plausible but drift and repeat, because each word only sees one word of history. Real LLMs use thousands of previous tokens and billions of learned numbers instead of a count table, but the loop is the same: predict a distribution over the next token, pick one, append, repeat.</p>
+
+<h2 id="16-3-embeddings-words-as-vectors"><a class="anchor" href="#16-3-embeddings-words-as-vectors" aria-label="Link to this section">#</a>16.3 Embeddings: words as vectors</h2>
+
+<p>A computer needs numbers. An <strong>embedding</strong> gives each word a short list of numbers (a vector) so that words used in similar ways get similar vectors. A simple way to build them: count which words appear near each other, then compress the count table with <strong>SVD</strong> (a matrix factorisation from Part 13's dimension reduction).</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="n">sents</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"farmer grows maize"</span><span class="p">,</span> <span class="s2">"farmer grows beans"</span><span class="p">,</span> <span class="s2">"farmer sells maize"</span><span class="p">,</span> <span class="s2">"trader sells beans"</span><span class="p">,</span>
+         <span class="s2">"trader sells rice"</span><span class="p">,</span> <span class="s2">"farmer grows rice"</span><span class="p">,</span> <span class="s2">"technician repairs phone"</span><span class="p">,</span> <span class="s2">"technician repairs screen"</span><span class="p">,</span>
+         <span class="s2">"technician fixes phone"</span><span class="p">,</span> <span class="s2">"technician fixes screen"</span><span class="p">,</span> <span class="s2">"customer buys phone"</span><span class="p">,</span> <span class="s2">"customer buys screen"</span><span class="p">,</span>
+         <span class="s2">"customer buys maize"</span><span class="p">,</span> <span class="s2">"trader buys rice"</span><span class="p">]</span>
+<span class="n">vocab</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">({</span><span class="n">w</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">sents</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">s</span><span class="o">.</span><span class="n">split</span><span class="p">()});</span> <span class="n">ix</span> <span class="o">=</span> <span class="p">{</span><span class="n">w</span><span class="p">:</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">w</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">vocab</span><span class="p">)}</span>
+<span class="n">C</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">vocab</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">vocab</span><span class="p">)))</span>
+<span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">sents</span><span class="p">:</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">j</span><span class="p">:</span> <span class="n">C</span><span class="p">[</span><span class="n">ix</span><span class="p">[</span><span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="p">]],</span> <span class="n">ix</span><span class="p">[</span><span class="n">t</span><span class="p">[</span><span class="n">j</span><span class="p">]]]</span> <span class="o">+=</span> <span class="mi">1</span>          <span class="c1"># co-occurs in the same short sentence</span>
+<span class="n">tot</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">sum</span><span class="p">();</span> <span class="n">pw</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">/</span> <span class="n">tot</span><span class="p">;</span> <span class="n">pc</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">/</span> <span class="n">tot</span>
+<span class="n">ppmi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">((</span><span class="n">C</span> <span class="o">/</span> <span class="n">tot</span> <span class="o">+</span> <span class="mf">1e-12</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">pw</span> <span class="o">*</span> <span class="n">pc</span><span class="p">)),</span> <span class="mi">0</span><span class="p">)</span>    <span class="c1"># positive pointwise mutual information</span>
+<span class="n">U</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">Vt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">ppmi</span><span class="p">)</span>
+<span class="n">E</span> <span class="o">=</span> <span class="n">U</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">3</span><span class="p">]</span> <span class="o">*</span> <span class="n">S</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span>                                           <span class="c1"># 3-number embedding per word</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"vocabulary size:"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">vocab</span><span class="p">),</span> <span class="s2">"| embedding shape:"</span><span class="p">,</span> <span class="n">E</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">vocabulary size: 14 | embedding shape: (14, 3)</pre></div></div>
+<p><strong>Cosine similarity</strong> compares the direction of two vectors: 1 means the same direction, 0 unrelated, -1 opposite. It ignores length, which is why it suits embeddings.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="k">def</span><span class="w"> </span><span class="nf">cos</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span> <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">a</span> <span class="o">@</span> <span class="n">b</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">b</span><span class="p">)))</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">sim</span><span class="p">(</span><span class="n">w1</span><span class="p">,</span> <span class="n">w2</span><span class="p">):</span> <span class="k">return</span> <span class="nb">round</span><span class="p">(</span><span class="n">cos</span><span class="p">(</span><span class="n">E</span><span class="p">[</span><span class="n">ix</span><span class="p">[</span><span class="n">w1</span><span class="p">]],</span> <span class="n">E</span><span class="p">[</span><span class="n">ix</span><span class="p">[</span><span class="n">w2</span><span class="p">]]),</span> <span class="mi">2</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">pair</span> <span class="ow">in</span> <span class="p">[(</span><span class="s2">"maize"</span><span class="p">,</span> <span class="s2">"beans"</span><span class="p">),</span> <span class="p">(</span><span class="s2">"maize"</span><span class="p">,</span> <span class="s2">"rice"</span><span class="p">),</span> <span class="p">(</span><span class="s2">"phone"</span><span class="p">,</span> <span class="s2">"screen"</span><span class="p">),</span> <span class="p">(</span><span class="s2">"maize"</span><span class="p">,</span> <span class="s2">"phone"</span><span class="p">)]:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">pair</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">&gt;6</span><span class="si">}</span><span class="s2"> vs </span><span class="si">{</span><span class="n">pair</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">&lt;6</span><span class="si">}</span><span class="s2"> cosine = </span><span class="si">{</span><span class="n">sim</span><span class="p">(</span><span class="o">*</span><span class="n">pair</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out"> maize vs beans  cosine = 0.97
+ maize vs rice   cosine = 0.98
+ phone vs screen cosine = 1.0
+ maize vs phone  cosine = 0.37</pre></div></div>
+<p>Food words should score closer to each other than to phone words. The model was never told what a phone is; it inferred it from where the word appears. Modern LLMs learn embeddings with hundreds or thousands of numbers per token, and also embed whole sentences for search (used in 16.7).</p>
+
+<h2 id="16-4-how-llms-are-trained"><a class="anchor" href="#16-4-how-llms-are-trained" aria-label="Link to this section">#</a>16.4 How LLMs are trained</h2>
+
+<p>An LLM is built in stages. Each stage changes what the model is good at.</p>
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Stage</th>
+<th>What happens</th>
+<th>Plain picture</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pretraining</td>
+<td>Predict the next token over a huge text collection</td>
+<td>Reading a vast library</td>
+</tr>
+<tr>
+<td>Fine-tuning</td>
+<td>Continue training on a smaller, focused set</td>
+<td>Studying a specialty, e.g. banking</td>
+</tr>
+<tr>
+<td>Instruction tuning</td>
+<td>Train on (instruction, good answer) pairs</td>
+<td>Learning to follow requests</td>
+</tr>
+<tr>
+<td>RLHF</td>
+<td>People rank answers; a reward model learns taste; RL tunes the model</td>
+<td>A coach rewarding better answers</td>
+</tr>
+</tbody>
+</table></div>
+
+<p><strong>Pretraining</strong> gives broad knowledge and fluent language but not manners: a pretrained model may just continue your sentence. <strong>Instruction tuning</strong> makes it behave like an assistant. <strong>RLHF</strong> (reinforcement learning from human feedback, linked to Part 15) pushes it toward answers people judge helpful and safe. None of these steps guarantees truth: the model learns to produce likely text, not verified facts.</p>
+
+<div class="callout tip"><p><strong>Remember.</strong> Training data has a cut-off date. An LLM does not know about events after it, unless you give it the information in the prompt (see RAG in 16.7).</p>
+</div>
+<h2 id="16-5-sampling-temperature-top-k-and-top-p"><a class="anchor" href="#16-5-sampling-temperature-top-k-and-top-p" aria-label="Link to this section">#</a>16.5 Sampling: temperature, top-k and top-p</h2>
+
+<p>At each step the model produces a score for every token in the vocabulary. These scores become probabilities (softmax, Part 14). <strong>Sampling</strong> decides how to pick from them. <strong>Temperature</strong> divides the scores first: low temperature sharpens the distribution (safe, repetitive), high temperature flattens it (varied, riskier). <strong>Top-k</strong> keeps only the k most likely tokens. <strong>Top-p</strong> (nucleus) keeps the smallest set whose probabilities add up to p.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="n">tokens</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"loan"</span><span class="p">,</span> <span class="s2">"payment"</span><span class="p">,</span> <span class="s2">"account"</span><span class="p">,</span> <span class="s2">"banana"</span><span class="p">,</span> <span class="s2">"the"</span><span class="p">,</span> <span class="s2">"zebra"</span><span class="p">]</span>
+<span class="n">logits</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">])</span>            <span class="c1"># made-up scores for the next word</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">probs</span><span class="p">(</span><span class="n">temp</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">logits</span> <span class="o">/</span> <span class="n">temp</span><span class="p">;</span> <span class="n">z</span> <span class="o">=</span> <span class="n">z</span> <span class="o">-</span> <span class="n">z</span><span class="o">.</span><span class="n">max</span><span class="p">();</span> <span class="n">e</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">z</span><span class="p">);</span> <span class="k">return</span> <span class="n">e</span> <span class="o">/</span> <span class="n">e</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">T</span> <span class="ow">in</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">]:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"T=</span><span class="si">{</span><span class="n">T</span><span class="si">}</span><span class="s2">:"</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">tokens</span><span class="p">,</span> <span class="n">probs</span><span class="p">(</span><span class="n">T</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">())))</span>
+</code></pre></div><div class="cell-out"><pre class="out">T=0.5: {&#x27;loan&#x27;: 0.64, &#x27;payment&#x27;: 0.24, &#x27;account&#x27;: 0.09, &#x27;banana&#x27;: 0.0, &#x27;the&#x27;: 0.03, &#x27;zebra&#x27;: 0.0}
+T=1.0: {&#x27;loan&#x27;: 0.44, &#x27;payment&#x27;: 0.26, &#x27;account&#x27;: 0.16, &#x27;banana&#x27;: 0.04, &#x27;the&#x27;: 0.1, &#x27;zebra&#x27;: 0.01}
+T=2.0: {&#x27;loan&#x27;: 0.3, &#x27;payment&#x27;: 0.24, &#x27;account&#x27;: 0.18, &#x27;banana&#x27;: 0.09, &#x27;the&#x27;: 0.14, &#x27;zebra&#x27;: 0.04}</pre></div></div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="k">def</span><span class="w"> </span><span class="nf">top_k</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+    <span class="n">q</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">copy</span><span class="p">();</span> <span class="n">q</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">p</span><span class="p">)[:</span><span class="o">-</span><span class="n">k</span><span class="p">]]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="k">return</span> <span class="n">q</span> <span class="o">/</span> <span class="n">q</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">top_p</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">thr</span><span class="p">):</span>
+    <span class="n">order</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="o">-</span><span class="n">p</span><span class="p">);</span> <span class="n">keep</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="n">order</span><span class="p">])</span> <span class="o">-</span> <span class="n">p</span><span class="p">[</span><span class="n">order</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">thr</span>
+    <span class="n">q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">p</span><span class="p">);</span> <span class="n">q</span><span class="p">[</span><span class="n">order</span><span class="p">[</span><span class="n">keep</span><span class="p">]]</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="n">order</span><span class="p">[</span><span class="n">keep</span><span class="p">]];</span> <span class="k">return</span> <span class="n">q</span> <span class="o">/</span> <span class="n">q</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">probs</span><span class="p">(</span><span class="mf">1.0</span><span class="p">);</span> <span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"top-k=2 :"</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">tokens</span><span class="p">,</span> <span class="n">top_k</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">())))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"top-p=.9:"</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">tokens</span><span class="p">,</span> <span class="n">top_p</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">())))</span>
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">q</span> <span class="ow">in</span> <span class="p">[(</span><span class="s2">"T=0.5"</span><span class="p">,</span> <span class="n">probs</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)),</span> <span class="p">(</span><span class="s2">"T=2.0"</span><span class="p">,</span> <span class="n">probs</span><span class="p">(</span><span class="mf">2.0</span><span class="p">)),</span> <span class="p">(</span><span class="s2">"top-p .9"</span><span class="p">,</span> <span class="n">top_p</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">))]:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">name</span><span class="si">:</span><span class="s2">&gt;8</span><span class="si">}</span><span class="s2"> -&gt;"</span><span class="p">,</span> <span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">tokens</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">q</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+</code></pre></div><div class="cell-out"><pre class="out">top-k=2 : {&#x27;loan&#x27;: 0.62, &#x27;payment&#x27;: 0.38, &#x27;account&#x27;: 0.0, &#x27;banana&#x27;: 0.0, &#x27;the&#x27;: 0.0, &#x27;zebra&#x27;: 0.0}
+top-p=.9: {&#x27;loan&#x27;: 0.46, &#x27;payment&#x27;: 0.28, &#x27;account&#x27;: 0.17, &#x27;banana&#x27;: 0.0, &#x27;the&#x27;: 0.1, &#x27;zebra&#x27;: 0.0}
+   T=0.5 -&gt; [&#x27;payment&#x27;, &#x27;payment&#x27;, &#x27;loan&#x27;, &#x27;loan&#x27;, &#x27;loan&#x27;, &#x27;loan&#x27;, &#x27;loan&#x27;, &#x27;loan&#x27;, &#x27;loan&#x27;, &#x27;the&#x27;]
+   T=2.0 -&gt; [&#x27;account&#x27;, &#x27;loan&#x27;, &#x27;payment&#x27;, &#x27;zebra&#x27;, &#x27;the&#x27;, &#x27;the&#x27;, &#x27;payment&#x27;, &#x27;payment&#x27;, &#x27;account&#x27;, &#x27;loan&#x27;]
+top-p .9 -&gt; [&#x27;payment&#x27;, &#x27;loan&#x27;, &#x27;account&#x27;, &#x27;loan&#x27;, &#x27;payment&#x27;, &#x27;account&#x27;, &#x27;loan&#x27;, &#x27;account&#x27;, &#x27;account&#x27;, &#x27;loan&#x27;]</pre></div></div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="n">BLUE</span><span class="p">,</span> <span class="n">GREEN</span><span class="p">,</span> <span class="n">GREY</span><span class="p">,</span> <span class="n">DARK</span><span class="p">,</span> <span class="n">AMBER</span> <span class="o">=</span> <span class="s2">"#1F5FD6"</span><span class="p">,</span> <span class="s2">"#2BB38A"</span><span class="p">,</span> <span class="s2">"#9CA3AF"</span><span class="p">,</span> <span class="s2">"#0B2A4A"</span><span class="p">,</span> <span class="s2">"#B45309"</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">tokens</span><span class="p">));</span> <span class="n">w</span> <span class="o">=</span> <span class="mf">0.27</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">3.6</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">([(</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">BLUE</span><span class="p">),</span> <span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">GREEN</span><span class="p">),</span> <span class="p">(</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">GREY</span><span class="p">)]):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">w</span><span class="p">,</span> <span class="n">probs</span><span class="p">(</span><span class="n">T</span><span class="p">),</span> <span class="n">w</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">c</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">"temperature </span><span class="si">{</span><span class="n">T</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">tokens</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">"Next-word probabilities at three temperatures (made-up scores)"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">"Candidate next word"</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">"Probability"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">"p16_temperature.png"</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">130</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"saved p16_temperature.png"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">saved p16_temperature.png</pre></div></div>
+<div class="cell only-out"><div class="cell-out"><figure class="fig"><img src="img/part-16-052.png" alt="Chart output" loading="lazy"></figure></div></div>
+<p>Low temperature piles probability on the top word; high temperature spreads it out.</p>
+
+<p>Practical rule: use low temperature for facts, extraction and code; higher temperature for brainstorming names or wording.</p>
+
+<h2 id="16-6-prompting-techniques"><a class="anchor" href="#16-6-prompting-techniques" aria-label="Link to this section">#</a>16.6 Prompting techniques</h2>
+
+<p>A <strong>prompt</strong> is the text you give the model. Clear prompts get better answers. The main techniques:</p>
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Technique</th>
+<th>What you do</th>
+<th>Use when</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Zero-shot</td>
+<td>Ask directly, no examples</td>
+<td>Simple, common tasks</td>
+</tr>
+<tr>
+<td>Few-shot</td>
+<td>Show 2 to 4 input/output examples first</td>
+<td>You need a specific format or label style</td>
+</tr>
+<tr>
+<td>Role / context</td>
+<td>Say who it is helping and for what</td>
+<td>Tone and detail matter</td>
+</tr>
+<tr>
+<td>Structured output</td>
+<td>Ask for JSON or a fixed table</td>
+<td>Another program reads the answer</td>
+</tr>
+<tr>
+<td>Step by step</td>
+<td>Ask it to reason before answering</td>
+<td>Maths, logic, multi-step checks</td>
+</tr>
+</tbody>
+</table></div>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">examples</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">"Send Ksh 500 to Mary"</span><span class="p">,</span> <span class="s2">"Send Money"</span><span class="p">),</span> <span class="p">(</span><span class="s2">"Pay KPLC token Ksh 1000"</span><span class="p">,</span> <span class="s2">"Bill Payment"</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">"Buy Ksh 50 airtime"</span><span class="p">,</span> <span class="s2">"Airtime"</span><span class="p">)]</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">few_shot</span><span class="p">(</span><span class="n">new_text</span><span class="p">):</span>
+    <span class="n">shots</span> <span class="o">=</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Message: </span><span class="si">{</span><span class="n">m</span><span class="si">}</span><span class="se">\n</span><span class="s2">Category: </span><span class="si">{</span><span class="n">c</span><span class="si">}</span><span class="s2">"</span> <span class="k">for</span> <span class="n">m</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">examples</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="s2">"You label M-Pesa style messages. Reply with JSON only: {</span><span class="se">\"</span><span class="s2">category</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">...</span><span class="se">\"</span><span class="s2">}.</span><span class="se">\n\n</span><span class="s2">"</span>
+            <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">shots</span><span class="si">}</span><span class="se">\n</span><span class="s2">Message: </span><span class="si">{</span><span class="n">new_text</span><span class="si">}</span><span class="se">\n</span><span class="s2">Category:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">few_shot</span><span class="p">(</span><span class="s2">"Withdraw Ksh 2000 at the agent"</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">You label M-Pesa style messages. Reply with JSON only: {&quot;category&quot;: &quot;...&quot;}.
+
+Message: Send Ksh 500 to Mary
+Category: Send Money
+Message: Pay KPLC token Ksh 1000
+Category: Bill Payment
+Message: Buy Ksh 50 airtime
+Category: Airtime
+Message: Withdraw Ksh 2000 at the agent
+Category:</pre></div></div>
+<p>When a program reads the reply, always validate it. Models sometimes return text that is almost, but not quite, valid JSON.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="n">replies</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'{"category": "Withdrawal"}'</span><span class="p">,</span> <span class="s1">'Sure! The category is Withdrawal.'</span><span class="p">]</span>
+<span class="n">allowed</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"Send Money"</span><span class="p">,</span> <span class="s2">"Withdrawal"</span><span class="p">,</span> <span class="s2">"Deposit"</span><span class="p">,</span> <span class="s2">"Bill Payment"</span><span class="p">,</span> <span class="s2">"Airtime"</span><span class="p">}</span>
+<span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">replies</span><span class="p">:</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">cat</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">r</span><span class="p">)[</span><span class="s2">"category"</span><span class="p">]</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"ok     :"</span><span class="p">,</span> <span class="n">cat</span><span class="p">,</span> <span class="s2">"| allowed:"</span><span class="p">,</span> <span class="n">cat</span> <span class="ow">in</span> <span class="n">allowed</span><span class="p">)</span>
+    <span class="k">except</span> <span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">JSONDecodeError</span><span class="p">,</span> <span class="ne">KeyError</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"reject :"</span><span class="p">,</span> <span class="n">r</span><span class="p">[:</span><span class="mi">30</span><span class="p">],</span> <span class="s2">"-&gt; ask again or flag for review"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">ok     : Withdrawal | allowed: True
+reject : Sure! The category is Withdraw -&gt; ask again or flag for review</pre></div></div>
+<div class="callout tip"><p><strong>Tip.</strong> Common mistake: a vague prompt ('analyse this'). Say the goal, the data columns, the format you want, and what to do when unsure (for example 'say I do not know').</p>
+</div>
+<h2 id="16-7-retrieval-augmented-generation-rag"><a class="anchor" href="#16-7-retrieval-augmented-generation-rag" aria-label="Link to this section">#</a>16.7 Retrieval-augmented generation (RAG)</h2>
+
+<p>An LLM only knows what it was trained on. <strong>Retrieval-augmented generation</strong> fixes this: first RETRIEVE the most relevant passages from your own documents, then paste them into the prompt and tell the model to answer only from them. This gives current, company-specific answers and lets you cite the source. Retrieval can use embeddings; here we use <strong>TF-IDF</strong> (Part 11), which scores words that are frequent in a document but rare overall. The documents below are invented for this demo.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.feature_extraction.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">TfidfVectorizer</span>
+<span class="n">docs</span> <span class="o">=</span> <span class="p">{</span>
+ <span class="s2">"D1 Savings"</span><span class="p">:</span> <span class="s2">"Members must save at least Ksh 500 each month. Savings are withdrawable after 6 months."</span><span class="p">,</span>
+ <span class="s2">"D2 Loans"</span><span class="p">:</span> <span class="s2">"A member can borrow up to three times their savings. Loan repayment period is at most 24 months."</span><span class="p">,</span>
+ <span class="s2">"D3 Interest"</span><span class="p">:</span> <span class="s2">"Loan interest is 1 percent per month on the reducing balance, as agreed in the sample policy."</span><span class="p">,</span>
+ <span class="s2">"D4 Meetings"</span><span class="p">:</span> <span class="s2">"The annual general meeting is held in March. Members receive notice 14 days before."</span><span class="p">,</span>
+ <span class="s2">"D5 Penalties"</span><span class="p">:</span> <span class="s2">"A late loan instalment attracts a penalty of 5 percent of the instalment amount."</span><span class="p">,</span>
+ <span class="s2">"D6 Membership"</span><span class="p">:</span> <span class="s2">"New members pay a joining fee of Ksh 1,000 and need two existing members as referees."</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="n">vec</span> <span class="o">=</span> <span class="n">TfidfVectorizer</span><span class="p">(</span><span class="n">stop_words</span><span class="o">=</span><span class="s2">"english"</span><span class="p">);</span> <span class="n">M</span> <span class="o">=</span> <span class="n">vec</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">docs</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">retrieve</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="p">(</span><span class="n">M</span> <span class="o">@</span> <span class="n">vec</span><span class="o">.</span><span class="n">transform</span><span class="p">([</span><span class="n">q</span><span class="p">])</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>           <span class="c1"># cosine-like score per document</span>
+    <span class="n">best</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="o">-</span><span class="n">s</span><span class="p">)[:</span><span class="n">k</span><span class="p">]</span>
+    <span class="k">return</span> <span class="p">[(</span><span class="nb">list</span><span class="p">(</span><span class="n">docs</span><span class="p">)[</span><span class="n">i</span><span class="p">],</span> <span class="nb">round</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span> <span class="mi">2</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">best</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">retrieve</span><span class="p">(</span><span class="s2">"What is the penalty for paying a loan late?"</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">retrieve</span><span class="p">(</span><span class="s2">"How much can I borrow?"</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">[(&#x27;D5 Penalties&#x27;, 0.55), (&#x27;D3 Interest&#x27;, 0.12)]
+[(&#x27;D2 Loans&#x27;, 0.36), (&#x27;D1 Savings&#x27;, 0.0)]</pre></div></div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">q</span> <span class="o">=</span> <span class="s2">"What is the penalty for paying a loan late?"</span>
+<span class="n">hits</span> <span class="o">=</span> <span class="p">[</span><span class="n">name</span> <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">retrieve</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span>
+<span class="n">context</span> <span class="o">=</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s2">"[</span><span class="si">{</span><span class="n">h</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">docs</span><span class="p">[</span><span class="n">h</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">hits</span><span class="p">)</span>
+<span class="n">prompt</span> <span class="o">=</span> <span class="p">(</span><span class="sa">f</span><span class="s2">"Answer using ONLY the context. Cite the [id]. If the answer is not there, say you do not know.</span><span class="se">\n\n</span><span class="s2">"</span>
+          <span class="sa">f</span><span class="s2">"Context:</span><span class="se">\n</span><span class="si">{</span><span class="n">context</span><span class="si">}</span><span class="se">\n\n</span><span class="s2">Question: </span><span class="si">{</span><span class="n">q</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">prompt</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">Answer using ONLY the context. Cite the [id]. If the answer is not there, say you do not know.
+
+Context:
+[D5 Penalties] A late loan instalment attracts a penalty of 5 percent of the instalment amount.
+[D3 Interest] Loan interest is 1 percent per month on the reducing balance, as agreed in the sample policy.
+
+Question: What is the penalty for paying a loan late?</pre></div></div>
+<p>The final step sends this prompt to an LLM (see 16.9). Quality depends on retrieval: if the right passage is not found, the model cannot use it. Always test retrieval on real questions before blaming the model.</p>
+
+<div class="callout real"><p><strong>Using it in the real world.</strong> <strong>Data you need:</strong> clean, current documents, split into small passages with an owner who keeps them updated. <strong>Validate:</strong> a list of real questions with the correct source passage; measure how often it is retrieved. <strong>How it fails:</strong> outdated or conflicting documents, wrong passage retrieved, a model that ignores the context. <strong>Monitor:</strong> log questions with no good match and review user complaints weekly. Example: a SACCO help desk answering member questions from its own rulebook.</p>
+</div>
+<h2 id="16-8-evaluating-llm-outputs"><a class="anchor" href="#16-8-evaluating-llm-outputs" aria-label="Link to this section">#</a>16.8 Evaluating LLM outputs</h2>
+
+<p>There is no single accuracy score for a chat answer, so evaluate in layers: automatic checks for what is checkable (format, required facts, numbers that appear in the source), then human review of a sample, then tracking over time. Build a small <strong>test set</strong> of questions with known answers BEFORE choosing a prompt or model.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+<span class="n">tests</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">"What is the late penalty?"</span><span class="p">,</span> <span class="s2">"5 percent"</span><span class="p">,</span> <span class="s2">"Late instalments carry a 5 percent penalty [D5 Penalties]."</span><span class="p">),</span>
+         <span class="p">(</span><span class="s2">"What is the joining fee?"</span><span class="p">,</span> <span class="s2">"Ksh 1,000"</span><span class="p">,</span> <span class="s2">"The joining fee is Ksh 1,500 [D6 Membership]."</span><span class="p">),</span>
+         <span class="p">(</span><span class="s2">"When is the AGM?"</span><span class="p">,</span> <span class="s2">"March"</span><span class="p">,</span> <span class="s2">"I do not know."</span><span class="p">)]</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">check</span><span class="p">(</span><span class="n">expected</span><span class="p">,</span> <span class="n">answer</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">"has_fact"</span><span class="p">:</span> <span class="n">expected</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">answer</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span>
+            <span class="s2">"cites_source"</span><span class="p">:</span> <span class="nb">bool</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s2">"\[D\d"</span><span class="p">,</span> <span class="n">answer</span><span class="p">)),</span>
+            <span class="s2">"says_unknown"</span><span class="p">:</span> <span class="s2">"do not know"</span> <span class="ow">in</span> <span class="n">answer</span><span class="o">.</span><span class="n">lower</span><span class="p">()}</span>
+<span class="k">for</span> <span class="n">q</span><span class="p">,</span> <span class="n">exp</span><span class="p">,</span> <span class="n">ans</span> <span class="ow">in</span> <span class="n">tests</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">check</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">ans</span><span class="p">))</span>
+<span class="n">passed</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">check</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">a</span><span class="p">)[</span><span class="s2">"has_fact"</span><span class="p">]</span> <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">tests</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"facts correct: </span><span class="si">{</span><span class="n">passed</span><span class="si">}</span><span class="s2"> of </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">tests</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">What is the late penalty? -&gt; {&#x27;has_fact&#x27;: True, &#x27;cites_source&#x27;: True, &#x27;says_unknown&#x27;: False}
+What is the joining fee? -&gt; {&#x27;has_fact&#x27;: False, &#x27;cites_source&#x27;: True, &#x27;says_unknown&#x27;: False}
+When is the AGM? -&gt; {&#x27;has_fact&#x27;: False, &#x27;cites_source&#x27;: False, &#x27;says_unknown&#x27;: True}
+facts correct: 1 of 3</pre></div></div>
+<p>The second answer sounds confident and cites a source, yet the fee is wrong. Style checks alone would pass it; only the fact check catches it. The third refuses honestly, which is safer than guessing, but still counts as a miss on a question the documents CAN answer, so retrieval needs a look.</p>
+
+<h2 id="16-9-hallucinations-bias-privacy-and-safe-use"><a class="anchor" href="#16-9-hallucinations-bias-privacy-and-safe-use" aria-label="Link to this section">#</a>16.9 Hallucinations, bias, privacy and safe use</h2>
+
+<p>A <strong>hallucination</strong> is fluent output that is false: an invented statistic, a function that does not exist, a citation to a paper nobody wrote. It happens because the model produces likely text, not checked facts.</p>
+
+<ul>
+<li><strong>Hallucination:</strong> verify every number, name, date and library function against a trusted source.</li>
+<li><strong>Bias:</strong> models reflect patterns in their training text, so outputs can stereotype. Never use raw LLM output to decide on people (credit, hiring) without fairness checks, see Part 18.</li>
+<li><strong>Privacy:</strong> anything you paste may be stored or seen by others. NEVER paste confidential data: customer names, phone numbers, ID numbers, account details, passwords, API keys, or unpublished company figures. Use synthetic or anonymised samples, or an approved internal tool.</li>
+<li><strong>Prompt injection:</strong> text inside a document or web page can contain hidden instructions. Treat retrieved text as data, not as commands.</li>
+<li><strong>Over-trust:</strong> fluent does not mean correct. A human stays accountable for the result.</li>
+</ul>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">redact</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">"\b(?:\+?254|0)7\d</span><span class="si">{8}</span><span class="s2">\b"</span><span class="p">,</span> <span class="s2">"[PHONE]"</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>       <span class="c1"># Kenyan mobile numbers</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">"\b\d{7,8}\b"</span><span class="p">,</span> <span class="s2">"[ID_NUMBER]"</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>               <span class="c1"># 7-8 digit ID-like numbers</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">"[\w.]+@[\w.]+\.\w+"</span><span class="p">,</span> <span class="s2">"[EMAIL]"</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">text</span>
+<span class="n">raw</span> <span class="o">=</span> <span class="s2">"Customer Jane, phone 0712345678, ID 12345678, email jane@example.com missed her payment."</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">redact</span><span class="p">(</span><span class="n">raw</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">Customer Jane, phone [PHONE], ID [ID_NUMBER], email [EMAIL] missed her payment.</pre></div></div>
+<div class="callout mistake"><p><strong>Careful.</strong> Redaction like this is a safety net, not a guarantee: names and free text can still leak. The safest habit is to share only synthetic or aggregated data.</p>
+</div>
+<h2 id="16-10-calling-an-llm-from-python-and-an-ai-assisted-workflow"><a class="anchor" href="#16-10-calling-an-llm-from-python-and-an-ai-assisted-workflow" aria-label="Link to this section">#</a>16.10 Calling an LLM from Python and an AI-assisted workflow</h2>
+
+<p>The code below needs the <code>anthropic</code> package, an internet connection and an API key, so it is shown but not run. The key is read from an environment variable; never type it into a notebook or commit it to Git.</p>
+
+<pre class="code"><code><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">anthropic</span><span class="w"> </span><span class="kn">import</span> <span class="n">Anthropic</span>            <span class="c1"># pip install anthropic</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="n">Anthropic</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">"ANTHROPIC_API_KEY"</span><span class="p">])</span>
+<span class="n">reply</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">messages</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+    <span class="n">model</span><span class="o">=</span><span class="s2">"claude-sonnet-5-5"</span><span class="p">,</span>
+    <span class="n">max_tokens</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>
+    <span class="n">temperature</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>                        <span class="c1"># low: we want consistent answers</span>
+    <span class="n">system</span><span class="o">=</span><span class="s2">"You help a data analyst. Say so when you are unsure."</span><span class="p">,</span>
+    <span class="n">messages</span><span class="o">=</span><span class="p">[{</span><span class="s2">"role"</span><span class="p">:</span> <span class="s2">"user"</span><span class="p">,</span> <span class="s2">"content"</span><span class="p">:</span> <span class="n">prompt</span><span class="p">}],</span>     <span class="c1"># the RAG prompt built in 16.7</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">reply</span><span class="o">.</span><span class="n">content</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+</code></pre>
+<p><em>Not executed in this notebook (needs a service or setting you must provide yourself).</em></p>
+
+<p>A good analytics workflow treats the assistant as a fast junior colleague: you own the question and the decision; it drafts. Every draft is verified before use.</p>
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Step</th>
+<th>You do</th>
+<th>The assistant helps with</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Frame</td>
+<td>State the business question</td>
+<td>Sharpen it, list checks</td>
+</tr>
+<tr>
+<td>2. Draft</td>
+<td>Give schema and synthetic sample rows</td>
+<td>Draft pandas or SQL code</td>
+</tr>
+<tr>
+<td>3. Verify</td>
+<td>Run it; recompute a second way</td>
+<td>Suggest more tests</td>
+</tr>
+<tr>
+<td>4. Explain</td>
+<td>Decide what to recommend</td>
+<td>Tighten wording</td>
+</tr>
+<tr>
+<td>5. Review</td>
+<td>Check every number against output</td>
+<td>Nothing: this step is yours</td>
+</tr>
+</tbody>
+</table></div>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span><span class="o">,</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">loans</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">"product"</span><span class="p">:</span> <span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s2">"Digital"</span><span class="p">,</span> <span class="s2">"Salary"</span><span class="p">,</span> <span class="s2">"SME"</span><span class="p">],</span> <span class="mi">400</span><span class="p">),</span>
+                      <span class="s2">"defaulted"</span><span class="p">:</span> <span class="n">rng</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="mi">400</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">0.12</span><span class="p">})</span>                  <span class="c1"># synthetic</span>
+<span class="n">draft</span> <span class="o">=</span> <span class="n">loans</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"product"</span><span class="p">)[</span><span class="s2">"defaulted"</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>                         <span class="c1"># the assistant's draft</span>
+<span class="n">check</span> <span class="o">=</span> <span class="p">{</span><span class="n">p</span><span class="p">:</span> <span class="n">g</span><span class="p">[</span><span class="s2">"defaulted"</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">g</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span><span class="p">,</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">loans</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"product"</span><span class="p">)}</span>   <span class="c1"># your recount</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">draft</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">to_dict</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"matches independent recount:"</span><span class="p">,</span> <span class="nb">all</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">draft</span><span class="p">[</span><span class="n">p</span><span class="p">]</span> <span class="o">-</span> <span class="n">v</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">1e-9</span> <span class="k">for</span> <span class="n">p</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">check</span><span class="o">.</span><span class="n">items</span><span class="p">()))</span>
+</code></pre></div><div class="cell-out"><pre class="out">{&#x27;Digital&#x27;: 0.171, &#x27;SME&#x27;: 0.127, &#x27;Salary&#x27;: 0.062}
+matches independent recount: True</pre></div></div>
+<ul>
+<li>Does it run top to bottom in a fresh session?</li>
+<li>Are row counts sensible after every join? (<code>validate=</code> in merges)</li>
+<li>Do totals reconcile with the source or an SQL query?</li>
+<li>Is any function or library name invented? Check the official docs.</li>
+<li>Does the wording claim more than the data shows?</li>
+</ul>
+
+<h2 id="16-11-attention-and-the-transformer-advanced"><a class="anchor" href="#16-11-attention-and-the-transformer-advanced" aria-label="Link to this section">#</a>16.11 Attention and the transformer (Advanced)</h2>
+
+<p>Older text models read word by word and forgot the start of long sentences. The <strong>transformer</strong> (the design behind modern LLMs) lets every token look at every other token at once using <strong>attention</strong>. For each token the model builds three vectors: a <strong>query</strong> (what am I looking for?), a <strong>key</strong> (what do I contain?) and a <strong>value</strong> (what I pass on). The match score of a query with each key says how much to read from each value.</p>
+
+<p>In formula words: weights = softmax(Q times K-transposed divided by sqrt(d)); output = weights times V. The division by sqrt(d), the vector length, keeps scores from growing too large.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">toks</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"the"</span><span class="p">,</span> <span class="s2">"rider"</span><span class="p">,</span> <span class="s2">"carried"</span><span class="p">,</span> <span class="s2">"parcel"</span><span class="p">];</span> <span class="n">d</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">d</span><span class="p">))</span>                                  <span class="c1"># token embeddings (random here)</span>
+<span class="n">Wq</span><span class="p">,</span> <span class="n">Wk</span><span class="p">,</span> <span class="n">Wv</span> <span class="o">=</span> <span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">d</span><span class="p">))</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>     <span class="c1"># learned in a real model</span>
+<span class="n">Q</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">V</span> <span class="o">=</span> <span class="n">X</span> <span class="o">@</span> <span class="n">Wq</span><span class="p">,</span> <span class="n">X</span> <span class="o">@</span> <span class="n">Wk</span><span class="p">,</span> <span class="n">X</span> <span class="o">@</span> <span class="n">Wv</span>
+<span class="n">scores</span> <span class="o">=</span> <span class="n">Q</span> <span class="o">@</span> <span class="n">K</span><span class="o">.</span><span class="n">T</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+<span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">scores</span> <span class="o">-</span> <span class="n">scores</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">));</span> <span class="n">w</span> <span class="o">=</span> <span class="n">w</span> <span class="o">/</span> <span class="n">w</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>   <span class="c1"># softmax</span>
+<span class="n">out</span> <span class="o">=</span> <span class="n">w</span> <span class="o">@</span> <span class="n">V</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"attention weights (rows = who looks, columns = who is looked at):"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"each row sums to 1:"</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">w</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="mi">1</span><span class="p">),</span> <span class="s2">"| output shape:"</span><span class="p">,</span> <span class="n">out</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">attention weights (rows = who looks, columns = who is looked at):
+[[0.03 0.01 0.31 0.65]
+ [0.   0.   0.13 0.87]
+ [0.07 0.08 0.24 0.61]
+ [0.14 0.07 0.42 0.37]]
+each row sums to 1: True | output shape: (4, 4)</pre></div></div>
+<p>In a real model the weights Wq, Wk, Wv are learned, so 'carried' would attend strongly to 'rider' and 'parcel'. Here they are random, so the pattern means nothing; the mechanics are the point.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.patches</span><span class="w"> </span><span class="kn">import</span> <span class="n">FancyBboxPatch</span>
+<span class="n">BLUE</span><span class="p">,</span> <span class="n">GREEN</span><span class="p">,</span> <span class="n">GREY</span><span class="p">,</span> <span class="n">DARK</span><span class="p">,</span> <span class="n">AMBER</span> <span class="o">=</span> <span class="s2">"#1F5FD6"</span><span class="p">,</span> <span class="s2">"#2BB38A"</span><span class="p">,</span> <span class="s2">"#9CA3AF"</span><span class="p">,</span> <span class="s2">"#0B2A4A"</span><span class="p">,</span> <span class="s2">"#B45309"</span>
+<span class="n">steps</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">"Input tokens"</span><span class="p">,</span> <span class="n">GREY</span><span class="p">),</span> <span class="p">(</span><span class="s2">"Token + position embeddings"</span><span class="p">,</span> <span class="n">GREY</span><span class="p">),</span> <span class="p">(</span><span class="s2">"Self-attention"</span><span class="p">,</span> <span class="n">BLUE</span><span class="p">),</span>
+         <span class="p">(</span><span class="s2">"Add and normalise"</span><span class="p">,</span> <span class="n">GREY</span><span class="p">),</span> <span class="p">(</span><span class="s2">"Feed-forward network"</span><span class="p">,</span> <span class="n">GREEN</span><span class="p">),</span> <span class="p">(</span><span class="s2">"Add and normalise"</span><span class="p">,</span> <span class="n">GREY</span><span class="p">),</span>
+         <span class="p">(</span><span class="s2">"Next-token probabilities"</span><span class="p">,</span> <span class="n">AMBER</span><span class="p">)]</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">3.6</span><span class="p">));</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">"off"</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">lab</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">steps</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="mf">0.1</span> <span class="o">+</span> <span class="n">i</span> <span class="o">*</span> <span class="mf">1.4</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">FancyBboxPatch</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span> <span class="mf">1.2</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">boxstyle</span><span class="o">=</span><span class="s2">"round,pad=0.05"</span><span class="p">,</span> <span class="n">fc</span><span class="o">=</span><span class="n">c</span><span class="p">,</span> <span class="n">ec</span><span class="o">=</span><span class="n">DARK</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.85</span><span class="p">))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="n">lab</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">" "</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">lab</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">12</span> <span class="k">else</span> <span class="n">lab</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">"center"</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s2">"center"</span><span class="p">,</span>
+            <span class="n">fontsize</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"white"</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s2">"bold"</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">steps</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span> <span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s2">""</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mf">1.4</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mf">1.25</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">),</span> <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">arrowstyle</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">DARK</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mf">2.6</span><span class="p">,</span> <span class="s2">"The middle four boxes form one transformer block, stacked many times"</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">"center"</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">DARK</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="s2">"Each block lets every token read from every other token, then refines it"</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">"center"</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">DARK</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">"A transformer in one picture"</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">"p16_transformer.png"</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">130</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">();</span> <span class="nb">print</span><span class="p">(</span><span class="s2">"saved p16_transformer.png"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">saved p16_transformer.png</pre></div></div>
+<div class="cell only-out"><div class="cell-out"><figure class="fig"><img src="img/part-16-053.png" alt="Chart output" loading="lazy"></figure></div></div>
+<p>Tokens enter at the left; many stacked blocks refine them; the last step scores each possible next token.</p>
+
+<p>Position embeddings tell the model word order (attention alone is order-blind). <strong>Multi-head</strong> attention runs several attention patterns in parallel. Because every token can be processed at once, transformers train fast on GPUs, which is why they scale to billions of parameters.</p>
+
+<h2 id="16-12-other-generative-models-and-choosing-llm-or-classical-"><a class="anchor" href="#16-12-other-generative-models-and-choosing-llm-or-classical-" aria-label="Link to this section">#</a>16.12 Other generative models and choosing LLM or classical ML (Advanced)</h2>
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Idea in one line</th>
+<th>Typical output</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Diffusion</td>
+<td>Learn to remove noise step by step; start from pure noise and clean it</td>
+<td>Images, audio</td>
+</tr>
+<tr>
+<td>GAN</td>
+<td>A generator tries to fool a discriminator that spots fakes</td>
+<td>Images, synthetic data</td>
+</tr>
+<tr>
+<td>VAE</td>
+<td>Compress data to a small code, then decode new samples from it</td>
+<td>Images, smooth variations</td>
+</tr>
+<tr>
+<td>Autoregressive (LLM)</td>
+<td>Predict the next token, repeat</td>
+<td>Text, code</td>
+</tr>
+</tbody>
+</table></div>
+
+<p>All of them learn a distribution of the training data and sample from it. Diffusion models now dominate image generation; many pipelines combine an LLM with an image model.</p>
+
+<h3 id="llm-or-classical-ml"><a class="anchor" href="#llm-or-classical-ml" aria-label="Link to this section">#</a>LLM or classical ML?</h3>
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Task</th>
+<th>Better first choice</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Predict loan default from a table</td>
+<td>Classical ML (Parts 11, 12)</td>
+<td>Tabular data, need explainable metrics</td>
+</tr>
+<tr>
+<td>Forecast monthly sales</td>
+<td>Classical ML / statistics</td>
+<td>Numeric series, cheap, testable</td>
+</tr>
+<tr>
+<td>Summarise 50 customer complaints</td>
+<td>LLM</td>
+<td>Free text, language task</td>
+</tr>
+<tr>
+<td>Extract fields from messy messages</td>
+<td>LLM with validation</td>
+<td>Flexible wording, check output</td>
+</tr>
+<tr>
+<td>Answer questions from a rulebook</td>
+<td>LLM with RAG</td>
+<td>Needs your documents, citations</td>
+</tr>
+<tr>
+<td>Segment customers by behaviour</td>
+<td>Classical clustering (Part 13)</td>
+<td>Numeric features, auditable</td>
+</tr>
+<tr>
+<td>Decide who gets credit</td>
+<td>Classical ML + human policy</td>
+<td>Fairness and explainability required</td>
+</tr>
+</tbody>
+</table></div>
+
+<p>Rule of thumb: if the data is a clean table and you can measure the right answer, start with classical ML. If the task is about language and no single right answer exists, an LLM helps, with checks.</p>
+
+<div class="callout takeaways"><div class="c-label">Key takeaways</div><ul>
+<li>Discriminative models predict labels; generative models produce new text, images or data.</li>
+<li>An LLM predicts the next token; sampling settings (temperature, top-k, top-p) control variety.</li>
+<li>Embeddings turn words into vectors; cosine similarity measures closeness in meaning.</li>
+<li>Attention lets each token read from the others; transformers stack this many times.</li>
+<li>RAG grounds answers in your own documents; test retrieval and check every answer.</li>
+<li>Never paste confidential data into a tool you do not control; verify every number and claim.</li>
+</ul>
+</div></div><nav class="pager" aria-label="Previous and next"><a class="prev" href="part-15.html"><small>Previous</small><span>Part 15: Reinforcement Learning</span></a><a class="next" href="part-17.html"><small>Next</small><span>Part 17: Business Metrics, Excel and Power BI</span></a></nav>
+<footer class="foot"><p>Data Science from Zero to Advanced &middot; written by Benson M. Merita &middot; &copy; 2026 MeritaAnalytics. Public datasets keep their own licences, listed in <a href="appendix-b.html">Appendix B</a>.</p></footer>
+</main>
+</div>
+<script src="search-index.js"></script>
+<script src="site.js"></script>
+</body>
+</html>

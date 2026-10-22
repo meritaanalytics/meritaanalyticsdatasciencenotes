@@ -1,0 +1,780 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>Part 12: Ensembles, Tuning and Feature Engineering | MeritaAnalytics</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to the notes</a>
+<header class="top"><button class="menu" id="menu" aria-controls="side" aria-expanded="false">Contents</button><span class="top-title">Part 12: Ensembles, Tuning and Feature Engineering</span></header>
+<div class="shell">
+<nav class="side" id="side" aria-label="Handbook contents">
+<a class="brand" href="index.html"><span class="mark" aria-hidden="true">MA</span><span><b>MeritaAnalytics</b><small>Data Science Notes</small></span></a>
+<label class="search"><span class="sr">Search the notes</span><input id="q" type="search" placeholder="Search topics, e.g. groupby" autocomplete="off"></label>
+<div id="results" class="results" hidden></div>
+<ol class="nav">
+<li class="lvl0"><a href="index.html" class="">Start here</a></li>
+<li class="lvl"><div class="lvl-name"><span>Level 1</span>Foundations</div><ol>
+<li data-slug="part-01"><a href="part-01.html" class=""><span class="pn">1</span><span class="pt">What Is Data Science?</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-02"><a href="part-02.html" class=""><span class="pn">2</span><span class="pt">Python Basics</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-03"><a href="part-03.html" class=""><span class="pn">3</span><span class="pt">NumPy: Fast Numbers</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 2</span>Data Analysis</div><ol>
+<li data-slug="part-04"><a href="part-04.html" class=""><span class="pn">4</span><span class="pt">Pandas: Working with Tables</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-05"><a href="part-05.html" class=""><span class="pn">5</span><span class="pt">Data Visualisation</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-06"><a href="part-06.html" class=""><span class="pn">6</span><span class="pt">SQL for Data Analysts</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-07"><a href="part-07.html" class=""><span class="pn">7</span><span class="pt">Exploratory Data Analysis</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 3</span>Statistics</div><ol>
+<li data-slug="part-08"><a href="part-08.html" class=""><span class="pn">8</span><span class="pt">Statistics for Data Science</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 4</span>Machine Learning</div><ol>
+<li data-slug="part-09"><a href="part-09.html" class=""><span class="pn">9</span><span class="pt">Machine Learning Foundations</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-10"><a href="part-10.html" class=""><span class="pn">10</span><span class="pt">Regression</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-11"><a href="part-11.html" class=""><span class="pn">11</span><span class="pt">Classification</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-12"><a href="part-12.html" class="on"><span class="pn">12</span><span class="pt">Ensembles, Tuning and Feature Engineering</span><span class="done-dot" aria-hidden="true"></span></a>
+<ol class="sub"><li><a href="#12-1-why-combine-models-bagging">12.1 Why Combine Models? Bagging</a></li><li><a href="#12-2-random-forest-and-extra-trees">12.2 Random Forest and Extra Trees</a></li><li><a href="#12-3-boosting-adaboost-and-gradient-boosting">12.3 Boosting: AdaBoost and Gradient Boosting</a></li><li><a href="#12-4-histgradientboosting-xgboost-and-lightgbm">12.4 HistGradientBoosting, XGBoost and LightGBM</a></li><li><a href="#12-5-voting-and-stacking">12.5 Voting and Stacking</a></li><li><a href="#12-6-cross-validation-strategies">12.6 Cross-Validation Strategies</a></li><li><a href="#12-7-hyperparameter-tuning-grid-search-and-random-search">12.7 Hyperparameter Tuning: Grid Search and Random Search</a></li><li><a href="#12-8-feature-engineering">12.8 Feature Engineering</a></li><li><a href="#12-9-leak-free-pipelines">12.9 Leak-Free Pipelines</a></li><li><a href="#12-10-feature-selection">12.10 Feature Selection</a></li><li><a href="#12-11-explaining-models-importance-and-partial-dependence-ad">12.11 Explaining Models: Importance and Partial Dependence (Advanced)</a></li><li><a href="#12-12-choosing-a-tabular-algorithm-and-using-it-in-the-real-">12.12 Choosing a Tabular Algorithm, and Using It in the Real World</a></li></ol>
+</li>
+<li data-slug="part-13"><a href="part-13.html" class=""><span class="pn">13</span><span class="pt">Unsupervised Learning</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 5</span>Deep Learning and Modern AI</div><ol>
+<li data-slug="part-14"><a href="part-14.html" class=""><span class="pn">14</span><span class="pt">Neural Networks and Deep Learning</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-15"><a href="part-15.html" class=""><span class="pn">15</span><span class="pt">Reinforcement Learning</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-16"><a href="part-16.html" class=""><span class="pn">16</span><span class="pt">Generative AI and Large Language Models</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 6</span>The Real World</div><ol>
+<li data-slug="part-17"><a href="part-17.html" class=""><span class="pn">17</span><span class="pt">Business Metrics, Excel and Power BI</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-18"><a href="part-18.html" class=""><span class="pn">18</span><span class="pt">Automation, Git, Deployment and Responsible AI</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-19"><a href="part-19.html" class=""><span class="pn">19</span><span class="pt">End-to-End Projects</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Level 7</span>Career and Reference</div><ol>
+<li data-slug="part-20"><a href="part-20.html" class=""><span class="pn">20</span><span class="pt">Practice Exercises and Answer Key</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-21"><a href="part-21.html" class=""><span class="pn">21</span><span class="pt">Interview Preparation</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+<li data-slug="part-22"><a href="part-22.html" class=""><span class="pn">22</span><span class="pt">Roadmap, Cheat Sheets and Glossary</span><span class="done-dot" aria-hidden="true"></span></a>
+</li>
+</ol></li>
+<li class="lvl"><div class="lvl-name"><span>Appendix</span>Reference</div><ol>
+<li><a href="appendix-a.html" class=""><span class="pn">A</span><span class="pt">Sources and Next Steps</span></a></li>
+<li><a href="appendix-b.html" class=""><span class="pn">B</span><span class="pt">Data Catalogue</span></a></li>
+</ol></li></ol>
+<p class="side-foot">By Benson M. Merita &middot; &copy; 2026 MeritaAnalytics</p></nav>
+<main id="main" class="main"><header class="part-head"><span class="lv">Level 4 &middot; Machine Learning</span><p class="part-no">Part 12</p><h1>Ensembles, Tuning and Feature Engineering</h1><p class="lede">Combine many simple models into a strong one, tune it without fooling yourself, and prepare features inside leak-free pipelines.</p><button class="mark-done" id="done" data-slug="part-12" aria-pressed="false">Mark this part as done</button></header><div class="prose"><div class="callout learn"><div class="c-label">In this part</div><ul>
+<li>Explain why a crowd of models beats one model (bagging, boosting, stacking)</li>
+<li>Fit random forests, extra trees, gradient boosting, XGBoost and LightGBM</li>
+<li>Tune hyperparameters with grid and random search and choose a valid cross-validation</li>
+<li>Engineer features (scaling, encoding, binning, ratios, dates, text) inside a Pipeline</li>
+<li>Select features and explain a model with permutation importance and partial dependence</li>
+</ul>
+<div class="meta"><span><b>You need first</b> Part 11</span><span><b>Time</b> 6 to 8 hours</span></div></div>
+<h2 id="12-1-why-combine-models-bagging"><a class="anchor" href="#12-1-why-combine-models-bagging" aria-label="Link to this section">#</a>12.1 Why Combine Models? Bagging</h2>
+
+<p>A single decision tree (Part 11) is easy to read but unstable: change a few rows and the tree changes. An <strong>ensemble</strong> combines many models so their individual errors cancel out. There are three main recipes: <strong>bagging</strong> (train models independently on different samples and average them), <strong>boosting</strong> (train models one after another, each fixing the last one's mistakes) and <strong>stacking</strong> (let a final model learn how to blend them).</p>
+
+<p>Throughout this Part we use one running example: a <strong>synthetic</strong> table of 3,000 loan applications at an imaginary lender (made up with a fixed seed; no real people). The target <code>default</code> is 1 when the borrower defaults. The signal includes curves and interactions, which is where tree ensembles beat straight-line models.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span><span class="o">,</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">make_loans</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">seed</span><span class="p">):</span>
+    <span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+        <span class="s2">"age"</span><span class="p">:</span> <span class="n">rng</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">21</span><span class="p">,</span> <span class="mi">65</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span>
+        <span class="s2">"income_ksh"</span><span class="p">:</span> <span class="n">rng</span><span class="o">.</span><span class="n">lognormal</span><span class="p">(</span><span class="mf">10.9</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">),</span>
+        <span class="s2">"loan_ksh"</span><span class="p">:</span> <span class="n">rng</span><span class="o">.</span><span class="n">lognormal</span><span class="p">(</span><span class="mf">10.0</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">),</span>
+        <span class="s2">"term_months"</span><span class="p">:</span> <span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">24</span><span class="p">],</span> <span class="n">n</span><span class="p">),</span>
+        <span class="s2">"prior_late"</span><span class="p">:</span> <span class="n">rng</span><span class="o">.</span><span class="n">poisson</span><span class="p">(</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span>
+        <span class="s2">"debt_ratio"</span><span class="p">:</span> <span class="n">rng</span><span class="o">.</span><span class="n">beta</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span>
+        <span class="s2">"county"</span><span class="p">:</span> <span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s2">"Nairobi"</span><span class="p">,</span> <span class="s2">"Mombasa"</span><span class="p">,</span> <span class="s2">"Kisumu"</span><span class="p">,</span> <span class="s2">"Nakuru"</span><span class="p">,</span> <span class="s2">"Eldoret"</span><span class="p">],</span> <span class="n">n</span><span class="p">,</span>
+                             <span class="n">p</span><span class="o">=</span><span class="p">[</span><span class="mf">.4</span><span class="p">,</span> <span class="mf">.2</span><span class="p">,</span> <span class="mf">.15</span><span class="p">,</span> <span class="mf">.15</span><span class="p">,</span> <span class="mf">.1</span><span class="p">]),</span>
+        <span class="s2">"occupation"</span><span class="p">:</span> <span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s2">"salaried"</span><span class="p">,</span> <span class="s2">"trader"</span><span class="p">,</span> <span class="s2">"farmer"</span><span class="p">,</span> <span class="s2">"boda rider"</span><span class="p">],</span> <span class="n">n</span><span class="p">,</span>
+                                 <span class="n">p</span><span class="o">=</span><span class="p">[</span><span class="mf">.35</span><span class="p">,</span> <span class="mf">.3</span><span class="p">,</span> <span class="mf">.2</span><span class="p">,</span> <span class="mf">.15</span><span class="p">]),</span>
+        <span class="s2">"application_date"</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="s2">"2024-01-01"</span><span class="p">)</span>
+                            <span class="o">+</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_timedelta</span><span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">540</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span> <span class="n">unit</span><span class="o">=</span><span class="s2">"D"</span><span class="p">),</span>
+        <span class="s2">"note"</span><span class="p">:</span> <span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s2">"salary delayed by employer"</span><span class="p">,</span> <span class="s2">"stable monthly salary"</span><span class="p">,</span>
+                            <span class="s2">"new business with stock on credit"</span><span class="p">,</span> <span class="s2">"school fees due this term"</span><span class="p">,</span>
+                            <span class="s2">"harvest expected next month"</span><span class="p">,</span> <span class="s2">"no comment"</span><span class="p">],</span> <span class="n">n</span><span class="p">)})</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mf">3.2</span> <span class="o">+</span> <span class="mf">1.2</span> <span class="o">*</span> <span class="n">df</span><span class="o">.</span><span class="n">debt_ratio</span> <span class="o">+</span> <span class="mf">0.25</span> <span class="o">*</span> <span class="n">df</span><span class="o">.</span><span class="n">prior_late</span>
+         <span class="o">+</span> <span class="mf">2.2</span> <span class="o">*</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loan_ksh</span> <span class="o">/</span> <span class="n">df</span><span class="o">.</span><span class="n">income_ksh</span> <span class="o">&gt;</span> <span class="mf">0.8</span><span class="p">)</span>
+         <span class="o">+</span> <span class="mf">2.2</span> <span class="o">*</span> <span class="p">((</span><span class="n">df</span><span class="o">.</span><span class="n">debt_ratio</span> <span class="o">&gt;</span> <span class="mf">0.4</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">prior_late</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">))</span>
+         <span class="o">+</span> <span class="mf">1.3</span> <span class="o">*</span> <span class="p">((</span><span class="n">df</span><span class="o">.</span><span class="n">age</span> <span class="o">&lt;</span> <span class="mi">27</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">age</span> <span class="o">&gt;</span> <span class="mi">58</span><span class="p">))</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">term_months</span> <span class="o">==</span> <span class="mi">24</span><span class="p">)</span>
+         <span class="o">+</span> <span class="mf">0.4</span> <span class="o">*</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">occupation</span> <span class="o">==</span> <span class="s2">"boda rider"</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.9</span> <span class="o">*</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">note</span> <span class="o">==</span> <span class="s2">"salary delayed by employer"</span><span class="p">)</span>
+         <span class="o">+</span> <span class="mf">0.6</span> <span class="o">*</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">application_date</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">month</span> <span class="o">==</span> <span class="mi">12</span><span class="p">))</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">"default"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">z</span><span class="p">)))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">df</span>
+
+<span class="n">loans</span> <span class="o">=</span> <span class="n">make_loans</span><span class="p">(</span><span class="mi">3000</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"synthetic data; default rate:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">loans</span><span class="p">[</span><span class="s2">"default"</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">loans</span><span class="p">[[</span><span class="s2">"age"</span><span class="p">,</span> <span class="s2">"income_ksh"</span><span class="p">,</span> <span class="s2">"loan_ksh"</span><span class="p">,</span> <span class="s2">"prior_late"</span><span class="p">,</span> <span class="s2">"debt_ratio"</span><span class="p">,</span> <span class="s2">"county"</span><span class="p">,</span> <span class="s2">"default"</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">synthetic data; default rate: 0.247</pre><div class="table-wrap df"><div>
+
+<table class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th>age</th>
+      <th>income_ksh</th>
+      <th>loan_ksh</th>
+      <th>prior_late</th>
+      <th>debt_ratio</th>
+      <th>county</th>
+      <th>default</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>26</td>
+      <td>82700.0</td>
+      <td>45500.0</td>
+      <td>0</td>
+      <td>0.011</td>
+      <td>Nairobi</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>26</td>
+      <td>90300.0</td>
+      <td>19800.0</td>
+      <td>0</td>
+      <td>0.267</td>
+      <td>Nairobi</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>56</td>
+      <td>64600.0</td>
+      <td>26900.0</td>
+      <td>1</td>
+      <td>0.273</td>
+      <td>Mombasa</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>42</td>
+      <td>29700.0</td>
+      <td>20400.0</td>
+      <td>0</td>
+      <td>0.571</td>
+      <td>Nairobi</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table></div>
+</div></div></div></div>
+<p>We split once and keep the numeric columns for now. Section 12.8 adds the others.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">roc_auc_score</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.pipeline</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_pipeline</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span>
+
+<span class="n">num</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"age"</span><span class="p">,</span> <span class="s2">"income_ksh"</span><span class="p">,</span> <span class="s2">"loan_ksh"</span><span class="p">,</span> <span class="s2">"term_months"</span><span class="p">,</span> <span class="s2">"prior_late"</span><span class="p">,</span> <span class="s2">"debt_ratio"</span><span class="p">]</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">loans</span><span class="p">[</span><span class="n">num</span><span class="p">],</span> <span class="n">loans</span><span class="p">[</span><span class="s2">"default"</span><span class="p">]</span>
+<span class="n">X_tr</span><span class="p">,</span> <span class="n">X_te</span><span class="p">,</span> <span class="n">y_tr</span><span class="p">,</span> <span class="n">y_te</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">results</span> <span class="o">=</span> <span class="p">{}</span>                      <span class="c1"># model name -&gt; test AUC, filled as we go</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">evaluate</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">model</span><span class="p">):</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_tr</span><span class="p">,</span> <span class="n">y_tr</span><span class="p">)</span>
+    <span class="n">results</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_te</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]),</span> <span class="mi">3</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">results</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"logistic regression AUC:"</span><span class="p">,</span> <span class="n">evaluate</span><span class="p">(</span><span class="s2">"logistic"</span><span class="p">,</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">StandardScaler</span><span class="p">(),</span>
+                                           <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">))))</span>
+</code></pre></div><div class="cell-out"><pre class="out">logistic regression AUC: 0.721</pre></div></div>
+<p><strong>What bagging does.</strong> Bagging is short for <strong>bootstrap aggregating</strong>. A <strong>bootstrap sample</strong> draws rows <em>with replacement</em> until it is as big as the original, so some rows appear twice and some not at all.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">rows</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">X_tr</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">X_tr</span><span class="p">))</span>          <span class="c1"># one bootstrap sample of row positions</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"share of distinct rows in a bootstrap sample:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">rows</span><span class="p">))</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">X_tr</span><span class="p">),</span> <span class="mi">3</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">share of distinct rows in a bootstrap sample: 0.625</pre></div></div>
+<p>About two thirds of the rows make it into each sample. The rows left out are the <strong>out-of-bag</strong> (OOB) rows, a free validation set for each model. Bagging fits one tree per sample and averages their votes.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.tree</span><span class="w"> </span><span class="kn">import</span> <span class="n">DecisionTreeClassifier</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.ensemble</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaggingClassifier</span>
+
+<span class="n">tree</span> <span class="o">=</span> <span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">bag</span> <span class="o">=</span> <span class="n">BaggingClassifier</span><span class="p">(</span><span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">),</span> <span class="n">n_estimators</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+                        <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"single full tree AUC:"</span><span class="p">,</span> <span class="n">evaluate</span><span class="p">(</span><span class="s2">"tree"</span><span class="p">,</span> <span class="n">tree</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"50 bagged trees AUC :"</span><span class="p">,</span> <span class="n">evaluate</span><span class="p">(</span><span class="s2">"bagging"</span><span class="p">,</span> <span class="n">bag</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">single full tree AUC: 0.621
+50 bagged trees AUC : 0.746</pre></div></div>
+<p>Averaging removes the random wobble of individual deep trees, so the bagged ensemble ranks borrowers far better than one tree. This works because each deep tree has low bias but high <strong>variance</strong>; averaging cuts variance without raising bias.</p>
+
+<h2 id="12-2-random-forest-and-extra-trees"><a class="anchor" href="#12-2-random-forest-and-extra-trees" aria-label="Link to this section">#</a>12.2 Random Forest and Extra Trees</h2>
+
+<p><strong>What it does.</strong> A <strong>random forest</strong> is bagging for trees with one extra trick: at each split a tree may only look at a random subset of features (<code>max_features</code>). That makes the trees less alike, so averaging them helps more.</p>
+
+<p><strong>How it works.</strong> Grow many deep trees on bootstrap samples, each split choosing the best feature among a random few, then average the predicted probabilities. <strong>Extra trees</strong> (extremely randomised trees) go further: they also pick the cut-off <em>at random</em> and usually skip bootstrapping. That is faster and sometimes smoother.</p>
+
+<ul>
+<li><strong>Works best when</strong> you want a strong model with little tuning, mixed feature types, no scaling, and some robustness to noise and outliers.</li>
+<li><strong>Struggles when</strong> you need a tiny, readable model, or the signal needs extrapolation beyond the training range (forests cannot predict outside what they saw).</li>
+<li><strong>Key settings:</strong> <code>n_estimators</code> (more is rarely worse, just slower), <code>max_depth</code>, <code>min_samples_leaf</code>, <code>max_features</code>, <code>class_weight</code>, <code>oob_score</code>.</li>
+</ul>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.ensemble</span><span class="w"> </span><span class="kn">import</span> <span class="n">RandomForestClassifier</span><span class="p">,</span> <span class="n">ExtraTreesClassifier</span>
+
+<span class="n">rf</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">min_samples_leaf</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">oob_score</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                            <span class="n">n_jobs</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">et</span> <span class="o">=</span> <span class="n">ExtraTreesClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">min_samples_leaf</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"random forest AUC:"</span><span class="p">,</span> <span class="n">evaluate</span><span class="p">(</span><span class="s2">"random forest"</span><span class="p">,</span> <span class="n">rf</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"OOB accuracy     :"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">rf</span><span class="o">.</span><span class="n">oob_score_</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="s2">"(free estimate, no test set used)"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"extra trees AUC  :"</span><span class="p">,</span> <span class="n">evaluate</span><span class="p">(</span><span class="s2">"extra trees"</span><span class="p">,</span> <span class="n">et</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">random forest AUC: 0.763
+OOB accuracy     : 0.779 (free estimate, no test set used)
+extra trees AUC  : 0.772</pre></div></div>
+<p><code>min_samples_leaf=5</code> stops trees from memorising single borrowers. The OOB accuracy is computed from rows each tree never saw, so it is an honest estimate you get for free.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">imp</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">rf</span><span class="o">.</span><span class="n">feature_importances_</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">num</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">imp</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">loan_ksh       0.246
+income_ksh     0.245
+debt_ratio     0.188
+age            0.186
+prior_late     0.081
+term_months    0.054
+dtype: float64</pre></div></div>
+<p><code>feature_importances_</code> shows how much each feature reduced impurity across all trees. We meet its weaknesses in 12.11.</p>
+
+<h2 id="12-3-boosting-adaboost-and-gradient-boosting"><a class="anchor" href="#12-3-boosting-adaboost-and-gradient-boosting" aria-label="Link to this section">#</a>12.3 Boosting: AdaBoost and Gradient Boosting</h2>
+
+<p><strong>What it does.</strong> Boosting builds a strong model from many <strong>weak learners</strong> (very small trees), one at a time, each concentrating on what the earlier ones got wrong.</p>
+
+<p><strong>How it works.</strong> <strong>AdaBoost</strong> raises the weight of misclassified rows, so the next small tree must pay attention to them, and finally combines trees with votes weighted by accuracy. <strong>Gradient boosting</strong> starts from a simple guess, measures the remaining errors (the <em>gradient</em> of the loss) and fits the next small tree to those errors, adding it with a small step size (<code>learning_rate</code>). Trees are added until the error stops falling.</p>
+
+<ul>
+<li><strong>Works best when</strong> you want top accuracy on tabular data and can tune a little.</li>
+<li><strong>Struggles when</strong> the data is very noisy (it can chase noise) or you add too many trees without a stopping rule.</li>
+<li><strong>Key settings:</strong> <code>n_estimators</code>, <code>learning_rate</code> (smaller needs more trees), <code>max_depth</code> (keep small, 2 to 5), <code>subsample</code>.</li>
+</ul>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.ensemble</span><span class="w"> </span><span class="kn">import</span> <span class="n">AdaBoostClassifier</span><span class="p">,</span> <span class="n">GradientBoostingClassifier</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">log_loss</span>
+
+<span class="n">ada</span> <span class="o">=</span> <span class="n">AdaBoostClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">gb</span> <span class="o">=</span> <span class="n">GradientBoostingClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">max_depth</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+                                <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"AdaBoost AUC          :"</span><span class="p">,</span> <span class="n">evaluate</span><span class="p">(</span><span class="s2">"AdaBoost"</span><span class="p">,</span> <span class="n">ada</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"gradient boosting AUC :"</span><span class="p">,</span> <span class="n">evaluate</span><span class="p">(</span><span class="s2">"gradient boosting"</span><span class="p">,</span> <span class="n">gb</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">AdaBoost AUC          : 0.747
+gradient boosting AUC : 0.766</pre></div></div>
+<p>Boosting overfits if you let it run too long. <code>staged_predict_proba</code> gives the predictions after each tree, so we can watch training and test loss as trees are added.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">BLUE</span><span class="p">,</span> <span class="n">GREEN</span><span class="p">,</span> <span class="n">GREY</span><span class="p">,</span> <span class="n">DARK</span><span class="p">,</span> <span class="n">AMBER</span> <span class="o">=</span> <span class="s2">"#1F5FD6"</span><span class="p">,</span> <span class="s2">"#2BB38A"</span><span class="p">,</span> <span class="s2">"#9CA3AF"</span><span class="p">,</span> <span class="s2">"#0B2A4A"</span><span class="p">,</span> <span class="s2">"#B45309"</span>
+<span class="n">fast</span> <span class="o">=</span> <span class="n">GradientBoostingClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">max_depth</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+                                  <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_tr</span><span class="p">,</span> <span class="n">y_tr</span><span class="p">)</span>
+<span class="n">tr_loss</span> <span class="o">=</span> <span class="p">[</span><span class="n">log_loss</span><span class="p">(</span><span class="n">y_tr</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">fast</span><span class="o">.</span><span class="n">staged_predict_proba</span><span class="p">(</span><span class="n">X_tr</span><span class="p">)]</span>
+<span class="n">te_loss</span> <span class="o">=</span> <span class="p">[</span><span class="n">log_loss</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">fast</span><span class="o">.</span><span class="n">staged_predict_proba</span><span class="p">(</span><span class="n">X_te</span><span class="p">)]</span>
+<span class="n">best</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">te_loss</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">3.6</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">201</span><span class="p">),</span> <span class="n">tr_loss</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">BLUE</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"training loss"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">201</span><span class="p">),</span> <span class="n">te_loss</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">GREEN</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"test loss"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">best</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">AMBER</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">"--"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">"best at </span><span class="si">{</span><span class="n">best</span><span class="si">}</span><span class="s2"> trees"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">"Gradient boosting: loss as trees are added (synthetic loans)"</span><span class="p">,</span>
+       <span class="n">xlabel</span><span class="o">=</span><span class="s2">"Number of trees"</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">"Log loss (lower is better)"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">"p12_boosting.png"</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">130</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"saved p12_boosting.png; lowest test loss at"</span><span class="p">,</span> <span class="n">best</span><span class="p">,</span> <span class="s2">"trees"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">saved p12_boosting.png; lowest test loss at 45 trees</pre></div></div>
+<div class="cell only-out"><div class="cell-out"><figure class="fig"><img src="img/part-12-036.png" alt="Chart output" loading="lazy"></figure></div></div>
+<p>Training loss keeps falling, but test loss reaches a minimum and then climbs: the extra trees are fitting noise. The cure is <strong>early stopping</strong>: stop when a validation score stops improving (next section), or lower the learning rate and tune the tree count.</p>
+
+<h2 id="12-4-histgradientboosting-xgboost-and-lightgbm"><a class="anchor" href="#12-4-histgradientboosting-xgboost-and-lightgbm" aria-label="Link to this section">#</a>12.4 HistGradientBoosting, XGBoost and LightGBM</h2>
+
+<p>Plain gradient boosting is slow on big data. Three modern libraries make it fast by sorting each feature into about 255 <strong>histogram bins</strong> first, so it tests a few hundred cut-offs instead of thousands. They are the usual winners on tabular data.</p>
+
+<ul>
+<li><strong>HistGradientBoostingClassifier</strong> (scikit-learn): no extra install, handles missing values and categorical columns, built-in early stopping.</li>
+<li><strong>XGBoost</strong>: the well-known library; strong regularisation options; fast on CPUs.</li>
+<li><strong>LightGBM</strong>: grows trees leaf by leaf (<code>num_leaves</code>), often the fastest on large data.</li>
+</ul>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.ensemble</span><span class="w"> </span><span class="kn">import</span> <span class="n">HistGradientBoostingClassifier</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">xgboost</span><span class="w"> </span><span class="kn">import</span> <span class="n">XGBClassifier</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">lightgbm</span><span class="w"> </span><span class="kn">import</span> <span class="n">LGBMClassifier</span>
+
+<span class="n">X_fit</span><span class="p">,</span> <span class="n">X_val</span><span class="p">,</span> <span class="n">y_fit</span><span class="p">,</span> <span class="n">y_val</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X_tr</span><span class="p">,</span> <span class="n">y_tr</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><span class="n">y_tr</span><span class="p">,</span>
+                                              <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">hgb</span> <span class="o">=</span> <span class="n">HistGradientBoostingClassifier</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">max_depth</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+                                     <span class="n">early_stopping</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">xgb</span> <span class="o">=</span> <span class="n">XGBClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">max_depth</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">subsample</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>
+                    <span class="n">early_stopping_rounds</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">eval_metric</span><span class="o">=</span><span class="s2">"logloss"</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">xgb</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_fit</span><span class="p">,</span> <span class="n">y_fit</span><span class="p">,</span> <span class="n">eval_set</span><span class="o">=</span><span class="p">[(</span><span class="n">X_val</span><span class="p">,</span> <span class="n">y_val</span><span class="p">)],</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">results</span><span class="p">[</span><span class="s2">"XGBoost"</span><span class="p">]</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span> <span class="n">xgb</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_te</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]),</span> <span class="mi">3</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"HistGradientBoosting AUC:"</span><span class="p">,</span> <span class="n">evaluate</span><span class="p">(</span><span class="s2">"HistGradientBoosting"</span><span class="p">,</span> <span class="n">hgb</span><span class="p">),</span> <span class="s2">"| trees:"</span><span class="p">,</span> <span class="n">hgb</span><span class="o">.</span><span class="n">n_iter_</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"XGBoost AUC             :"</span><span class="p">,</span> <span class="n">results</span><span class="p">[</span><span class="s2">"XGBoost"</span><span class="p">],</span> <span class="s2">"| best round:"</span><span class="p">,</span> <span class="n">xgb</span><span class="o">.</span><span class="n">best_iteration</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">HistGradientBoosting AUC: 0.763 | trees: 89
+XGBoost AUC             : 0.769 | best round: 98</pre></div></div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">lightgbm</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">lgb</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">"ignore"</span><span class="p">)</span>      <span class="c1"># hides a library deprecation notice</span>
+
+<span class="n">lgbm</span> <span class="o">=</span> <span class="n">LGBMClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">num_leaves</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">min_child_samples</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
+                      <span class="n">subsample</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">subsample_freq</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">lgbm</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_fit</span><span class="p">,</span> <span class="n">y_fit</span><span class="p">,</span> <span class="n">eval_set</span><span class="o">=</span><span class="p">[(</span><span class="n">X_val</span><span class="p">,</span> <span class="n">y_val</span><span class="p">)],</span> <span class="n">eval_metric</span><span class="o">=</span><span class="s2">"auc"</span><span class="p">,</span>
+         <span class="n">callbacks</span><span class="o">=</span><span class="p">[</span><span class="n">lgb</span><span class="o">.</span><span class="n">early_stopping</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)])</span>
+<span class="n">results</span><span class="p">[</span><span class="s2">"LightGBM"</span><span class="p">]</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span> <span class="n">lgbm</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_te</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]),</span> <span class="mi">3</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"LightGBM AUC:"</span><span class="p">,</span> <span class="n">results</span><span class="p">[</span><span class="s2">"LightGBM"</span><span class="p">],</span> <span class="s2">"| best round:"</span><span class="p">,</span> <span class="n">lgbm</span><span class="o">.</span><span class="n">best_iteration_</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">LightGBM AUC: 0.765 | best round: 46</pre></div></div>
+<p>All three follow the same <code>fit</code>/<code>predict_proba</code> pattern as every scikit-learn model, so they drop into pipelines and searches. Early stopping needs a validation set that is separate from the final test set.</p>
+
+<div class="callout tip"><p><strong>Rule of thumb.</strong> Boosting libraries have many settings. A safe recipe: learning rate 0.03 to 0.1, tree depth 3 to 6 (or <code>num_leaves</code> 8 to 31), row sampling 0.7 to 0.9, many trees, and early stopping to pick the count. Tune depth and <code>min_child_samples</code> first.</p>
+</div>
+<h2 id="12-5-voting-and-stacking"><a class="anchor" href="#12-5-voting-and-stacking" aria-label="Link to this section">#</a>12.5 Voting and Stacking</h2>
+
+<p><strong>Voting</strong> averages the predictions of different kinds of model. <strong>Stacking</strong> goes further: the base models' predictions become the <em>inputs</em> of a final model (the <strong>meta-learner</strong>), which learns how much to trust each. The base predictions are made out-of-fold (<code>cv=</code>) so the meta-learner never sees predictions made on rows the base model trained on.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.ensemble</span><span class="w"> </span><span class="kn">import</span> <span class="n">VotingClassifier</span><span class="p">,</span> <span class="n">StackingClassifier</span>
+
+<span class="n">base</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">"logit"</span><span class="p">,</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">StandardScaler</span><span class="p">(),</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">))),</span>
+        <span class="p">(</span><span class="s2">"forest"</span><span class="p">,</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">min_samples_leaf</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                                          <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s2">"hgb"</span><span class="p">,</span> <span class="n">HistGradientBoostingClassifier</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">max_depth</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+                                               <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">))]</span>
+<span class="n">vote</span> <span class="o">=</span> <span class="n">VotingClassifier</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">voting</span><span class="o">=</span><span class="s2">"soft"</span><span class="p">)</span>
+<span class="n">stack</span> <span class="o">=</span> <span class="n">StackingClassifier</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">final_estimator</span><span class="o">=</span><span class="n">LogisticRegression</span><span class="p">(),</span> <span class="n">cv</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"soft voting AUC:"</span><span class="p">,</span> <span class="n">evaluate</span><span class="p">(</span><span class="s2">"voting"</span><span class="p">,</span> <span class="n">vote</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"stacking AUC   :"</span><span class="p">,</span> <span class="n">evaluate</span><span class="p">(</span><span class="s2">"stacking"</span><span class="p">,</span> <span class="n">stack</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">soft voting AUC: 0.774
+stacking AUC   : 0.772</pre></div></div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">order</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">results</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">()</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">3.8</span><span class="p">))</span>
+<span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="n">AMBER</span> <span class="k">if</span> <span class="n">k</span> <span class="o">==</span> <span class="n">order</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">else</span> <span class="n">BLUE</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">order</span><span class="o">.</span><span class="n">index</span><span class="p">]</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="n">order</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">order</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">order</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">-</span> <span class="mf">0.03</span><span class="p">,</span> <span class="n">order</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="mf">0.02</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">order</span><span class="o">.</span><span class="n">values</span><span class="p">):</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">v</span> <span class="o">+</span> <span class="mf">0.001</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">v</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s2">"center"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">"Test AUC by model (synthetic loans, single split)"</span><span class="p">,</span>
+       <span class="n">xlabel</span><span class="o">=</span><span class="s2">"ROC AUC (higher is better)"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">"p12_models.png"</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">130</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"saved p12_models.png"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">saved p12_models.png</pre></div></div>
+<div class="cell only-out"><div class="cell-out"><figure class="fig"><img src="img/part-12-037.png" alt="Chart output" loading="lazy"></figure></div></div>
+<p>Tree ensembles clearly beat the single tree. The top few models differ by small amounts that one test split cannot separate reliably. Use cross-validation (next section) before declaring a winner, and weigh the extra cost of stacking against its small gain.</p>
+
+<div class="callout real"><p><strong>Practical view.</strong> A stacked model is hard to explain, slow to retrain and has more parts to break. In production, a single well-tuned boosted model is usually the better trade.</p>
+</div>
+<h2 id="12-6-cross-validation-strategies"><a class="anchor" href="#12-6-cross-validation-strategies" aria-label="Link to this section">#</a>12.6 Cross-Validation Strategies</h2>
+
+<p><strong>Cross-validation</strong> (CV) repeats train-and-test on several different splits and averages the score (Part 9). The <em>way</em> you split must match how the model will be used.</p>
+
+<ul>
+<li><strong>KFold</strong>: random folds. Fine for balanced, independent rows.</li>
+<li><strong>StratifiedKFold</strong>: keeps the class mix equal in each fold. Use it for classification, especially with rare positives.</li>
+<li><strong>TimeSeriesSplit</strong>: trains on the past, tests on the future. Use it whenever time matters (loans, sales, fraud).</li>
+<li><strong>GroupKFold</strong>: keeps all rows of one group (one customer, one branch) in the same fold.</li>
+</ul>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">KFold</span><span class="p">,</span> <span class="n">StratifiedKFold</span>
+
+<span class="k">for</span> <span class="n">cv</span> <span class="ow">in</span> <span class="p">[</span><span class="n">KFold</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+           <span class="n">StratifiedKFold</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)]:</span>
+    <span class="n">rates</span> <span class="o">=</span> <span class="p">[</span><span class="nb">round</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">te</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()),</span> <span class="mi">3</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">te</span> <span class="ow">in</span> <span class="n">cv</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">cv</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="mi">16</span><span class="p">),</span> <span class="s2">"default rate per fold:"</span><span class="p">,</span> <span class="n">rates</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">KFold            default rate per fold: [0.255, 0.255, 0.232, 0.253, 0.242]
+StratifiedKFold  default rate per fold: [0.248, 0.248, 0.247, 0.247, 0.247]</pre></div></div>
+<p>Stratification keeps each fold's default rate close to the overall rate. Now the time-aware split: sort by application date so each fold trains on earlier applications and tests on later ones.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">TimeSeriesSplit</span><span class="p">,</span> <span class="n">cross_val_score</span>
+
+<span class="n">ordered</span> <span class="o">=</span> <span class="n">loans</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">"application_date"</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">Xo</span><span class="p">,</span> <span class="n">yo</span> <span class="o">=</span> <span class="n">ordered</span><span class="p">[</span><span class="n">num</span><span class="p">],</span> <span class="n">ordered</span><span class="p">[</span><span class="s2">"default"</span><span class="p">]</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">HistGradientBoostingClassifier</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">max_depth</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+                                       <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">tr</span><span class="p">,</span> <span class="n">te</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">TimeSeriesSplit</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">Xo</span><span class="p">)):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"fold </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">: train </span><span class="si">{</span><span class="n">ordered</span><span class="o">.</span><span class="n">application_date</span><span class="p">[</span><span class="n">tr</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span><span class="o">.</span><span class="n">date</span><span class="p">()</span><span class="si">}</span><span class="s2"> to "</span>
+          <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">ordered</span><span class="o">.</span><span class="n">application_date</span><span class="p">[</span><span class="n">tr</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span><span class="o">.</span><span class="n">date</span><span class="p">()</span><span class="si">}</span><span class="s2"> | test "</span>
+          <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">ordered</span><span class="o">.</span><span class="n">application_date</span><span class="p">[</span><span class="n">te</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span><span class="o">.</span><span class="n">date</span><span class="p">()</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">ordered</span><span class="o">.</span><span class="n">application_date</span><span class="p">[</span><span class="n">te</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span><span class="o">.</span><span class="n">date</span><span class="p">()</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"time-split AUC  :"</span><span class="p">,</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">Xo</span><span class="p">,</span> <span class="n">yo</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">TimeSeriesSplit</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span>
+                                           <span class="n">scoring</span><span class="o">=</span><span class="s2">"roc_auc"</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"random-fold AUC :"</span><span class="p">,</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">Xo</span><span class="p">,</span> <span class="n">yo</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">StratifiedKFold</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                           <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="n">scoring</span><span class="o">=</span><span class="s2">"roc_auc"</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">fold 0: train 2024-01-01 to 2024-05-12 | test 2024-05-12 to 2024-09-25
+fold 1: train 2024-01-01 to 2024-09-25 | test 2024-09-25 to 2025-02-07
+fold 2: train 2024-01-01 to 2025-02-07 | test 2025-02-08 to 2025-06-23
+time-split AUC  : 0.743
+random-fold AUC : 0.753</pre></div></div>
+<p>Here the two scores are close because this synthetic data has no strong drift. In real lending data, behaviour drifts over time and the random-fold score is usually the optimistic one, which is why the time-aware split is the honest test.</p>
+
+<div class="callout mistake"><p><strong>Common mistake.</strong> Randomly shuffled folds let a model train on March applications and be tested on February ones, which is impossible in real life. For anything that happens over time, split by time.</p>
+</div>
+<h2 id="12-7-hyperparameter-tuning-grid-search-and-random-search"><a class="anchor" href="#12-7-hyperparameter-tuning-grid-search-and-random-search" aria-label="Link to this section">#</a>12.7 Hyperparameter Tuning: Grid Search and Random Search</h2>
+
+<p><strong>Hyperparameters</strong> are settings you choose before training (tree depth, number of trees, <code>C</code>). <strong>Parameters</strong> are what the model learns (tree splits, weights). <strong>GridSearchCV</strong> tries every combination in a grid with cross-validation. <strong>RandomizedSearchCV</strong> samples a fixed number of random combinations: it handles many settings and wide ranges far better when the grid would be huge.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">GridSearchCV</span><span class="p">,</span> <span class="n">StratifiedKFold</span>
+
+<span class="n">cv3</span> <span class="o">=</span> <span class="n">StratifiedKFold</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">grid</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span>
+    <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">),</span>
+    <span class="n">param_grid</span><span class="o">=</span><span class="p">{</span><span class="s2">"max_depth"</span><span class="p">:</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span> <span class="s2">"min_samples_leaf"</span><span class="p">:</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">30</span><span class="p">]},</span>
+    <span class="n">scoring</span><span class="o">=</span><span class="s2">"roc_auc"</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">cv3</span><span class="p">)</span>
+<span class="n">grid</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_tr</span><span class="p">,</span> <span class="n">y_tr</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"best settings :"</span><span class="p">,</span> <span class="n">grid</span><span class="o">.</span><span class="n">best_params_</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"best CV AUC   :"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">best_score_</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"test AUC      :"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span> <span class="n">grid</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_te</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]),</span> <span class="mi">3</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">best settings : {&#x27;max_depth&#x27;: None, &#x27;min_samples_leaf&#x27;: 10}
+best CV AUC   : 0.759
+test AUC      : 0.757</pre></div></div>
+<p><code>GridSearchCV</code> refits the best combination on all training data, so <code>grid</code> itself is ready to predict. The 9 combinations times 3 folds meant 27 fits. Add one more setting with 4 values and it becomes 108, which is when random search pays off.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">randint</span><span class="p">,</span> <span class="n">loguniform</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">RandomizedSearchCV</span>
+
+<span class="n">rand</span> <span class="o">=</span> <span class="n">RandomizedSearchCV</span><span class="p">(</span>
+    <span class="n">HistGradientBoostingClassifier</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">),</span>
+    <span class="n">param_distributions</span><span class="o">=</span><span class="p">{</span><span class="s2">"learning_rate"</span><span class="p">:</span> <span class="n">loguniform</span><span class="p">(</span><span class="mf">0.02</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">),</span>
+                         <span class="s2">"max_depth"</span><span class="p">:</span> <span class="n">randint</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span>
+                         <span class="s2">"min_samples_leaf"</span><span class="p">:</span> <span class="n">randint</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">80</span><span class="p">),</span>
+                         <span class="s2">"l2_regularization"</span><span class="p">:</span> <span class="n">loguniform</span><span class="p">(</span><span class="mf">1e-3</span><span class="p">,</span> <span class="mi">10</span><span class="p">)},</span>
+    <span class="n">n_iter</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="s2">"roc_auc"</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">cv3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">rand</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_tr</span><span class="p">,</span> <span class="n">y_tr</span><span class="p">)</span>
+<span class="n">floats</span> <span class="o">=</span> <span class="p">(</span><span class="s2">"learning_rate"</span><span class="p">,</span> <span class="s2">"l2_regularization"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">({</span><span class="n">k</span><span class="p">:</span> <span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">v</span><span class="p">),</span> <span class="mi">3</span><span class="p">)</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">floats</span> <span class="k">else</span> <span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="p">))</span>
+       <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">rand</span><span class="o">.</span><span class="n">best_params_</span><span class="o">.</span><span class="n">items</span><span class="p">()})</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"best CV AUC:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">rand</span><span class="o">.</span><span class="n">best_score_</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+      <span class="s2">"| test AUC:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span> <span class="n">rand</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_te</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]),</span> <span class="mi">3</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">{&#x27;l2_regularization&#x27;: 0.016, &#x27;learning_rate&#x27;: 0.083, &#x27;max_depth&#x27;: 5, &#x27;min_samples_leaf&#x27;: 58}
+best CV AUC: 0.76 | test AUC: 0.77</pre></div></div>
+<div class="callout mistake"><p><strong>Common mistake.</strong> The best CV score is slightly optimistic, because you picked the winner out of many tries on the same folds. Keep the test set untouched until the very end, and report the test score. For an unbiased estimate of the whole tuning procedure use nested CV (a search inside <code>cross_val_score</code>).</p>
+</div>
+<h2 id="12-8-feature-engineering"><a class="anchor" href="#12-8-feature-engineering" aria-label="Link to this section">#</a>12.8 Feature Engineering</h2>
+
+<p><strong>Feature engineering</strong> means turning raw columns into inputs that make the pattern easier to learn. Good features often beat a fancier algorithm. We work on the full loans table, including county, occupation, the application date and a free-text note.</p>
+
+<h3 id="scaling-and-encoding"><a class="anchor" href="#scaling-and-encoding" aria-label="Link to this section">#</a>Scaling and encoding</h3>
+
+<p>Linear models, k-NN and SVMs need <strong>scaling</strong>: <code>StandardScaler</code> (mean 0, spread 1) or <code>MinMaxScaler</code> (0 to 1). Tree models do not care. Text categories must become numbers: <strong>one-hot encoding</strong> makes a 0/1 column per category (right for unordered categories such as county); <strong>ordinal encoding</strong> maps ordered categories to 0, 1, 2.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">OneHotEncoder</span><span class="p">,</span> <span class="n">MinMaxScaler</span>
+
+<span class="n">demo</span> <span class="o">=</span> <span class="n">loans</span><span class="p">[[</span><span class="s2">"county"</span><span class="p">,</span> <span class="s2">"income_ksh"</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">ohe</span> <span class="o">=</span> <span class="n">OneHotEncoder</span><span class="p">(</span><span class="n">handle_unknown</span><span class="o">=</span><span class="s2">"ignore"</span><span class="p">,</span> <span class="n">sparse_output</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">loans</span><span class="p">[[</span><span class="s2">"county"</span><span class="p">]])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">ohe</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">demo</span><span class="p">[[</span><span class="s2">"county"</span><span class="p">]]),</span> <span class="n">columns</span><span class="o">=</span><span class="n">ohe</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">(),</span>
+                   <span class="n">index</span><span class="o">=</span><span class="n">demo</span><span class="o">.</span><span class="n">county</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"MinMax income:"</span><span class="p">,</span> <span class="n">MinMaxScaler</span><span class="p">()</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">loans</span><span class="p">[[</span><span class="s2">"income_ksh"</span><span class="p">]])[:</span><span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">         county_Eldoret  county_Kisumu  county_Mombasa  county_Nairobi  county_Nakuru
+county                                                                               
+Nairobi               0              0               0               1              0
+Nairobi               0              0               0               1              0
+Mombasa               0              0               1               0              0
+Nairobi               0              0               0               1              0
+MinMax income: [0.213 0.235 0.159 0.057]</pre></div></div>
+<h3 id="binning-ratios-interactions-and-dates"><a class="anchor" href="#binning-ratios-interactions-and-dates" aria-label="Link to this section">#</a>Binning, ratios, interactions and dates</h3>
+
+<p><strong>Binning</strong> turns a number into ranges, useful when risk changes in steps. A <strong>ratio</strong> or <strong>interaction</strong> combines columns when only the combination matters (loan size relative to income). <strong>Date features</strong> extract month, day of week and so on, because models cannot read a raw date.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="k">def</span><span class="w"> </span><span class="nf">engineer</span><span class="p">(</span><span class="n">d</span><span class="p">):</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">out</span><span class="p">[</span><span class="s2">"loan_to_income"</span><span class="p">]</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">loan_ksh</span> <span class="o">/</span> <span class="n">out</span><span class="o">.</span><span class="n">income_ksh</span>          <span class="c1"># ratio</span>
+    <span class="n">out</span><span class="p">[</span><span class="s2">"debt_x_late"</span><span class="p">]</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">debt_ratio</span> <span class="o">*</span> <span class="n">out</span><span class="o">.</span><span class="n">prior_late</span>          <span class="c1"># interaction</span>
+    <span class="n">out</span><span class="p">[</span><span class="s2">"age_band"</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span><span class="n">out</span><span class="o">.</span><span class="n">age</span><span class="p">,</span> <span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">65</span><span class="p">],</span>
+                             <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s2">"21-30"</span><span class="p">,</span> <span class="s2">"31-40"</span><span class="p">,</span> <span class="s2">"41-50"</span><span class="p">,</span> <span class="s2">"51-64"</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+    <span class="n">out</span><span class="p">[</span><span class="s2">"month"</span><span class="p">]</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">application_date</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">month</span>                 <span class="c1"># date features</span>
+    <span class="n">out</span><span class="p">[</span><span class="s2">"weekday"</span><span class="p">]</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">application_date</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">dayofweek</span>
+    <span class="n">out</span><span class="p">[</span><span class="s2">"is_december"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">out</span><span class="o">.</span><span class="n">month</span> <span class="o">==</span> <span class="mi">12</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">out</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="s2">"application_date"</span><span class="p">)</span>
+
+<span class="n">feat</span> <span class="o">=</span> <span class="n">engineer</span><span class="p">(</span><span class="n">loans</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">feat</span><span class="p">[[</span><span class="s2">"loan_to_income"</span><span class="p">,</span> <span class="s2">"debt_x_late"</span><span class="p">,</span> <span class="s2">"age_band"</span><span class="p">,</span> <span class="s2">"month"</span><span class="p">,</span> <span class="s2">"weekday"</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">   loan_to_income  debt_x_late age_band  month  weekday
+0        0.550181        0.000    21-30      2        0
+1        0.219269        0.000    21-30      3        4
+2        0.416409        0.273    51-64      9        6
+3        0.686869        0.000    41-50      1        4</pre></div></div>
+<p>These steps use each row on its own, so they cannot leak information between train and test. Steps that <em>learn</em> something from the data (a scaler's mean, an encoder's category list) belong inside a Pipeline (12.9).</p>
+
+<h3 id="text-a-first-look-at-tf-idf"><a class="anchor" href="#text-a-first-look-at-tf-idf" aria-label="Link to this section">#</a>Text: a first look at TF-IDF</h3>
+
+<p>A model needs numbers, so text is turned into a table with one column per word. <strong>TF-IDF</strong> (term frequency times inverse document frequency) scores a word highly when it appears often in one note but rarely across all notes, so common filler words count for little.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.feature_extraction.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">TfidfVectorizer</span>
+
+<span class="n">tf</span> <span class="o">=</span> <span class="n">TfidfVectorizer</span><span class="p">(</span><span class="n">ngram_range</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">min_df</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">M</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">loans</span><span class="p">[</span><span class="s2">"note"</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"matrix shape (notes x terms):"</span><span class="p">,</span> <span class="n">M</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">tf_lr</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">loans</span><span class="p">[</span><span class="s2">"default"</span><span class="p">])</span>
+<span class="n">w</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">tf_lr</span><span class="o">.</span><span class="n">coef_</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">index</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">())</span><span class="o">.</span><span class="n">sort_values</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"words that raise default risk:"</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">w</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">:][::</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"words that lower default risk:"</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">w</span><span class="o">.</span><span class="n">index</span><span class="p">[:</span><span class="mi">3</span><span class="p">]))</span>
+</code></pre></div><div class="cell-out"><pre class="out">matrix shape (notes x terms): (3000, 41)
+words that raise default risk: [&#x27;salary delayed&#x27;, &#x27;by employer&#x27;, &#x27;by&#x27;]
+words that lower default risk: [&#x27;monthly&#x27;, &#x27;monthly salary&#x27;, &#x27;stable monthly&#x27;]</pre></div></div>
+<p>Real text work needs cleaning, larger vocabularies and often word embeddings (Part 16). TF-IDF with a linear model is still a strong, quick baseline.</p>
+
+<h2 id="12-9-leak-free-pipelines"><a class="anchor" href="#12-9-leak-free-pipelines" aria-label="Link to this section">#</a>12.9 Leak-Free Pipelines</h2>
+
+<p>A <strong>data leak</strong> happens when information from the test rows influences training. The most common cause is fitting a scaler, encoder, imputer or feature selector on all the data before splitting. A <strong>Pipeline</strong> fits every step on the training folds only, every time. A <code>ColumnTransformer</code> applies different steps to different columns.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.compose</span><span class="w"> </span><span class="kn">import</span> <span class="n">ColumnTransformer</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.pipeline</span><span class="w"> </span><span class="kn">import</span> <span class="n">Pipeline</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">cross_val_score</span>
+
+<span class="n">Xf</span><span class="p">,</span> <span class="n">yf</span> <span class="o">=</span> <span class="n">feat</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="s2">"default"</span><span class="p">),</span> <span class="n">feat</span><span class="p">[</span><span class="s2">"default"</span><span class="p">]</span>
+<span class="n">Xf_tr</span><span class="p">,</span> <span class="n">Xf_te</span><span class="p">,</span> <span class="n">yf_tr</span><span class="p">,</span> <span class="n">yf_te</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">Xf</span><span class="p">,</span> <span class="n">yf</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><span class="n">yf</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">numeric</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"age"</span><span class="p">,</span> <span class="s2">"income_ksh"</span><span class="p">,</span> <span class="s2">"loan_ksh"</span><span class="p">,</span> <span class="s2">"term_months"</span><span class="p">,</span> <span class="s2">"prior_late"</span><span class="p">,</span> <span class="s2">"debt_ratio"</span><span class="p">,</span>
+           <span class="s2">"loan_to_income"</span><span class="p">,</span> <span class="s2">"debt_x_late"</span><span class="p">,</span> <span class="s2">"month"</span><span class="p">,</span> <span class="s2">"weekday"</span><span class="p">,</span> <span class="s2">"is_december"</span><span class="p">]</span>
+<span class="n">pre</span> <span class="o">=</span> <span class="n">ColumnTransformer</span><span class="p">([</span>
+    <span class="p">(</span><span class="s2">"num"</span><span class="p">,</span> <span class="n">StandardScaler</span><span class="p">(),</span> <span class="n">numeric</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"cat"</span><span class="p">,</span> <span class="n">OneHotEncoder</span><span class="p">(</span><span class="n">handle_unknown</span><span class="o">=</span><span class="s2">"ignore"</span><span class="p">),</span> <span class="p">[</span><span class="s2">"county"</span><span class="p">,</span> <span class="s2">"occupation"</span><span class="p">,</span> <span class="s2">"age_band"</span><span class="p">]),</span>
+    <span class="p">(</span><span class="s2">"txt"</span><span class="p">,</span> <span class="n">TfidfVectorizer</span><span class="p">(</span><span class="n">min_df</span><span class="o">=</span><span class="mi">20</span><span class="p">),</span> <span class="s2">"note"</span><span class="p">)],</span> <span class="n">sparse_threshold</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">lr_pipe</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([(</span><span class="s2">"prep"</span><span class="p">,</span> <span class="n">pre</span><span class="p">),</span> <span class="p">(</span><span class="s2">"model"</span><span class="p">,</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">))])</span>
+<span class="n">hgb_pipe</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([(</span><span class="s2">"prep"</span><span class="p">,</span> <span class="n">pre</span><span class="p">),</span> <span class="p">(</span><span class="s2">"model"</span><span class="p">,</span> <span class="n">HistGradientBoostingClassifier</span><span class="p">(</span>
+    <span class="n">max_iter</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">max_depth</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">))])</span>
+<span class="n">pipes</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">"logistic + engineered features"</span><span class="p">,</span> <span class="n">lr_pipe</span><span class="p">),</span> <span class="p">(</span><span class="s2">"HGB + engineered features"</span><span class="p">,</span> <span class="n">hgb_pipe</span><span class="p">)]</span>
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">pipes</span><span class="p">:</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">Xf_tr</span><span class="p">,</span> <span class="n">yf_tr</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">cv3</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="s2">"roc_auc"</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">name</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="mi">32</span><span class="p">),</span> <span class="s2">"CV AUC:"</span><span class="p">,</span> <span class="n">s</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">logistic + engineered features   CV AUC: 0.738
+HGB + engineered features        CV AUC: 0.775</pre></div></div>
+<p>Compare with the numeric-only models earlier in this Part: the engineered columns and note words help the straight-line model a little and the boosted model more, because ratios, dates and text add information that was not in the six raw numbers.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">hgb_pipe</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Xf_tr</span><span class="p">,</span> <span class="n">yf_tr</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"held-out test AUC (HGB pipeline):"</span><span class="p">,</span>
+      <span class="nb">round</span><span class="p">(</span><span class="n">roc_auc_score</span><span class="p">(</span><span class="n">yf_te</span><span class="p">,</span> <span class="n">hgb_pipe</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">Xf_te</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]),</span> <span class="mi">3</span><span class="p">))</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">joblib</span>
+<span class="n">joblib</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">hgb_pipe</span><span class="p">,</span> <span class="s2">"p12_loan_model.joblib"</span><span class="p">)</span>           <span class="c1"># the whole recipe, one file</span>
+<span class="n">reloaded</span> <span class="o">=</span> <span class="n">joblib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">"p12_loan_model.joblib"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"reloaded model predicts the same:"</span><span class="p">,</span>
+      <span class="nb">bool</span><span class="p">((</span><span class="n">reloaded</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">Xf_te</span><span class="p">)</span> <span class="o">==</span> <span class="n">hgb_pipe</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">Xf_te</span><span class="p">))</span><span class="o">.</span><span class="n">all</span><span class="p">()))</span>
+</code></pre></div><div class="cell-out"><pre class="out">held-out test AUC (HGB pipeline): 0.794
+reloaded model predicts the same: True</pre></div></div>
+<p>Saving the entire pipeline means that production applies exactly the same scaling and encoding as training (see Part 18). Now see how big a leak can be. The data below is <strong>pure noise</strong>: 100 rows, 500 random columns and a random target, so an honest model must score about 0.5.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.feature_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">SelectKBest</span><span class="p">,</span> <span class="n">f_classif</span>
+
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">Xn</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">500</span><span class="p">));</span> <span class="n">yn</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">cv5</span> <span class="o">=</span> <span class="n">StratifiedKFold</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">picked</span> <span class="o">=</span> <span class="n">SelectKBest</span><span class="p">(</span><span class="n">f_classif</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">Xn</span><span class="p">,</span> <span class="n">yn</span><span class="p">)</span>          <span class="c1"># selection saw ALL rows</span>
+<span class="n">leaky</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">LogisticRegression</span><span class="p">(),</span> <span class="n">picked</span><span class="p">,</span> <span class="n">yn</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">cv5</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="s2">"roc_auc"</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">safe_pipe</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">SelectKBest</span><span class="p">(</span><span class="n">f_classif</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">10</span><span class="p">),</span> <span class="n">LogisticRegression</span><span class="p">())</span>
+<span class="n">safe</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">safe_pipe</span><span class="p">,</span> <span class="n">Xn</span><span class="p">,</span> <span class="n">yn</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">cv5</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="s2">"roc_auc"</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"selection before CV (leak):"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">leaky</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"selection inside Pipeline :"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">safe</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">selection before CV (leak): 0.875
+selection inside Pipeline : 0.505</pre></div></div>
+<p>The leaky version finds a 'pattern' in pure noise, because the selected columns were chosen using the very rows that were later used for testing. The pipeline version correctly reports no skill.</p>
+
+<div class="callout tip"><p><strong>Rule.</strong> Whenever a step learns from data (scale, encode, impute, select, balance classes), put it inside the Pipeline and pass the Pipeline to <code>cross_val_score</code> or <code>GridSearchCV</code>.</p>
+</div>
+<h2 id="12-10-feature-selection"><a class="anchor" href="#12-10-feature-selection" aria-label="Link to this section">#</a>12.10 Feature Selection</h2>
+
+<p><strong>Feature selection</strong> keeps the useful columns and drops the rest. It makes models simpler, faster and sometimes more accurate, and it reduces what you must collect in production. Three families exist: <strong>filter</strong> methods score each feature on its own; <strong>embedded</strong> methods (such as L1 regularisation) select while training; <strong>wrapper</strong> methods such as <strong>RFE</strong> (recursive feature elimination) repeatedly fit a model and drop the weakest feature. To see them work, we add three columns of pure noise.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.feature_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">SelectKBest</span><span class="p">,</span> <span class="n">f_classif</span><span class="p">,</span> <span class="n">RFE</span>
+
+<span class="n">sel</span> <span class="o">=</span> <span class="n">Xf_tr</span><span class="p">[</span><span class="n">numeric</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">rs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"noise_a"</span><span class="p">,</span> <span class="s2">"noise_b"</span><span class="p">,</span> <span class="s2">"noise_c"</span><span class="p">]:</span>
+    <span class="n">sel</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">=</span> <span class="n">rs</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">sel</span><span class="p">))</span>
+<span class="n">scaled</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">StandardScaler</span><span class="p">()</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">sel</span><span class="p">),</span> <span class="n">columns</span><span class="o">=</span><span class="n">sel</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+
+<span class="n">f_scores</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">SelectKBest</span><span class="p">(</span><span class="n">f_classif</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="s2">"all"</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">scaled</span><span class="p">,</span> <span class="n">yf_tr</span><span class="p">)</span><span class="o">.</span><span class="n">scores_</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">sel</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"filter (F-score), top 5 :"</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">f_scores</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="p">[:</span><span class="mi">5</span><span class="p">]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"filter, lowest 3        :"</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">f_scores</span><span class="o">.</span><span class="n">sort_values</span><span class="p">()</span><span class="o">.</span><span class="n">index</span><span class="p">[:</span><span class="mi">3</span><span class="p">]))</span>
+</code></pre></div><div class="cell-out"><pre class="out">filter (F-score), top 5 : [&#x27;loan_to_income&#x27;, &#x27;debt_x_late&#x27;, &#x27;loan_ksh&#x27;, &#x27;income_ksh&#x27;, &#x27;prior_late&#x27;]
+filter, lowest 3        : [&#x27;noise_c&#x27;, &#x27;weekday&#x27;, &#x27;noise_b&#x27;]</pre></div></div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">l1</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">l1_ratio</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">solver</span><span class="o">=</span><span class="s2">"liblinear"</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">scaled</span><span class="p">,</span> <span class="n">yf_tr</span><span class="p">)</span>
+<span class="n">zero</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span><span class="p">,</span> <span class="n">w</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">sel</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="n">l1</span><span class="o">.</span><span class="n">coef_</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="k">if</span> <span class="n">w</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"L1 (lasso) set these weights to exactly zero:"</span><span class="p">,</span> <span class="n">zero</span><span class="p">)</span>
+
+<span class="n">rfe</span> <span class="o">=</span> <span class="n">RFE</span><span class="p">(</span><span class="n">LogisticRegression</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">),</span> <span class="n">n_features_to_select</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">scaled</span><span class="p">,</span> <span class="n">yf_tr</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"RFE keeps:"</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">sel</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="n">rfe</span><span class="o">.</span><span class="n">support_</span><span class="p">]))</span>
+</code></pre></div><div class="cell-out"><pre class="out">L1 (lasso) set these weights to exactly zero: [&#x27;loan_ksh&#x27;, &#x27;prior_late&#x27;, &#x27;month&#x27;, &#x27;weekday&#x27;, &#x27;noise_b&#x27;, &#x27;noise_c&#x27;]
+RFE keeps: [&#x27;term_months&#x27;, &#x27;prior_late&#x27;, &#x27;loan_to_income&#x27;, &#x27;debt_x_late&#x27;, &#x27;noise_a&#x27;]</pre></div></div>
+<p>Read the results with care. Noise columns tend to sit at the bottom of the filter ranking and L1 zeroes most of them, but L1 also drops real columns that are redundant with others (for example <code>prior_late</code> is largely carried by <code>debt_x_late</code>), and RFE may keep a noise column. L1 is cheap and works inside the model; RFE is slower but accounts for the model. Always confirm a selection with cross-validation instead of trusting one run.</p>
+
+<div class="callout mistake"><p><strong>Common mistake.</strong> Pick features inside cross-validation (a Pipeline step), never on the full data first (see the leak demo). With many correlated features, selection can be unstable: different folds may keep different columns, which is normal.</p>
+</div>
+<h2 id="12-11-explaining-models-importance-and-partial-dependence-ad"><a class="anchor" href="#12-11-explaining-models-importance-and-partial-dependence-ad" aria-label="Link to this section">#</a>12.11 Explaining Models: Importance and Partial Dependence (Advanced)</h2>
+
+<p>Ensembles are accurate but opaque. Three tools open the box. <strong>Impurity importance</strong> (<code>feature_importances_</code>) is free but biased toward features with many distinct values. <strong>Permutation importance</strong> shuffles one column of the <em>test</em> data and measures how much the score drops: if shuffling hurts, the model relied on that column. <strong>Partial dependence</strong> shows how the average prediction changes as one feature moves, others averaged out. We add a useless random ID-like column to test the bias claim.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.inspection</span><span class="w"> </span><span class="kn">import</span> <span class="n">permutation_importance</span>
+
+<span class="n">rs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">Xi_tr</span><span class="p">,</span> <span class="n">Xi_te</span> <span class="o">=</span> <span class="n">X_tr</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span> <span class="n">X_te</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">Xi_tr</span><span class="p">[</span><span class="s2">"random_id"</span><span class="p">]</span> <span class="o">=</span> <span class="n">rs</span><span class="o">.</span><span class="n">permutation</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">Xi_tr</span><span class="p">));</span> <span class="n">Xi_te</span><span class="p">[</span><span class="s2">"random_id"</span><span class="p">]</span> <span class="o">=</span> <span class="n">rs</span><span class="o">.</span><span class="n">permutation</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">Xi_te</span><span class="p">))</span>
+<span class="n">forest</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">min_samples_leaf</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">forest</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Xi_tr</span><span class="p">,</span> <span class="n">y_tr</span><span class="p">)</span>
+<span class="n">imp_imp</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">forest</span><span class="o">.</span><span class="n">feature_importances_</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">Xi_tr</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+<span class="n">perm</span> <span class="o">=</span> <span class="n">permutation_importance</span><span class="p">(</span><span class="n">forest</span><span class="p">,</span> <span class="n">Xi_te</span><span class="p">,</span> <span class="n">y_te</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="s2">"roc_auc"</span><span class="p">,</span> <span class="n">n_repeats</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+                              <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">imp_perm</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">perm</span><span class="o">.</span><span class="n">importances_mean</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">Xi_tr</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">"impurity"</span><span class="p">:</span> <span class="n">imp_imp</span><span class="p">,</span> <span class="s2">"permutation"</span><span class="p">:</span> <span class="n">imp_perm</span><span class="p">})</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+      <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">"permutation"</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+</code></pre></div><div class="cell-out"><pre class="out">             impurity  permutation
+loan_ksh        0.221        0.082
+income_ksh      0.219        0.062
+age             0.161        0.042
+prior_late      0.071        0.036
+debt_ratio      0.162        0.034
+term_months     0.045        0.014
+random_id       0.122        0.006</pre></div></div>
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">order</span> <span class="o">=</span> <span class="n">imp_perm</span><span class="o">.</span><span class="n">sort_values</span><span class="p">()</span><span class="o">.</span><span class="n">index</span>
+<span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">a1</span><span class="p">,</span> <span class="n">a2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">3.8</span><span class="p">),</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">a1</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="n">order</span><span class="p">,</span> <span class="n">imp_imp</span><span class="p">[</span><span class="n">order</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="n">AMBER</span> <span class="k">if</span> <span class="n">c</span> <span class="o">==</span> <span class="s2">"random_id"</span> <span class="k">else</span> <span class="n">BLUE</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">order</span><span class="p">])</span>
+<span class="n">a2</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="n">order</span><span class="p">,</span> <span class="n">imp_perm</span><span class="p">[</span><span class="n">order</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="n">AMBER</span> <span class="k">if</span> <span class="n">c</span> <span class="o">==</span> <span class="s2">"random_id"</span> <span class="k">else</span> <span class="n">GREEN</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">order</span><span class="p">])</span>
+<span class="n">a1</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">"Impurity importance"</span><span class="p">,</span> <span class="n">xlabel</span><span class="o">=</span><span class="s2">"Share of impurity reduction"</span><span class="p">)</span>
+<span class="n">a2</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">"Permutation importance"</span><span class="p">,</span> <span class="n">xlabel</span><span class="o">=</span><span class="s2">"Drop in test AUC when shuffled"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">"p12_importance.png"</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">130</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"saved p12_importance.png"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">saved p12_importance.png</pre></div></div>
+<div class="cell only-out"><div class="cell-out"><figure class="fig"><img src="img/part-12-038.png" alt="Chart output" loading="lazy"></figure></div></div>
+<p>The useless <code>random_id</code> column (amber) gets a visible slice of impurity importance, because a column with many distinct values gives trees many chances to find a lucky split. Its permutation importance is about zero, which is the correct answer.</p>
+
+<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.inspection</span><span class="w"> </span><span class="kn">import</span> <span class="n">PartialDependenceDisplay</span>
+
+<span class="n">hgb2</span> <span class="o">=</span> <span class="n">HistGradientBoostingClassifier</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">max_depth</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+                                      <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_tr</span><span class="p">,</span> <span class="n">y_tr</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">3.6</span><span class="p">))</span>
+<span class="n">PartialDependenceDisplay</span><span class="o">.</span><span class="n">from_estimator</span><span class="p">(</span><span class="n">hgb2</span><span class="p">,</span> <span class="n">X_te</span><span class="p">,</span> <span class="p">[</span><span class="s2">"debt_ratio"</span><span class="p">,</span> <span class="s2">"income_ksh"</span><span class="p">],</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
+                                        <span class="n">method</span><span class="o">=</span><span class="s2">"brute"</span><span class="p">,</span> <span class="n">response_method</span><span class="o">=</span><span class="s2">"predict_proba"</span><span class="p">,</span>
+                                        <span class="n">line_kw</span><span class="o">=</span><span class="p">{</span><span class="s2">"color"</span><span class="p">:</span> <span class="n">BLUE</span><span class="p">})</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">"Partial dependence: debt ratio"</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">"Average predicted default probability"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">"Partial dependence: monthly income"</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">""</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">"p12_pdp.png"</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">130</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"saved p12_pdp.png"</span><span class="p">)</span>
+</code></pre></div><div class="cell-out"><pre class="out">saved p12_pdp.png</pre></div></div>
+<div class="cell only-out"><div class="cell-out"><figure class="fig"><img src="img/part-12-039.png" alt="Chart output" loading="lazy"></figure></div></div>
+<p>The curves show the shape the model learned: predicted default risk rises with the debt ratio (with a clear step near 0.4) and tends to fall as income grows. These plots show what the model does, not what causes default. Another useful tool, SHAP, explains single predictions (the <code>shap</code> package is not installed here).</p>
+
+<pre class="code"><code><span class="c1"># pip install shap</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">shap</span>
+<span class="n">explainer</span> <span class="o">=</span> <span class="n">shap</span><span class="o">.</span><span class="n">TreeExplainer</span><span class="p">(</span><span class="n">hgb2</span><span class="p">)</span>
+<span class="n">shap</span><span class="o">.</span><span class="n">summary_plot</span><span class="p">(</span><span class="n">explainer</span><span class="o">.</span><span class="n">shap_values</span><span class="p">(</span><span class="n">X_te</span><span class="p">),</span> <span class="n">X_te</span><span class="p">)</span>
+</code></pre>
+<p><em>Not executed in this notebook (needs a service or setting you must provide yourself).</em></p>
+
+<h2 id="12-12-choosing-a-tabular-algorithm-and-using-it-in-the-real-"><a class="anchor" href="#12-12-choosing-a-tabular-algorithm-and-using-it-in-the-real-" aria-label="Link to this section">#</a>12.12 Choosing a Tabular Algorithm, and Using It in the Real World</h2>
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Algorithm</th>
+<th>Best for</th>
+<th>Scaling</th>
+<th>Missing values</th>
+<th>Tuning effort</th>
+<th>Explainable</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Logistic regression</td>
+<td>Baseline, scorecards</td>
+<td>Needed</td>
+<td>Impute first</td>
+<td>Low</td>
+<td>Very</td>
+</tr>
+<tr>
+<td>Decision tree</td>
+<td>Readable rules</td>
+<td>No</td>
+<td>Impute first</td>
+<td>Low</td>
+<td>Very</td>
+</tr>
+<tr>
+<td>Random forest</td>
+<td>Strong default, little tuning</td>
+<td>No</td>
+<td>Impute first</td>
+<td>Low</td>
+<td>Medium</td>
+</tr>
+<tr>
+<td>Extra trees</td>
+<td>Fast, smoother forest</td>
+<td>No</td>
+<td>Impute first</td>
+<td>Low</td>
+<td>Medium</td>
+</tr>
+<tr>
+<td>HistGradientBoosting</td>
+<td>Accurate, no extra install</td>
+<td>No</td>
+<td>Native</td>
+<td>Medium</td>
+<td>Medium</td>
+</tr>
+<tr>
+<td>XGBoost</td>
+<td>Competitions, big tables</td>
+<td>No</td>
+<td>Native</td>
+<td>Medium to high</td>
+<td>Medium</td>
+</tr>
+<tr>
+<td>LightGBM</td>
+<td>Very large data, speed</td>
+<td>No</td>
+<td>Native</td>
+<td>Medium to high</td>
+<td>Medium</td>
+</tr>
+<tr>
+<td>Stacking</td>
+<td>Last bit of accuracy</td>
+<td>Per model</td>
+<td>Per model</td>
+<td>High</td>
+<td>Low</td>
+</tr>
+</tbody>
+</table></div>
+
+<p>A practical order of work: (1) a baseline and logistic regression, (2) a random forest as a no-fuss tree benchmark, (3) a boosted model with early stopping, (4) a small random search, (5) engineered features in a Pipeline, and only then (6) stacking if the gain justifies the complexity. Judge every step with the same cross-validation.</p>
+
+<div class="callout real"><p><strong>Using it in the real world.</strong> <strong>Data you need:</strong> one row per decision with only information known at that moment, plus a clear outcome definition and enough positives (hundreds, ideally thousands). <strong>Validate:</strong> split by time, keep a final untouched test period, tune inside cross-validation, and report both a ranking metric (AUC) and a business metric (cost at the chosen threshold, Part 11). <strong>How it fails:</strong> leakage (a column recorded after the outcome), drift (a new loan product or a new mobile-money fee changes behaviour), and over-tuning to one validation set. <strong>Monitor:</strong> the distribution of each input and of the scores, the realised default rate per score band, and retrain on a schedule. <strong>Scenario:</strong> a SACCO scoring member loan applications can start with a logistic scorecard its committee understands, then compare a boosted model on later months, and adopt it only if it saves money at the same approval rate. Keep a reason code (top permutation features) for each declined member.</p>
+</div>
+<div class="callout takeaways"><div class="c-label">Key takeaways</div><ul>
+<li>Ensembles average away variance (bagging, forests) or learn from mistakes (boosting).</li>
+<li>Boosted trees (HistGradientBoosting, XGBoost, LightGBM) are the usual winners on tabular data; use early stopping and small learning rates.</li>
+<li>Match the CV scheme to reality: stratified for classes, time-based for time, grouped for customers; tune with random search and keep a clean test set.</li>
+<li>Put every step that learns from data inside a Pipeline to avoid leaks.</li>
+<li>Good features (ratios, dates, bins, text) often matter more than the algorithm.</li>
+<li>Use permutation importance and partial dependence to explain what a model relies on.</li>
+</ul>
+</div></div><nav class="pager" aria-label="Previous and next"><a class="prev" href="part-11.html"><small>Previous</small><span>Part 11: Classification</span></a><a class="next" href="part-13.html"><small>Next</small><span>Part 13: Unsupervised Learning</span></a></nav>
+<footer class="foot"><p>Data Science from Zero to Advanced &middot; written by Benson M. Merita &middot; &copy; 2026 MeritaAnalytics. Public datasets keep their own licences, listed in <a href="appendix-b.html">Appendix B</a>.</p></footer>
+</main>
+</div>
+<script src="search-index.js"></script>
+<script src="site.js"></script>
+</body>
+</html>
