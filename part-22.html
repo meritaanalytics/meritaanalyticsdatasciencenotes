@@ -288,7 +288,7 @@
 
 <p>Almost every model follows the same four steps: create, fit, predict, score.</p>
 
-<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_wine</span>
+<div class="cell" data-ci="0"><div class="cell-in"><pre class="code"><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_wine</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.pipeline</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_pipeline</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span>
@@ -506,5 +506,7 @@
 </div>
 <script src="search-index.js"></script>
 <script src="site.js"></script>
+<script type="application/json" id="ma-cells">{"setup": "import os\nos.chdir(os.environ['GUIDE_ROOT'])\nos.makedirs('work/p22_roadmap_reference', exist_ok=True)\nos.chdir('work/p22_roadmap_reference')", "cells": [{"src": "from sklearn.datasets import load_wine\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.pipeline import make_pipeline\nfrom sklearn.preprocessing import StandardScaler\nfrom sklearn.linear_model import LogisticRegression\n\nX, y = load_wine(return_X_y=True)\nX_tr, X_te, y_tr, y_te = train_test_split(X, y, test_size=0.25, stratify=y, random_state=42)\nmodel = make_pipeline(StandardScaler(), LogisticRegression(max_iter=500))   # 1 create\nmodel.fit(X_tr, y_tr)                                                      # 2 fit\npred = model.predict(X_te)                                                 # 3 predict\nprint(\"test accuracy:\", round(model.score(X_te, y_te), 3), \"| predictions:\", pred[:8])  # 4 score", "hidden": false, "err": false, "norun": ""}], "datasets": [], "fintech": false}</script>
+<script src="runner.js"></script>
 </body>
 </html>

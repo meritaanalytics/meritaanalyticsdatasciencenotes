@@ -41,6 +41,7 @@
 }
 
 * { box-sizing: border-box; }
+[hidden] { display: none !important; }
 html { scroll-padding-top: 72px; }
 body { margin: 0; background: var(--bg); color: var(--ink); font: 17px/1.65 var(--f-body); -webkit-text-size-adjust: 100%; }
 img { max-width: 100%; height: auto; }
@@ -225,3 +226,33 @@ details.answer.standalone { background: var(--green-soft); padding: 10px 16px; b
   pre.code { font-size: 13px; }
 }
 @media (prefers-reduced-motion: reduce) { .side { transition: none; } html { scroll-behavior: auto; } }
+
+/* ---------- run in the browser ---------- */
+.cell-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; background: var(--code-bg); border-left: 4px solid var(--blue); border-radius: 10px 10px 0 0;
+  padding: 8px 10px 0; font-family: var(--f-ui); }
+.cell-bar + pre.code { border-radius: 0; padding-top: 8px; }
+.cell-in:only-child .cell-bar + pre.code { border-radius: 0 0 10px 10px; }
+.cell-bar .copy { position: static; margin-left: auto; }
+.run-btn { font: 700 13px var(--f-ui); background: var(--green); color: #fff; border: 0; border-radius: 6px; padding: 5px 14px 5px 12px; cursor: pointer; }
+.run-btn::before { content: ""; display: inline-block; width: 0; height: 0; border-left: 8px solid currentColor; border-top: 5px solid transparent; border-bottom: 5px solid transparent; margin-right: 7px; vertical-align: 0; }
+.run-btn:hover { filter: brightness(1.1); }
+.reset-btn { font: 600 12px var(--f-ui); background: transparent; color: var(--code-fg); border: 1px solid rgba(255,255,255,.25); border-radius: 6px; padding: 4px 10px; cursor: pointer; }
+.bar-note { color: #8fa6b9; font-size: 12px; }
+.cell.running .run-btn { opacity: .6; cursor: progress; }
+.cell.running .cell-bar .bar-note::after { content: " Running…"; color: var(--tk-num); }
+pre.code code[contenteditable] { outline: none; display: block; min-height: 1.6em; caret-color: var(--tk-num); }
+.live-out { border-left-color: var(--blue); }
+.live-out::before { content: "Your output (ran in your browser)"; color: var(--blue); }
+.cell.only-out .live-out::before { content: "Your output"; }
+.live-out .muted { color: var(--muted); font-style: italic; }
+.err.live code { white-space: pre-wrap; }
+.py-pill { position: fixed; z-index: 45; right: max(16px, calc(env(safe-area-inset-right, 0px) + 16px)); bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+  display: flex; align-items: center; gap: 10px; max-width: min(92vw, 460px); background: var(--panel); color: var(--ink); border: 1px solid var(--line);
+  border-radius: 999px; padding: 8px 10px 8px 14px; box-shadow: 0 6px 24px rgba(10, 30, 50, .18); font: 600 13.5px var(--f-ui); }
+.py-text { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.py-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--green); flex: none; }
+.py-pill[data-state="busy"] .py-dot { background: var(--amber); animation: pypulse 1s ease-in-out infinite; }
+.py-pill[data-state="error"] .py-dot { background: var(--red); }
+.py-stop { font: 700 12px var(--f-ui); border: 1px solid var(--red); color: var(--red); background: transparent; border-radius: 999px; padding: 3px 10px; cursor: pointer; }
+@keyframes pypulse { 50% { opacity: .35; } }
+@media (prefers-reduced-motion: reduce) { .py-pill[data-state="busy"] .py-dot { animation: none; } }
