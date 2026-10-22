@@ -154,7 +154,7 @@
 
 <p>Real lending, M-Pesa, insurance and production data is confidential, so these datasets are invented. They are generated in code with fixed random seeds. They imitate realistic structure, not real people or companies. The cell below lists every file the notebook generated, with its part and size, and the same files are copied to <code>datasets/synthetic/</code>.</p>
 
-<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<div class="cell" data-ci="0"><div class="cell-in"><pre class="code"><code><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="n">root</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">"GUIDE_ROOT"</span><span class="p">])</span> <span class="o">/</span> <span class="s2">"work"</span>
@@ -188,5 +188,7 @@ shop_project               1     0.0</pre></div></div>
 </div>
 <script src="search-index.js"></script>
 <script src="site.js"></script>
+<script type="application/json" id="ma-cells">{"setup": "import os\nos.chdir(os.environ['GUIDE_ROOT'])\nos.makedirs('work/p91_catalogue', exist_ok=True)\nos.chdir('work/p91_catalogue')", "cells": [{"src": "import os\nfrom pathlib import Path\nimport pandas as pd\nroot = Path(os.environ[\"GUIDE_ROOT\"]) / \"work\"\nrows = []\nfor p in sorted(root.rglob(\"*\")):\n    if p.is_file() and p.suffix.lower() in {\".csv\", \".xlsx\", \".db\", \".json\", \".md\"} and p.stat().st_size > 0:\n        rows.append({\"part_file\": p.parent.name, \"file\": p.name, \"type\": p.suffix[1:], \"kb\": round(p.stat().st_size / 1024, 1)})\ncat = pd.DataFrame(rows)\nprint(\"generated files:\", len(cat), \"| total MB:\", round(cat.kb.sum() / 1024, 1))\nprint(cat.groupby(\"part_file\").agg(files=(\"file\", \"size\"), kb=(\"kb\", \"sum\")).round(0).to_string())", "hidden": false, "err": false, "norun": "whole"}], "datasets": [], "fintech": false}</script>
+<script src="runner.js"></script>
 </body>
 </html>

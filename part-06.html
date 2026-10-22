@@ -96,7 +96,7 @@
 
 <p>Why learn it? Company data lives in databases. Asking for only the rows and columns you need is faster and safer than exporting everything to Excel. We use <strong>SQLite</strong>, which is built into Python, and a <strong>synthetic lender database</strong> made in code with fixed seeds (customers, transactions, loans, repayments). No row describes a real person or lender, so every finding describes this synthetic data only.</p>
 
-<div class="cell"><div class="cell-in"><pre class="code"><code><span class="kn">import</span><span class="w"> </span><span class="nn">sqlite3</span>
+<div class="cell" data-ci="0"><div class="cell-in"><pre class="code"><code><span class="kn">import</span><span class="w"> </span><span class="nn">sqlite3</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">fintech_db</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_fintech_db</span>
@@ -173,7 +173,7 @@
 
 <p>Before writing a query, look at a table's columns. <code>PRAGMA table_info(table)</code> lists them with their types.</p>
 
-<div class="cell"><div class="cell-in"><pre class="code"><code><span class="nb">print</span><span class="p">(</span><span class="n">q</span><span class="p">(</span><span class="s2">"PRAGMA table_info(loans)"</span><span class="p">)[[</span><span class="s2">"name"</span><span class="p">,</span> <span class="s2">"type"</span><span class="p">]]</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+<div class="cell" data-ci="1"><div class="cell-in"><pre class="code"><code><span class="nb">print</span><span class="p">(</span><span class="n">q</span><span class="p">(</span><span class="s2">"PRAGMA table_info(loans)"</span><span class="p">)[[</span><span class="s2">"name"</span><span class="p">,</span> <span class="s2">"type"</span><span class="p">]]</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">q</span><span class="p">(</span><span class="s2">"SELECT COUNT(*) AS loans, COUNT(DISTINCT loan_id) AS distinct_ids FROM loans"</span><span class="p">)</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
 </code></pre></div><div class="cell-out"><pre class="out">             name    type
           loan_id    TEXT
@@ -217,7 +217,7 @@ disbursement_date    TEXT
 
 <p>A query reads like a sentence in a fixed order: <code>SELECT</code> the columns, <code>FROM</code> a table, <code>WHERE</code> a row condition, <code>ORDER BY</code> a sort, <code>LIMIT</code> a row cap. Text values go in single quotes.</p>
 
-<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
+<div class="cell" data-ci="2"><div class="cell-in"><pre class="code"><code><span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
 <span class="s1">SELECT customer_id, county, occupation, monthly_income_ksh</span>
 <span class="s1">FROM customers</span>
 <span class="s1">WHERE county = 'Nairobi' AND monthly_income_ksh &gt;= 80000</span>
@@ -277,7 +277,7 @@ disbursement_date    TEXT
 </div></div></div></div>
 <p>Handy filters: <code>IN (...)</code> for a list, <code>BETWEEN a AND b</code> (both ends included), <code>LIKE 'S%'</code> for text starting with S, and <code>DISTINCT</code> to remove duplicates.</p>
 
-<div class="cell"><div class="cell-in"><pre class="code"><code><span class="nb">print</span><span class="p">(</span><span class="n">q</span><span class="p">(</span><span class="s2">"SELECT DISTINCT occupation FROM customers ORDER BY occupation"</span><span class="p">)[</span><span class="s2">"occupation"</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+<div class="cell" data-ci="3"><div class="cell-in"><pre class="code"><code><span class="nb">print</span><span class="p">(</span><span class="n">q</span><span class="p">(</span><span class="s2">"SELECT DISTINCT occupation FROM customers ORDER BY occupation"</span><span class="p">)[</span><span class="s2">"occupation"</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
 <span class="n">n</span> <span class="o">=</span> <span class="n">q</span><span class="p">(</span><span class="s1">'''SELECT COUNT(*) AS n FROM customers</span>
 <span class="s1">         WHERE county IN ('Kisumu', 'Kakamega') AND age BETWEEN 25 AND 35'''</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">"customers in Kisumu or Kakamega aged 25-35:"</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
@@ -285,7 +285,7 @@ disbursement_date    TEXT
 customers in Kisumu or Kakamega aged 25-35: 62</pre></div></div>
 <div class="callout practice"><div class="c-label">Practice</div><p>List the five largest successful M-Pesa transactions (id, date, amount).</p>
 </div>
-<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
+<div class="cell" data-ci="4"><div class="cell-in"><pre class="code"><code><span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
 <span class="s1">SELECT txn_id, txn_date, amount_ksh</span>
 <span class="s1">FROM transactions</span>
 <span class="s1">WHERE channel = 'M-Pesa' AND status = 'Success'</span>
@@ -343,7 +343,7 @@ customers in Kisumu or Kakamega aged 25-35: 62</pre></div></div>
 
 <p>An <strong>aggregate</strong> collapses many rows into one number: <code>COUNT</code>, <code>SUM</code>, <code>AVG</code>, <code>MIN</code>, <code>MAX</code>. <code>GROUP BY</code> computes it once per group. <code>WHERE</code> filters rows <strong>before</strong> grouping; <code>HAVING</code> filters groups <strong>after</strong>.</p>
 
-<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
+<div class="cell" data-ci="5"><div class="cell-in"><pre class="code"><code><span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
 <span class="s1">SELECT txn_type,</span>
 <span class="s1">       COUNT(*)                  AS txns,</span>
 <span class="s1">       ROUND(SUM(amount_ksh), 0) AS total_ksh,</span>
@@ -411,7 +411,7 @@ customers in Kisumu or Kakamega aged 25-35: 62</pre></div></div>
   </tbody>
 </table></div>
 </div></div></div></div>
-<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
+<div class="cell" data-ci="6"><div class="cell-in"><pre class="code"><code><span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
 <span class="s1">SELECT county, occupation, COUNT(*) AS customers</span>
 <span class="s1">FROM customers</span>
 <span class="s1">GROUP BY county, occupation</span>
@@ -503,7 +503,7 @@ customers in Kisumu or Kakamega aged 25-35: 62</pre></div></div>
 
 <p><strong>Common mistake.</strong> Selecting a column that is neither grouped nor aggregated. SQLite quietly picks an arbitrary value; stricter databases raise an error. Also, <code>COUNT(DISTINCT x)</code> counts unique values, which is how you count <em>customers</em> rather than <em>transactions</em>.</p>
 
-<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
+<div class="cell" data-ci="7"><div class="cell-in"><pre class="code"><code><span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
 <span class="s1">SELECT channel, COUNT(*) AS txns, COUNT(DISTINCT customer_id) AS customers,</span>
 <span class="s1">       ROUND(1.0 * COUNT(*) / COUNT(DISTINCT customer_id), 1) AS txns_per_customer</span>
 <span class="s1">FROM transactions GROUP BY channel ORDER BY txns DESC</span>
@@ -590,7 +590,7 @@ customers in Kisumu or Kakamega aged 25-35: 62</pre></div></div>
 </tbody>
 </table></div>
 
-<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
+<div class="cell" data-ci="8"><div class="cell-in"><pre class="code"><code><span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
 <span class="s1">SELECT l.loan_id, c.county, c.occupation, l.product, l.principal_ksh, l.status</span>
 <span class="s1">FROM loans AS l</span>
 <span class="s1">INNER JOIN customers AS c ON c.customer_id = l.customer_id</span>
@@ -664,7 +664,7 @@ customers in Kisumu or Kakamega aged 25-35: 62</pre></div></div>
 
 <h3 id="left-join-and-the-anti-join"><a class="anchor" href="#left-join-and-the-anti-join" aria-label="Link to this section">#</a>LEFT JOIN and the anti-join</h3>
 
-<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">never</span> <span class="o">=</span> <span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
+<div class="cell" data-ci="9"><div class="cell-in"><pre class="code"><code><span class="n">never</span> <span class="o">=</span> <span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
 <span class="s1">SELECT c.customer_id, c.county, c.segment</span>
 <span class="s1">FROM customers c</span>
 <span class="s1">LEFT JOIN loans l ON l.customer_id = c.customer_id</span>
@@ -709,7 +709,7 @@ customers in Kisumu or Kakamega aged 25-35: 62</pre></div></div>
 
 <p>The most common wrong number in analytics. A customer has many transactions <strong>and</strong> many loans. Join both to the customer table and each loan row repeats once per transaction, so loan totals inflate. The cure: <strong>aggregate the many-side to one row per key first</strong>, then join.</p>
 
-<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">wrong</span> <span class="o">=</span> <span class="n">q</span><span class="p">(</span><span class="s1">'''SELECT SUM(l.principal_ksh) AS s FROM customers c</span>
+<div class="cell" data-ci="10"><div class="cell-in"><pre class="code"><code><span class="n">wrong</span> <span class="o">=</span> <span class="n">q</span><span class="p">(</span><span class="s1">'''SELECT SUM(l.principal_ksh) AS s FROM customers c</span>
 <span class="s1">             JOIN loans l ON l.customer_id = c.customer_id</span>
 <span class="s1">             JOIN transactions t ON t.customer_id = c.customer_id'''</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
 <span class="n">truth</span> <span class="o">=</span> <span class="n">q</span><span class="p">(</span><span class="s2">"SELECT SUM(principal_ksh) FROM loans"</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
@@ -723,7 +723,7 @@ inflation factor: 20.5 x</pre></div></div>
 </div>
 <div class="callout practice"><div class="c-label">Practice</div><p>For each loan product, how many loans went to customers in Nairobi?</p>
 </div>
-<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
+<div class="cell" data-ci="11"><div class="cell-in"><pre class="code"><code><span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
 <span class="s1">SELECT l.product, COUNT(*) AS nairobi_loans</span>
 <span class="s1">FROM loans l JOIN customers c USING (customer_id)</span>
 <span class="s1">WHERE c.county = 'Nairobi'</span>
@@ -769,7 +769,7 @@ inflation factor: 20.5 x</pre></div></div>
 
 <p><code>CASE WHEN</code> builds a new value row by row. It is also the engine of <strong>conditional aggregation</strong>: count or sum only the rows that meet a condition.</p>
 
-<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
+<div class="cell" data-ci="12"><div class="cell-in"><pre class="code"><code><span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
 <span class="s1">SELECT customer_id, monthly_income_ksh,</span>
 <span class="s1">       CASE WHEN monthly_income_ksh &lt; 25000 THEN 'Low'</span>
 <span class="s1">            WHEN monthly_income_ksh &lt; 70000 THEN 'Middle'</span>
@@ -822,7 +822,7 @@ inflation factor: 20.5 x</pre></div></div>
   </tbody>
 </table></div>
 </div></div></div></div>
-<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
+<div class="cell" data-ci="13"><div class="cell-in"><pre class="code"><code><span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
 <span class="s1">SELECT product,</span>
 <span class="s1">       COUNT(*) AS loans,</span>
 <span class="s1">       SUM(CASE WHEN status = 'Defaulted' THEN 1 ELSE 0 END)        AS defaulted,</span>
@@ -885,7 +885,7 @@ inflation factor: 20.5 x</pre></div></div>
 </div>
 <div class="callout practice"><div class="c-label">Practice</div><p>Percentage of transactions that failed, per county, to 2 decimals.</p>
 </div>
-<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">fail</span> <span class="o">=</span> <span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
+<div class="cell" data-ci="14"><div class="cell-in"><pre class="code"><code><span class="n">fail</span> <span class="o">=</span> <span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
 <span class="s1">SELECT county, COUNT(*) AS txns,</span>
 <span class="s1">       ROUND(100.0 * SUM(CASE WHEN status = 'Failed' THEN 1 ELSE 0 END) / COUNT(*), 2) AS failed_pct</span>
 <span class="s1">FROM fact_transactions GROUP BY county ORDER BY failed_pct DESC</span>
@@ -896,7 +896,7 @@ Eldoret  1221        3.60
 Nairobi  7023        3.36
  Kiambu  2084        3.36
   Kisii   874        3.32</pre></div></div>
-<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">fact</span> <span class="o">=</span> <span class="n">q</span><span class="p">(</span><span class="s2">"SELECT county, status FROM fact_transactions"</span><span class="p">)</span>
+<div class="cell" data-ci="15"><div class="cell-in"><pre class="code"><code><span class="n">fact</span> <span class="o">=</span> <span class="n">q</span><span class="p">(</span><span class="s2">"SELECT county, status FROM fact_transactions"</span><span class="p">)</span>
 <span class="n">chk</span> <span class="o">=</span> <span class="n">fact</span><span class="p">[</span><span class="s2">"status"</span><span class="p">]</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="s2">"Failed"</span><span class="p">)</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">fact</span><span class="p">[</span><span class="s2">"county"</span><span class="p">])</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">mul</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">"max difference vs Pandas:"</span><span class="p">,</span> <span class="n">fail</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">"county"</span><span class="p">)[</span><span class="s2">"failed_pct"</span><span class="p">]</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="n">chk</span><span class="p">)</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
 </code></pre></div><div class="cell-out"><pre class="out">max difference vs Pandas: 0.0</pre></div></div>
@@ -906,7 +906,7 @@ Nairobi  7023        3.36
 
 <p>A <strong>subquery</strong> is a <code>SELECT</code> inside another statement. A <em>scalar</em> subquery returns one value, so it can sit in <code>WHERE</code> like a constant. A <strong>CTE</strong> (common table expression, <code>WITH name AS (...)</code>) gives a step a name so a long query reads top to bottom like a recipe. Prefer CTEs once a query has more than one step.</p>
 
-<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
+<div class="cell" data-ci="16"><div class="cell-in"><pre class="code"><code><span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
 <span class="s1">SELECT loan_id, product, principal_ksh</span>
 <span class="s1">FROM loans</span>
 <span class="s1">WHERE principal_ksh &gt; (SELECT AVG(principal_ksh) FROM loans)</span>
@@ -954,7 +954,7 @@ Nairobi  7023        3.36
 </div></div></div></div>
 <p>The inner query returns the average loan; the outer query keeps loans above it.</p>
 
-<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
+<div class="cell" data-ci="17"><div class="cell-in"><pre class="code"><code><span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
 <span class="s1">WITH per_product AS (</span>
 <span class="s1">    SELECT product, COUNT(*) AS loans, SUM(status = 'Defaulted') AS defaults</span>
 <span class="s1">    FROM loans GROUP BY product</span>
@@ -1023,7 +1023,7 @@ Nairobi  7023        3.36
 </div>
 <div class="callout practice"><div class="c-label">Practice</div><p>List customers whose total successful transaction value is above the average customer total.</p>
 </div>
-<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">res</span> <span class="o">=</span> <span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
+<div class="cell" data-ci="18"><div class="cell-in"><pre class="code"><code><span class="n">res</span> <span class="o">=</span> <span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
 <span class="s1">WITH totals AS (</span>
 <span class="s1">    SELECT customer_id, SUM(amount_ksh) AS total_ksh</span>
 <span class="s1">    FROM transactions WHERE status = 'Success' GROUP BY customer_id</span>
@@ -1050,7 +1050,7 @@ customer_id  total_ksh
 
 <p>The classic interview question: the three largest loans in each product. Number the rows in a CTE, then filter in the outer query (a window result cannot be used in the same <code>WHERE</code>).</p>
 
-<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">top3</span> <span class="o">=</span> <span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
+<div class="cell" data-ci="19"><div class="cell-in"><pre class="code"><code><span class="n">top3</span> <span class="o">=</span> <span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
 <span class="s1">WITH ranked AS (</span>
 <span class="s1">    SELECT product, loan_id, principal_ksh,</span>
 <span class="s1">           ROW_NUMBER() OVER (PARTITION BY product ORDER BY principal_ksh DESC) AS rn</span>
@@ -1122,7 +1122,7 @@ customer_id  total_ksh
 
 <p>When values tie, <code>ROW_NUMBER</code> never repeats, <code>RANK</code> repeats and then skips a number, <code>DENSE_RANK</code> repeats without skipping. Credit scores are whole numbers, so ties are common.</p>
 
-<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
+<div class="cell" data-ci="20"><div class="cell-in"><pre class="code"><code><span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
 <span class="s1">SELECT credit_score,</span>
 <span class="s1">       ROW_NUMBER() OVER (ORDER BY credit_score DESC) AS row_number,</span>
 <span class="s1">       RANK()       OVER (ORDER BY credit_score DESC) AS rank,</span>
@@ -1189,7 +1189,7 @@ customer_id  total_ksh
 </div></div></div></div>
 <h3 id="lag-compare-with-the-previous-month"><a class="anchor" href="#lag-compare-with-the-previous-month" aria-label="Link to this section">#</a>LAG: compare with the previous month</h3>
 
-<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">mom</span> <span class="o">=</span> <span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
+<div class="cell" data-ci="21"><div class="cell-in"><pre class="code"><code><span class="n">mom</span> <span class="o">=</span> <span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
 <span class="s1">SELECT month, total_value_ksh,</span>
 <span class="s1">       LAG(total_value_ksh) OVER (ORDER BY month) AS prev_month_ksh,</span>
 <span class="s1">       ROUND(100.0 * (total_value_ksh - LAG(total_value_ksh) OVER (ORDER BY month))</span>
@@ -1211,7 +1211,7 @@ matches Pandas pct_change: True</pre></div></div>
 
 <p>Add <code>ORDER BY</code> inside <code>OVER</code> and <code>SUM</code> becomes a <strong>running total</strong>. A frame such as <code>ROWS BETWEEN 2 PRECEDING AND CURRENT ROW</code> gives a 3-month moving average.</p>
 
-<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">tr</span> <span class="o">=</span> <span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
+<div class="cell" data-ci="22"><div class="cell-in"><pre class="code"><code><span class="n">tr</span> <span class="o">=</span> <span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
 <span class="s1">SELECT month, txn_count,</span>
 <span class="s1">       SUM(txn_count) OVER (ORDER BY month) AS running_txns,</span>
 <span class="s1">       ROUND(AVG(txn_count) OVER (ORDER BY month</span>
@@ -1267,7 +1267,7 @@ final running total equals all rows: True</pre></div></div>
 </tbody>
 </table></div>
 
-<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
+<div class="cell" data-ci="23"><div class="cell-in"><pre class="code"><code><span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
 <span class="s1">SELECT strftime('%Y-%m', txn_date) AS month, COUNT(*) AS txns,</span>
 <span class="s1">       ROUND(SUM(amount_ksh), 0) AS value_ksh</span>
 <span class="s1">FROM transactions</span>
@@ -1311,7 +1311,7 @@ final running total equals all rows: True</pre></div></div>
 
 <h3 id="date-arithmetic"><a class="anchor" href="#date-arithmetic" aria-label="Link to this section">#</a>Date arithmetic</h3>
 
-<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
+<div class="cell" data-ci="24"><div class="cell-in"><pre class="code"><code><span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
 <span class="s1">SELECT date('2025-03-14', '+30 days')                              AS plus_30d,</span>
 <span class="s1">       date('2025-03-14', 'start of month', '+1 month', '-1 day')  AS month_end,</span>
 <span class="s1">       CAST(julianday('2025-12-31') - julianday('2025-03-14') AS INTEGER) AS days_between</span>
@@ -1337,7 +1337,7 @@ final running total equals all rows: True</pre></div></div>
   </tbody>
 </table></div>
 </div></div></div></div>
-<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
+<div class="cell" data-ci="25"><div class="cell-in"><pre class="code"><code><span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
 <span class="s1">SELECT ROUND(AVG(julianday(paid_date) - julianday(due_date)), 2) AS avg_days_late,</span>
 <span class="s1">       SUM(julianday(paid_date) - julianday(due_date) &gt; 7)       AS paid_over_7d_late,</span>
 <span class="s1">       COUNT(paid_date)                                          AS paid_instalments</span>
@@ -1370,11 +1370,11 @@ final running total equals all rows: True</pre></div></div>
 
 <p>MySQL users write <code>DATE_FORMAT(d, '%Y-%m')</code>. SQLite has no such function, so a copied query fails. The SQLite spelling is <code>strftime('%Y-%m', d)</code>: the <strong>format comes first</strong>, then the date. The ideas port between databases; only the function names change, so keep the vendor's date-function page open when you move.</p>
 
-<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">q</span><span class="p">(</span><span class="s2">"SELECT DATE_FORMAT(txn_date, '%Y-%m') AS month FROM transactions"</span><span class="p">)</span>
+<div class="cell" data-ci="26"><div class="cell-in"><pre class="code"><code><span class="n">q</span><span class="p">(</span><span class="s2">"SELECT DATE_FORMAT(txn_date, '%Y-%m') AS month FROM transactions"</span><span class="p">)</span>
 </code></pre></div><div class="cell-out"><div class="err"><span class="err-tag">Error on purpose</span><code>DatabaseError: Execution failed on sql &#x27;SELECT DATE_FORMAT(txn_date, &#x27;%Y-%m&#x27;) AS month FROM transactions&#x27;: no such function: DATE_FORMAT</code></div></div></div>
 <div class="callout practice"><div class="c-label">Practice</div><p>How many successful transactions happened in each quarter of 2025?</p>
 </div>
-<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
+<div class="cell" data-ci="27"><div class="cell-in"><pre class="code"><code><span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
 <span class="s1">SELECT (CAST(strftime('%m', txn_date) AS INTEGER) + 2) / 3 AS quarter, COUNT(*) AS txns</span>
 <span class="s1">FROM transactions</span>
 <span class="s1">WHERE status = 'Success' AND txn_date &gt;= '2025-01-01' AND txn_date &lt; '2026-01-01'</span>
@@ -1420,7 +1420,7 @@ final running total equals all rows: True</pre></div></div>
 
 <p>A <strong>view</strong> is a saved <code>SELECT</code> with a name. It stores no data; each time you query it, the database reruns the saved query. Views give a whole team one definition of a metric such as &quot;active customer&quot;, so reports do not disagree.</p>
 
-<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">con</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">"DROP VIEW IF EXISTS p06_county_summary"</span><span class="p">)</span>
+<div class="cell" data-ci="28"><div class="cell-in"><pre class="code"><code><span class="n">con</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">"DROP VIEW IF EXISTS p06_county_summary"</span><span class="p">)</span>
 <span class="n">con</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">'''</span>
 <span class="s1">CREATE VIEW p06_county_summary AS</span>
 <span class="s1">SELECT c.county, COUNT(DISTINCT c.customer_id) AS customers,</span>
@@ -1480,7 +1480,7 @@ final running total equals all rows: True</pre></div></div>
 
 <p><code>NULL</code> means <em>unknown</em>. Any comparison with <code>NULL</code>, even <code>NULL = NULL</code>, is unknown, and <code>WHERE</code> keeps only rows that are true. So <code>= NULL</code> finds nothing; write <code>IS NULL</code> or <code>IS NOT NULL</code>. In <code>repayments</code>, an unpaid instalment has a NULL <code>paid_date</code>. <code>COUNT(column)</code> skips NULLs, while <code>COUNT(*)</code> counts rows.</p>
 
-<div class="cell"><div class="cell-in"><pre class="code"><code><span class="nb">print</span><span class="p">(</span><span class="s2">"= NULL   :"</span><span class="p">,</span> <span class="n">q</span><span class="p">(</span><span class="s2">"SELECT COUNT(*) FROM repayments WHERE paid_date = NULL"</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<div class="cell" data-ci="29"><div class="cell-in"><pre class="code"><code><span class="nb">print</span><span class="p">(</span><span class="s2">"= NULL   :"</span><span class="p">,</span> <span class="n">q</span><span class="p">(</span><span class="s2">"SELECT COUNT(*) FROM repayments WHERE paid_date = NULL"</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">"IS NULL  :"</span><span class="p">,</span> <span class="n">q</span><span class="p">(</span><span class="s2">"SELECT COUNT(*) FROM repayments WHERE paid_date IS NULL"</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
 <span class="n">q</span><span class="p">(</span><span class="s1">'''SELECT COUNT(*) AS all_rows, COUNT(paid_date) AS with_paid_date,</span>
 <span class="s1">            COUNT(*) - COUNT(paid_date) AS unpaid FROM repayments'''</span><span class="p">)</span>
@@ -1508,7 +1508,7 @@ IS NULL  : 442</pre><div class="table-wrap df"><div>
 </div></div></div></div>
 <p><code>COALESCE(a, b, ...)</code> returns the first non-NULL value, and <code>NULLIF(a, b)</code> returns NULL when the two are equal, which guards against dividing by zero.</p>
 
-<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
+<div class="cell" data-ci="30"><div class="cell-in"><pre class="code"><code><span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
 <span class="s1">SELECT repay_id, due_date,</span>
 <span class="s1">       COALESCE(paid_date, 'UNPAID')                         AS paid_or_flag,</span>
 <span class="s1">       ROUND(amount_paid_ksh / NULLIF(amount_due_ksh, 0), 2) AS paid_ratio</span>
@@ -1621,12 +1621,12 @@ IS NULL  : 442</pre><div class="table-wrap df"><div>
 
 <p><code>pd.read_sql(sql, con)</code> runs a query and returns a DataFrame. Useful arguments: <code>params</code> (safe values), <code>parse_dates</code>, <code>index_col</code>, and <code>chunksize</code> (smaller pieces for tables too big for memory). Never paste user input into SQL text with f-strings (<strong>SQL injection</strong>); use placeholders instead.</p>
 
-<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">county</span> <span class="o">=</span> <span class="s2">"Nairobi' OR '1'='1"</span>                        <span class="c1"># a hostile-looking value</span>
+<div class="cell" data-ci="31"><div class="cell-in"><pre class="code"><code><span class="n">county</span> <span class="o">=</span> <span class="s2">"Nairobi' OR '1'='1"</span>                        <span class="c1"># a hostile-looking value</span>
 <span class="n">safe</span> <span class="o">=</span> <span class="n">q</span><span class="p">(</span><span class="s2">"SELECT COUNT(*) AS n FROM customers WHERE county = ?"</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="p">(</span><span class="n">county</span><span class="p">,))</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
 <span class="n">unsafe</span> <span class="o">=</span> <span class="n">q</span><span class="p">(</span><span class="sa">f</span><span class="s2">"SELECT COUNT(*) AS n FROM customers WHERE county = '</span><span class="si">{</span><span class="n">county</span><span class="si">}</span><span class="s2">'"</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">"with a placeholder:"</span><span class="p">,</span> <span class="n">safe</span><span class="p">,</span> <span class="s2">"rows | string-built:"</span><span class="p">,</span> <span class="n">unsafe</span><span class="p">,</span> <span class="s2">"rows (it matched everyone)"</span><span class="p">)</span>
 </code></pre></div><div class="cell-out"><pre class="out">with a placeholder: 0 rows | string-built: 1000 rows (it matched everyone)</pre></div></div>
-<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">total</span> <span class="o">=</span> <span class="mi">0</span>
+<div class="cell" data-ci="32"><div class="cell-in"><pre class="code"><code><span class="n">total</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="s2">"SELECT amount_ksh FROM transactions"</span><span class="p">,</span> <span class="n">con</span><span class="p">,</span> <span class="n">chunksize</span><span class="o">=</span><span class="mi">5000</span><span class="p">):</span>
     <span class="n">total</span> <span class="o">+=</span> <span class="n">chunk</span><span class="p">[</span><span class="s2">"amount_ksh"</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
 <span class="n">exact</span> <span class="o">=</span> <span class="n">q</span><span class="p">(</span><span class="s2">"SELECT SUM(amount_ksh) AS s FROM transactions"</span><span class="p">)[</span><span class="s2">"s"</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
@@ -1634,7 +1634,7 @@ IS NULL  : 442</pre><div class="table-wrap df"><div>
 </code></pre></div><div class="cell-out"><pre class="out">chunked total equals SQL total: True</pre></div></div>
 <div class="callout practice"><div class="c-label">Practice</div><p>Write SQL and Pandas for &quot;average principal of Closed loans by product, highest first&quot; and check they match.</p>
 </div>
-<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">loans</span> <span class="o">=</span> <span class="n">q</span><span class="p">(</span><span class="s2">"SELECT * FROM loans"</span><span class="p">)</span>
+<div class="cell" data-ci="33"><div class="cell-in"><pre class="code"><code><span class="n">loans</span> <span class="o">=</span> <span class="n">q</span><span class="p">(</span><span class="s2">"SELECT * FROM loans"</span><span class="p">)</span>
 <span class="n">a</span> <span class="o">=</span> <span class="n">q</span><span class="p">(</span><span class="s1">'''SELECT product, ROUND(AVG(principal_ksh), 0) AS avg_principal</span>
 <span class="s1">         FROM loans WHERE status = 'Closed' GROUP BY product ORDER BY avg_principal DESC'''</span><span class="p">)</span>
 <span class="n">b</span> <span class="o">=</span> <span class="p">(</span><span class="n">loans</span><span class="p">[</span><span class="n">loans</span><span class="p">[</span><span class="s2">"status"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"Closed"</span><span class="p">]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"product"</span><span class="p">)[</span><span class="s2">"principal_ksh"</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
@@ -1659,7 +1659,7 @@ match: True</pre></div></div>
 
 <p><strong>PAR30</strong> is the share of the outstanding book with a payment more than 30 days overdue (<code>days_past_due &gt; 30</code>). The database has no balance column, so we use the <strong>principal of loans that are not Closed</strong> as a proxy for the book. That overstates exposure on part-repaid loans, so state the definition next to the number.</p>
 
-<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">par</span> <span class="o">=</span> <span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
+<div class="cell" data-ci="34"><div class="cell-in"><pre class="code"><code><span class="n">par</span> <span class="o">=</span> <span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
 <span class="s1">SELECT product,</span>
 <span class="s1">       SUM(principal_ksh)                                              AS book_ksh,</span>
 <span class="s1">       SUM(CASE WHEN days_past_due &gt; 30 THEN principal_ksh ELSE 0 END) AS par30_ksh,</span>
@@ -1683,7 +1683,7 @@ portfolio PAR30: 50.3%</pre></div></div>
 
 <p><strong>Right-censoring</strong> means recent loans have been watched for only a short time, so many have had no chance to default <strong>yet</strong>. Dividing all defaults by all loans mixes fully observed old loans with barely observed young ones, which usually makes the rate look better than the truth. Compare with a <strong>seasoned</strong> group: loans at least 120 days old at the data cut-off (2025-12-31).</p>
 
-<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">dr</span> <span class="o">=</span> <span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
+<div class="cell" data-ci="35"><div class="cell-in"><pre class="code"><code><span class="n">dr</span> <span class="o">=</span> <span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
 <span class="s1">WITH l AS (</span>
 <span class="s1">    SELECT product, status,</span>
 <span class="s1">           julianday('2025-12-31') - julianday(disbursement_date) AS age_days</span>
@@ -1750,7 +1750,7 @@ portfolio PAR30: 50.3%</pre></div></div>
 
 <div class="callout tip"><p><strong>Rule.</strong> Every default-rate number needs an <strong>observation window</strong>: &quot;share of loans that defaulted within N days of disbursement, among loans old enough to be observed for N days&quot;.</p>
 </div>
-<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
+<div class="cell" data-ci="36"><div class="cell-in"><pre class="code"><code><span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
 <span class="s1">SELECT CASE WHEN credit_score &lt; 550 THEN '1: below 550'</span>
 <span class="s1">            WHEN credit_score &lt; 600 THEN '2: 550-599'</span>
 <span class="s1">            WHEN credit_score &lt; 650 THEN '3: 600-649'</span>
@@ -1806,7 +1806,7 @@ portfolio PAR30: 50.3%</pre></div></div>
 
 <p>A <strong>vintage</strong> groups loans by the quarter they were disbursed. A <strong>vintage curve</strong> shows the cumulative default rate by <strong>months on book (MOB)</strong>, so a 2024-Q1 loan at month 6 is compared fairly with a 2025-Q1 loan at month 6. The database stores days past due, not a default date, so we estimate the default date as the day the loan crossed 90 days past due. A vintage is reported at a given MOB only if its youngest loan is at least that old (<code>MIN(age_mob) &gt;= k</code>): that is the censoring correction. We build the repeated SQL pieces in Python.</p>
 
-<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">ks</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">12</span><span class="p">]</span>
+<div class="cell" data-ci="37"><div class="cell-in"><pre class="code"><code><span class="n">ks</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">12</span><span class="p">]</span>
 <span class="n">pieces</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">"CASE WHEN MIN(age_mob) &gt;= </span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2"> THEN "</span>
           <span class="sa">f</span><span class="s2">"ROUND(100.0 * SUM(default_mob &lt;= </span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">) / COUNT(*), 1) END AS mob</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">_pct"</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">ks</span><span class="p">]</span>
 <span class="n">sql</span> <span class="o">=</span> <span class="s1">'''</span>
@@ -1907,14 +1907,14 @@ portfolio PAR30: 50.3%</pre></div></div>
 </div></div></div></div>
 <p>NaN means the vintage is too young to be observed at that MOB. Do not fill it with zero.</p>
 
-<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">vv</span> <span class="o">=</span> <span class="n">vint</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">"vintage"</span><span class="p">)[[</span><span class="sa">f</span><span class="s2">"mob</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">_pct"</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">ks</span><span class="p">]]</span>
+<div class="cell" data-ci="38"><div class="cell-in"><pre class="code"><code><span class="n">vv</span> <span class="o">=</span> <span class="n">vint</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">"vintage"</span><span class="p">)[[</span><span class="sa">f</span><span class="s2">"mob</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">_pct"</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">ks</span><span class="p">]]</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">"every observed curve is non-decreasing:"</span><span class="p">,</span> <span class="nb">bool</span><span class="p">(</span><span class="n">vv</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">ge</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="kc">None</span><span class="p">)))</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">"vintage loans add up to the portfolio:"</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">vint</span><span class="p">[</span><span class="s2">"loans"</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">loans</span><span class="p">))</span>
 </code></pre></div><div class="cell-out"><pre class="out">every observed curve is non-decreasing: True
 vintage loans add up to the portfolio: True</pre></div></div>
 <div class="callout practice"><div class="c-label">Practice</div><p>Which counties have the highest seasoned default rate, among counties with at least 30 seasoned loans?</p>
 </div>
-<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
+<div class="cell" data-ci="39"><div class="cell-in"><pre class="code"><code><span class="n">q</span><span class="p">(</span><span class="s1">'''</span>
 <span class="s1">SELECT c.county, COUNT(*) AS seasoned_loans,</span>
 <span class="s1">       ROUND(100.0 * AVG(l.status = 'Defaulted'), 1) AS default_rate_pct</span>
 <span class="s1">FROM loans l JOIN customers c ON c.customer_id = l.customer_id</span>
@@ -1973,7 +1973,7 @@ vintage loans add up to the portfolio: True</pre></div></div>
 
 <p>An <strong>index</strong> is a sorted lookup structure on a column, like a book's index. It speeds up <code>WHERE</code>, <code>JOIN</code> and <code>ORDER BY</code> on that column but uses disk space and slows writes. <code>EXPLAIN QUERY PLAN</code> shows whether SQLite will <strong>SCAN</strong> the whole table (slow on big data) or <strong>SEARCH</strong> using an index (fast).</p>
 
-<div class="cell"><div class="cell-in"><pre class="code"><code><span class="k">def</span><span class="w"> </span><span class="nf">plan</span><span class="p">(</span><span class="n">sql</span><span class="p">):</span>
+<div class="cell" data-ci="40"><div class="cell-in"><pre class="code"><code><span class="k">def</span><span class="w"> </span><span class="nf">plan</span><span class="p">(</span><span class="n">sql</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">'''Return the query-plan lines as a list of strings.'''</span>
     <span class="k">return</span> <span class="n">q</span><span class="p">(</span><span class="s2">"EXPLAIN QUERY PLAN "</span> <span class="o">+</span> <span class="n">sql</span><span class="p">)[</span><span class="s2">"detail"</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
 
@@ -1983,7 +1983,7 @@ vintage loans add up to the portfolio: True</pre></div></div>
 <span class="nb">print</span><span class="p">(</span><span class="s2">"after :"</span><span class="p">,</span> <span class="n">plan</span><span class="p">(</span><span class="n">look</span><span class="p">))</span>
 </code></pre></div><div class="cell-out"><pre class="out">before: [&#x27;SCAN transactions&#x27;]
 after : [&#x27;SEARCH transactions USING INDEX p06_idx_txn_date (txn_date=?)&#x27;]</pre></div></div>
-<div class="cell"><div class="cell-in"><pre class="code"><code><span class="n">fn_sql</span> <span class="o">=</span> <span class="s2">"SELECT * FROM transactions WHERE strftime('%Y', txn_date) = '2025'"</span>
+<div class="cell" data-ci="41"><div class="cell-in"><pre class="code"><code><span class="n">fn_sql</span> <span class="o">=</span> <span class="s2">"SELECT * FROM transactions WHERE strftime('%Y', txn_date) = '2025'"</span>
 <span class="n">rng_sql</span> <span class="o">=</span> <span class="s2">"SELECT * FROM transactions WHERE txn_date &gt;= '2025-01-01' AND txn_date &lt; '2026-01-01'"</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">"function on column:"</span><span class="p">,</span> <span class="n">plan</span><span class="p">(</span><span class="n">fn_sql</span><span class="p">))</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">"half-open range   :"</span><span class="p">,</span> <span class="n">plan</span><span class="p">(</span><span class="n">rng_sql</span><span class="p">))</span>
@@ -2028,5 +2028,7 @@ half-open range   : [&#x27;SEARCH transactions USING INDEX p06_idx_txn_date (txn
 </div>
 <script src="search-index.js"></script>
 <script src="site.js"></script>
+<script type="application/json" id="ma-cells">{"setup": "import os\nos.chdir(os.environ['GUIDE_ROOT'])\nos.makedirs('work/p06_sql', exist_ok=True)\nos.chdir('work/p06_sql')", "cells": [{"src": "import sqlite3\nimport numpy as np\nimport pandas as pd\nfrom fintech_db import build_fintech_db\n\npd.set_option(\"display.width\", 100)\npd.set_option(\"display.max_columns\", 20)\ncon = sqlite3.connect(build_fintech_db(\"p06_lender.db\"))\n\ndef q(sql, params=None):\n    '''Run a SELECT and return a DataFrame (our helper for this whole Part).'''\n    return pd.read_sql(sql, con, params=params)\n\nq(\"SELECT name, type FROM sqlite_master WHERE type IN ('table', 'view') ORDER BY type, name\")", "hidden": false, "err": false, "norun": ""}, {"src": "print(q(\"PRAGMA table_info(loans)\")[[\"name\", \"type\"]].to_string(index=False))\nprint(q(\"SELECT COUNT(*) AS loans, COUNT(DISTINCT loan_id) AS distinct_ids FROM loans\").to_string(index=False))", "hidden": false, "err": false, "norun": ""}, {"src": "q('''\nSELECT customer_id, county, occupation, monthly_income_ksh\nFROM customers\nWHERE county = 'Nairobi' AND monthly_income_ksh >= 80000\nORDER BY monthly_income_ksh DESC\nLIMIT 5\n''')", "hidden": false, "err": false, "norun": ""}, {"src": "print(q(\"SELECT DISTINCT occupation FROM customers ORDER BY occupation\")[\"occupation\"].tolist())\nn = q('''SELECT COUNT(*) AS n FROM customers\n         WHERE county IN ('Kisumu', 'Kakamega') AND age BETWEEN 25 AND 35''').iloc[0, 0]\nprint(\"customers in Kisumu or Kakamega aged 25-35:\", n)", "hidden": false, "err": false, "norun": ""}, {"src": "q('''\nSELECT txn_id, txn_date, amount_ksh\nFROM transactions\nWHERE channel = 'M-Pesa' AND status = 'Success'\nORDER BY amount_ksh DESC\nLIMIT 5\n''')", "hidden": false, "err": false, "norun": ""}, {"src": "q('''\nSELECT txn_type,\n       COUNT(*)                  AS txns,\n       ROUND(SUM(amount_ksh), 0) AS total_ksh,\n       ROUND(AVG(amount_ksh), 0) AS avg_ksh\nFROM transactions\nWHERE status = 'Success'\nGROUP BY txn_type\nORDER BY total_ksh DESC\n''')", "hidden": false, "err": false, "norun": ""}, {"src": "q('''\nSELECT county, occupation, COUNT(*) AS customers\nFROM customers\nGROUP BY county, occupation\nHAVING COUNT(*) >= 25\nORDER BY customers DESC\n''')", "hidden": false, "err": false, "norun": ""}, {"src": "q('''\nSELECT channel, COUNT(*) AS txns, COUNT(DISTINCT customer_id) AS customers,\n       ROUND(1.0 * COUNT(*) / COUNT(DISTINCT customer_id), 1) AS txns_per_customer\nFROM transactions GROUP BY channel ORDER BY txns DESC\n''')", "hidden": false, "err": false, "norun": ""}, {"src": "q('''\nSELECT l.loan_id, c.county, c.occupation, l.product, l.principal_ksh, l.status\nFROM loans AS l\nINNER JOIN customers AS c ON c.customer_id = l.customer_id\nORDER BY l.principal_ksh DESC\nLIMIT 5\n''')", "hidden": false, "err": false, "norun": ""}, {"src": "never = q('''\nSELECT c.customer_id, c.county, c.segment\nFROM customers c\nLEFT JOIN loans l ON l.customer_id = c.customer_id\nWHERE l.loan_id IS NULL\n''')\nprint(len(never), \"customers never borrowed\")\nnever.head(3)", "hidden": false, "err": false, "norun": ""}, {"src": "wrong = q('''SELECT SUM(l.principal_ksh) AS s FROM customers c\n             JOIN loans l ON l.customer_id = c.customer_id\n             JOIN transactions t ON t.customer_id = c.customer_id''').iloc[0, 0]\ntruth = q(\"SELECT SUM(principal_ksh) FROM loans\").iloc[0, 0]\nprint(f\"inflated: Ksh {wrong:,.0f}\")\nprint(f\"correct : Ksh {truth:,.0f}\")\nprint(\"inflation factor:\", round(wrong / truth, 1), \"x\")", "hidden": false, "err": false, "norun": ""}, {"src": "q('''\nSELECT l.product, COUNT(*) AS nairobi_loans\nFROM loans l JOIN customers c USING (customer_id)\nWHERE c.county = 'Nairobi'\nGROUP BY l.product ORDER BY nairobi_loans DESC\n''')", "hidden": false, "err": false, "norun": ""}, {"src": "q('''\nSELECT customer_id, monthly_income_ksh,\n       CASE WHEN monthly_income_ksh < 25000 THEN 'Low'\n            WHEN monthly_income_ksh < 70000 THEN 'Middle'\n            ELSE 'High' END AS income_band\nFROM customers\nLIMIT 5\n''')", "hidden": false, "err": false, "norun": ""}, {"src": "q('''\nSELECT product,\n       COUNT(*) AS loans,\n       SUM(CASE WHEN status = 'Defaulted' THEN 1 ELSE 0 END)        AS defaulted,\n       SUM(CASE WHEN days_past_due BETWEEN 1 AND 30 THEN 1 ELSE 0 END) AS dpd_1_30,\n       SUM(CASE WHEN days_past_due > 30 THEN 1 ELSE 0 END)          AS dpd_over_30\nFROM loans GROUP BY product ORDER BY loans DESC\n''')", "hidden": false, "err": false, "norun": ""}, {"src": "fail = q('''\nSELECT county, COUNT(*) AS txns,\n       ROUND(100.0 * SUM(CASE WHEN status = 'Failed' THEN 1 ELSE 0 END) / COUNT(*), 2) AS failed_pct\nFROM fact_transactions GROUP BY county ORDER BY failed_pct DESC\n''')\nprint(fail.head(4).to_string(index=False))", "hidden": false, "err": false, "norun": ""}, {"src": "fact = q(\"SELECT county, status FROM fact_transactions\")\nchk = fact[\"status\"].eq(\"Failed\").groupby(fact[\"county\"]).mean().mul(100).round(2)\nprint(\"max difference vs Pandas:\", fail.set_index(\"county\")[\"failed_pct\"].sub(chk).abs().max())", "hidden": false, "err": false, "norun": ""}, {"src": "q('''\nSELECT loan_id, product, principal_ksh\nFROM loans\nWHERE principal_ksh > (SELECT AVG(principal_ksh) FROM loans)\nORDER BY principal_ksh DESC\nLIMIT 4\n''')", "hidden": false, "err": false, "norun": ""}, {"src": "q('''\nWITH per_product AS (\n    SELECT product, COUNT(*) AS loans, SUM(status = 'Defaulted') AS defaults\n    FROM loans GROUP BY product\n),\noverall AS (\n    SELECT SUM(defaults) * 1.0 / SUM(loans) AS portfolio_rate FROM per_product\n)\nSELECT p.product, p.loans, p.defaults,\n       ROUND(100.0 * p.defaults / p.loans, 2) AS default_rate_pct,\n       ROUND(100.0 * o.portfolio_rate, 2)     AS portfolio_pct\nFROM per_product p CROSS JOIN overall o\nORDER BY default_rate_pct DESC\n''')", "hidden": false, "err": false, "norun": ""}, {"src": "res = q('''\nWITH totals AS (\n    SELECT customer_id, SUM(amount_ksh) AS total_ksh\n    FROM transactions WHERE status = 'Success' GROUP BY customer_id\n)\nSELECT customer_id, ROUND(total_ksh, 0) AS total_ksh\nFROM totals\nWHERE total_ksh > (SELECT AVG(total_ksh) FROM totals)\nORDER BY total_ksh DESC\n''')\nprint(len(res), \"customers above average; top 3:\")\nprint(res.head(3).to_string(index=False))", "hidden": false, "err": false, "norun": ""}, {"src": "top3 = q('''\nWITH ranked AS (\n    SELECT product, loan_id, principal_ksh,\n           ROW_NUMBER() OVER (PARTITION BY product ORDER BY principal_ksh DESC) AS rn\n    FROM loans\n)\nSELECT * FROM ranked WHERE rn <= 3 ORDER BY product, rn\n''')\nprint(len(top3), \"rows =\", top3[\"product\"].nunique(), \"products x 3\")\ntop3.head(6)", "hidden": false, "err": false, "norun": ""}, {"src": "q('''\nSELECT credit_score,\n       ROW_NUMBER() OVER (ORDER BY credit_score DESC) AS row_number,\n       RANK()       OVER (ORDER BY credit_score DESC) AS rank,\n       DENSE_RANK() OVER (ORDER BY credit_score DESC) AS dense_rank\nFROM loans ORDER BY credit_score DESC LIMIT 6\n''')", "hidden": false, "err": false, "norun": ""}, {"src": "mom = q('''\nSELECT month, total_value_ksh,\n       LAG(total_value_ksh) OVER (ORDER BY month) AS prev_month_ksh,\n       ROUND(100.0 * (total_value_ksh - LAG(total_value_ksh) OVER (ORDER BY month))\n             / LAG(total_value_ksh) OVER (ORDER BY month), 1) AS mom_pct\nFROM vw_monthly_kpis ORDER BY month\n''')\nprint(mom.head(4).to_string(index=False))\nchk = mom[\"total_value_ksh\"].pct_change().mul(100).round(1)\nprint(\"matches Pandas pct_change:\", bool((chk - mom[\"mom_pct\"]).abs().max() < 0.05))", "hidden": false, "err": false, "norun": ""}, {"src": "tr = q('''\nSELECT month, txn_count,\n       SUM(txn_count) OVER (ORDER BY month) AS running_txns,\n       ROUND(AVG(txn_count) OVER (ORDER BY month\n             ROWS BETWEEN 2 PRECEDING AND CURRENT ROW), 1) AS ma3_txns\nFROM vw_monthly_kpis ORDER BY month\n''')\nprint(tr.head(4).to_string(index=False))\nn_all = q(\"SELECT COUNT(*) FROM transactions\").iloc[0, 0]\nprint(\"final running total equals all rows:\", bool(tr[\"running_txns\"].iloc[-1] == n_all))", "hidden": false, "err": false, "norun": ""}, {"src": "q('''\nSELECT strftime('%Y-%m', txn_date) AS month, COUNT(*) AS txns,\n       ROUND(SUM(amount_ksh), 0) AS value_ksh\nFROM transactions\nWHERE txn_date >= '2025-10-01'\nGROUP BY month ORDER BY month\n''')", "hidden": false, "err": false, "norun": ""}, {"src": "q('''\nSELECT date('2025-03-14', '+30 days')                              AS plus_30d,\n       date('2025-03-14', 'start of month', '+1 month', '-1 day')  AS month_end,\n       CAST(julianday('2025-12-31') - julianday('2025-03-14') AS INTEGER) AS days_between\n''')", "hidden": false, "err": false, "norun": ""}, {"src": "q('''\nSELECT ROUND(AVG(julianday(paid_date) - julianday(due_date)), 2) AS avg_days_late,\n       SUM(julianday(paid_date) - julianday(due_date) > 7)       AS paid_over_7d_late,\n       COUNT(paid_date)                                          AS paid_instalments\nFROM repayments\n''', )", "hidden": false, "err": false, "norun": ""}, {"src": "q(\"SELECT DATE_FORMAT(txn_date, '%Y-%m') AS month FROM transactions\")", "hidden": false, "err": true, "norun": ""}, {"src": "q('''\nSELECT (CAST(strftime('%m', txn_date) AS INTEGER) + 2) / 3 AS quarter, COUNT(*) AS txns\nFROM transactions\nWHERE status = 'Success' AND txn_date >= '2025-01-01' AND txn_date < '2026-01-01'\nGROUP BY quarter ORDER BY quarter\n''')", "hidden": false, "err": false, "norun": ""}, {"src": "con.execute(\"DROP VIEW IF EXISTS p06_county_summary\")\ncon.execute('''\nCREATE VIEW p06_county_summary AS\nSELECT c.county, COUNT(DISTINCT c.customer_id) AS customers,\n       COUNT(l.loan_id) AS loans, ROUND(AVG(l.credit_score), 0) AS avg_score\nFROM customers c LEFT JOIN loans l ON l.customer_id = c.customer_id\nGROUP BY c.county\n''')\ncon.commit()\nq(\"SELECT * FROM p06_county_summary ORDER BY customers DESC LIMIT 4\")", "hidden": false, "err": false, "norun": ""}, {"src": "print(\"= NULL   :\", q(\"SELECT COUNT(*) FROM repayments WHERE paid_date = NULL\").iloc[0, 0])\nprint(\"IS NULL  :\", q(\"SELECT COUNT(*) FROM repayments WHERE paid_date IS NULL\").iloc[0, 0])\nq('''SELECT COUNT(*) AS all_rows, COUNT(paid_date) AS with_paid_date,\n            COUNT(*) - COUNT(paid_date) AS unpaid FROM repayments''')", "hidden": false, "err": false, "norun": ""}, {"src": "q('''\nSELECT repay_id, due_date,\n       COALESCE(paid_date, 'UNPAID')                         AS paid_or_flag,\n       ROUND(amount_paid_ksh / NULLIF(amount_due_ksh, 0), 2) AS paid_ratio\nFROM repayments WHERE paid_date IS NULL LIMIT 3\n''')", "hidden": false, "err": false, "norun": ""}, {"src": "county = \"Nairobi' OR '1'='1\"                        # a hostile-looking value\nsafe = q(\"SELECT COUNT(*) AS n FROM customers WHERE county = ?\", params=(county,)).iloc[0, 0]\nunsafe = q(f\"SELECT COUNT(*) AS n FROM customers WHERE county = '{county}'\").iloc[0, 0]\nprint(\"with a placeholder:\", safe, \"rows | string-built:\", unsafe, \"rows (it matched everyone)\")", "hidden": false, "err": false, "norun": ""}, {"src": "total = 0\nfor chunk in pd.read_sql(\"SELECT amount_ksh FROM transactions\", con, chunksize=5000):\n    total += chunk[\"amount_ksh\"].sum()\nexact = q(\"SELECT SUM(amount_ksh) AS s FROM transactions\")[\"s\"][0]\nprint(\"chunked total equals SQL total:\", bool(np.isclose(total, exact)))", "hidden": false, "err": false, "norun": ""}, {"src": "loans = q(\"SELECT * FROM loans\")\na = q('''SELECT product, ROUND(AVG(principal_ksh), 0) AS avg_principal\n         FROM loans WHERE status = 'Closed' GROUP BY product ORDER BY avg_principal DESC''')\nb = (loans[loans[\"status\"] == \"Closed\"].groupby(\"product\")[\"principal_ksh\"].mean()\n     .round(0).sort_values(ascending=False))\nprint(a.to_string(index=False))\nprint(\"match:\", bool(a[\"product\"].tolist() == b.index.tolist() and np.allclose(a[\"avg_principal\"], b.to_numpy())))", "hidden": false, "err": false, "norun": ""}, {"src": "par = q('''\nSELECT product,\n       SUM(principal_ksh)                                              AS book_ksh,\n       SUM(CASE WHEN days_past_due > 30 THEN principal_ksh ELSE 0 END) AS par30_ksh,\n       SUM(CASE WHEN days_past_due > 90 THEN principal_ksh ELSE 0 END) AS par90_ksh\nFROM loans WHERE status != 'Closed' GROUP BY product\n''')\npar[\"PAR30_%\"] = (100 * par[\"par30_ksh\"] / par[\"book_ksh\"]).round(1)\npar[\"PAR90_%\"] = (100 * par[\"par90_ksh\"] / par[\"book_ksh\"]).round(1)\nprint(par[[\"product\", \"book_ksh\", \"PAR30_%\", \"PAR90_%\"]].to_string(index=False))\ntot = par[[\"book_ksh\", \"par30_ksh\"]].sum()\nprint(f\"portfolio PAR30: {100 * tot['par30_ksh'] / tot['book_ksh']:.1f}%\")", "hidden": false, "err": false, "norun": ""}, {"src": "dr = q('''\nWITH l AS (\n    SELECT product, status,\n           julianday('2025-12-31') - julianday(disbursement_date) AS age_days\n    FROM loans\n)\nSELECT product, COUNT(*) AS all_loans,\n       ROUND(100.0 * AVG(status = 'Defaulted'), 1)  AS naive_rate_pct,\n       SUM(age_days >= 120)                         AS seasoned_loans,\n       ROUND(100.0 * SUM(status = 'Defaulted' AND age_days >= 120)\n             / SUM(age_days >= 120), 1)             AS seasoned_rate_pct\nFROM l GROUP BY product ORDER BY seasoned_rate_pct DESC\n''')\ndr", "hidden": false, "err": false, "norun": ""}, {"src": "q('''\nSELECT CASE WHEN credit_score < 550 THEN '1: below 550'\n            WHEN credit_score < 600 THEN '2: 550-599'\n            WHEN credit_score < 650 THEN '3: 600-649'\n            ELSE '4: 650+' END                      AS score_band,\n       COUNT(*)                                     AS loans,\n       ROUND(100.0 * AVG(status = 'Defaulted'), 1)  AS default_rate_pct\nFROM loans\nWHERE julianday('2025-12-31') - julianday(disbursement_date) >= 120\nGROUP BY score_band ORDER BY score_band\n''')", "hidden": false, "err": false, "norun": ""}, {"src": "ks = [3, 6, 9, 12]\npieces = [f\"CASE WHEN MIN(age_mob) >= {k} THEN \"\n          f\"ROUND(100.0 * SUM(default_mob <= {k}) / COUNT(*), 1) END AS mob{k}_pct\" for k in ks]\nsql = '''\nWITH base AS (\n    SELECT strftime('%Y', disbursement_date) || '-Q' ||\n           ((CAST(strftime('%m', disbursement_date) AS INTEGER) + 2) / 3)   AS vintage,\n           (julianday('2025-12-31') - julianday(disbursement_date)) / 30.0  AS age_mob,\n           CASE WHEN status = 'Defaulted'\n                THEN (julianday('2025-12-31') - days_past_due + 90\n                      - julianday(disbursement_date)) / 30.0 END            AS default_mob\n    FROM loans\n)\nSELECT vintage, COUNT(*) AS loans, ''' + \", \".join(pieces) + '''\nFROM base GROUP BY vintage ORDER BY vintage\n'''\nvint = q(sql)\nvint", "hidden": false, "err": false, "norun": ""}, {"src": "vv = vint.set_index(\"vintage\")[[f\"mob{k}_pct\" for k in ks]]\nprint(\"every observed curve is non-decreasing:\", bool(vv.diff(axis=1).fillna(0).ge(0).all(axis=None)))\nprint(\"vintage loans add up to the portfolio:\", int(vint[\"loans\"].sum()) == len(loans))", "hidden": false, "err": false, "norun": ""}, {"src": "q('''\nSELECT c.county, COUNT(*) AS seasoned_loans,\n       ROUND(100.0 * AVG(l.status = 'Defaulted'), 1) AS default_rate_pct\nFROM loans l JOIN customers c ON c.customer_id = l.customer_id\nWHERE julianday('2025-12-31') - julianday(l.disbursement_date) >= 120\nGROUP BY c.county HAVING COUNT(*) >= 30\nORDER BY default_rate_pct DESC LIMIT 5\n''')", "hidden": false, "err": false, "norun": ""}, {"src": "def plan(sql):\n    '''Return the query-plan lines as a list of strings.'''\n    return q(\"EXPLAIN QUERY PLAN \" + sql)[\"detail\"].tolist()\n\nlook = \"SELECT * FROM transactions WHERE txn_date = '2025-06-30'\"\nprint(\"before:\", plan(look))\ncon.execute(\"CREATE INDEX IF NOT EXISTS p06_idx_txn_date ON transactions(txn_date)\")\nprint(\"after :\", plan(look))", "hidden": false, "err": false, "norun": ""}, {"src": "fn_sql = \"SELECT * FROM transactions WHERE strftime('%Y', txn_date) = '2025'\"\nrng_sql = \"SELECT * FROM transactions WHERE txn_date >= '2025-01-01' AND txn_date < '2026-01-01'\"\nprint(\"function on column:\", plan(fn_sql))\nprint(\"half-open range   :\", plan(rng_sql))", "hidden": false, "err": false, "norun": ""}], "datasets": [], "fintech": true}</script>
+<script src="runner.js"></script>
 </body>
 </html>
